@@ -1,3 +1,4 @@
+import { Bookmark, Clock, User, Play } from 'lucide-react'
 import type { Exercise, DisabilityType } from '../../types'
 
 const DISABILITY_LABELS: Record<DisabilityType, string> = {
@@ -18,14 +19,12 @@ interface ExerciseCardProps {
 
 export function ExerciseCard({ exercise }: ExerciseCardProps) {
   const titleId = `ex-${exercise.id}-title`
+  const primaryDisability = exercise.disabilityTypes[0]
 
   return (
     <article
       aria-labelledby={titleId}
-      className="
-        flex flex-col rounded-xl border border-white/10 bg-white/5
-        overflow-hidden transition-colors hover:border-uyum-purple/40
-      "
+      className="group flex flex-col overflow-hidden rounded-2xl bg-card ring-1 ring-border/40 transition hover:-translate-y-0.5 hover:shadow-card hc:bg-white hc:ring-black"
     >
       <div className="relative aspect-video bg-black">
         <iframe
@@ -34,59 +33,63 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
           loading="lazy"
           allow="accelerometer; encrypted-media; picture-in-picture"
           allowFullScreen
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 h-full w-full"
         />
         {exercise.hasSubtitles && (
           <span
-            className="
-              absolute top-2 right-2 inline-flex items-center gap-1
-              px-2 py-0.5 rounded-md text-[10px] font-medium
-              bg-black/70 text-uyum-frost-mint border border-white/20
-            "
             aria-label="Altyazılı içerik"
+            className="absolute left-3 top-3 rounded-md bg-card/95 px-2 py-0.5 text-[11px] font-bold text-primary-deep backdrop-blur"
           >
-            <span aria-hidden="true">🔠</span>
             Altyazılı
           </span>
         )}
+        <span
+          aria-hidden
+          className="absolute bottom-3 right-3 rounded-md bg-primary-deep/85 px-2 py-0.5 text-[11px] font-bold text-primary-foreground"
+        >
+          {formatDuration(exercise.duration)}
+        </span>
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 m-auto grid size-14 place-items-center rounded-full bg-card/95 text-primary-deep opacity-0 shadow-card transition group-hover:scale-110 group-hover:opacity-100"
+        >
+          <Play className="size-5 fill-current" />
+        </span>
       </div>
 
-      <div className="flex flex-col gap-2 p-4">
-        <header className="flex items-start justify-between gap-2">
-          <h3 id={titleId} className="text-sm font-heading font-semibold text-white leading-snug">
-            {exercise.title}
-          </h3>
-          <span className="text-[10px] uppercase tracking-wider text-white/50 font-heading flex-shrink-0">
-            {formatDuration(exercise.duration)}
-          </span>
-        </header>
-
-        <p className="text-xs text-white/70 font-body leading-relaxed line-clamp-3">
+      <div className="flex flex-1 flex-col gap-2 p-4">
+        <h3 id={titleId} className="font-display text-[14.5px] font-extrabold leading-snug text-primary-deep line-clamp-2 hc:text-black">
+          {exercise.title}
+        </h3>
+        <p className="text-xs text-muted-foreground line-clamp-2 hc:text-black">
           {exercise.description}
         </p>
 
-        <div className="flex flex-wrap gap-1.5 mt-1" aria-label="Etiketler">
-          {exercise.disabilityTypes.map(d => (
+        <div className="mt-1 flex flex-wrap gap-1.5">
+          {exercise.disabilityTypes.slice(0, 2).map(d => (
             <span
               key={d}
-              className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/80 border border-white/10"
+              className="rounded-full bg-mint/50 px-2 py-0.5 text-[10px] font-bold text-mint-foreground"
             >
               {DISABILITY_LABELS[d]}
             </span>
           ))}
-          <span
-            className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/80 border border-white/10 uppercase"
-          >
-            {exercise.language === 'tr' ? 'Türkçe' : 'İngilizce'}
+          <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-bold uppercase text-accent">
+            {exercise.language === 'tr' ? 'TR' : 'EN'}
           </span>
         </div>
 
-        <p
-          className="text-[11px] text-amber-300/90 mt-2 leading-snug border-t border-white/10 pt-2"
-          role="note"
-        >
-          Bu içerikler bilgilendirme amaçlıdır. Ağrı varsa dur.
-        </p>
+        <div className="mt-auto flex items-center justify-between border-t border-border/40 pt-3 text-[11.5px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1">
+            <User aria-hidden className="size-3" /> {primaryDisability ? DISABILITY_LABELS[primaryDisability] : 'Genel'}
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <Clock aria-hidden className="size-3" /> {formatDuration(exercise.duration)}
+          </span>
+          <button type="button" aria-label="Kaydet">
+            <Bookmark aria-hidden className="size-4 text-foreground/60 hover:text-primary" />
+          </button>
+        </div>
       </div>
     </article>
   )
