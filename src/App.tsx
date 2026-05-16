@@ -10,17 +10,6 @@ function RequireProfile({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
-function NotImplemented({ phase }: { phase: string }) {
-  return (
-    <div className="p-8 max-w-2xl mx-auto text-center">
-      <p className="text-lg font-heading mb-4">Bu sayfa {phase}&apos;de geliyor.</p>
-      <Link to="/" className="text-uyum-purple underline hover:text-uyum-blue">
-        Ana sayfaya dön
-      </Link>
-    </div>
-  )
-}
-
 function NotFound() {
   return (
     <div className="p-8 max-w-2xl mx-auto text-center">
@@ -70,9 +59,30 @@ function AppRoutes() {
             </RequireProfile>
           }
         />
-        <Route path="/exercises"     element={<NotImplemented phase="Faz 9" />} />
-        <Route path="/events"        element={<NotImplemented phase="Faz 9" />} />
-        <Route path="/coaches"       element={<NotImplemented phase="Faz 9" />} />
+        <Route
+          path="/exercises"
+          element={
+            <RequireProfile>
+              <ExerciseLibraryPage />
+            </RequireProfile>
+          }
+        />
+        <Route
+          path="/events"
+          element={
+            <RequireProfile>
+              <EventListPage />
+            </RequireProfile>
+          }
+        />
+        <Route
+          path="/coaches"
+          element={
+            <RequireProfile>
+              <CoachDirectoryPage />
+            </RequireProfile>
+          }
+        />
         <Route path="*"              element={<NotFound />} />
       </Route>
     </Routes>
@@ -84,8 +94,11 @@ import { lazy, Suspense } from 'react'
 const OnboardingPage   = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
 const DashboardPage    = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))
 const MatchSportPage   = lazy(() => import('./pages/MatchSport').then(m => ({ default: m.MatchSport })))
-const FacilityMapPage    = lazy(() => import('./pages/FacilityMap').then(m => ({ default: m.FacilityMap })))
-const FacilityDetailPage = lazy(() => import('./pages/FacilityDetail').then(m => ({ default: m.FacilityDetail })))
+const FacilityMapPage     = lazy(() => import('./pages/FacilityMap').then(m => ({ default: m.FacilityMap })))
+const FacilityDetailPage  = lazy(() => import('./pages/FacilityDetail').then(m => ({ default: m.FacilityDetail })))
+const ExerciseLibraryPage = lazy(() => import('./pages/ExerciseLibrary').then(m => ({ default: m.ExerciseLibrary })))
+const EventListPage       = lazy(() => import('./pages/EventList').then(m => ({ default: m.EventList })))
+const CoachDirectoryPage  = lazy(() => import('./pages/CoachDirectory').then(m => ({ default: m.CoachDirectory })))
 
 export default function App() {
   return (
