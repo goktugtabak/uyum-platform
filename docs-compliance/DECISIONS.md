@@ -36,6 +36,13 @@
 
 ## Kayıtlar
 
+### 2026-05-17 — `[PROCESS]` Faz 11: deploy-ready paket, gerçek Vercel deploy kullanıcıya bırakıldı
+
+- **Karar:** Faz 11 "Demo Prova + Final Deploy" maddesi iki katmana ayrıldı. Kod tarafı (vercel.json, runbook'lar, README, CLAUDE.md, demo script, n8n runbook, incident recovery, deploy runbook) tamamlandı ve `feature/faz11-demo-deploy` branch'inde. Vercel deploy + n8n config + 3 kez manuel prova kullanıcının elinde — Claude'un CLI'ından yapılamaz (auth + manuel browser akışı).
+- **Niye:** Build plan §FAZ 11 §1-§6'nın bir kısmı (3 kez prova, Slow 3G test, mobil görsel doğrulama) gerçek tarayıcı/cihaz/n8n hesabı gerektirir. Bu adımları kullanıcıya devretmek dürüstlük + hız; her birinin sıfır-belirsizlik runbook'u repo'da hazır.
+- **Etki:** `vercel.json`, `docs/DEPLOY.md`, `docs/N8N-RUNBOOK.md`, `docs/DEMO-SCRIPT.md`, `docs/INCIDENT-RECOVERY.md`, `README.md`, `CLAUDE.md`.
+- **Geri al kuralı:** Kullanıcı Vercel deploy'u tamamladıktan sonra README'ye gerçek URL eklenir, Faz 11 DoD #1 (Vercel URL paylaşılabilir) ✅ olur. Frontend entegrasyonu (Faz 12) sonrası tekrar deploy gerekecek.
+
 ### 2026-05-16 — `[SCOPE]` Faz 10: F3 red flag enforcement n8n tarafında, frontend client-side kontrol kaldırıldı
 
 - **Karar:** `f3-service.ts`'in girişindeki `containsRedFlag(facility.name + district + address)` çağrısı kaldırıldı. F3'te kullanıcıdan semptom textarea'sı alınmıyor; tesis metadata'sını red flag listesiyle karşılaştırmak hiçbir zaman pozitif vermez ve QA audit'inde dead code olarak işaretlendi. Red flag enforcement n8n workflow tarafında kalır; response `error:'RED_FLAG'` handler'ı yerinde.
