@@ -49,15 +49,16 @@
 /* Base typography                                                     */
 /* ------------------------------------------------------------------ */
 @layer base {
+  /* Gövde metni Inter, başlıklar Armin Grotesk — user requested header-only. */
   html {
-    font-family: 'Armin Grotesk', 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
   }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: 'Armin Grotesk', 'Inter', system-ui, sans-serif;
     letter-spacing: -0.02em;
   }
