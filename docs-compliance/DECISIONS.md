@@ -36,6 +36,13 @@
 
 ## Kayıtlar
 
+### 2026-05-16 — `[TECH]` Faz 5 veri kaynağı: manual-first, Overpass cache dekoratif
+
+- **Karar:** `src/data/facilities.json` (10 Ankara tesisi, koordinat + tam a11y matrisi) haritanın birincil ve tek runtime kaynağıdır. `public/data/facilities-overpass-cache.json` (269 OSM nokta) sadece `console.info` logu için yüklenir; render edilmez.
+- **Niye:** DoD'da "cache dosyasını gizle, sayfa açılmalı" testi var. Bu test ancak manual veri direkt resolve edilirse geçer. Overpass kayıtlarında `sports[]` alanı yok — hibrit pin'in iç ikonu çizilemiyor. 269 anonim tesis eklemek ayrı bir scope (build plan'da yok).
+- **Etki:** `src/lib/overpass-loader.ts` — `loadFacilities()` daima `facilities.json`'u döndürür; cache fetch hatası `console.warn` ile yutulur. `src/components/map/FacilityPin.tsx`, `FacilityList.tsx` sadece manuel 10 tesisi gösterir.
+- **Geri al kuralı:** Faz 8+ de Overpass tesislerini "topluluk noktası" olarak haritaya eklemek istenirse `overpass-loader.ts`'e merge mantığı eklenir ve FacilityPin null-sports guard'ı güçlendirilir.
+
 ### 2026-05-16 — `[TECH]` F3 üretimde yalnızca n8n; direkt OpenAI yok
 
 - **Karar:** F3 İlk Ziyaret Rehberi üretimde sadece n8n webhook üzerinden çağrılır. Frontend'den direkt OpenAI çağrısı `VITE_OPENAI_KEY` ile Vercel deploy'a girmez. OpenAI key, sistem promptu, JSON kısıtı, red flag ve response doğrulama n8n workflow içinde tutulur.
