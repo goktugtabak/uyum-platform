@@ -13,7 +13,8 @@
   letter-spacing: 0.05em;
 }
 
-/* High contrast mode — F8 */
+/* High contrast mode — Faz 2: AccessibilityContext sets html.high-contrast */
+/* Tailwind hc: variant targets html.high-contrast & selectors */
 .high-contrast { filter: contrast(1.4); }
 
 /* Focus halkasi — Faz 0 sabit karari: outline:none yasak */
