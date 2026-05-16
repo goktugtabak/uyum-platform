@@ -22,7 +22,7 @@ export function SegmentedControl<T extends string>({
   const groupRef = useRef<HTMLDivElement>(null)
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLButtonElement>, index: number) {
-    let next = index
+    let next: number
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault()
       next = (index + 1) % options.length
