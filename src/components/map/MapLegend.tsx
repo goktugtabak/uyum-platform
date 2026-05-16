@@ -1,10 +1,10 @@
 import { getSportIcon, getSportLabel, LEGEND_SPORTS } from '../../lib/sport-icons'
 
 const COLOR_ITEMS = [
-  { color: '#16a34a', label: 'İyi erişilebilir' },
-  { color: '#eab308', label: 'Kısmen erişilebilir' },
-  { color: '#dc2626', label: 'Erişim engeli var' },
-  { color: '#6b7280', label: 'Bilgi yetersiz' },
+  { color: '#16a34a', glyph: '✓', label: 'İyi erişilebilir' },
+  { color: '#eab308', glyph: '~', label: 'Kısmen erişilebilir' },
+  { color: '#dc2626', glyph: '✕', label: 'Erişim engeli var' },
+  { color: '#6b7280', glyph: '?', label: 'Bilgi yetersiz' },
 ]
 
 export function MapLegend() {
@@ -37,13 +37,15 @@ export function MapLegend() {
             Erişilebilirlik
           </p>
           <ul className="space-y-1 mb-3" role="list">
-            {COLOR_ITEMS.map(({ color, label }) => (
+            {COLOR_ITEMS.map(({ color, glyph, label }) => (
               <li key={color} className="flex items-center gap-2" role="listitem">
                 <span
-                  className="inline-block w-3.5 h-3.5 rounded-full border-2 flex-shrink-0"
-                  style={{ borderColor: color, backgroundColor: 'transparent' }}
+                  className="inline-flex items-center justify-center w-4 h-4 rounded-full text-[10px] font-bold text-white flex-shrink-0 hc:border hc:border-white"
+                  style={{ backgroundColor: color }}
                   aria-hidden="true"
-                />
+                >
+                  {glyph}
+                </span>
                 <span className="text-xs font-body text-white/80 hc:text-white">{label}</span>
               </li>
             ))}

@@ -16,6 +16,13 @@ const DOT_COLOR: Record<ScoreColor, string> = {
   gray:   'bg-[#6b7280]',
 }
 
+const DOT_GLYPH: Record<ScoreColor, string> = {
+  green:  '✓',
+  yellow: '~',
+  red:    '✕',
+  gray:   '?',
+}
+
 const DOT_LABELS: Record<ScoreColor, string> = {
   green:  'İyi erişilebilir',
   yellow: 'Kısmen erişilebilir',
@@ -50,9 +57,11 @@ function FacilityItem({
         "
       >
         <span
-          className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${DOT_COLOR[overall]} hc:border hc:border-white`}
+          className={`inline-flex items-center justify-center w-4 h-4 rounded-full flex-shrink-0 text-[10px] font-bold text-white ${DOT_COLOR[overall]} hc:border hc:border-white`}
           aria-hidden="true"
-        />
+        >
+          {DOT_GLYPH[overall]}
+        </span>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-heading font-semibold text-white truncate group-hover:text-uyum-frost-blue hc:text-white">
             {facility.name}
