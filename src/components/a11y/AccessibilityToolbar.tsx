@@ -23,7 +23,7 @@ export function AccessibilityToolbar() {
     <div
       role="toolbar"
       aria-label="Erişilebilirlik ayarları"
-      className="flex flex-wrap items-center gap-4 px-4 py-2 bg-uyum-dark/90 text-white text-sm"
+      className="flex flex-wrap items-center gap-x-4 gap-y-2 px-2 md:px-4 py-2 bg-uyum-dark/90 text-white text-sm"
     >
       {/* A1 — Renk Körlüğü */}
       <div className="flex items-center gap-2">

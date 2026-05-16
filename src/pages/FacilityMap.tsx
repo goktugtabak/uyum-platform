@@ -49,10 +49,10 @@ export function FacilityMap() {
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)]">
+    <div className="flex flex-col min-h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-4rem)]">
       {/* Top bar: filter + demo badge */}
-      <div className="flex items-center justify-between flex-wrap gap-2 pr-4">
-        <div className="flex-1">
+      <div className="flex items-center justify-between flex-wrap gap-2 pr-2 md:pr-4">
+        <div className="flex-1 min-w-0">
           <MapFilterBar
             disabilityType={disabilityType}
             sportFilter={sportFilter}
@@ -61,19 +61,19 @@ export function FacilityMap() {
             onReset={handleReset}
           />
         </div>
-        <div className="px-4 py-3">
+        <div className="px-2 md:px-4 py-2 md:py-3">
           <DemoBadge label="Konumlar OpenStreetMap, erişilebilirlik verileri mock" />
         </div>
       </div>
 
       {/* Main content: list + map */}
-      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+      <div className="flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden">
         <FacilityList
           facilities={facilities}
           disabilityType={disabilityType}
           sportFilter={sportFilter}
         />
-        <div className="flex-1 overflow-hidden">
+        <div className="flex-1 min-h-[60vh] md:min-h-0 overflow-hidden">
           <MapView
             facilities={facilities}
             disabilityType={disabilityType}

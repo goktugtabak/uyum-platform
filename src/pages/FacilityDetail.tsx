@@ -22,14 +22,14 @@ function FacilityDetailInner({ facility, disabilityType, onDisabilityChange, pro
   const { dimensions } = useFacilityScore(facility, disabilityType)
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-8">
+    <div className="max-w-4xl mx-auto px-4 py-4 md:py-6 space-y-6 md:space-y-8">
       {/* Hero block */}
       <section aria-labelledby="facility-heading">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1
               id="facility-heading"
-              className="text-2xl font-heading font-bold text-gray-900 hc:text-white"
+              className="text-xl md:text-2xl font-heading font-bold text-gray-900 hc:text-white"
             >
               {facility.name}
             </h1>

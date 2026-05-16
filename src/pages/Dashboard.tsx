@@ -63,7 +63,7 @@ export function Dashboard() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6 space-y-10">
+    <div className="max-w-5xl mx-auto p-4 md:p-6 space-y-8 md:space-y-10">
       {/* Profil özeti */}
       <header className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/10">
         <div>

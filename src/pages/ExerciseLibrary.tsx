@@ -68,10 +68,10 @@ export function ExerciseLibrary() {
   if (!profile) return null
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-6">
+    <div className="max-w-6xl mx-auto p-4 md:p-6 space-y-6">
       <header className="flex flex-wrap items-start justify-between gap-4 pb-4 border-b border-white/10">
         <div>
-          <h1 className="text-3xl font-heading font-bold text-white mb-2">
+          <h1 className="text-2xl md:text-3xl font-heading font-bold text-white mb-2">
             Adaptif Egzersiz Kütüphanesi
           </h1>
           <p className="text-sm text-white/60 font-body max-w-2xl">
