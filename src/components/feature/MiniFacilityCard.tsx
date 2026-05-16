@@ -1,86 +1,87 @@
 import { Link } from 'react-router-dom'
 import type { Facility, DisabilityType } from '../../types'
 import { useFacilityScore, type ScoreColor } from '../../hooks/useFacilityScore'
-import { AccessibilityRadar } from '../facility/AccessibilityRadar'
-import { getSportIcon, getSportLabel } from '../../lib/sport-icons'
+import { getSportLabel } from '../../lib/sport-icons'
+import { MapPin } from 'lucide-react'
 
-const DOT_COLOR: Record<ScoreColor, string> = {
-  green:  'bg-[#16a34a]',
-  yellow: 'bg-[#eab308]',
-  red:    'bg-[#dc2626]',
-  gray:   'bg-[#6b7280]',
+const SCORE_BG: Record<ScoreColor, string> = {
+  green:  'bg-mint/70 text-mint-foreground',
+  yellow: 'bg-[oklch(0.92_0.10_85)] text-[oklch(0.45_0.12_85)]',
+  red:    'bg-destructive/15 text-destructive',
+  gray:   'bg-muted text-muted-foreground',
 }
 
-const DOT_LABEL: Record<ScoreColor, string> = {
+const SCORE_LABEL: Record<ScoreColor, string> = {
   green:  'İyi erişilebilir',
   yellow: 'Kısmen erişilebilir',
   red:    'Erişim engeli var',
   gray:   'Bilgi yetersiz',
 }
 
+const SCORE_GLYPH: Record<ScoreColor, string> = {
+  green:  '✓',
+  yellow: '~',
+  red:    '✕',
+  gray:   '?',
+}
+
+const SCORE_PERCENT: Record<ScoreColor, number> = {
+  green:  92,
+  yellow: 68,
+  red:    35,
+  gray:   50,
+}
+
 interface Props {
   facility:       Facility
   disabilityType: DisabilityType
+  image?:         string
 }
 
-export function MiniFacilityCard({ facility, disabilityType }: Props) {
+export function MiniFacilityCard({ facility, disabilityType, image }: Props) {
   const { overall } = useFacilityScore(facility, disabilityType)
   const primarySport = facility.sports[0] ?? ''
+  const fallbackInitial = facility.name[0]
 
   return (
-    <article
-      className="
-        rounded-xl border border-white/10 bg-white/5 p-4
-        flex flex-col gap-3 transition-colors
-        hover:bg-white/10 focus-within:bg-white/10
-      "
+    <Link
+      to={`/facility/${facility.id}`}
+      aria-label={`${facility.name} detayına git`}
+      className="group flex items-center gap-3 rounded-2xl bg-card p-2.5 ring-1 ring-border/40 transition hover:ring-primary/40 hc:bg-white hc:ring-black"
     >
-      <header className="flex items-start justify-between gap-2">
-        <div className="min-w-0">
-          <h3 className="text-base font-heading font-semibold text-white truncate">
-            {facility.name}
-          </h3>
-          <p className="text-xs font-body text-white/60 truncate">
-            {facility.district}
-            {primarySport && ` · ${getSportLabel(primarySport)}`}
-          </p>
-        </div>
-        <span
-          className={`mt-1 w-3 h-3 rounded-full flex-shrink-0 hc:border hc:border-white ${DOT_COLOR[overall]}`}
-          role="img"
-          aria-label={DOT_LABEL[overall]}
+      {image ? (
+        <img
+          src={image}
+          alt=""
+          className="size-14 rounded-2xl object-cover"
+          loading="lazy"
         />
-      </header>
-
-      <div className="flex items-center justify-center text-white/80">
-        <div className="w-full max-w-[140px]">
-          <AccessibilityRadar
-            facility={facility}
-            disabilityType={disabilityType}
-            height={120}
-            compact
-          />
-        </div>
-      </div>
-
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex gap-1 text-base" aria-hidden="true">
-          {facility.sports.slice(0, 3).map(id => (
-            <span key={id} title={getSportLabel(id)}>{getSportIcon(id)}</span>
-          ))}
-        </div>
-        <Link
-          to={`/facility/${facility.id}`}
-          aria-label={`${facility.name} detay sayfası`}
-          className="
-            text-sm font-medium text-uyum-purple hover:text-uyum-blue
-            underline focus-visible:outline focus-visible:outline-2
-            focus-visible:outline-offset-2 focus-visible:outline-uyum-purple rounded
-          "
+      ) : (
+        <div
+          aria-hidden
+          className="grid size-14 place-items-center rounded-2xl bg-gradient-brand text-base font-bold text-primary-foreground"
         >
-          Detay →
-        </Link>
+          {fallbackInitial}
+        </div>
+      )}
+      <div className="min-w-0 flex-1">
+        <div className="truncate text-sm font-bold text-foreground group-hover:text-primary hc:text-black">
+          {facility.name}
+        </div>
+        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+          <MapPin className="size-3" aria-hidden />
+          <span className="truncate">
+            {facility.district}{primarySport && ` · ${getSportLabel(primarySport)}`}
+          </span>
+        </div>
       </div>
-    </article>
+      <span
+        className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold ${SCORE_BG[overall]}`}
+        role="img"
+        aria-label={SCORE_LABEL[overall]}
+      >
+        <span aria-hidden>{SCORE_GLYPH[overall]}</span> %{SCORE_PERCENT[overall]}
+      </span>
+    </Link>
   )
 }

@@ -12,7 +12,7 @@ Bu dosya **Claude Code ve diğer AI ajanlarının** UYUM repo'sunda doğru karar
 - **Hedef kitle:** Tek persona (engelli birey), tek şehir (Ankara), tek dil (Türkçe UI)
 - **Strateji:** UX-first, frontend-only MVP, backend mock JSON + tek runtime n8n çağrısı (F3)
 
-**Mevcut durum:** Faz 0–11 tamamlandı. Sonraki adım `design/2026_uyum/` klasöründeki yeni tasarım sisteminin frontend entegrasyonu (Faz 12, post-hackathon).
+**Mevcut durum:** Faz 0–12 tamamlandı. `design/2026_uyum/` frontend entegrasyonu `feature/faz12-design-integration` branch'inde uygulandı: light theme + sidebar + topbar + lucide-react + 10 sayfa yeniden tasarımı. Tüm Faz 0-11 mantık katmanı (`lib/`, `hooks/`, `contexts/`, `types/`) korundu.
 
 ### Faz haritası
 
@@ -30,7 +30,7 @@ Bu dosya **Claude Code ve diğer AI ajanlarının** UYUM repo'sunda doğru karar
 | 9 | F6 Egzersiz kütüphanesi, F7 Etkinlikler, F8 Koç dizini | ✅ |
 | 10 | Polish — route animasyonları, mobile responsive, ErrorBoundary, pin glyph, README known limits | ✅ |
 | 11 | Demo deploy paketi — vercel.json, runbook'lar, demo script, incident recovery | ✅ |
-| 12 | _Frontend entegrasyon_ — `design/2026_uyum/` klasöründeki yeni tasarım sisteminin uygulanması | ⏳ post-hackathon |
+| 12 | Frontend entegrasyon — light theme, sidebar shell, lucide-react, 10 sayfa redesign | ✅ |
 
 ---
 
@@ -241,31 +241,42 @@ Mimari/scope/teknoloji kararları **3-5 satır** olarak `docs-compliance/DECISIO
 
 ---
 
-## 11. Tasarım Sistemi (Mevcut Geçici Sürüm)
+## 11. Tasarım Sistemi (Faz 12 — Aktif)
 
-> **Önemli:** Şu anki `src/` UI **geçici iskelet.** `design/2026_uyum/` klasöründeki yeni tasarım sistemi Faz 12'de entegre edilecek. Renk paleti, font, spacing, kart görünümü, layout — hepsi değişecek. Mevcut UI'a görsel polish çıkarmayın; logic ve a11y kodu korunur, render katmanı yenilenecek.
+> Faz 12'de `design/2026_uyum/` referansı uygulandı. Tema **light**, sol sidebar + topbar layout, oklch palet. Eski `uyum-dark`/`uyum-purple` color name'leri **geriye dönük uyumluluk için** Tailwind config'te kalır; yeni kod CSS-variable backed token'ları kullanır.
 
-Mevcut geçici tokenlar:
+**Aktif token'lar (CSS değişkenleri, `src/styles/globals.css` `:root`):**
 
-```ts
-// tailwind.config.ts
-'uyum-dark':       '#320E3B',   // hero arkaplan, header
-'uyum-purple':     '#4C2A85',   // primary CTA + focus ring
-'uyum-blue':       '#6B7FD7',   // hover state
-'uyum-frost-blue': '#BCEDF6',   // tertiary text
-'uyum-frost-mint': '#DDFBD2',   // accent
-
-a11y: {
-  verified: '#16a34a',          // yeşil ✓
-  partial:  '#eab308',          // sarı ~
-  none:     '#dc2626',          // kırmızı ✕
-  unknown:  '#6b7280',          // gri ?
-}
+```css
+--color-background        oklch(0.985 0.005 290)   /* sayfa zemini */
+--color-foreground        oklch(0.18 0.06 305)     /* gövde metni */
+--color-primary           oklch(0.38 0.16 295)     /* CTA + focus ring */
+--color-primary-deep      oklch(0.22 0.12 305)     /* Hero zemini */
+--color-accent            oklch(0.68 0.13 270)     /* mavi-mor */
+--color-mint              oklch(0.94 0.08 145)     /* başarı + onay pastel */
+--color-sky               oklch(0.93 0.06 215)     /* su-mavi pastel */
+--color-success           oklch(0.62 0.16 150)
+--color-warning           oklch(0.78 0.16 65)
+--color-destructive       oklch(0.62 0.22 25)
 ```
 
-Font: Outfit (heading) + Inter (body), Google Fonts CDN.
+**Tailwind class kullanımı:**
 
-Focus ring: `*:focus-visible { outline: 2px solid #4C2A85; outline-offset: 2px }` — `globals.css`'te zorlanır, **hiçbir element override edemez.**
+```tsx
+bg-background  text-foreground             // sayfa
+bg-card  ring-border/40                    // kart
+bg-primary  text-primary-foreground        // CTA
+bg-mint/60  text-mint-foreground           // pastel rozet
+bg-gradient-deep  text-primary-foreground  // hero CTA
+shadow-glow                                // primary CTA
+font-display                               // Sora, h1-h4 default
+```
+
+**Font:** Sora (display) + Plus Jakarta Sans (body), Google Fonts CDN. Outfit + Inter alias olarak korunur.
+
+**A11y dimension renkleri korundu** (`bg-a11y-verified`, vb.) — `tailwind.config.ts` §a11y altında.
+
+**Focus ring:** `*:focus-visible { outline: 2px solid #4C2A85; outline-offset: 2px }` — `globals.css`'te zorlanır, **hiçbir element override edemez.**
 
 ---
 
@@ -332,23 +343,81 @@ Sıfırdan başlayan bir Claude için ilk 5 dakika checklist:
 | "Bir kütüphane ekleyelim" | Önce kapsam sorusu — stack listesi sabit (`UYUM-platform-final.md` §3) |
 | "Test yazalım" | Önce DECISIONS girişi — şu an "test yok" kararı aktif |
 | "F3'te kullanıcıdan textarea alalım" | Önce DECISIONS güncelle (semptom input = red flag tetikleyici), sonra implement |
-| "Bu UI'ı güzelleştirelim" | Faz 12 design entegrasyonuna ertele — şu anki UI geçici |
+| "Bu UI'ı güzelleştirelim" | Önce §11 token sözlüğüne bak — light theme + sidebar + Sora display + Plus Jakarta body |
 | "Yeni route eklemek istiyorum" | `App.tsx` lazy import + `RequireProfile` guard + page component pattern |
 | "Demo'da X çalışmıyor" | `INCIDENT-RECOVERY.md` playbook'una bak, console log'unu paylaş |
 
 ---
 
-## 16. Faz 12 — Frontend Entegrasyon Notları (post-hackathon)
+## 16. Faz 12 — Frontend Entegrasyon (Tamamlandı)
 
-> Bu bölüm Faz 12'ye başlandığında dolacak. Şimdiden bilinmesi gerekenler:
+`design/2026_uyum/frontend-skeleton/` referans alınarak `feature/faz12-design-integration` branch'inde uygulandı.
 
-- `design/2026_uyum/` klasöründe Vite + Tailwind config + theme.ts + globals.css + komponent örnekleri var
-- Mevcut `src/` mantık katmanı (lib/, hooks/, contexts/, types/) **korunur** — render değişir
-- Tailwind tokens migration: mevcut `uyum-*` color name'leri yeni isimlerle değişebilir
-- Sayfa pattern'i (Page > Header > Section > Card) yeni component'lerle yeniden yazılır
-- A11y davranışı **korunur**: SVG filter'lar, hc: variant, focus-visible global outline, aria-live region, skip-link
+### Stratejik kararlar (DECISIONS.md 2026-05-17 [UX] kaydında detay)
 
-Faz 12 başlangıcında bu bölüm doldurulacak.
+- **Tailwind v3 korundu.** Skeleton'daki v4 `@theme inline` formatı atılmadı; oklch CSS değişkenleri `:root`'a yerleştirildi, Tailwind config color'ları `var(--color-*)` üzerinden bridge edildi.
+- **react-router-dom v7 korundu.** TanStack Router'a geçilmedi (build sistem değişikliği maliyeti yüksek).
+- **lucide-react eklendi.** Stack listesine `^0.575` olarak girdi.
+- **shadcn/ui tam adopte edilmedi.** Skeleton sadece Switch kullanıyor, custom Toggle yeterli.
+- **Light theme + sidebar shell.** Önceki `bg-uyum-dark` zemin gitti; sayfa = `bg-background`, sidebar lg+'da görünür, mobile'de TopBar'da hamburger menü.
+- **Onboarding 4 adım.** Welcome → Disability → Goal → Mobility+Confirmation. Profil schema değişmedi (`disabilityType`, `mobilityLevel`, `goal`).
+- **Yeni route'lar:** `/` Landing (public), `/dashboard` (auth), `/community`, `/profile`. Tüm authenticated route'lar `RequireProfile` guard'lı.
+
+### Korunan / sıfır değişiklik katmanlar
+
+- `src/types/index.ts` — sıfır değişiklik
+- `src/lib/*` — sıfır değişiklik (sport-match, redflag, f3-service, facility-rank, overpass-loader, ...)
+- `src/hooks/*` — sıfır değişiklik (useFacilityScore, useSpeech)
+- `src/contexts/AccessibilityContext.tsx`, `ProfileContext.tsx` — sıfır değişiklik
+- `src/data/*.json` — sıfır değişiklik
+- A11y davranışı tamamen korundu: SVG colorblind filter'lar (`#cb-*-filter` index.html'de), `html.high-contrast` toggle, `hc:` Tailwind variant, `*:focus-visible` global outline, `#aria-live-region`, "Ana içeriğe atla" skip-link.
+
+### Yenilenen render katmanı
+
+| Katman | Yenilik |
+|---|---|
+| `src/styles/globals.css` | oklch tokens, `bg-gradient-hero/deep/brand`, `glass`, `text-gradient` utility'leri |
+| `tailwind.config.ts` | CSS-variable backed color/shadow/font tokens; eski `uyum-*` alias'lar geriye dönük korunur |
+| `index.html` | Sora + Plus Jakarta Sans preload eklendi |
+| `src/components/layout/AppShell.tsx` | Sidebar + TopBar + ambient pastel light blobs |
+| `src/components/layout/Sidebar.tsx` | 8 route'lu sticky sidebar (lg+) |
+| `src/components/layout/TopBar.tsx` | Sticky topbar, mobile menu drawer, a11y popover |
+| `src/components/ui/UyumLogo.tsx` | SVG logo (purple + mint + sky gradient) |
+| `src/pages/Landing.tsx` | Yeni — `/` public hero (HAREKET HERKES İÇİN / UYUM SENİN İÇİN) |
+| `src/pages/Onboarding.tsx` | 4 step + ProgressBar + LeftRail kompozisyonu |
+| `src/pages/Dashboard.tsx` | 3-column flowing (Nearby + Community + Discover) + dashHero foto mask |
+| `src/pages/MatchSport.tsx` | 3 spor foto + detay grid + tints[] + RefreshCw CTA |
+| `src/pages/FacilityMap.tsx` | Map sol + facility list sağ; teardrop pin'ler + glyph badge |
+| `src/pages/FacilityDetail.tsx` | Hero + radar + LiveStatus + F3Guide + Testimonies; tab nav (link-only) |
+| `src/pages/EventList.tsx` | ParkScene hero + calendar widget + create-event CTA |
+| `src/pages/ExerciseLibrary.tsx` | Category chips + grid/list view toggle + pagination |
+| `src/pages/CoachDirectory.tsx` | Grid cards + star rating + community fallback CTA |
+| `src/pages/Community.tsx` | Yeni — feed + compose form + tips |
+| `src/pages/Profile.tsx` | Yeni — özet kart + Fact tile'ları + favorites + A11yToolbar |
+
+### Build / lint / typecheck sağlığı
+
+- `npx tsc --noEmit` → exit 0
+- `npm run lint` → exit 0
+- `npm run build` → exit 0, 1.5s
+
+### Bilinen sınırlar
+
+- Mobile menu drawer overlay, focus trap'siz (basit toggle). Sidebar lg+ breakpoint'inde aktif.
+- "Rota oluştur" facility detail'de Google Maps / OSM dış linki açar — kendi maps view'ı yok.
+- TopBar'da arama kutusu placeholder; backend search yok (search filter sadece visual).
+- "Notification bell" mock — sadece kırmızı nokta.
+- Profile sayfasında favorites listesi count gösteriyor; ekleme/silme UI'ı bir sonraki iterasyon.
+
+### Tasarım rehberi (yeni kod yazarken)
+
+- **Page wrapper:** `<div className="mx-auto max-w-7xl pt-2">…</div>` — sidebar/topbar zaten AppShell'den geliyor.
+- **Page header:** font-display, clamp size, primary-deep color. Yanında DemoBadge (mock-data ise).
+- **Card:** `rounded-3xl bg-card p-5 ring-1 ring-border/40 hc:bg-white hc:ring-black` — boxy değil yumuşak.
+- **CTA:** `rounded-full bg-primary text-primary-foreground shadow-glow hover:bg-primary-deep`.
+- **Pastel rozet:** `bg-mint/60 text-mint-foreground` veya `bg-accent/15 text-accent`.
+- **Icon:** Daima lucide-react, `aria-hidden`, `size-4` / `size-5`. Anlam taşıyan ikon yanına metin etiketi şart.
+- **Filter:** `<FilterGroup label>` + `<FilterChip>` + "Filtreleri temizle" butonu.
 
 ---
 

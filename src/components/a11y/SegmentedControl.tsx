@@ -42,7 +42,7 @@ export function SegmentedControl<T extends string>({
       ref={groupRef}
       role="radiogroup"
       aria-label={groupLabel}
-      className="inline-flex rounded-md overflow-hidden border border-white/20"
+      className="inline-flex rounded-full overflow-hidden bg-muted/60 ring-1 ring-border/50 hc:ring-black"
     >
       {options.map((opt, i) => {
         const selected = opt.value === value
@@ -57,10 +57,10 @@ export function SegmentedControl<T extends string>({
             onClick={() => onChange(opt.value)}
             onKeyDown={e => handleKeyDown(e, i)}
             className={[
-              'px-3 py-1.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-0',
+              'px-3 py-1.5 text-[11px] font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-offset-0',
               selected
-                ? 'bg-uyum-purple text-white'
-                : 'bg-white/10 text-current hover:bg-white/20',
+                ? 'bg-primary text-primary-foreground hc:bg-black hc:text-white'
+                : 'text-foreground/75 hover:bg-card hc:text-black',
             ].join(' ')}
           >
             {opt.label}

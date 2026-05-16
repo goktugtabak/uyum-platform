@@ -10,9 +10,9 @@ import { DemoBadge } from '../ui/DemoBadge'
 import { SpeakButton } from '../ui/SpeakButton'
 
 const STATUS_ICON: Record<string, string> = {
-  true:    '✅',
-  false:   '❌',
-  null:    '❓',
+  true:  '✅',
+  false: '❌',
+  null:  '❓',
 }
 
 // Color is bound to *status only* (working/broken/unknown). Freshness is shown
@@ -35,7 +35,16 @@ interface Props {
 
 export function LiveStatus({ facility }: Props) {
   return (
-    <div className="border rounded-lg p-4 space-y-3">
+    <div className="rounded-3xl bg-card p-5 ring-1 ring-border/40 hc:bg-white hc:ring-black">
+      <header className="mb-4 flex items-center justify-between">
+        <h3 className="font-display text-base font-extrabold text-primary-deep hc:text-black">
+          Canlı Durum
+        </h3>
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-success">
+          <span aria-hidden className="size-1.5 animate-pulse rounded-full bg-success" /> Anlık
+        </span>
+      </header>
+
       <ul role="list" className="space-y-3">
         {LIVE_STATUS_KEYS.map(key => {
           const entry = facility.liveStatus[key]
@@ -53,30 +62,30 @@ export function LiveStatus({ facility }: Props) {
             (freshnessText ? ` (${freshnessText})` : '')
 
           return (
-            <li key={key} role="listitem" className="flex items-center gap-3">
+            <li key={key} role="listitem" className="flex flex-wrap items-center gap-3">
               <span
-                className={`w-3 h-3 rounded-full flex-shrink-0 ${STATUS_DOT[statusKey]}`}
-                aria-hidden="true"
+                aria-hidden
+                className={`size-3 shrink-0 rounded-full ${STATUS_DOT[statusKey]}`}
               />
-              <span className="w-32 text-sm font-medium text-gray-700 hc:text-white">
+              <span className="w-32 text-sm font-semibold text-foreground hc:text-black">
                 {getLiveStatusLabel(key)}
               </span>
-              <span className="text-lg" aria-hidden="true">
+              <span className="text-base" aria-hidden>
                 {STATUS_ICON[statusKey]}
               </span>
               <span className="sr-only">{statusLabel}</span>
               {entry.status === false && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800 border border-red-300 hc:bg-black hc:text-white hc:border-white">
-                  ARIZALI
+                <span className="inline-flex items-center rounded-full bg-destructive/15 px-2 py-0.5 text-[10px] font-bold uppercase text-destructive">
+                  Arızalı
                 </span>
               )}
-              <span className="text-xs text-gray-500 hc:text-gray-300 ml-auto">
+              <span className="ml-auto text-xs text-muted-foreground hc:text-black">
                 {relTime}
                 {freshnessText && (
-                  <span className="ml-1 text-gray-400">· {freshnessText}</span>
+                  <span className="ml-1 text-muted-foreground/70">· {freshnessText}</span>
                 )}
                 {entry.verifiedBy && (
-                  <span className="ml-1 text-gray-400">· {entry.verifiedBy}</span>
+                  <span className="ml-1 text-muted-foreground/70">· {entry.verifiedBy}</span>
                 )}
               </span>
               <SpeakButton text={speakText} label={getLiveStatusLabel(key)} />
@@ -84,7 +93,8 @@ export function LiveStatus({ facility }: Props) {
           )
         })}
       </ul>
-      <div className="pt-2 border-t border-gray-100">
+
+      <div className="mt-4 border-t border-border/40 pt-3">
         <DemoBadge label="Canlı durum demo verisidir" />
       </div>
     </div>

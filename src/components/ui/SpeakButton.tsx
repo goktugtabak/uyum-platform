@@ -28,10 +28,9 @@ export function SpeakButton({ text, label, className = '' }: SpeakButtonProps) {
       aria-label={speaking ? 'Sesli okumayı durdur' : (label ? `Sesli oku: ${label}` : 'Sesli oku')}
       aria-pressed={speaking}
       className={
-        'inline-flex items-center gap-1 px-2 py-1 rounded text-xs ' +
-        'text-gray-500 hc:text-white hover:text-gray-700 hc:hover:text-gray-300 ' +
-        'hover:bg-gray-100 hc:hover:bg-gray-800 ' +
-        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple ' +
+        'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ' +
+        'text-primary bg-primary/10 hover:bg-primary/20 hc:bg-black hc:text-white ' +
+        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary ' +
         'transition-colors ' +
         className
       }

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { AlertTriangle, Plus } from 'lucide-react'
 import type { Testimony, DisabilityType } from '../../types'
 import {
   loadTestimonies,
@@ -20,9 +21,7 @@ interface Props {
 }
 
 export function Testimonies({ facilityId, defaultDisabilityType }: Props) {
-  const [testimonies, setTestimonies] = useState<Testimony[]>(() =>
-    loadTestimonies(facilityId),
-  )
+  const [testimonies, setTestimonies] = useState<Testimony[]>(() => loadTestimonies(facilityId))
   const [formText, setFormText] = useState('')
   const [anonymous, setAnonymous] = useState(true)
   const [displayName, setDisplayName] = useState('')
@@ -33,7 +32,6 @@ export function Testimonies({ facilityId, defaultDisabilityType }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-
     if (formText.trim().length < 10) {
       setValidationError('Tanıklık en az 10 karakter olmalıdır.')
       return
@@ -42,7 +40,6 @@ export function Testimonies({ facilityId, defaultDisabilityType }: Props) {
       setValidationError('Tanıklık en fazla 500 karakter olabilir.')
       return
     }
-
     setValidationError('')
 
     const newTestimony: Testimony = {
@@ -71,7 +68,7 @@ export function Testimonies({ facilityId, defaultDisabilityType }: Props) {
     <form onSubmit={handleSubmit} className="space-y-3 pt-2">
       {!anonymous && (
         <div>
-          <label htmlFor="testimony-name" className="block text-sm font-medium text-gray-700 hc:text-white mb-1">
+          <label htmlFor="testimony-name" className="mb-1 block text-sm font-semibold text-foreground hc:text-black">
             Görünen ad
           </label>
           <input
@@ -81,13 +78,13 @@ export function Testimonies({ facilityId, defaultDisabilityType }: Props) {
             onChange={e => setDisplayName(e.target.value)}
             maxLength={50}
             placeholder="Kullanıcı adı (opsiyonel)"
-            className="w-full rounded border border-gray-300 px-3 py-1.5 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple hc:bg-black hc:text-white hc:border-white"
+            className="w-full rounded-xl bg-card px-3 py-2 text-sm ring-1 ring-border/60 outline-none focus:ring-2 focus:ring-primary/30 hc:bg-white hc:ring-black"
           />
         </div>
       )}
       <div>
-        <label htmlFor="testimony-text" className="block text-sm font-medium text-gray-700 hc:text-white mb-1">
-          Tanıklık <span className="text-gray-400 font-normal">(min 10, max 500 karakter)</span>
+        <label htmlFor="testimony-text" className="mb-1 block text-sm font-semibold text-foreground hc:text-black">
+          Tanıklık <span className="font-normal text-muted-foreground">(min 10, max 500 karakter)</span>
         </label>
         <textarea
           id="testimony-text"
@@ -98,9 +95,9 @@ export function Testimonies({ facilityId, defaultDisabilityType }: Props) {
           maxLength={500}
           rows={4}
           placeholder="Bu tesisteki deneyimini paylaş..."
-          className="w-full rounded border border-gray-300 px-3 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple hc:bg-black hc:text-white hc:border-white resize-vertical"
+          className="w-full resize-y rounded-xl bg-card px-3 py-2 text-sm ring-1 ring-border/60 outline-none focus:ring-2 focus:ring-primary/30 hc:bg-white hc:ring-black"
         />
-        <p id="testimony-help" className="text-xs text-gray-400 mt-0.5">
+        <p id="testimony-help" className="mt-0.5 text-xs text-muted-foreground">
           {formText.length}/500
         </p>
       </div>
@@ -110,15 +107,15 @@ export function Testimonies({ facilityId, defaultDisabilityType }: Props) {
           id="testimony-anonymous"
           checked={anonymous}
           onChange={e => setAnonymous(e.target.checked)}
-          className="rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple"
+          className="rounded"
         />
-        <label htmlFor="testimony-anonymous" className="text-sm text-gray-700 hc:text-white">
+        <label htmlFor="testimony-anonymous" className="text-sm text-foreground hc:text-black">
           Anonim olarak paylaş
         </label>
       </div>
       <div>
-        <label htmlFor="testimony-issue" className="block text-sm font-medium text-gray-700 hc:text-white mb-1">
-          İletmek istediğin sorun <span className="text-gray-400 font-normal">(opsiyonel)</span>
+        <label htmlFor="testimony-issue" className="mb-1 block text-sm font-semibold text-foreground hc:text-black">
+          İletmek istediğin sorun <span className="font-normal text-muted-foreground">(opsiyonel)</span>
         </label>
         <input
           id="testimony-issue"
@@ -127,17 +124,17 @@ export function Testimonies({ facilityId, defaultDisabilityType }: Props) {
           onChange={e => setIssueReport(e.target.value)}
           maxLength={200}
           placeholder="Örn: Asansör bozuk, rampa dar..."
-          className="w-full rounded border border-gray-300 px-3 py-1.5 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple hc:bg-black hc:text-white hc:border-white"
+          className="w-full rounded-xl bg-card px-3 py-2 text-sm ring-1 ring-border/60 outline-none focus:ring-2 focus:ring-primary/30 hc:bg-white hc:ring-black"
         />
       </div>
       {validationError && (
-        <p role="alert" className="text-sm text-red-600 hc:text-white font-medium">
+        <p role="alert" className="text-sm font-semibold text-destructive">
           {validationError}
         </p>
       )}
       <button
         type="submit"
-        className="rounded bg-uyum-purple px-4 py-2 text-sm font-medium text-white hover:bg-uyum-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-uyum-purple hc:bg-white hc:text-black transition-colors"
+        className="rounded-full bg-primary px-5 py-2 text-sm font-bold text-primary-foreground hover:bg-primary-deep"
       >
         Tanıklık Gönder
       </button>
@@ -147,40 +144,45 @@ export function Testimonies({ facilityId, defaultDisabilityType }: Props) {
   return (
     <div className="space-y-4">
       {isEmpty ? (
-        <div className="text-center py-6 text-gray-500 hc:text-gray-300">
-          <p className="mb-4">Bu tesis için henüz tanıklık paylaşılmamış. İlk paylaşan sen ol.</p>
+        <div className="rounded-3xl bg-card/85 p-6 ring-1 ring-border/40 hc:bg-white hc:ring-black">
+          <p className="mb-4 text-sm text-muted-foreground hc:text-black">
+            Bu tesis için henüz tanıklık paylaşılmamış. İlk paylaşan sen ol.
+          </p>
           {form}
         </div>
       ) : (
         <>
           <ul role="list" className="space-y-3">
             {testimonies.map(t => (
-              <li key={t.id} className="rounded-lg border border-gray-200 p-4 space-y-2 hc:border-white">
-                <div className="flex items-center justify-between gap-2 flex-wrap">
+              <li
+                key={t.id}
+                className="space-y-2 rounded-2xl bg-card p-4 ring-1 ring-border/40 hc:bg-white hc:ring-black"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-sm text-gray-800 hc:text-white">
+                    <span className="text-sm font-bold text-foreground hc:text-black">
                       {t.anonymous || !t.displayName ? 'Anonim' : t.displayName}
                     </span>
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs bg-gray-100 text-gray-600 hc:bg-black hc:text-gray-300">
+                    <span className="rounded-full bg-accent/15 px-2 py-0.5 text-[10px] font-bold text-accent">
                       {DISABILITY_LABELS[t.disabilityType]}
                     </span>
                   </div>
-                  <span className="text-xs text-gray-400 hc:text-gray-300">
+                  <span className="text-xs text-muted-foreground">
                     {formatRelative(t.timestamp)}
                   </span>
                 </div>
-                <p className="text-sm text-gray-700 hc:text-white">{t.text}</p>
+                <p className="text-sm text-foreground/85 hc:text-black">{t.text}</p>
                 {t.issueReport && (
-                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-red-50 text-red-700 border border-red-200 hc:bg-black hc:text-white hc:border-white">
-                    ⚠️ {t.issueReport}
+                  <div className="inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-semibold text-destructive">
+                    <AlertTriangle aria-hidden className="size-3" /> {t.issueReport}
                   </div>
                 )}
               </li>
             ))}
           </ul>
-          <details className="rounded-lg border border-gray-200 hc:border-white">
-            <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-uyum-purple hc:text-white hover:bg-gray-50 hc:hover:bg-gray-900 rounded-lg list-none">
-              + Tanıklık ekle
+          <details className="rounded-2xl ring-1 ring-border/40 hc:ring-black">
+            <summary className="flex cursor-pointer items-center gap-2 rounded-2xl px-4 py-3 text-sm font-bold text-primary hover:bg-primary/5 hc:text-black">
+              <Plus aria-hidden className="size-4" /> Tanıklık ekle
             </summary>
             <div className="px-4 pb-4">{form}</div>
           </details>

@@ -2,9 +2,10 @@ import { useAccessibility } from '../../contexts/AccessibilityContext'
 import type { AccessibilityPrefs } from '../../types'
 import { SegmentedControl } from './SegmentedControl'
 import { Toggle } from './Toggle'
+import { Eye, Contrast, Type, Volume2 } from 'lucide-react'
 
 const COLORBLIND_OPTIONS: { value: AccessibilityPrefs['colorblindMode']; label: string; ariaLabel: string }[] = [
-  { value: 'none',         label: 'Kapalı',       ariaLabel: 'Renk filtresi kapalı' },
+  { value: 'none',         label: 'Kapalı',        ariaLabel: 'Renk filtresi kapalı' },
   { value: 'deuteranopia', label: 'Deuteranopia',  ariaLabel: 'Deuteranopia filtresi' },
   { value: 'protanopia',   label: 'Protanopia',    ariaLabel: 'Protanopia filtresi' },
   { value: 'tritanopia',   label: 'Tritanopia',    ariaLabel: 'Tritanopia filtresi' },
@@ -16,6 +17,11 @@ const FONT_OPTIONS: { value: AccessibilityPrefs['fontSize']; label: string; aria
   { value: 'xlarge', label: 'A++', ariaLabel: 'Çok büyük font boyutu' },
 ]
 
+/**
+ * Erişilebilirlik Araçları paneli.
+ * Faz 12: light-theme kartı; sidebar veya popover içinde kullanılabilir.
+ * A1 + A2 + A3 + A6 toggle'ları AccessibilityContext'i günceller.
+ */
 export function AccessibilityToolbar() {
   const { prefs, setColorblindMode, setHighContrast, setFontSize, setSpeechEnabled } = useAccessibility()
 
@@ -23,53 +29,76 @@ export function AccessibilityToolbar() {
     <div
       role="toolbar"
       aria-label="Erişilebilirlik ayarları"
-      className="flex flex-wrap items-center gap-x-4 gap-y-2 px-2 md:px-4 py-2 bg-uyum-dark/90 text-white text-sm"
+      className="rounded-2xl bg-card/85 p-4 ring-1 ring-border/40 backdrop-blur shadow-soft hc:bg-white hc:ring-black"
     >
-      {/* A1 — Renk Körlüğü */}
-      <div className="flex items-center gap-2">
-        <span className="text-xs text-white/70 whitespace-nowrap" id="cb-label">Renk Körlüğü</span>
-        <SegmentedControl
-          value={prefs.colorblindMode}
-          options={COLORBLIND_OPTIONS}
-          onChange={setColorblindMode}
-          groupLabel="Renk körlüğü modu"
-        />
-      </div>
+      <h3 className="mb-3 text-[11px] font-bold uppercase tracking-wider text-primary">
+        Erişilebilirlik Araçları
+      </h3>
 
-      {/* A2 — Yüksek Kontrast */}
-      <div className="flex items-center gap-2">
-        <span className="text-xs text-white/70 whitespace-nowrap">Yüksek Kontrast</span>
-        <Toggle
-          pressed={prefs.highContrast}
-          label="Yüksek kontrast modu"
-          onPressedChange={setHighContrast}
-        >
-          {prefs.highContrast ? 'Açık' : 'Kapalı'}
-        </Toggle>
-      </div>
+      <ul className="flex flex-col gap-3 text-xs">
+        <Row icon={<Eye className="size-3.5" />} label="Renk Körlüğü">
+          <SegmentedControl
+            value={prefs.colorblindMode}
+            options={COLORBLIND_OPTIONS}
+            onChange={setColorblindMode}
+            groupLabel="Renk körlüğü modu"
+          />
+        </Row>
 
-      {/* A6 — Font Büyüklüğü */}
-      <div className="flex items-center gap-2">
-        <span className="text-xs text-white/70 whitespace-nowrap">Yazı Boyutu</span>
-        <SegmentedControl
-          value={prefs.fontSize}
-          options={FONT_OPTIONS}
-          onChange={setFontSize}
-          groupLabel="Font büyüklüğü"
-        />
-      </div>
+        <Row icon={<Contrast className="size-3.5" />} label="Yüksek Kontrast">
+          <Toggle
+            pressed={prefs.highContrast}
+            label="Yüksek kontrast modu"
+            onPressedChange={setHighContrast}
+          >
+            {prefs.highContrast ? 'Açık' : 'Kapalı'}
+          </Toggle>
+        </Row>
 
-      {/* A3 — Sesli Okuma */}
-      <div className="flex items-center gap-2">
-        <span className="text-xs text-white/70 whitespace-nowrap">Sesli Okuma</span>
-        <Toggle
-          pressed={prefs.speechEnabled}
-          label="Sesli okuma"
-          onPressedChange={setSpeechEnabled}
-        >
-          {prefs.speechEnabled ? 'Açık' : 'Kapalı'}
-        </Toggle>
-      </div>
+        <Row icon={<Type className="size-3.5" />} label="Yazı Boyutu">
+          <SegmentedControl
+            value={prefs.fontSize}
+            options={FONT_OPTIONS}
+            onChange={setFontSize}
+            groupLabel="Font büyüklüğü"
+          />
+        </Row>
+
+        <Row icon={<Volume2 className="size-3.5" />} label="Sesli Okuma">
+          <Toggle
+            pressed={prefs.speechEnabled}
+            label="Sesli okuma"
+            onPressedChange={setSpeechEnabled}
+          >
+            {prefs.speechEnabled ? 'Açık' : 'Kapalı'}
+          </Toggle>
+        </Row>
+      </ul>
     </div>
+  )
+}
+
+function Row({
+  icon,
+  label,
+  children,
+}: {
+  icon: React.ReactNode
+  label: string
+  children: React.ReactNode
+}) {
+  return (
+    <li className="flex flex-wrap items-center gap-3">
+      <span
+        aria-hidden
+        className="grid size-7 shrink-0 place-items-center rounded-lg bg-muted text-foreground/70 hc:bg-black hc:text-white"
+      >
+        {icon}
+      </span>
+      <span className="flex-1 text-[12px] font-semibold text-foreground hc:text-black">
+        {label}
+      </span>
+      <div className="ml-auto">{children}</div>
+    </li>
   )
 }

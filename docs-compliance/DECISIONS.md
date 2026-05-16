@@ -36,6 +36,13 @@
 
 ## Kayıtlar
 
+### 2026-05-17 — `[UX]` Faz 12: light-theme + sidebar shell + lucide-react entegrasyonu
+
+- **Karar:** `design/2026_uyum/frontend-skeleton/` referans alınarak tüm `src/` UI light tema + sol sidebar + topbar paterne migrate edildi. Tailwind v3 korundu; design'in oklch CSS değişkenleri Tailwind v3 syntax'ına `var(--color-*)` bridge'i ile aktarıldı. `lucide-react@^0.575` stack listesine eklendi. `react-router-dom v7` tutuldu (TanStack Router'a geçilmedi). Yeni `/` (Landing public), `/dashboard`, `/community`, `/profile` route'ları açıldı. Onboarding 4 adıma çıkarıldı (1=welcome, 2=disability, 3=goal, 4=mobility+confirmation).
+- **Niye:** Hackathon sonrası UX-pro tasarımı entegre etme aşaması. Tailwind v4 + TanStack Router'a tam geçiş build sistemini yeniden yapmayı gerektirirdi; bridge yaklaşımı mevcut Faz 0-11 mantık katmanını (`lib/`, `hooks/`, `contexts/`, `types/`) sıfır değişiklikle koruyup sadece render katmanını yeniler. shadcn/ui de tam adopte edilmedi — design sadece Switch kullanıyor, 30+ Radix dep'ini gereksiz buldum.
+- **Etki:** `tailwind.config.ts`, `src/styles/globals.css`, `index.html` font preload, `package.json` (+lucide), `src/components/layout/` (AppShell/Sidebar/TopBar/Footer yeni), `src/pages/*` (10 sayfa yeniden yazıldı), `src/components/feature/*`, `src/components/facility/*`, `src/components/map/*`, `src/components/ui/UyumLogo.tsx`, `src/components/a11y/*`, `src/pages/Landing.tsx` + `Community.tsx` + `Profile.tsx` (yeni).
+- **Geri al kuralı:** Tailwind v3 → v4 geçişi gerekirse: globals.css `:root` blok atılır, tailwind.config.ts `colors: {...var(--*)...}` bridge silinir, skeleton'daki `@theme inline` formatına dönülür. Stack listesinden lucide'u çıkartırsa: tüm `<I className="size-N" />` jsx'leri emoji veya inline SVG'ye dönmesi gerekir.
+
 ### 2026-05-17 — `[PROCESS]` Faz 11: deploy-ready paket, gerçek Vercel deploy kullanıcıya bırakıldı
 
 - **Karar:** Faz 11 "Demo Prova + Final Deploy" maddesi iki katmana ayrıldı. Kod tarafı (vercel.json, runbook'lar, README, CLAUDE.md, demo script, n8n runbook, incident recovery, deploy runbook) tamamlandı ve `feature/faz11-demo-deploy` branch'inde. Vercel deploy + n8n config + 3 kez manuel prova kullanıcının elinde — Claude'un CLI'ından yapılamaz (auth + manuel browser akışı).

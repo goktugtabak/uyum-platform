@@ -27,11 +27,11 @@ export function FilterChip({
       {...ariaProps}
       className={
         'inline-flex items-center px-3 py-1.5 rounded-full text-xs font-body ' +
-        'border transition-colors ' +
-        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-uyum-purple ' +
+        'ring-1 transition-colors ' +
+        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ' +
         (active
-          ? 'bg-uyum-purple text-white border-uyum-purple hover:bg-uyum-blue'
-          : 'bg-white/5 text-white/80 border-white/15 hover:bg-white/10 hover:border-white/30')
+          ? 'bg-primary text-primary-foreground ring-primary hover:bg-primary-deep hc:bg-black hc:text-white hc:ring-black'
+          : 'bg-card text-foreground/80 ring-border/60 hover:ring-primary/40 hover:text-primary hc:bg-white hc:text-black hc:ring-black')
       }
     >
       {children}
@@ -52,7 +52,7 @@ export function FilterGroup({ label, multi = false, children }: FilterGroupProps
       role={multi ? 'group' : 'radiogroup'}
       aria-label={label}
     >
-      <legend className="text-xs uppercase tracking-wider text-white/50 font-heading mr-1">
+      <legend className="text-[11px] uppercase tracking-wider text-muted-foreground font-heading mr-2 hc:text-black">
         {label}:
       </legend>
       {children}
