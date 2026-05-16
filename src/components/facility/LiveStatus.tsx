@@ -76,7 +76,7 @@ export function LiveStatus({ facility }: Props) {
         )
       })}
       <div className="pt-2 border-t border-gray-100">
-        <DemoBadge label="Canlı durum demo verisidir — webhook Faz 9'da" />
+        <DemoBadge label="Canlı durum demo verisidir" />
       </div>
     </div>
   )

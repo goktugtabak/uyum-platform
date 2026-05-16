@@ -59,7 +59,7 @@ export function AccessibilityToolbar() {
         />
       </div>
 
-      {/* A3 — Sesli Okuma (Faz 7'de aktif olacak) */}
+      {/* A3 — Sesli Okuma */}
       <div className="flex items-center gap-2">
         <span className="text-xs text-white/70 whitespace-nowrap">Sesli Okuma</span>
         <Toggle

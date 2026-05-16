@@ -29,7 +29,6 @@ function AppRoutes() {
           path="/"
           element={
             <RequireProfile>
-              {/* Dashboard — Faz 7'de doldurulacak, şimdilik lazy import */}
               <DashboardPage />
             </RequireProfile>
           }
@@ -89,7 +88,6 @@ function AppRoutes() {
   )
 }
 
-// Lazy page imports — filled in M6/M7
 import { lazy, Suspense } from 'react'
 const OnboardingPage   = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
 const DashboardPage    = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))

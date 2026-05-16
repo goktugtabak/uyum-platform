@@ -102,7 +102,6 @@ function FacilityDetailInner({ facility, disabilityType, onDisabilityChange, pro
         <F3Guide facility={facility} profile={profile} />
       </section>
 
-      {/* Coaches at this facility — Faz 9 link */}
       {facility.coaches.length > 0 && (
         <section
           aria-labelledby="coaches-link-heading"
