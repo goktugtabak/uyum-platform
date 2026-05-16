@@ -62,7 +62,14 @@ function AppRoutes() {
             </RequireProfile>
           }
         />
-        <Route path="/facility/:id"  element={<NotImplemented phase="Faz 6" />} />
+        <Route
+          path="/facility/:id"
+          element={
+            <RequireProfile>
+              <FacilityDetailPage />
+            </RequireProfile>
+          }
+        />
         <Route path="/exercises"     element={<NotImplemented phase="Faz 9" />} />
         <Route path="/events"        element={<NotImplemented phase="Faz 9" />} />
         <Route path="/coaches"       element={<NotImplemented phase="Faz 9" />} />
@@ -77,7 +84,8 @@ import { lazy, Suspense } from 'react'
 const OnboardingPage   = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
 const DashboardPage    = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))
 const MatchSportPage   = lazy(() => import('./pages/MatchSport').then(m => ({ default: m.MatchSport })))
-const FacilityMapPage  = lazy(() => import('./pages/FacilityMap').then(m => ({ default: m.FacilityMap })))
+const FacilityMapPage    = lazy(() => import('./pages/FacilityMap').then(m => ({ default: m.FacilityMap })))
+const FacilityDetailPage = lazy(() => import('./pages/FacilityDetail').then(m => ({ default: m.FacilityDetail })))
 
 export default function App() {
   return (
