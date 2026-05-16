@@ -1,0 +1,62 @@
+[
+  {
+    "id": "t-001",
+    "facilityId": "f-ank-005",
+    "userAlias": "Kaplan_42",
+    "disability": "wheelchair",
+    "rating": 5,
+    "text": "Etimesgut Engelli Spor Merkezi gerçekten örnek bir tesis. Giriş rampası geniş, soyunma odaları tekerlekli sandalyeyle rahatça kullanılıyor. Personel de çok anlayışlı ve yardımsever.",
+    "date": "2026-04-12",
+    "helpfulCount": 18
+  },
+  {
+    "id": "t-002",
+    "facilityId": "f-ank-001",
+    "userAlias": "DenizkızıAnkara",
+    "disability": "visual",
+    "rating": 3,
+    "text": "Havuz pistleri iyi düzenlenmiş ama tesisin geneline görme engelliler için yeterli yönlendirme yok. Soyunma odasına kadar personel eşliği gerekti. Başlangıç için idare eder.",
+    "date": "2026-03-05",
+    "helpfulCount": 9
+  },
+  {
+    "id": "t-003",
+    "facilityId": "f-ank-010",
+    "userAlias": "OkçuFırtına",
+    "disability": "upper_limb",
+    "rating": 5,
+    "text": "Para okçuluk yapmak isteyenler için Gölbaşı tesisinden daha iyisini bulmak zor. Ekipmanlar protez ve kısmi el engeline göre ayarlanabiliyor. Can hoca da müthiş bir antrenör.",
+    "date": "2026-04-22",
+    "helpfulCount": 31
+  },
+  {
+    "id": "t-004",
+    "facilityId": "f-ank-004",
+    "userAlias": "BasketTeker88",
+    "disability": "wheelchair",
+    "rating": 4,
+    "text": "Tekerlekli basketbol sahasının zemini çok iyi, kaymıyor. Soyunma odaları da yeterince geniş. Sadece park yeri biraz uzak kalıyor, oraya kadar olan yolda bazı kaldırım problemleri var.",
+    "date": "2026-02-28",
+    "helpfulCount": 14
+  },
+  {
+    "id": "t-005",
+    "facilityId": "f-ank-008",
+    "userAlias": "SessizkuyuAnkara",
+    "disability": "hearing",
+    "rating": 4,
+    "text": "Goalball salonuna gittim. Zeynep hoca işaret dili biliyor, bu benim için çok büyük fark yaratıyor. Tesisin genel gürültü seviyesi de düşük, bu da pozitif. Soyunma odasında görsel uyarı yok.",
+    "date": "2026-03-18",
+    "helpfulCount": 22
+  },
+  {
+    "id": "t-006",
+    "facilityId": "f-ank-009",
+    "userAlias": "YogaMerkezim",
+    "disability": "wheelchair",
+    "rating": 4,
+    "text": "Çankaya stüdyosunun küçük ama erişilebilir bir alan olduğunu söyleyebilirim. Yoga matları tekerlekli sandalyeden yere geçiş için iyi konumlandırılmış. Fatma hoca egzersizleri bizim durumumuza göre adapte ediyor.",
+    "date": "2026-04-07",
+    "helpfulCount": 11
+  }
+]

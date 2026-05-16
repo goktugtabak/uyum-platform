@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Colorblind simulation filters — A11yContext bunlari html elementine bagliyor (Faz 2) */
+.cb-deuteranopia { filter: url('#cb-deuteranopia-filter'); }
+.cb-protanopia   { filter: url('#cb-protanopia-filter'); }
+.cb-tritanopia   { filter: url('#cb-tritanopia-filter'); }
+
+/* Dyslexia-friendly font — F8 ayarlarinda kullanilacak */
+.font-dyslexic {
+  font-family: 'OpenDyslexic', 'Lexend', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* High contrast mode — F8 */
+.high-contrast { filter: contrast(1.4); }
+
+/* Focus halkasi — Faz 0 sabit karari: outline:none yasak */
+*:focus-visible {
+  outline: 2px solid theme('colors.focus.ring');
+  outline-offset: 2px;
+}

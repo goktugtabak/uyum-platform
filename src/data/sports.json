@@ -1,0 +1,107 @@
+[
+  {
+    "id": "s-swim",
+    "name": "Yüzme",
+    "nameEn": "Swimming",
+    "category": "water",
+    "disabilityFitness": { "wheelchair": "high", "visual": "high", "hearing": "high", "upper_limb": "medium" }
+  },
+  {
+    "id": "s-aqua",
+    "name": "Su Aerobiği",
+    "nameEn": "Aqua Aerobics",
+    "category": "water",
+    "disabilityFitness": { "wheelchair": "high", "visual": "high", "hearing": "medium", "upper_limb": "high" }
+  },
+  {
+    "id": "s-wheelchair-basket",
+    "name": "Tekerlekli Sandalye Basketbolu",
+    "nameEn": "Wheelchair Basketball",
+    "category": "team",
+    "disabilityFitness": { "wheelchair": "high", "visual": "low", "hearing": "high", "upper_limb": "medium" }
+  },
+  {
+    "id": "s-wheelchair-tennis",
+    "name": "Tekerlekli Sandalye Tenisi",
+    "nameEn": "Wheelchair Tennis",
+    "category": "individual",
+    "disabilityFitness": { "wheelchair": "high", "visual": "medium", "hearing": "high", "upper_limb": "medium" }
+  },
+  {
+    "id": "s-goalball",
+    "name": "Goalball",
+    "nameEn": "Goalball",
+    "category": "team",
+    "disabilityFitness": { "wheelchair": "low", "visual": "high", "hearing": "medium", "upper_limb": "medium" }
+  },
+  {
+    "id": "s-boccia",
+    "name": "Boccia",
+    "nameEn": "Boccia",
+    "category": "individual",
+    "disabilityFitness": { "wheelchair": "high", "visual": "low", "hearing": "high", "upper_limb": "high" }
+  },
+  {
+    "id": "s-sitting-volleyball",
+    "name": "Oturarak Voleybol",
+    "nameEn": "Sitting Volleyball",
+    "category": "team",
+    "disabilityFitness": { "wheelchair": "medium", "visual": "medium", "hearing": "high", "upper_limb": "medium" }
+  },
+  {
+    "id": "s-athletics",
+    "name": "Atletizm",
+    "nameEn": "Athletics",
+    "category": "individual",
+    "disabilityFitness": { "wheelchair": "high", "visual": "high", "hearing": "high", "upper_limb": "medium" }
+  },
+  {
+    "id": "s-archery-para",
+    "name": "Para Okçuluk",
+    "nameEn": "Para Archery",
+    "category": "individual",
+    "disabilityFitness": { "wheelchair": "high", "visual": "low", "hearing": "high", "upper_limb": "medium" }
+  },
+  {
+    "id": "s-yoga",
+    "name": "Adaptif Yoga",
+    "nameEn": "Adaptive Yoga",
+    "category": "indoor",
+    "disabilityFitness": { "wheelchair": "high", "visual": "high", "hearing": "high", "upper_limb": "high" }
+  },
+  {
+    "id": "s-pilates",
+    "name": "Adaptif Pilates",
+    "nameEn": "Adaptive Pilates",
+    "category": "indoor",
+    "disabilityFitness": { "wheelchair": "high", "visual": "high", "hearing": "high", "upper_limb": "medium" }
+  },
+  {
+    "id": "s-strength",
+    "name": "Kuvvet Antrenmanı",
+    "nameEn": "Strength Training",
+    "category": "indoor",
+    "disabilityFitness": { "wheelchair": "high", "visual": "high", "hearing": "high", "upper_limb": "medium" }
+  },
+  {
+    "id": "s-judo-para",
+    "name": "Para Judo",
+    "nameEn": "Para Judo",
+    "category": "adaptive",
+    "disabilityFitness": { "wheelchair": "low", "visual": "high", "hearing": "medium", "upper_limb": "low" }
+  },
+  {
+    "id": "s-football",
+    "name": "Ampute Futbol",
+    "nameEn": "Amputee Football",
+    "category": "team",
+    "disabilityFitness": { "wheelchair": "low", "visual": "low", "hearing": "high", "upper_limb": "high" }
+  },
+  {
+    "id": "s-waterpolo",
+    "name": "Su Topu",
+    "nameEn": "Water Polo",
+    "category": "water",
+    "disabilityFitness": { "wheelchair": "medium", "visual": "medium", "hearing": "medium", "upper_limb": "medium" }
+  }
+]
