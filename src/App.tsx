@@ -46,7 +46,14 @@ function AppRoutes() {
           }
         />
         <Route path="/onboarding" element={<OnboardingPage />} />
-        <Route path="/match"         element={<NotImplemented phase="Faz 4" />} />
+        <Route
+          path="/match"
+          element={
+            <RequireProfile>
+              <MatchSportPage />
+            </RequireProfile>
+          }
+        />
         <Route path="/map"           element={<NotImplemented phase="Faz 5" />} />
         <Route path="/facility/:id"  element={<NotImplemented phase="Faz 6" />} />
         <Route path="/exercises"     element={<NotImplemented phase="Faz 9" />} />
@@ -62,6 +69,7 @@ function AppRoutes() {
 import { lazy, Suspense } from 'react'
 const OnboardingPage = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
 const DashboardPage  = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))
+const MatchSportPage = lazy(() => import('./pages/MatchSport').then(m => ({ default: m.MatchSport })))
 
 export default function App() {
   return (
