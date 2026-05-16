@@ -1,5 +1,4 @@
 import type { Facility, UserProfile } from '../types'
-import { containsRedFlag } from './redflag'
 import { fallbackGuide } from './f3-fallback'
 import type { FallbackGuide } from './f3-fallback'
 
@@ -45,16 +44,10 @@ export async function fetchF3Guide(
   profile: UserProfile,
   facility: Facility,
 ): Promise<F3GuideResult> {
-  // Red flag check — if the facility description triggers a red flag, skip n8n entirely
-  const combinedText = [
-    facility.name,
-    facility.district,
-    facility.contact.address ?? '',
-  ].join(' ')
-
-  if (containsRedFlag(combinedText)) {
-    return { ok: true, guide: '', source: 'fallback', redFlag: true }
-  }
+  // Red flag enforcement lives in n8n (see n8n response handling below). The
+  // frontend has no symptom input surface yet, so a client-side scan of facility
+  // metadata never matches and was misleading. If a symptom textarea is later
+  // added to F3Guide, run containsRedFlag(userText) here before calling n8n.
 
   // Fallback trigger 1: env var not defined
   const webhookUrl = import.meta.env.VITE_N8N_F3_WEBHOOK_URL as string | undefined

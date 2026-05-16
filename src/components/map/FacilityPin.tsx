@@ -26,8 +26,17 @@ const COLOR_LABELS: Record<ScoreColor, string> = {
   gray:   'bilgi yetersiz',
 }
 
+// Status glyph as a small badge on each pin so color is never the only signal.
+const STATUS_GLYPH: Record<ScoreColor, string> = {
+  green:  '✓',
+  yellow: '~',
+  red:    '✕',
+  gray:   '?',
+}
+
 function buildDivIcon(
   color: string,
+  glyph: string,
   icon: string,
   isHighlighted: boolean,
   isDimmed: boolean,
@@ -35,15 +44,14 @@ function buildDivIcon(
 ): L.DivIcon {
   const size = 40
   const opacity = isDimmed ? 0.45 : 1
-  const ringStyle = isHighlighted
-    ? `box-shadow: 0 0 0 3px #4C2A85, 0 0 0 5px rgba(76,42,133,0.4);`
-    : ''
+  const highlightShadow = `0 0 0 3px #4C2A85, 0 0 0 5px rgba(76,42,133,0.4)`
 
   const html = `
     <div
       role="img"
       aria-label="${ariaLabel.replace(/"/g, '&quot;')}"
       style="
+        position: relative;
         width: ${size}px;
         height: ${size}px;
         border-radius: 50%;
@@ -55,10 +63,30 @@ function buildDivIcon(
         font-size: 18px;
         opacity: ${opacity};
         cursor: pointer;
-        ${ringStyle}
-        box-shadow: ${isHighlighted ? `0 0 0 3px #4C2A85, 0 0 0 5px rgba(76,42,133,0.4)` : '0 2px 6px rgba(0,0,0,0.4)'};
+        box-shadow: ${isHighlighted ? highlightShadow : '0 2px 6px rgba(0,0,0,0.4)'};
       "
-    >${icon}</div>
+    >
+      <span aria-hidden="true">${icon}</span>
+      <span
+        aria-hidden="true"
+        style="
+          position: absolute;
+          top: -6px;
+          right: -6px;
+          min-width: 16px;
+          height: 16px;
+          padding: 0 3px;
+          border-radius: 999px;
+          background: ${color};
+          color: #fff;
+          font-size: 11px;
+          line-height: 16px;
+          text-align: center;
+          font-weight: 700;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        "
+      >${glyph}</span>
+    </div>
   `
 
   return L.divIcon({
@@ -73,12 +101,13 @@ export function FacilityPin({ facility, disabilityType, isHighlighted, isDimmed 
   const navigate = useNavigate()
   const { overall } = useFacilityScore(facility, disabilityType)
   const color    = COLOR_HEX[overall]
+  const glyph    = STATUS_GLYPH[overall]
   const sportId  = facility.sports[0] ?? ''
   const icon     = getSportIcon(sportId)
   const sportLabel = getSportLabel(sportId)
   const ariaLabel  = `${facility.name} — erişilebilirlik: ${COLOR_LABELS[overall]}, ana spor: ${sportLabel}`
 
-  const divIcon = buildDivIcon(color, icon, isHighlighted, isDimmed, ariaLabel)
+  const divIcon = buildDivIcon(color, glyph, icon, isHighlighted, isDimmed, ariaLabel)
 
   return (
     <Marker

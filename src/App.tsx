@@ -3,6 +3,8 @@ import { AccessibilityProvider } from './contexts/AccessibilityContext'
 import { ProfileProvider } from './contexts/ProfileContext'
 import { useProfile } from './contexts/ProfileContext'
 import { AppShell } from './components/layout/AppShell'
+import { ErrorBoundary } from './components/layout/ErrorBoundary'
+import { Spinner } from './components/ui/Spinner'
 
 function RequireProfile({ children }: { children: React.ReactNode }) {
   const { hasProfile } = useProfile()
@@ -29,7 +31,6 @@ function AppRoutes() {
           path="/"
           element={
             <RequireProfile>
-              {/* Dashboard — Faz 7'de doldurulacak, şimdilik lazy import */}
               <DashboardPage />
             </RequireProfile>
           }
@@ -89,7 +90,6 @@ function AppRoutes() {
   )
 }
 
-// Lazy page imports — filled in M6/M7
 import { lazy, Suspense } from 'react'
 const OnboardingPage   = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
 const DashboardPage    = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))
@@ -102,14 +102,22 @@ const CoachDirectoryPage  = lazy(() => import('./pages/CoachDirectory').then(m =
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AccessibilityProvider>
-        <ProfileProvider>
-          <Suspense fallback={<div className="p-8 text-center">Yükleniyor...</div>}>
-            <AppRoutes />
-          </Suspense>
-        </ProfileProvider>
-      </AccessibilityProvider>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AccessibilityProvider>
+          <ProfileProvider>
+            <Suspense
+              fallback={
+                <div className="min-h-[40vh] flex items-center justify-center p-8">
+                  <Spinner label="Sayfa yükleniyor" />
+                </div>
+              }
+            >
+              <AppRoutes />
+            </Suspense>
+          </ProfileProvider>
+        </AccessibilityProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }

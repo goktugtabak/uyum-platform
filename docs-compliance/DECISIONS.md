@@ -36,6 +36,41 @@
 
 ## Kayıtlar
 
+### 2026-05-16 — `[SCOPE]` Faz 10: F3 red flag enforcement n8n tarafında, frontend client-side kontrol kaldırıldı
+
+- **Karar:** `f3-service.ts`'in girişindeki `containsRedFlag(facility.name + district + address)` çağrısı kaldırıldı. F3'te kullanıcıdan semptom textarea'sı alınmıyor; tesis metadata'sını red flag listesiyle karşılaştırmak hiçbir zaman pozitif vermez ve QA audit'inde dead code olarak işaretlendi. Red flag enforcement n8n workflow tarafında kalır; response `error:'RED_FLAG'` handler'ı yerinde.
+- **Niye:** Build plan §FAZ 7 "her LLM çağrısı öncesi kullanıcı girdisi kontrol edilir" satırı bir input surface varsayar; mevcut F3Guide tek "Oluştur" butonu olarak ship oldu. Misleading kod jüri sorduğunda zorlaşır — dürüstlük > gösteriş. `src/lib/redflag.ts` lib'i korunur: frontend entegrasyonunda textarea gelirse `containsRedFlag(userText)` yine kullanılır, sadece servis girişindeki yanlış hedef silindi.
+- **Etki:** `src/lib/f3-service.ts` (import + 4 satır kontrol kaldırıldı, intent yorumu eklendi).
+- **Geri al kuralı:** Frontend entegrasyonunda F3'e semptom textarea eklenirse `containsRedFlag(userText)` çağrısını `fetchF3Guide`'in başına geri koy. Lib hazır bekliyor.
+
+### 2026-05-16 — `[UX]` Faz 10: LiveStatus dot color sadece status'a bağlı, freshness ayrı text
+
+- **Karar:** LiveStatus row dot color artık yalnız `entry.status` ile belirlenir (true=verified yeşili, false=none kırmızısı, null=unknown grisi). Freshness (taze/son ay/eski) ayrı bir text etiketi olarak `relTime` yanına yerleşir. Outer `<div>` `<ul role="list">` + `<li>` olarak değişti, `aria-label`-on-div pattern'i içerik metnine dönüştü.
+- **Niye:** QA audit `LiveStatus` dot rengininin "freshness" + "status" iki anlam taşıdığını yakaladı — yeşil aynı tesiste hem "taze veri" hem "yerinde" anlamına geliyordu, screen reader ile sighted user farklı bilgi alıyordu. Rengi status'a kilitlemek anlam tekleştirir; freshness metin olarak hâlâ erişilebilir.
+- **Etki:** `src/components/facility/LiveStatus.tsx`.
+- **Geri al kuralı:** Frontend entegrasyonunda LiveStatus tasarımı freshness'i ayrı bir renk skalasıyla göstermek isterse iki ayrı dot (status + freshness) eklenir; aynı dot iki anlam taşımayacak.
+
+### 2026-05-16 — `[UX]` Faz 10: harita pin'lerinde renk + glyph çift kodlaması
+
+- **Karar:** FacilityPin / FacilityList / MapLegend erişilebilirlik durumunu renk + glyph (✓ / ~ / ✕ / ?) + metin üçlüsüyle gösterir. Pin DivIcon'a sağ üstte 16px badge eklendi; lejant ve liste de aynı glyph'i kullanır.
+- **Niye:** Build plan §FAZ 10 madde 10–11 "renk-tek-bilgi yasak" denetimi. Yüksek kontrast + renk körlüğü filtresi açıkken yeşil/sarı/kırmızı/gri arasında ayırt etmeyi sadece çevre rengine bağlamak A11y açığıydı. Glyph kullanıcı dostu (✓/~/✕/?) ve mevcut aria-label akışını bozmaz.
+- **Etki:** `src/components/map/FacilityPin.tsx`, `src/components/map/FacilityList.tsx`, `src/components/map/MapLegend.tsx`.
+- **Geri al kuralı:** Glyph görsel olarak kalabalık görünürse pin badge'i kaldırılır, sadece liste + lejant glyph'i kalır.
+
+### 2026-05-16 — `[TECH]` Faz 10: ErrorBoundary App'i sarar, demo'da hata gizlenir
+
+- **Karar:** Yeni `ErrorBoundary` component'i `App` köküne yerleştirildi. Runtime hatasında "Bir şey ters gitti" UI + ana sayfaya dön CTA gösterilir; hata detayı sadece console'a yazılır.
+- **Niye:** Build plan §FAZ 10 madde 7 — demo'da React error overlay jüriye karşı kırmızı bayrak. `getDerivedStateFromError` + `componentDidCatch` yeterli; production sentry / error reporting kapsam dışı (CLAUDE.md "backend yok").
+- **Etki:** `src/components/layout/ErrorBoundary.tsx`, `src/App.tsx`.
+- **Geri al kuralı:** Hata loglamada eksik kalıyorsa `componentDidCatch` içine breadcrumb genişletilir; çıkarmak için App'ten unwrap yeterli.
+
+### 2026-05-16 — `[UX]` Faz 10: route geçişlerinde fade + 10px translateY, `prefers-reduced-motion` korumalı
+
+- **Karar:** `RouteTransition` component'i AppShell `<Outlet />`'i sarar; framer-motion ile 200ms fade + 10px Y offset uygular. `useReducedMotion()` true ise animasyon devre dışı.
+- **Niye:** Build plan §FAZ 10 madde 1. Tek sayfa uygulamada route değişimi "snap" hissi yaratıyor; küçük bir geçişe demo akışı için tutarlılık katar. Reduced-motion kullanıcılarına sıçramak A11y ihlali olur, korumayı baştan koyduk.
+- **Etki:** `src/components/layout/RouteTransition.tsx`, `src/components/layout/AppShell.tsx`.
+- **Geri al kuralı:** Frame drop olursa duration 100ms'e düşürülür veya component App'ten kaldırılır — Outlet altı stabil kalır.
+
 ### 2026-05-16 — `[UX]` Faz 9 F8: koç dizini ?facility= query desteği eklendi (spec dışı extension)
 
 - **Karar:** CoachDirectory'ye `?facility=<id>` query param desteği eklendi. Build planı sadece `?sport=` ister. Ek query, FacilityDetail'deki "Bu tesiste çalışan koçlar" linkinin gerçek bir varış sayfası vermesi için zorunlu — aksi halde link kullanıcıyı filtre uygulanmamış 8-koç listesine atardı.

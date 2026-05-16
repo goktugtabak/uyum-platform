@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { Header } from './Header'
 import { Footer } from './Footer'
+import { RouteTransition } from './RouteTransition'
 
 export function AppShell() {
   return (
@@ -24,7 +25,9 @@ export function AppShell() {
       <Header />
 
       <main id="main-content" className="flex-1">
-        <Outlet />
+        <RouteTransition>
+          <Outlet />
+        </RouteTransition>
       </main>
 
       <Footer />

@@ -12,6 +12,7 @@ import { AccessibilityLabelList } from '../components/facility/AccessibilityLabe
 import { LiveStatus } from '../components/facility/LiveStatus'
 import { Testimonies } from '../components/feature/Testimonies'
 import { F3Guide } from '../components/feature/F3Guide'
+import { Spinner } from '../components/ui/Spinner'
 
 function FacilityDetailInner({ facility, disabilityType, onDisabilityChange, profile }: {
   facility: Facility
@@ -22,14 +23,14 @@ function FacilityDetailInner({ facility, disabilityType, onDisabilityChange, pro
   const { dimensions } = useFacilityScore(facility, disabilityType)
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-8">
+    <div className="max-w-4xl mx-auto px-4 py-4 md:py-6 space-y-6 md:space-y-8">
       {/* Hero block */}
       <section aria-labelledby="facility-heading">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <h1
               id="facility-heading"
-              className="text-2xl font-heading font-bold text-gray-900 hc:text-white"
+              className="text-xl md:text-2xl font-heading font-bold text-gray-900 hc:text-white"
             >
               {facility.name}
             </h1>
@@ -102,7 +103,6 @@ function FacilityDetailInner({ facility, disabilityType, onDisabilityChange, pro
         <F3Guide facility={facility} profile={profile} />
       </section>
 
-      {/* Coaches at this facility — Faz 9 link */}
       {facility.coaches.length > 0 && (
         <section
           aria-labelledby="coaches-link-heading"
@@ -160,7 +160,11 @@ export function FacilityDetail() {
   }, [])
 
   if (loading) {
-    return <div className="p-8 text-center text-gray-500">Yükleniyor...</div>
+    return (
+      <div className="min-h-[40vh] flex items-center justify-center p-8">
+        <Spinner label="Tesis yükleniyor" />
+      </div>
+    )
   }
 
   const facility = facilities.find(f => f.id === id)
