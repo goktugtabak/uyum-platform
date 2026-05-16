@@ -44,7 +44,7 @@ export function TopBar() {
 
   return (
     <header
-      className="sticky top-0 z-30 flex items-center gap-3 bg-background/70 px-4 py-4 backdrop-blur-xl md:px-6 lg:px-12"
+      className="sticky top-0 z-30 flex items-center gap-3 border-b border-gray-100 bg-white px-4 py-4 md:px-6 lg:px-12"
       role="banner"
     >
       {/* Mobile menu */}
@@ -53,26 +53,27 @@ export function TopBar() {
         aria-label="Menü"
         aria-expanded={showMenu}
         onClick={() => setShowMenu(v => !v)}
-        className="grid size-11 place-items-center rounded-full bg-card ring-1 ring-border/60 lg:hidden"
+        className="grid size-11 place-items-center rounded-full border border-gray-100 bg-white text-[#320E3B] hover:bg-gray-50 lg:hidden"
       >
-        {showMenu ? <X className="size-5" /> : <Menu className="size-5" />}
+        {showMenu ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
       </button>
 
-      <Link to="/" className="lg:hidden" aria-label="UYUM Ana Sayfa">
+      <Link to="/" className="flex items-center gap-2 lg:hidden" aria-label="UYUM Ana Sayfa">
         <UyumLogo size={28} />
+        <span className="text-lg font-bold text-[#320E3B]">UYUM</span>
       </Link>
 
       <div className="ml-auto flex items-center gap-2.5 lg:ml-0 lg:flex-1">
         <div className="relative hidden max-w-md flex-1 sm:block">
           <Search
             aria-hidden
-            className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+            className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-gray-400"
           />
           <input
             type="search"
             placeholder="Tesis, spor, etkinlik ara"
             aria-label="Site içinde ara"
-            className="h-11 w-full rounded-full bg-card pl-11 pr-4 text-sm outline-none ring-1 ring-border/60 transition focus:ring-2 focus:ring-primary/30 hc:bg-white hc:ring-black"
+            className="h-11 w-full rounded-full border border-gray-100 bg-white pl-11 pr-4 text-sm text-[#320E3B] outline-none transition focus:border-[#320E3B] hc:bg-white hc:border-black"
           />
         </div>
       </div>
@@ -80,11 +81,11 @@ export function TopBar() {
       {profile && (
         <button
           type="button"
-          className="hidden h-11 items-center gap-2 rounded-full bg-card px-4 text-sm font-medium ring-1 ring-border/60 hover:ring-primary/40 sm:flex hc:bg-white hc:ring-black"
+          className="hidden h-11 items-center gap-2 rounded-full border border-gray-100 bg-white px-4 text-sm font-medium text-[#320E3B] hover:border-[#320E3B] sm:flex hc:bg-white hc:border-black"
         >
-          <MapPin aria-hidden className="size-4 text-primary" />
+          <MapPin aria-hidden className="size-4 text-[#320E3B]" />
           <span>{profile.city}</span>
-          <ChevronDown aria-hidden className="size-3.5 text-muted-foreground" />
+          <ChevronDown aria-hidden className="size-3.5 text-gray-400" />
         </button>
       )}
 
@@ -95,10 +96,8 @@ export function TopBar() {
           aria-expanded={showA11y}
           aria-haspopup="dialog"
           onClick={() => setShowA11y(v => !v)}
-          className={`grid h-11 w-11 place-items-center rounded-full transition ${
-            showA11y
-              ? 'bg-primary-deep text-primary-foreground'
-              : 'bg-primary text-primary-foreground hover:bg-primary-deep'
+          className={`grid h-11 w-11 place-items-center rounded-full text-white transition ${
+            showA11y ? 'bg-[#4C2A85]' : 'bg-[#320E3B] hover:opacity-90'
           }`}
         >
           <Accessibility className="size-5" aria-hidden />
@@ -117,28 +116,28 @@ export function TopBar() {
       <Link
         to="/profile"
         aria-label="Bildirimler"
-        className="relative grid h-11 w-11 place-items-center rounded-full bg-card ring-1 ring-border/60 hover:ring-primary/40 hc:bg-white hc:ring-black"
+        className="relative grid h-11 w-11 place-items-center rounded-full border border-gray-100 bg-white text-[#320E3B] hover:border-[#320E3B] hc:bg-white hc:border-black"
       >
         <Bell aria-hidden className="size-[18px]" />
-        <span aria-hidden className="absolute right-3 top-3 size-2 rounded-full bg-destructive ring-2 ring-background" />
+        <span aria-hidden className="absolute right-3 top-3 size-2 rounded-full bg-red-500 ring-2 ring-white" />
       </Link>
 
       {profile && (
         <Link
           to="/profile"
           aria-label="Profilim"
-          className="hidden h-11 items-center gap-2 rounded-full bg-card pl-1 pr-3 ring-1 ring-border/60 hover:ring-primary/40 sm:flex hc:bg-white hc:ring-black"
+          className="hidden h-11 items-center gap-2 rounded-full border border-gray-100 bg-white pl-1 pr-3 hover:border-[#320E3B] sm:flex hc:bg-white hc:border-black"
         >
           <span
             aria-hidden
-            className="grid size-9 place-items-center rounded-full bg-gradient-brand text-sm font-bold text-primary-foreground"
+            className="grid size-9 place-items-center rounded-full bg-[#320E3B] text-sm font-bold text-white"
           >
             {DISABILITY_LABELS[profile.disabilityType]?.[0] ?? 'U'}
           </span>
-          <span className="text-sm font-semibold">
+          <span className="text-sm font-semibold text-[#320E3B]">
             {DISABILITY_LABELS[profile.disabilityType]}
           </span>
-          <ChevronDown aria-hidden className="size-3.5 text-muted-foreground" />
+          <ChevronDown aria-hidden className="size-3.5 text-gray-400" />
         </Link>
       )}
 
@@ -147,7 +146,7 @@ export function TopBar() {
         <div
           role="dialog"
           aria-label="Mobil menü"
-          className="absolute left-0 right-0 top-full mt-1 mx-3 rounded-3xl bg-card p-3 shadow-card ring-1 ring-border/40 lg:hidden"
+          className="absolute left-0 right-0 top-full mt-1 mx-3 rounded-3xl border border-gray-100 bg-white p-3 shadow-lg lg:hidden"
         >
           <ul className="flex flex-col gap-0.5">
             {MOBILE_NAV.map(item => {
@@ -157,7 +156,7 @@ export function TopBar() {
                   <Link
                     to={item.to}
                     onClick={() => setShowMenu(false)}
-                    className="flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium text-foreground/75 hover:bg-primary/10 hover:text-primary"
+                    className="flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium text-gray-500 hover:bg-[#320E3B] hover:text-white"
                   >
                     <Icon aria-hidden className="size-[18px]" />
                     {item.label}

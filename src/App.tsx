@@ -41,8 +41,9 @@ function AppRoutes() {
   return (
     <Routes>
       {/* Public routes — no shell */}
-      <Route path="/"           element={<LandingPage />} />
-      <Route path="/onboarding" element={<OnboardingPage />} />
+      <Route path="/"                     element={<LandingPage />} />
+      <Route path="/onboarding"           element={<OnboardingPage />} />
+      <Route path="/onboarding/:step"     element={<OnboardingPage />} />
 
       {/* Authenticated app shell */}
       <Route element={<AppShell />}>

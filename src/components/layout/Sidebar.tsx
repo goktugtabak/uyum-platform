@@ -23,10 +23,11 @@ export function Sidebar() {
   return (
     <aside
       aria-label="Ana navigasyon"
-      className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-7 px-5 py-7 lg:flex"
+      className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col gap-7 border-r border-gray-100 bg-white px-5 py-7 lg:flex"
     >
-      <Link to="/" className="px-1" aria-label="UYUM Ana sayfa">
+      <Link to="/" className="flex items-center gap-2 px-1" aria-label="UYUM Ana sayfa">
         <UyumLogo />
+        <span className="text-xl font-bold text-[#320E3B]">UYUM</span>
       </Link>
 
       <nav className="flex flex-col gap-1">
@@ -42,21 +43,12 @@ export function Sidebar() {
               aria-current={active ? 'page' : undefined}
               className={`group relative flex items-center gap-3 rounded-full px-4 py-2.5 text-sm transition-all hc:text-black ${
                 active
-                  ? 'bg-gradient-to-r from-primary/15 via-primary/8 to-transparent font-semibold text-primary hc:bg-black/10'
-                  : 'font-medium text-foreground/65 hover:text-primary'
+                  ? 'bg-[#320E3B] font-semibold text-white hc:bg-black hc:text-white'
+                  : 'font-medium text-gray-500 hover:bg-gray-50 hover:text-[#320E3B]'
               }`}
             >
-              {active && (
-                <span
-                  aria-hidden
-                  className="absolute left-0 top-1/2 h-7 w-1 -translate-y-1/2 rounded-full bg-primary"
-                />
-              )}
               <Icon className="size-[18px]" strokeWidth={active ? 2.4 : 1.8} aria-hidden />
               <span>{item.label}</span>
-              {active && (
-                <span aria-hidden className="ml-auto size-1.5 rounded-full bg-primary" />
-              )}
             </Link>
           )
         })}
@@ -64,18 +56,18 @@ export function Sidebar() {
 
       <div className="mt-auto flex flex-col gap-4">
         <AccessibilityToolbar />
-        <div className="flex items-center gap-3 rounded-2xl bg-mint/40 px-4 py-3 hc:bg-black/10">
+        <div className="flex items-center gap-3 rounded-2xl bg-[#E0F7FA] px-4 py-3 hc:bg-black/10">
           <span
             aria-hidden
-            className="grid size-9 place-items-center rounded-full bg-mint text-mint-foreground"
+            className="grid size-9 place-items-center rounded-full bg-[#00BCD4] text-white"
           >
             <Headphones className="size-4" />
           </span>
           <div className="text-xs">
-            <div className="font-semibold text-foreground">Yardıma mı ihtiyacın var?</div>
+            <div className="font-semibold text-[#320E3B]">Yardıma mı ihtiyacın var?</div>
             <a
               href="mailto:hello@uyum.app"
-              className="text-mint-foreground/90 underline-offset-2 hover:underline"
+              className="text-[#320E3B]/80 underline-offset-2 hover:underline"
             >
               Bize ulaş
             </a>

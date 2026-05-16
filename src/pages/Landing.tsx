@@ -1,277 +1,224 @@
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  ArrowRight, Play, MapPin, Activity, Calendar, GraduationCap, Users, Menu,
-  Footprints, ShoppingBag, Waves,
+  Activity, ArrowRight, Calendar, MapPin, Menu, Play, User, Users,
 } from 'lucide-react'
-import { UyumLogo } from '../components/ui/UyumLogo'
+import type { LucideIcon } from 'lucide-react'
 import { useProfile } from '../contexts/ProfileContext'
-import heroAthletes from '../assets/hero-athletes.png'
+
+function UyumLogo() {
+  return (
+    <svg width={40} height={44} viewBox="0 0 40 44" fill="none" aria-hidden>
+      <ellipse cx={16} cy={22} rx={10} ry={18} fill="#DDFBD2" transform="rotate(-15 16 22)" />
+      <ellipse cx={24} cy={22} rx={10} ry={18} fill="#4C2A85" opacity={0.9} transform="rotate(15 24 22)" />
+    </svg>
+  )
+}
+
+function ArcUnderline({ color = '#4C2A85', width = 200 }: { color?: string; width?: number }) {
+  return (
+    <svg width={width} height={12} viewBox={`0 0 ${width} 12`} fill="none" aria-hidden>
+      <path
+        d={`M 4 8 Q ${width / 2} 0 ${width - 4} 8`}
+        stroke={color}
+        strokeWidth={6}
+        strokeLinecap="round"
+        fill="none"
+      />
+    </svg>
+  )
+}
+
+function Navbar({ onPrimary }: { onPrimary: () => void }) {
+  const links: Array<{ label: string; to: string }> = [
+    { label: 'Tesisler',    to: '/map'      },
+    { label: 'Sporlar',     to: '/match'    },
+    { label: 'Etkinlikler', to: '/events'   },
+    { label: 'Koçlar',      to: '/coaches'  },
+    { label: 'Hakkımızda',  to: '#hakkimizda' },
+  ]
+  return (
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2" aria-label="UYUM Ana sayfa">
+          <UyumLogo />
+          <span className="text-xl font-bold text-[#320E3B]">UYUM</span>
+        </Link>
+        <div className="hidden md:flex items-center gap-8">
+          {links.map(({ label, to }) =>
+            to.startsWith('#') ? (
+              <a key={label} href={to} className="text-sm text-gray-500 hover:text-[#320E3B] transition-colors">
+                {label}
+              </a>
+            ) : (
+              <Link key={label} to={to} className="text-sm text-gray-500 hover:text-[#320E3B] transition-colors">
+                {label}
+              </Link>
+            ),
+          )}
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={onPrimary}
+            className="text-sm text-[#320E3B] hover:opacity-80 transition-opacity"
+          >
+            Giriş yap
+          </button>
+          <button
+            type="button"
+            aria-label="Menü"
+            onClick={onPrimary}
+            className="w-10 h-10 rounded-full bg-[#320E3B] flex items-center justify-center hover:opacity-90 transition-opacity"
+          >
+            <Menu className="w-5 h-5 text-white" aria-hidden />
+          </button>
+        </div>
+      </div>
+    </nav>
+  )
+}
+
+function HeroSection({ onPrimary, onSecondary }: { onPrimary: () => void; onSecondary: () => void }) {
+  return (
+    <div className="bg-[#f8f7f7]">
+      <section className="max-w-7xl mx-auto flex items-stretch min-h-[580px]">
+        <div className="w-[38%] flex-shrink-0 flex flex-col justify-center py-16 pl-6 pr-10">
+          <div className="mb-6">
+            <h1 className="text-6xl font-extrabold text-[#320E3B] leading-tight uppercase">
+              HAREKET
+              <br />
+              HERKES İÇİN.
+            </h1>
+            <h2 className="text-6xl font-extrabold text-[#6B7FD7] leading-tight uppercase mt-1">
+              UYUM
+              <br />
+              SENİN İÇİN.
+            </h2>
+            <div className="mt-3">
+              <ArcUnderline width={260} />
+            </div>
+          </div>
+          <p className="text-base text-gray-500 max-w-sm mb-8 leading-relaxed">
+            Engel tanımayan bir spor deneyimi için doğru tesisleri, sporları ve insanları bir araya getiriyoruz.
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <button
+              type="button"
+              onClick={onPrimary}
+              className="flex items-center gap-2 bg-[#320E3B] text-white rounded-full px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              <ArrowRight className="w-4 h-4" aria-hidden />
+              YAKININDAKİ TESİSLERİ KEŞFET
+            </button>
+            <button
+              type="button"
+              onClick={onSecondary}
+              className="flex items-center gap-2 border border-[#320E3B] text-[#320E3B] rounded-full px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
+            >
+              <Play className="w-4 h-4" aria-hidden />
+              NASIL ÇALIŞIR?
+            </button>
+          </div>
+        </div>
+
+        <div className="flex-1 flex flex-col justify-end">
+          <img
+            src="/hero-image.png"
+            alt="UYUM ile spor yapan adaptif sporcular"
+            className="w-full block"
+          />
+        </div>
+      </section>
+    </div>
+  )
+}
+
+type Feature = {
+  label: string
+  desc: string
+  icon: LucideIcon
+  iconColor: string
+  bgColor: string
+  to: string
+}
+
+const features: Feature[] = [
+  { label: 'Tesisleri keşfet',   desc: 'Erişilebilir tesisleri bul',     icon: MapPin,   iconColor: '#00BCD4', bgColor: '#E0F7FA', to: '/map'       },
+  { label: 'Sporları keşfet',    desc: 'Sana uygun sporları keşfet',     icon: Activity, iconColor: '#43A047', bgColor: '#E8F5E9', to: '/match'     },
+  { label: 'Etkinliklere katıl', desc: 'Yakındaki etkinliklere katıl',   icon: Calendar, iconColor: '#7B2FBE', bgColor: '#F3E5F5', to: '/events'    },
+  { label: 'Koçlarla tanış',     desc: 'Uzman koçlarla çalış',           icon: User,     iconColor: '#FF6B35', bgColor: '#FFF3E0', to: '/coaches'   },
+  { label: 'Topluluğa katıl',    desc: 'Spor topluluğuna dahil ol',      icon: Users,    iconColor: '#00897B', bgColor: '#E0F2F1', to: '/community' },
+]
+
+function FeaturesSection() {
+  return (
+    <section id="hakkimizda" className="max-w-7xl mx-auto px-6 py-16">
+      <div className="flex gap-16 items-start flex-wrap lg:flex-nowrap">
+        <div className="w-64 flex-shrink-0">
+          <h2 className="text-3xl font-extrabold text-[#320E3B] max-w-[200px] leading-tight uppercase">
+            UYUM İLE NELER YAPABİLİRSİN?
+          </h2>
+          <div className="mt-3">
+            <ArcUnderline color="#4C2A85" width={180} />
+          </div>
+        </div>
+        <div className="flex-1 flex gap-8 flex-wrap">
+          {features.map(({ label, desc, icon: Icon, iconColor, bgColor, to }) => (
+            <Link
+              key={label}
+              to={to}
+              className="group flex flex-col items-center text-center gap-3 w-28 transition hover:-translate-y-0.5"
+            >
+              <div
+                className="w-16 h-16 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: bgColor }}
+              >
+                <Icon className="w-7 h-7" style={{ color: iconColor }} aria-hidden />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-[#320E3B]">{label}</p>
+                <p className="text-xs text-gray-500 mt-1">{desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className="max-w-7xl mx-auto px-6 py-10">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-8 text-sm text-gray-500">
+        <div className="flex items-center gap-2">
+          <UyumLogo />
+          <span className="font-bold text-[#320E3B]">UYUM</span>
+        </div>
+        <p>© 2026 UYUM — METU Sports Tech Hackathon</p>
+        <div className="flex gap-6">
+          <a href="#" className="hover:text-[#320E3B]">KVKK</a>
+          <a href="#" className="hover:text-[#320E3B]">Erişilebilirlik</a>
+          <a href="#" className="hover:text-[#320E3B]">İletişim</a>
+        </div>
+      </div>
+    </footer>
+  )
+}
 
 export function Landing() {
   const navigate = useNavigate()
   const { hasProfile } = useProfile()
 
-  function handlePrimary() {
-    navigate(hasProfile ? '/dashboard' : '/onboarding')
-  }
+  const handlePrimary = () => navigate(hasProfile ? '/dashboard' : '/onboarding')
+  const handleSecondary = () => navigate('/map')
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
-      {/* Ambient pastel lights */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 right-1/4 h-[40rem] w-[40rem] rounded-full bg-accent/15 blur-[160px]" />
-        <div className="absolute top-1/3 -right-32 h-[34rem] w-[34rem] rounded-full bg-mint/40 blur-[150px]" />
-        <div className="absolute top-1/2 -left-32 h-[30rem] w-[30rem] rounded-full bg-sky/40 blur-[140px]" />
-      </div>
-
-      <header className="relative z-20 mx-auto flex max-w-7xl items-center justify-between px-4 py-6 md:px-6 md:py-7 lg:px-10">
-        <UyumLogo />
-        <nav aria-label="Bölümler" className="hidden items-center gap-9 text-[15px] font-medium text-foreground/75 md:flex">
-          <Link to="/map" className="hover:text-primary">Tesisler</Link>
-          <Link to="/match" className="hover:text-primary">Sporlar</Link>
-          <Link to="/events" className="hover:text-primary">Etkinlikler</Link>
-          <Link to="/coaches" className="hover:text-primary">Koçlar</Link>
-          <a href="#hakkimizda" className="hover:text-primary">Hakkımızda</a>
-        </nav>
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={handlePrimary}
-            className="hidden text-[15px] font-medium text-foreground hover:text-primary md:inline"
-          >
-            {hasProfile ? 'Panele git' : 'Giriş yap'}
-          </button>
-          <button
-            type="button"
-            aria-label="Menü"
-            className="grid size-11 place-items-center rounded-full bg-primary-deep text-primary-foreground"
-            onClick={handlePrimary}
-          >
-            <Menu className="size-5" aria-hidden />
-          </button>
-        </div>
-      </header>
-
-      {/* Hero */}
-      <section className="relative">
-        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 pb-24 pt-12 md:px-6 md:pt-16 lg:grid-cols-12 lg:px-10">
-          <div className="lg:col-span-6">
-            <h1 className="font-display text-[clamp(2.4rem,6vw,4.8rem)] font-extrabold leading-[1.02] tracking-tight text-primary-deep">
-              HAREKET
-              <br />
-              HERKES İÇİN.
-              <br />
-              <span style={{ color: 'oklch(0.72 0.10 270)' }}>UYUM SENİN İÇİN.</span>
-            </h1>
-            <svg
-              className="-mt-1 ml-1 h-3 w-72"
-              viewBox="0 0 320 14"
-              fill="none"
-              aria-hidden
-            >
-              <path
-                d="M3 9 C 60 3, 120 12, 180 6 S 300 10, 317 5"
-                stroke="oklch(0.38 0.16 295)"
-                strokeWidth="3"
-                strokeLinecap="round"
-                fill="none"
-              />
-            </svg>
-
-            <p className="mt-9 max-w-md text-[17px] leading-relaxed text-foreground/70">
-              Engel tanımayan bir spor deneyimi için doğru tesisleri, sporları ve insanları
-              bir araya getiriyoruz.
-            </p>
-
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                onClick={handlePrimary}
-                className="group inline-flex items-center gap-3 rounded-full bg-primary-deep px-7 py-4 text-[13px] font-bold uppercase tracking-wider text-primary-foreground transition hover:-translate-y-px"
-              >
-                <ArrowRight className="size-4 transition group-hover:translate-x-0.5" aria-hidden />
-                {hasProfile ? 'Tesisleri Keşfet' : 'Yakınındaki tesisleri keşfet'}
-              </button>
-              <a
-                href="#hakkimizda"
-                className="inline-flex items-center gap-2.5 rounded-full px-5 py-3.5 text-[13px] font-bold uppercase tracking-wider text-primary-deep transition hover:bg-primary-deep/5"
-              >
-                <Play className="size-4" aria-hidden /> Nasıl çalışır?
-              </a>
-            </div>
-          </div>
-
-          {/* Illustration cluster */}
-          <div className="relative lg:col-span-6">
-            <svg
-              className="pointer-events-none absolute inset-0 -z-10 h-full w-full opacity-40"
-              viewBox="0 0 600 500"
-              fill="none"
-              aria-hidden
-            >
-              <path d="M40 80 C 180 60, 260 180, 420 140 S 580 240, 560 360" stroke="oklch(0.55 0.04 290)" strokeWidth="1" strokeDasharray="2 6" fill="none" />
-              <path d="M20 280 C 160 240, 320 360, 480 300 S 590 200, 580 100" stroke="oklch(0.55 0.04 290)" strokeWidth="1" strokeDasharray="2 6" fill="none" />
-              <path d="M60 420 C 200 380, 340 460, 500 420" stroke="oklch(0.55 0.04 290)" strokeWidth="1" strokeDasharray="2 6" fill="none" />
-            </svg>
-
-            <div aria-hidden className="absolute inset-0 -z-10">
-              <svg viewBox="0 0 600 500" className="absolute inset-0 h-full w-full">
-                <path
-                  d="M180,80 C 320,60 460,140 470,260 C 480,380 380,440 260,430 C 140,420 80,320 100,220 C 110,140 130,100 180,80 Z"
-                  fill="oklch(0.78 0.10 290 / 0.45)"
-                />
-                <path
-                  d="M260,140 C 380,130 460,200 440,300 C 420,400 320,440 230,420 C 150,400 130,300 160,230 C 180,180 220,150 260,140 Z"
-                  fill="oklch(0.93 0.06 215 / 0.55)"
-                />
-                <path
-                  d="M340,170 C 420,180 470,260 440,340 C 410,420 320,430 250,400 C 200,380 200,300 240,240 C 270,200 310,170 340,170 Z"
-                  fill="oklch(0.94 0.08 145 / 0.5)"
-                />
-              </svg>
-            </div>
-
-            <img
-              src={heroAthletes}
-              alt="UYUM ile spor yapan adaptif sporcular"
-              width={1280}
-              height={1024}
-              className="relative w-full max-w-2xl object-contain"
-            />
-
-            <FloatingIcon top="38%" left="-2%" icon={<Footprints className="size-5" />} tint="violet" />
-            <FloatingIcon top="62%" right="-2%" icon={<ShoppingBag className="size-5" />} tint="mint" />
-            <FloatingIcon top="84%" right="14%" icon={<Waves className="size-5" />} tint="sky" />
-
-            <MapDrop top="22%" left="34%" />
-            <MapDrop top="14%" right="22%" />
-            <MapDrop bottom="22%" left="6%" />
-            <MapDrop bottom="6%" left="46%" />
-          </div>
-        </div>
-      </section>
-
-      {/* Features row */}
-      <section id="hakkimizda" className="relative">
-        <div className="mx-auto max-w-7xl px-4 pb-24 pt-8 md:px-6 lg:px-10">
-          <div className="grid items-start gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <h2 className="font-display text-[clamp(2rem,3.5vw,3rem)] font-extrabold leading-[1.05] text-primary-deep">
-                UYUM İLE
-                <br />NELER<br />YAPABİLİRSİN?
-              </h2>
-              <svg className="mt-3 h-3 w-44" viewBox="0 0 200 14" fill="none" aria-hidden>
-                <path
-                  d="M3 9 C 50 3, 100 12, 150 6 S 195 9, 197 7"
-                  stroke="oklch(0.38 0.16 295)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-              </svg>
-            </div>
-
-            <div className="lg:col-span-8">
-              <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
-                {[
-                  { i: MapPin,         t: 'Tesisleri keşfet',   d: 'Erişilebilir tesisleri bul',    c: 'sky'      as const, to: '/map'      as const },
-                  { i: Activity,       t: 'Sporları keşfet',    d: 'Sana uygun sporları keşfet',    c: 'mint'     as const, to: '/match'    as const },
-                  { i: Calendar,       t: 'Etkinliklere katıl', d: 'Yakındaki etkinliklere katıl',  c: 'lavender' as const, to: '/events'   as const },
-                  { i: GraduationCap,  t: 'Koçlarla tanış',     d: 'Uzman koçlarla çalış',           c: 'peach'    as const, to: '/coaches'  as const },
-                  { i: Users,          t: 'Topluluğa katıl',    d: 'Spor topluluğuna dahil ol',      c: 'violet'   as const, to: '/community' as const },
-                ].map(({ i: I, t, d, c, to }) => (
-                  <Link
-                    key={t}
-                    to={to}
-                    className="group flex flex-col items-center text-center"
-                  >
-                    <div
-                      className={`mb-5 grid size-16 place-items-center rounded-full transition group-hover:-translate-y-1 ${tintBg(c)}`}
-                    >
-                      <I className={`size-7 ${tintFg(c)}`} strokeWidth={1.8} aria-hidden />
-                    </div>
-                    <div className="text-[15px] font-bold text-primary-deep">{t}</div>
-                    <div className="mt-1.5 max-w-[14ch] text-[12.5px] leading-snug text-muted-foreground">
-                      {d}
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <footer className="mx-auto max-w-7xl px-4 py-10 md:px-6 lg:px-10">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border/40 pt-8 text-sm text-muted-foreground">
-          <UyumLogo size={28} />
-          <p>© 2026 UYUM — METU Sports Tech Hackathon</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-primary">KVKK</a>
-            <a href="#" className="hover:text-primary">Erişilebilirlik</a>
-            <a href="#" className="hover:text-primary">İletişim</a>
-          </div>
-        </div>
-      </footer>
+    <div className="min-h-screen bg-white">
+      <Navbar onPrimary={handlePrimary} />
+      <HeroSection onPrimary={handlePrimary} onSecondary={handleSecondary} />
+      <FeaturesSection />
+      <Footer />
     </div>
-  )
-}
-
-type Tint = 'sky' | 'mint' | 'lavender' | 'peach' | 'violet'
-
-function tintBg(c: Tint) {
-  return c === 'sky'      ? 'bg-sky/70'
-    : c === 'mint'        ? 'bg-mint/70'
-    : c === 'lavender'    ? 'bg-accent/20'
-    : c === 'peach'       ? 'bg-[oklch(0.92_0.07_60)]'
-    :                       'bg-primary/15'
-}
-function tintFg(c: Tint) {
-  return c === 'sky'      ? 'text-sky-foreground'
-    : c === 'mint'        ? 'text-mint-foreground'
-    : c === 'lavender'    ? 'text-accent'
-    : c === 'peach'       ? 'text-[oklch(0.55_0.16_50)]'
-    :                       'text-primary'
-}
-
-function FloatingIcon({
-  icon,
-  tint,
-  ...pos
-}: {
-  icon: React.ReactNode
-  tint: 'violet' | 'mint' | 'sky'
-  top?: string
-  left?: string
-  right?: string
-  bottom?: string
-}) {
-  const cls =
-    tint === 'violet' ? 'bg-card text-accent ring-accent/20'
-    : tint === 'mint' ? 'bg-card text-mint-foreground ring-mint/40'
-    :                   'bg-card text-sky-foreground ring-sky/40'
-  return (
-    <div
-      aria-hidden
-      className={`absolute grid size-14 place-items-center rounded-full ring-2 ${cls}`}
-      style={pos}
-    >
-      {icon}
-    </div>
-  )
-}
-
-function MapDrop({ ...pos }: { top?: string; left?: string; right?: string; bottom?: string }) {
-  return (
-    <svg
-      aria-hidden
-      className="absolute size-6 text-primary-deep/70"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      style={pos}
-    >
-      <path d="M12 2 C 7 2, 4 5.5, 4 9.5 C 4 15, 12 22, 12 22 C 12 22, 20 15, 20 9.5 C 20 5.5, 17 2, 12 2 Z" />
-      <circle cx="12" cy="9.5" r="2.8" fill="white" />
-    </svg>
   )
 }

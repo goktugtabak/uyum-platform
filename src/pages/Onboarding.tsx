@@ -1,34 +1,36 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   Accessibility, Eye, Ear, Hand,
   Activity, Heart, Target, Users, Sparkles, Trophy,
   PersonStanding, ArmchairIcon, Footprints,
   ArrowLeft, ArrowRight, CheckCircle2, ShieldCheck, MapPin, Calendar, GraduationCap,
 } from 'lucide-react'
-import { OnboardingStep } from '../components/feature/OnboardingStep'
+import type { LucideIcon } from 'lucide-react'
 import { UyumLogo } from '../components/ui/UyumLogo'
 import { useProfile } from '../contexts/ProfileContext'
 import type { DisabilityType, MobilityLevel, Goal, UserProfile } from '../types'
 
-const DISABILITY_OPTIONS = [
-  { value: 'wheelchair' as DisabilityType, label: 'Tekerlekli sandalye kullanıyorum', description: 'Manuel veya elektrikli tekerlekli sandalye kullananlar.', icon: Accessibility },
-  { value: 'visual'     as DisabilityType, label: 'Görme engelliyim',                  description: 'Görme kaybı veya düşük görme yaşayanlar.',                icon: Eye },
-  { value: 'hearing'    as DisabilityType, label: 'İşitme engelliyim',                 description: 'İşitme kaybı veya sağırlık yaşayanlar.',                 icon: Ear },
-  { value: 'upper_limb' as DisabilityType, label: 'Üst ekstremite kısıtım var',        description: 'Kol veya el fonksiyon kaybı yaşayanlar.',                icon: Hand },
+/* ---------- Constants ---------- */
+
+const DISABILITY_OPTIONS: ReadonlyArray<{ value: DisabilityType; label: string; description: string; icon: LucideIcon }> = [
+  { value: 'wheelchair', label: 'Tekerlekli sandalye kullanıyorum', description: 'Tekerlekli sandalye ile günlük yaşamını sürdürüyorsun.', icon: Accessibility },
+  { value: 'visual',     label: 'Görme engelliyim',                  description: 'Kısmi veya tamamen görme engeliyim.',                  icon: Eye },
+  { value: 'hearing',    label: 'İşitme engelliyim',                 description: 'Kısmi veya tamamen işitme engeliyim.',                 icon: Ear },
+  { value: 'upper_limb', label: 'Üst ekstremite kısıtım var',        description: 'Kol veya el fonksiyon kaybı yaşıyorum, zorluk çekiyorum.', icon: Hand },
 ]
 
-const MOBILITY_OPTIONS = [
-  { value: 'sitting'     as MobilityLevel, label: 'Oturarak',  description: 'Aktiviteleri oturarak yapıyorum.',                        icon: ArmchairIcon },
-  { value: 'supported'   as MobilityLevel, label: 'Destekle',  description: 'Yardımcı ekipman veya kişiyle hareket ediyorum.',          icon: PersonStanding },
-  { value: 'independent' as MobilityLevel, label: 'Bağımsız',  description: 'Bağımsız olarak hareket edebiliyorum.',                    icon: Footprints },
+const MOBILITY_OPTIONS: ReadonlyArray<{ value: MobilityLevel; label: string; description: string; icon: LucideIcon }> = [
+  { value: 'sitting',     label: 'Oturarak',  description: 'Aktiviteleri oturarak yapıyorum.',                icon: ArmchairIcon  },
+  { value: 'supported',   label: 'Destekle',  description: 'Yardımcı ekipman veya kişiyle hareket ediyorum.', icon: PersonStanding },
+  { value: 'independent', label: 'Bağımsız',  description: 'Bağımsız olarak hareket edebiliyorum.',           icon: Footprints     },
 ]
 
-const GOAL_OPTIONS = [
-  { value: 'strength'    as Goal, label: 'Güçlenmek',       description: 'Kas gücümü artırmak istiyorum.',                  icon: Activity },
-  { value: 'flexibility' as Goal, label: 'Esnekliğimi artırmak', description: 'Daha esnek ve hareket aralığı geniş olmak istiyorum.', icon: Sparkles },
-  { value: 'social'      as Goal, label: 'Sosyal olmak',    description: 'Spor aracılığıyla sosyal bağlar kurmak istiyorum.', icon: Heart },
-  { value: 'compete'     as Goal, label: 'Rekabet etmek',   description: 'Yarışmalara katılmak istiyorum.',                  icon: Trophy },
+const GOAL_OPTIONS: ReadonlyArray<{ value: Goal; label: string; description: string; icon: LucideIcon }> = [
+  { value: 'strength',    label: 'Güçlenmek',           description: 'Kas gücümü artırmak istiyorum.',                   icon: Activity },
+  { value: 'flexibility', label: 'Esnekliğimi artırmak', description: 'Daha esnek ve hareket aralığı geniş olmak istiyorum.', icon: Sparkles },
+  { value: 'social',      label: 'Sosyal olmak',        description: 'Spor aracılığıyla sosyal bağlar kurmak istiyorum.', icon: Heart   },
+  { value: 'compete',     label: 'Rekabet etmek',       description: 'Yarışmalara katılmak istiyorum.',                  icon: Trophy  },
 ]
 
 const DEFAULT_ACCESSIBILITY: UserProfile['accessibility'] = {
@@ -37,8 +39,6 @@ const DEFAULT_ACCESSIBILITY: UserProfile['accessibility'] = {
   fontSize:       'normal',
   speechEnabled:  false,
 }
-
-type Step = 0 | 1 | 2 | 3
 
 const DISABILITY_LABELS: Record<DisabilityType, string> = {
   wheelchair: 'Tekerlekli sandalye kullanıyorum',
@@ -58,59 +58,128 @@ const GOAL_LABELS: Record<Goal, string> = {
   compete:     'Rekabet etmek',
 }
 
+/* ---------- Route step normalization ---------- */
+
+const STEP_PATHS = ['welcome', 'disability', 'goal', 'confirm'] as const
+type StepName = typeof STEP_PATHS[number]
+
+function pathFor(step: StepName): string {
+  return step === 'welcome' ? '/onboarding' : `/onboarding/${step}`
+}
+
+function stepIndex(step: StepName): number {
+  return STEP_PATHS.indexOf(step)
+}
+
+function normalizeStep(raw: string | undefined): StepName {
+  if (!raw) return 'welcome'
+  return (STEP_PATHS as readonly string[]).includes(raw) ? (raw as StepName) : 'welcome'
+}
+
+/* ---------- Session-scoped draft persistence ---------- */
+
+const DRAFT_KEY = 'uyum:onboarding-draft'
+
+interface Draft {
+  disabilityType: DisabilityType | null
+  mobilityLevel:  MobilityLevel  | null
+  goal:           Goal           | null
+}
+
+function loadDraft(): Draft {
+  if (typeof window === 'undefined') return { disabilityType: null, mobilityLevel: null, goal: null }
+  try {
+    const raw = sessionStorage.getItem(DRAFT_KEY)
+    if (!raw) return { disabilityType: null, mobilityLevel: null, goal: null }
+    const parsed = JSON.parse(raw) as Draft
+    return {
+      disabilityType: parsed.disabilityType ?? null,
+      mobilityLevel:  parsed.mobilityLevel  ?? null,
+      goal:           parsed.goal           ?? null,
+    }
+  } catch {
+    return { disabilityType: null, mobilityLevel: null, goal: null }
+  }
+}
+
+function saveDraft(d: Draft): void {
+  try {
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d))
+  } catch {
+    // quota exceeded — silently ignore
+  }
+}
+
+function clearDraft(): void {
+  try { sessionStorage.removeItem(DRAFT_KEY) } catch { /* ignore */ }
+}
+
+/* ---------- Page ---------- */
+
 export function Onboarding() {
   const navigate = useNavigate()
   const { setProfile } = useProfile()
+  const { step: stepParam } = useParams<{ step?: string }>()
+  const step = normalizeStep(stepParam)
 
-  const [step, setStep] = useState<Step>(0)
-  const [disabilityType, setDisabilityType] = useState<DisabilityType | null>(null)
-  const [mobilityLevel, setMobilityLevel]   = useState<MobilityLevel | null>(null)
-  const [goal, setGoal]                     = useState<Goal | null>(null)
+  // Hydrate selections from sessionStorage so refresh / back-forward keeps progress
+  const initial = useMemo(() => loadDraft(), [])
+  const [disabilityType, setDisabilityType] = useState<DisabilityType | null>(initial.disabilityType)
+  const [mobilityLevel, setMobilityLevel]   = useState<MobilityLevel  | null>(initial.mobilityLevel)
+  const [goal, setGoal]                     = useState<Goal           | null>(initial.goal)
+
+  useEffect(() => {
+    saveDraft({ disabilityType, mobilityLevel, goal })
+  }, [disabilityType, mobilityLevel, goal])
 
   function announce(msg: string) {
     const region = document.getElementById('aria-live-region')
     if (region) region.textContent = msg
   }
 
+  function gotoStep(target: StepName) {
+    navigate(pathFor(target))
+  }
+
   function next() {
-    if (step === 0) {
-      setStep(1)
+    if (step === 'welcome') {
+      gotoStep('disability')
       announce('Adım 2/4. Engelli durumunu seç.')
-    } else if (step === 1 && disabilityType) {
-      setStep(2)
+    } else if (step === 'disability' && disabilityType) {
+      gotoStep('goal')
       announce('Adım 3/4. Hedefini seç.')
-    } else if (step === 2 && goal) {
-      // Mobility level isteyen sub-step: yine adım 3 içinde ama ayrı görüntü
-      setStep(3)
+    } else if (step === 'goal' && goal) {
+      gotoStep('confirm')
       announce('Adım 4/4. Profilini onayla.')
-    } else if (step === 3 && disabilityType && goal) {
+    } else if (step === 'confirm' && disabilityType && goal) {
       const mobility = mobilityLevel ?? 'independent'
       setProfile({
         disabilityType,
-        mobilityLevel: mobility,
+        mobilityLevel:      mobility,
         goal,
         city:               'Ankara',
         favoriteFacilities: [],
         favoriteEvents:     [],
         accessibility:      DEFAULT_ACCESSIBILITY,
       })
+      clearDraft()
       announce('Profilin oluşturuldu. Ana sayfaya yönlendiriliyorsun.')
       navigate('/dashboard')
     }
   }
 
   function back() {
-    if (step === 0) navigate('/')
-    else if (step === 1) setStep(0)
-    else if (step === 2) setStep(1)
-    else if (step === 3) setStep(2)
+    if (step === 'welcome')        navigate('/')
+    else if (step === 'disability') gotoStep('welcome')
+    else if (step === 'goal')       gotoStep('disability')
+    else if (step === 'confirm')    gotoStep('goal')
   }
 
   const canProceed =
-    step === 0 ||
-    (step === 1 && disabilityType !== null) ||
-    (step === 2 && goal !== null) ||
-    (step === 3 && mobilityLevel !== null)
+    step === 'welcome' ||
+    (step === 'disability' && disabilityType !== null) ||
+    (step === 'goal'       && goal           !== null) ||
+    (step === 'confirm'    && mobilityLevel  !== null)
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-background">
@@ -122,140 +191,181 @@ export function Onboarding() {
       </div>
 
       <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-6 md:px-8">
-        <Link to="/" aria-label="UYUM Ana Sayfa"><UyumLogo /></Link>
+        {step === 'welcome' ? (
+          <Link to="/" aria-label="UYUM Ana Sayfa" className="flex items-center gap-2">
+            <UyumLogo />
+            <span className="font-display text-lg font-extrabold text-primary-deep">UYUM</span>
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={back}
+            className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary"
+          >
+            <ArrowLeft className="size-4" aria-hidden /> Geri
+          </button>
+        )}
         <ProgressBar step={step} />
       </header>
 
       <main className="mx-auto grid max-w-6xl items-start gap-10 px-4 py-6 md:grid-cols-12 md:px-8 md:py-10">
         {/* Left rail — copy + illustration */}
-        <aside className="md:col-span-5 lg:col-span-4">
+        <aside className="md:col-span-5 lg:col-span-5">
           <LeftRail step={step} />
         </aside>
 
         {/* Right card */}
-        <section className="md:col-span-7 lg:col-span-8">
+        <section className="md:col-span-7 lg:col-span-7">
           <div className="rounded-3xl bg-card/85 p-6 ring-1 ring-border/40 backdrop-blur shadow-soft md:p-8">
-            {step === 0 && <WelcomeStep />}
+            {step === 'welcome' && (
+              <WelcomeStep onPrimary={next} />
+            )}
 
-            {step === 1 && (
-              <OnboardingStep
-                stepLabel="Adım 2/4"
-                title="Seni daha iyi tanımak istiyoruz"
-                subtitle="Doğru önerileri verebilmek için engelli durumunu seç."
+            {step === 'disability' && (
+              <ChoiceGrid
+                title="Engellilik durumunu seç"
+                subtitle="Sana doğru önerileri verebilmemiz için engelli durumunu seç."
                 options={DISABILITY_OPTIONS}
                 selected={disabilityType}
                 onSelect={setDisabilityType}
               />
             )}
 
-            {step === 2 && (
-              <OnboardingStep
-                stepLabel="Adım 3/4"
-                title="Hedeflerini öğrenelim"
-                subtitle="Sana en uygun spor önerilerini yapabilmemiz için hedeflerini seç."
+            {step === 'goal' && (
+              <ChoiceGrid
+                title="Sana en uygun spor önerilerini yapabilmemiz için hedeflerini seçelim."
+                subtitle="Birden fazla hedefin olabilir — şimdilik en önemli olanı seç."
                 options={GOAL_OPTIONS}
                 selected={goal}
                 onSelect={setGoal}
               />
             )}
 
-            {step === 3 && (
+            {step === 'confirm' && (
               <ConfirmStep
                 disabilityType={disabilityType}
                 mobilityLevel={mobilityLevel}
                 goal={goal}
                 onMobilitySelect={setMobilityLevel}
-                onEditDisability={() => setStep(1)}
-                onEditGoal={() => setStep(2)}
+                onEditDisability={() => gotoStep('disability')}
+                onEditGoal={() => gotoStep('goal')}
               />
             )}
 
-            {/* Nav */}
-            <div className="mt-8 flex items-center justify-between gap-3">
-              <button
-                type="button"
-                onClick={back}
-                className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2.5 text-sm font-semibold text-foreground ring-1 ring-border/60 hover:ring-primary/40"
-              >
-                <ArrowLeft className="size-4" aria-hidden /> Geri
-              </button>
+            {step !== 'welcome' && (
+              <div className="mt-8 flex items-center justify-between gap-3">
+                <button
+                  type="button"
+                  onClick={back}
+                  className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2.5 text-sm font-semibold text-foreground ring-1 ring-border/60 hover:ring-primary/40"
+                >
+                  <ArrowLeft className="size-4" aria-hidden /> Geri
+                </button>
 
-              <button
-                type="button"
-                onClick={next}
-                disabled={!canProceed}
-                aria-disabled={!canProceed}
-                className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition ${
-                  canProceed
-                    ? 'bg-primary text-primary-foreground shadow-glow hover:bg-primary-deep'
-                    : 'cursor-not-allowed bg-muted text-muted-foreground'
-                }`}
-              >
-                {step === 0 ? 'Başlayalım' : step === 3 ? 'Kaydolmaya başla' : 'Devam Et'}
-                <ArrowRight className="size-4" aria-hidden />
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={next}
+                  disabled={!canProceed}
+                  aria-disabled={!canProceed}
+                  className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition ${
+                    canProceed
+                      ? 'bg-primary text-primary-foreground shadow-glow hover:bg-primary-deep'
+                      : 'cursor-not-allowed bg-muted text-muted-foreground'
+                  }`}
+                >
+                  {step === 'confirm' ? 'Kaydolmaya başla' : 'Devam Et'}
+                  <ArrowRight className="size-4" aria-hidden />
+                </button>
+              </div>
+            )}
           </div>
+
+          {/* Footer hints — design ile birebir */}
+          {step === 'disability' && (
+            <p className="mt-4 text-center text-[12.5px] text-muted-foreground">
+              İstediğin zaman profil ayarlarından değiştirebilirsin.
+            </p>
+          )}
+          {step === 'goal' && (
+            <p className="mt-4 text-center text-[12.5px] text-muted-foreground">
+              Birden fazla hedef seçebilirsin. Zamanla hedeflerini güncelleyebilirsin.
+            </p>
+          )}
+          {step === 'confirm' && (
+            <p className="mt-4 text-center text-[12.5px] text-muted-foreground">
+              Profil ayarları daha sonra istediğin zaman güncellenebilir.
+            </p>
+          )}
         </section>
       </main>
     </div>
   )
 }
 
-function ProgressBar({ step }: { step: Step }) {
-  const labels = ['1/4', '2/4', '3/4', '4/4']
+/* ---------- Progress bar ---------- */
+
+function ProgressBar({ step }: { step: StepName }) {
+  const idx = stepIndex(step)
   return (
-    <div className="flex items-center gap-2 text-xs text-muted-foreground" aria-label={`Adım ${step + 1} / 4`}>
+    <div className="flex items-center gap-2 text-xs text-muted-foreground" aria-label={`Adım ${idx + 1} / 4`}>
       <span className="hidden font-semibold text-foreground sm:inline">Adım</span>
-      <div className="flex items-center gap-1.5">
-        {labels.map((l, i) => (
+      <div className="flex items-center gap-1.5" aria-hidden>
+        {STEP_PATHS.map((_, i) => (
           <span
-            key={l}
-            aria-hidden
+            key={i}
             className={`h-2 w-7 rounded-full transition ${
-              i <= step ? 'bg-primary' : 'bg-border'
+              i <= idx ? 'bg-primary' : 'bg-border'
             }`}
           />
         ))}
       </div>
-      <span className="ml-1 font-semibold text-primary">{labels[step]}</span>
+      <span className="ml-1 font-semibold text-primary">{idx + 1}/4</span>
     </div>
   )
 }
 
-function LeftRail({ step }: { step: Step }) {
-  const map: Record<Step, { title: string; body: string; icons: React.ReactNode[] }> = {
-    0: {
-      title: 'Spor herkes içindir. Bizimle uyum içinde harekete geç.',
-      body: 'UYUM, engelli bireylerin spor ve fiziksel aktivitelere erişimini kolaylaştıran bir platformdur. Yakındaki tesisleri keşfet, sporları öğren, etkinliklere katıl ve topluluğun bir parçası ol.',
-      icons: [<MapPin key="m" />, <Activity key="a" />, <Calendar key="c" />, <Users key="u" />],
+/* ---------- Left rail (per step) ---------- */
+
+function LeftRail({ step }: { step: StepName }) {
+  const map: Record<StepName, { eyebrow?: string; title: string; body: string; icons: LucideIcon[] }> = {
+    welcome: {
+      eyebrow: 'Hoş Geldin',
+      title:   'Spor herkes içindir. Bizimle uyum içinde harekete geç.',
+      body:    'UYUM, engelli bireylerin spor ve fiziksel aktivitelere erişimini kolaylaştıran bir platformdur. Yakındaki tesisleri keşfet, etkinliklere katıl ve topluluğun bir parçası ol.',
+      icons:   [MapPin, Activity, Calendar, Users],
     },
-    1: {
+    disability: {
       title: 'Seni daha iyi tanımak istiyoruz',
-      body: 'Doğru öneriler ve rehberlik sunabilmek için engelli durumunu seçmemiz önemli. Verilerin sadece sana özel öneriler oluşturmak için kullanılır.',
-      icons: [<Eye key="e" />, <Ear key="r" />, <Hand key="h" />, <Accessibility key="ac" />],
+      body:  'Doğru öneriler ve rehberlik sunabilmek için engelli durumunu seçmemiz önemli. Verilerin sadece sana özel öneriler oluşturmak için kullanılır.',
+      icons: [Accessibility, Eye, Ear, Hand],
     },
-    2: {
+    goal: {
       title: 'Hedeflerini öğrenelim',
-      body: 'Spor ve fiziksel aktiviteyle ilgili hedeflerini seç. Sana en uygun spor önerilerini hazırlayabilelim.',
-      icons: [<Target key="t" />, <Activity key="a" />, <Heart key="he" />, <Sparkles key="s" />],
+      body:  'Spor ve fiziksel aktiviteyle ilgili hedeflerini seç. Sana en uygun spor önerilerini hazırlayabilelim.',
+      icons: [Target, Activity, Heart, Trophy],
     },
-    3: {
+    confirm: {
       title: 'Profilin hazır! Sana özel bir deneyim seni bekliyor.',
-      body: 'Bu bilgilerle sana en uygun tesisleri, sporları, etkinlikleri ve içerikleri öneriyoruz.',
-      icons: [<MapPin key="m" />, <CheckCircle2 key="c" />, <Heart key="h" />, <GraduationCap key="g" />],
+      body:  'Bu bilgilerle sana en uygun tesisleri, sporları, etkinlikleri ve uzman koçları öneriyoruz.',
+      icons: [MapPin, CheckCircle2, Heart, GraduationCap],
     },
   }
-  const { title, body, icons } = map[step]
+  const { eyebrow, title, body, icons } = map[step]
 
   return (
     <div className="space-y-6">
+      {eyebrow && (
+        <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+          {eyebrow}
+        </p>
+      )}
       <h1 className="font-display text-3xl font-extrabold leading-tight text-primary-deep md:text-4xl">
         {title}
       </h1>
       <p className="max-w-md text-sm leading-relaxed text-foreground/75 md:text-base">{body}</p>
+
       <div aria-hidden className="grid grid-cols-2 gap-3 max-w-xs">
-        {icons.map((node, i) => (
+        {icons.map((Icon, i) => (
           <div
             key={i}
             className={`grid size-16 place-items-center rounded-2xl ${
@@ -265,10 +375,11 @@ function LeftRail({ step }: { step: Step }) {
               'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]'
             }`}
           >
-            <span className="*:size-6">{node}</span>
+            <Icon className="size-6" strokeWidth={1.7} />
           </div>
         ))}
       </div>
+
       <div className="flex items-start gap-3 rounded-2xl bg-mint/40 px-4 py-3">
         <ShieldCheck className="mt-0.5 size-5 shrink-0 text-mint-foreground" aria-hidden />
         <div className="text-xs">
@@ -282,69 +393,174 @@ function LeftRail({ step }: { step: Step }) {
   )
 }
 
-function WelcomeStep() {
+/* ---------- Welcome step ---------- */
+
+function WelcomeStep({ onPrimary }: { onPrimary: () => void }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <p className="text-xs font-semibold uppercase tracking-widest text-primary">Adım 1/4</p>
       <h2 className="font-display text-3xl font-extrabold text-primary-deep md:text-4xl">
-        Hoş geldin.
+        Başlayalım.
       </h2>
       <p className="max-w-xl text-sm text-muted-foreground md:text-base">
         UYUM ile sana uygun tesisleri, sporları, etkinlikleri ve uzman koçları tanıyacaksın.
-        Birkaç soruyla profilini oluşturalım — kişiselleştirilmiş öneriler için sadece 1 dakika.
+        Birkaç soruyla profilini oluşturalım — sadece 1 dakika.
       </p>
 
-      <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-        <FeatureChip icon={<MapPin />} label="Tesisleri Keşfet" tint="sky" />
-        <FeatureChip icon={<Activity />} label="Sporları Keşfet" tint="mint" />
-        <FeatureChip icon={<Calendar />} label="Etkinlikler" tint="lavender" />
-        <FeatureChip icon={<Users />} label="Topluluk" tint="peach" />
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+        <FeatureChip icon={MapPin}   label="Uygun Tesisleri Keşfet"  tint="sky"      />
+        <FeatureChip icon={Activity} label="Sporlar ve Egzersizler"  tint="mint"     />
+        <FeatureChip icon={Calendar} label="Etkinlikleri Takip Et"   tint="lavender" />
+        <FeatureChip icon={Users}    label="Topluluğa Katıl"         tint="peach"    />
       </div>
+
+      <button
+        type="button"
+        onClick={onPrimary}
+        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-glow transition hover:bg-primary-deep"
+      >
+        Başlayalım <ArrowRight className="size-4" aria-hidden />
+      </button>
+
+      <p className="text-center text-[12.5px] text-muted-foreground">
+        Zaten hesabın var mı?{' '}
+        <Link to="/" className="font-bold text-primary hover:text-primary-deep">
+          Giriş yap
+        </Link>
+      </p>
     </div>
   )
 }
 
 function FeatureChip({
-  icon, label, tint,
+  icon: Icon, label, tint,
 }: {
-  icon: React.ReactNode
+  icon: LucideIcon
   label: string
   tint: 'sky' | 'mint' | 'lavender' | 'peach'
 }) {
   const bg =
-    tint === 'sky' ? 'bg-sky/60 text-sky-foreground' :
-    tint === 'mint' ? 'bg-mint/60 text-mint-foreground' :
+    tint === 'sky'      ? 'bg-sky/60 text-sky-foreground' :
+    tint === 'mint'     ? 'bg-mint/60 text-mint-foreground' :
     tint === 'lavender' ? 'bg-accent/15 text-accent' :
-    'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]'
+                          'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]'
   return (
     <div className="flex flex-col items-center gap-2 rounded-2xl bg-card p-4 ring-1 ring-border/40 text-center">
       <span aria-hidden className={`grid size-11 place-items-center rounded-full ${bg}`}>
-        <span className="*:size-5">{icon}</span>
+        <Icon className="size-5" strokeWidth={1.7} />
       </span>
       <span className="text-xs font-bold text-primary-deep">{label}</span>
     </div>
   )
 }
 
+/* ---------- Choice grid (disability + goal) ---------- */
+
+interface ChoiceOption<T extends string> {
+  value: T
+  label: string
+  description: string
+  icon: LucideIcon
+}
+
+function ChoiceGrid<T extends string>({
+  title, subtitle, options, selected, onSelect,
+}: {
+  title: string
+  subtitle: string
+  options: ReadonlyArray<ChoiceOption<T>>
+  selected: T | null
+  onSelect: (value: T) => void
+}) {
+  return (
+    <div className="w-full">
+      <h2 className="font-display text-2xl font-extrabold text-primary-deep md:text-3xl">
+        {title}
+      </h2>
+      <p className="mt-2 max-w-xl text-[13.5px] text-muted-foreground md:text-sm">
+        {subtitle}
+      </p>
+
+      <fieldset role="radiogroup" aria-label={title} className="mt-6 border-0 p-0 m-0">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {options.map(opt => {
+            const Icon = opt.icon
+            const isSelected = opt.value === selected
+            return (
+              <label
+                key={opt.value}
+                className={[
+                  'relative flex cursor-pointer flex-col gap-2 rounded-2xl p-4 transition-all',
+                  'ring-1 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary',
+                  isSelected
+                    ? 'bg-primary/10 ring-primary'
+                    : 'bg-card ring-border/60 hover:ring-primary/40 hover:bg-primary/5',
+                ].join(' ')}
+              >
+                <input
+                  type="radio"
+                  name="choice"
+                  value={opt.value}
+                  checked={isSelected}
+                  onChange={() => onSelect(opt.value)}
+                  className="sr-only"
+                />
+                {/* Top row: radio (left), icon (right) */}
+                <div className="flex items-center justify-between">
+                  <span
+                    aria-hidden
+                    className={`grid size-5 shrink-0 place-items-center rounded-full ring-2 transition ${
+                      isSelected
+                        ? 'border-transparent bg-primary ring-primary'
+                        : 'bg-transparent ring-border'
+                    }`}
+                  >
+                    {isSelected && <span className="size-1.5 rounded-full bg-white" />}
+                  </span>
+                  <span
+                    aria-hidden
+                    className={`grid size-10 shrink-0 place-items-center rounded-full ${
+                      isSelected
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-primary/10 text-primary'
+                    }`}
+                  >
+                    <Icon className="size-5" strokeWidth={1.7} />
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <div className="font-display text-base font-extrabold text-primary-deep">
+                    {opt.label}
+                  </div>
+                  <p className="mt-1 text-[12.5px] text-muted-foreground">
+                    {opt.description}
+                  </p>
+                </div>
+              </label>
+            )
+          })}
+        </div>
+      </fieldset>
+    </div>
+  )
+}
+
+/* ---------- Confirm step ---------- */
+
 function ConfirmStep({
-  disabilityType,
-  mobilityLevel,
-  goal,
-  onMobilitySelect,
-  onEditDisability,
-  onEditGoal,
+  disabilityType, mobilityLevel, goal,
+  onMobilitySelect, onEditDisability, onEditGoal,
 }: {
   disabilityType: DisabilityType | null
-  mobilityLevel: MobilityLevel | null
-  goal: Goal | null
+  mobilityLevel:  MobilityLevel  | null
+  goal:           Goal           | null
   onMobilitySelect: (value: MobilityLevel) => void
   onEditDisability: () => void
-  onEditGoal: () => void
+  onEditGoal:       () => void
 }) {
   return (
     <div>
-      <p className="text-xs font-semibold uppercase tracking-widest text-primary">Adım 4/4</p>
-      <h2 className="font-display text-3xl font-extrabold text-primary-deep md:text-4xl">
+      <h2 className="font-display text-2xl font-extrabold text-primary-deep md:text-3xl">
         Seçimlerini kontrol et
       </h2>
       <p className="mt-2 max-w-xl text-sm text-muted-foreground">
@@ -353,13 +569,13 @@ function ConfirmStep({
 
       <ul className="mt-6 space-y-3">
         <SummaryRow
-          icon={<Accessibility className="size-5" aria-hidden />}
-          label="Engelli durumun"
+          icon={Accessibility}
+          label="Engellilik durumu"
           value={disabilityType ? DISABILITY_LABELS[disabilityType] : '—'}
           onEdit={onEditDisability}
         />
         <SummaryRow
-          icon={<Target className="size-5" aria-hidden />}
+          icon={Target}
           label="Hedefin"
           value={goal ? GOAL_LABELS[goal] : '—'}
           onEdit={onEditGoal}
@@ -394,14 +610,21 @@ function ConfirmStep({
           })}
         </div>
       </div>
+
+      <div className="mt-5 flex items-start gap-3 rounded-2xl bg-mint/30 px-4 py-3">
+        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-success" aria-hidden />
+        <p className="text-[12.5px] text-foreground/80">
+          Harika! Profilini oluştur — ana sayfada sana özel öneriler seni bekliyor.
+        </p>
+      </div>
     </div>
   )
 }
 
 function SummaryRow({
-  icon, label, value, onEdit,
+  icon: Icon, label, value, onEdit,
 }: {
-  icon: React.ReactNode
+  icon: LucideIcon
   label: string
   value: string
   onEdit: () => void
@@ -409,7 +632,7 @@ function SummaryRow({
   return (
     <li className="flex items-center gap-3 rounded-2xl bg-card p-4 ring-1 ring-border/40">
       <span aria-hidden className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
-        {icon}
+        <Icon className="size-5" />
       </span>
       <div className="flex-1">
         <div className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">{label}</div>

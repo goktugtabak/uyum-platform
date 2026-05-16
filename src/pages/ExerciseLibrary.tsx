@@ -1,76 +1,219 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowLeft, ArrowRight, Flame, Dumbbell, Sparkles, Activity, Wind,
-  LayoutGrid, List, MessageCircleQuestion, ChevronLeft, ChevronRight,
+  LayoutGrid, List, MessageCircleQuestion, ChevronLeft, ChevronRight, ChevronDown,
 } from 'lucide-react'
-import type { Exercise, DisabilityType, MobilityLevel } from '../types'
+import type { Exercise } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
 import { DemoBadge } from '../components/ui/DemoBadge'
-import { FilterChip, FilterGroup } from '../components/ui/FilterChip'
 import { ExerciseCard } from '../components/feature/ExerciseCard'
-import {
-  filterExercises,
-  type ExerciseFilters,
-  type DurationBucket,
-} from '../lib/exercise-filter'
 import exercisesData from '../data/exercises.json'
-
-const DISABILITY_OPTIONS: ReadonlyArray<{ id: DisabilityType; label: string }> = [
-  { id: 'wheelchair', label: 'Tekerlekli Sandalye' },
-  { id: 'visual',     label: 'Görme' },
-  { id: 'hearing',    label: 'İşitme' },
-  { id: 'upper_limb', label: 'Üst Ekstremite' },
-]
-
-const MOBILITY_OPTIONS: ReadonlyArray<{ id: MobilityLevel; label: string }> = [
-  { id: 'sitting',     label: 'Oturarak' },
-  { id: 'supported',   label: 'Destekle' },
-  { id: 'independent', label: 'Bağımsız' },
-]
-
-const DURATION_OPTIONS: ReadonlyArray<{ id: DurationBucket; label: string }> = [
-  { id: 'short',  label: '≤ 10 dk' },
-  { id: 'medium', label: '10–20 dk' },
-  { id: 'long',   label: '20 dk+' },
-]
-
-const LANGUAGE_OPTIONS: ReadonlyArray<{ id: 'tr' | 'en'; label: string }> = [
-  { id: 'tr', label: 'Türkçe' },
-  { id: 'en', label: 'İngilizce' },
-]
 
 const ALL_EXERCISES = exercisesData as Exercise[]
 
+const PAGE_SIZE = 9
+
+/* ----- Filter universes (real, derived from data) ----- */
+
+const SPORT_TAGS = ['yüzme', 'tenis', 'yoga', 'pilates', 'boccia', 'judo', 'atletizm', 'dans', 'koşu'] as const
+const LEVEL_TAGS = ['başlangıç', 'orta', 'ileri'] as const
+const ZONE_TAGS  = ['üst vücut', 'merkez kası', 'denge', 'esneme', 'nefes', 'koordinasyon'] as const
+const EQUIPMENT_LIST = ['direnç bandı', 'yoga matı', 'pilates topu', 'hafif dumbbell', 'tenis raketi', 'boccia topu', 'judogi'] as const
+
+type SortBy = 'recommended' | 'duration-asc' | 'duration-desc'
+
+interface FilterState {
+  sport:     string | 'all'  // tag
+  level:     string | 'all'  // tag
+  equipment: string | 'all'  // equipment name or 'none' (no equipment)
+  zone:      string | 'all'  // tag
+  sort:      SortBy
+  // Category chips on top map to tags also (single-select)
+  category:  string | null    // tag
+  // Subtitle-first toggle
+  subsFirst: boolean
+}
+
+const DEFAULT_FILTERS: FilterState = {
+  sport:     'all',
+  level:     'all',
+  equipment: 'all',
+  zone:      'all',
+  sort:      'recommended',
+  category:  null,
+  subsFirst: true,
+}
+
 const CATEGORIES = [
-  { l: 'Isınma',  i: Flame,    c: 'peach' as const },
-  { l: 'Kuvvet',  i: Dumbbell, c: 'mint'  as const },
-  { l: 'Esneme',  i: Sparkles, c: 'lavender' as const },
-  { l: 'Denge',   i: Activity, c: 'sky'   as const },
-  { l: 'Nefes',   i: Wind,     c: 'mint'  as const },
+  { l: 'Isınma', tag: 'ısınma',     i: Flame,    c: 'peach'    as const },
+  { l: 'Kuvvet', tag: 'kuvvet',     i: Dumbbell, c: 'mint'     as const },
+  { l: 'Esneme', tag: 'esneme',     i: Sparkles, c: 'lavender' as const },
+  { l: 'Denge',  tag: 'denge',      i: Activity, c: 'sky'      as const },
+  { l: 'Nefes',  tag: 'nefes',      i: Wind,     c: 'mint'     as const },
 ]
+
+/* ----- Real filter pipeline ----- */
+
+function applyFilters(all: Exercise[], f: FilterState): Exercise[] {
+  let out = all.filter(e => {
+    if (f.sport !== 'all' && !e.tags.includes(f.sport)) return false
+    if (f.level !== 'all' && !e.tags.includes(f.level)) return false
+    if (f.zone  !== 'all' && !e.tags.includes(f.zone))  return false
+    if (f.category && !e.tags.includes(f.category))     return false
+    if (f.equipment !== 'all') {
+      if (f.equipment === 'none') {
+        if (e.equipment.length > 0) return false
+      } else if (!e.equipment.includes(f.equipment)) {
+        return false
+      }
+    }
+    return true
+  })
+
+  out = [...out].sort((a, b) => {
+    // subtitle-first toggle: prepend subtitled videos before any other sort
+    if (f.subsFirst && a.hasSubtitles !== b.hasSubtitles) return a.hasSubtitles ? -1 : 1
+
+    if (f.sort === 'duration-asc')  return a.duration - b.duration
+    if (f.sort === 'duration-desc') return b.duration - a.duration
+    // recommended: Turkish first, then duration asc
+    if (a.language !== b.language) {
+      if (a.language === 'tr') return -1
+      if (b.language === 'tr') return 1
+    }
+    return a.duration - b.duration
+  })
+
+  return out
+}
+
+/* ----- Dropdown popover ----- */
+
+interface DropdownOption { value: string; label: string }
+
+function FilterDropdown({
+  label, value, options, onChange, open, onToggle,
+}: {
+  label:    string
+  value:    string
+  options:  DropdownOption[]
+  onChange: (next: string) => void
+  open:     boolean
+  onToggle: () => void
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!open) return
+    function onDoc(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) onToggle()
+    }
+    document.addEventListener('mousedown', onDoc)
+    return () => document.removeEventListener('mousedown', onDoc)
+  }, [open, onToggle])
+
+  const current = options.find(o => o.value === value)?.label ?? 'Tümü'
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        className="flex w-full items-center justify-between rounded-2xl bg-card px-4 py-2.5 text-left ring-1 ring-border/50 hover:ring-primary/30"
+      >
+        <span>
+          <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            {label}
+          </span>
+          <span className="block text-[13px] font-bold text-foreground">{current}</span>
+        </span>
+        <ChevronDown
+          className={`size-4 text-muted-foreground transition-transform ${open ? 'rotate-180' : ''}`}
+          aria-hidden
+        />
+      </button>
+      {open && (
+        <ul
+          role="listbox"
+          aria-label={label}
+          className="absolute left-0 right-0 top-full z-30 mt-1 max-h-64 overflow-y-auto rounded-2xl bg-card p-1 shadow-card ring-1 ring-border/40"
+        >
+          {options.map(o => {
+            const active = o.value === value
+            return (
+              <li key={o.value}>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={active}
+                  onClick={() => { onChange(o.value); onToggle() }}
+                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition ${
+                    active ? 'bg-primary text-primary-foreground font-bold' : 'text-foreground hover:bg-muted'
+                  }`}
+                >
+                  {o.label}
+                </button>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+function buildAllOptions(values: ReadonlyArray<string>, includeNone = false): DropdownOption[] {
+  const opts: DropdownOption[] = [{ value: 'all', label: 'Tümü' }]
+  if (includeNone) opts.push({ value: 'none', label: 'Ekipman yok' })
+  for (const v of values) {
+    opts.push({ value: v, label: v.charAt(0).toLocaleUpperCase('tr') + v.slice(1) })
+  }
+  return opts
+}
+
+const SORT_OPTIONS: DropdownOption[] = [
+  { value: 'recommended',  label: 'Önerilen'  },
+  { value: 'duration-asc', label: 'Kısadan uzuna' },
+  { value: 'duration-desc',label: 'Uzundan kısaya' },
+]
+
+/* ----- Page ----- */
 
 export function ExerciseLibrary() {
   const { profile } = useProfile()
-  const [view, setView] = useState<'grid' | 'list'>('grid')
+  const [view, setView]       = useState<'grid' | 'list'>('grid')
+  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS)
+  const [openDD, setOpenDD]   = useState<string | null>(null)
+  const [page, setPage]       = useState<number>(1)
 
-  const [filters, setFilters] = useState<ExerciseFilters>(() => ({
-    disabilityType: profile?.disabilityType ?? 'all',
-    mobilityLevel:  'all',
-    duration:       'all',
-    language:       'all',
-  }))
-
-  const results = useMemo(() => filterExercises(filters, ALL_EXERCISES), [filters])
+  const results = useMemo(() => applyFilters(ALL_EXERCISES, filters), [filters])
+  const totalPages = Math.max(1, Math.ceil(results.length / PAGE_SIZE))
+  const pageSafe = Math.min(page, totalPages)
+  const paged = results.slice((pageSafe - 1) * PAGE_SIZE, pageSafe * PAGE_SIZE)
 
   const isFiltered =
-    filters.disabilityType !== 'all' ||
-    filters.mobilityLevel  !== 'all' ||
-    filters.duration       !== 'all' ||
-    filters.language       !== 'all'
+    filters.sport     !== 'all' ||
+    filters.level     !== 'all' ||
+    filters.equipment !== 'all' ||
+    filters.zone      !== 'all' ||
+    filters.category  !== null  ||
+    filters.sort      !== 'recommended'
 
+  function patch(partial: Partial<FilterState>) {
+    setFilters(f => ({ ...f, ...partial }))
+    setPage(1)
+  }
   function clearFilters() {
-    setFilters({ disabilityType: 'all', mobilityLevel: 'all', duration: 'all', language: 'all' })
+    setFilters(DEFAULT_FILTERS)
+    setPage(1)
+  }
+  function toggleCategory(tag: string) {
+    patch({ category: filters.category === tag ? null : tag })
+  }
+  function toggleDD(key: string) {
+    setOpenDD(prev => (prev === key ? null : key))
   }
 
   if (!profile) return null
@@ -78,167 +221,159 @@ export function ExerciseLibrary() {
   return (
     <div className="mx-auto max-w-7xl pt-2">
       <Link
-        to="/"
+        to="/dashboard"
         className="mb-6 inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-primary"
       >
-        <ArrowLeft aria-hidden className="size-3.5" /> Ana Sayfa / Egzersizler
+        <ArrowLeft className="size-3.5" aria-hidden /> Ana Sayfa / Egzersizler
       </Link>
 
-      {/* Hero */}
+      {/* Hero — title only, soft mint glow on right */}
       <header className="relative mb-12">
-        <div aria-hidden className="absolute -right-10 -top-6 size-56 rounded-full bg-mint/40 blur-3xl" />
-        <h1 className="font-display text-[clamp(2rem,4.4vw,3.4rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
+        <div className="absolute -right-10 -top-6 size-56 rounded-full bg-mint/40 blur-3xl" aria-hidden />
+        <h1 className="font-display text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
           Egzersiz Rehberi
         </h1>
         <p className="mt-3 flex max-w-xl flex-wrap items-center gap-3 text-base text-muted-foreground">
-          Farklı branşlara özel egzersizleri izle, adım adım öğren ve kendi gelişimini destekle.
+          Farklı branşlara özel egzersizleri izle, adım adım öğren ve kendi
+          gelişimini destekle.
           <DemoBadge label="Video küratörlüğü mock" />
         </p>
       </header>
 
-      {/* Quick categories */}
+      {/* Hızlı Kategoriler */}
       <div className="mb-10">
         <div className="mb-4 flex items-end justify-between">
-          <h2 className="font-display text-base font-extrabold text-primary-deep">
-            Hızlı Kategoriler
-          </h2>
+          <h2 className="font-display text-base font-extrabold text-primary-deep">Hızlı Kategoriler</h2>
           <button
             type="button"
             onClick={clearFilters}
             className="inline-flex items-center gap-1.5 rounded-full bg-card px-3.5 py-1.5 text-[12px] font-semibold text-primary ring-1 ring-border/50 hover:ring-primary/40"
           >
-            Tüm kategoriler <ArrowRight aria-hidden className="size-3.5" />
+            Rehberdeki tüm kategoriler <ArrowRight className="size-3.5" aria-hidden />
           </button>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-          {CATEGORIES.map(({ l, i: I, c }) => (
-            <button
-              key={l}
-              type="button"
-              className="group flex items-center gap-3 rounded-2xl bg-card px-3.5 py-3 ring-1 ring-border/40 transition hover:-translate-y-0.5 hover:ring-primary/30"
-            >
-              <span aria-hidden className={`grid size-10 shrink-0 place-items-center rounded-full ${
-                c === 'peach' ? 'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]' :
-                c === 'mint' ? 'bg-mint/70 text-mint-foreground' :
-                c === 'lavender' ? 'bg-accent/15 text-accent' :
-                'bg-sky/70 text-sky-foreground'
-              }`}>
-                <I className="size-4" strokeWidth={1.8} />
-              </span>
-              <span className="text-[12.5px] font-bold leading-tight text-foreground hc:text-black">
-                {l}
-                <br />
-                <span className="font-medium text-muted-foreground">Egzersizleri</span>
-              </span>
-            </button>
-          ))}
+          {CATEGORIES.map(({ l, tag, i: I, c }) => {
+            const active = filters.category === tag
+            return (
+              <button
+                key={l}
+                type="button"
+                onClick={() => toggleCategory(tag)}
+                aria-pressed={active}
+                className={`group flex items-center gap-3 rounded-2xl bg-card px-3.5 py-3 ring-1 transition hover:-translate-y-0.5 ${
+                  active ? 'ring-primary shadow-card' : 'ring-border/40 hover:ring-primary/30'
+                }`}
+              >
+                <span aria-hidden className={`grid size-10 shrink-0 place-items-center rounded-full ${
+                  c === 'peach' ? 'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]' :
+                  c === 'mint' ? 'bg-mint/70 text-mint-foreground' :
+                  c === 'lavender' ? 'bg-accent/15 text-accent' :
+                  'bg-sky/70 text-sky-foreground'
+                }`}>
+                  <I className="size-4" strokeWidth={1.8} />
+                </span>
+                <span className="text-[12.5px] font-bold leading-tight text-foreground">
+                  {l}
+                  <br />
+                  <span className="font-medium text-muted-foreground">Egzersizleri</span>
+                </span>
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="mb-10 space-y-3 rounded-3xl bg-card/85 p-4 ring-1 ring-border/40 backdrop-blur">
-        <FilterGroup label="Engel tipi">
-          <FilterChip
-            role="radio"
-            active={filters.disabilityType === 'all'}
-            onClick={() => setFilters(f => ({ ...f, disabilityType: 'all' }))}
-          >
-            Hepsi
-          </FilterChip>
-          {DISABILITY_OPTIONS.map(opt => (
-            <FilterChip
-              key={opt.id}
-              role="radio"
-              active={filters.disabilityType === opt.id}
-              onClick={() => setFilters(f => ({ ...f, disabilityType: opt.id }))}
-            >
-              {opt.label}
-            </FilterChip>
-          ))}
-        </FilterGroup>
-
-        <FilterGroup label="Hareket tipi">
-          <FilterChip
-            role="radio"
-            active={filters.mobilityLevel === 'all'}
-            onClick={() => setFilters(f => ({ ...f, mobilityLevel: 'all' }))}
-          >
-            Hepsi
-          </FilterChip>
-          {MOBILITY_OPTIONS.map(opt => (
-            <FilterChip
-              key={opt.id}
-              role="radio"
-              active={filters.mobilityLevel === opt.id}
-              onClick={() => setFilters(f => ({ ...f, mobilityLevel: opt.id }))}
-            >
-              {opt.label}
-            </FilterChip>
-          ))}
-        </FilterGroup>
-
-        <FilterGroup label="Süre">
-          <FilterChip
-            role="radio"
-            active={filters.duration === 'all'}
-            onClick={() => setFilters(f => ({ ...f, duration: 'all' }))}
-          >
-            Hepsi
-          </FilterChip>
-          {DURATION_OPTIONS.map(opt => (
-            <FilterChip
-              key={opt.id}
-              role="radio"
-              active={filters.duration === opt.id}
-              onClick={() => setFilters(f => ({ ...f, duration: opt.id }))}
-            >
-              {opt.label}
-            </FilterChip>
-          ))}
-        </FilterGroup>
-
-        <FilterGroup label="Dil">
-          <FilterChip
-            role="radio"
-            active={filters.language === 'all'}
-            onClick={() => setFilters(f => ({ ...f, language: 'all' }))}
-          >
-            Hepsi
-          </FilterChip>
-          {LANGUAGE_OPTIONS.map(opt => (
-            <FilterChip
-              key={opt.id}
-              role="radio"
-              active={filters.language === opt.id}
-              onClick={() => setFilters(f => ({ ...f, language: opt.id }))}
-            >
-              {opt.label}
-            </FilterChip>
-          ))}
-        </FilterGroup>
-
-        {isFiltered && (
-          <div className="pt-2">
-            <button
-              type="button"
-              onClick={clearFilters}
-              className="text-xs font-bold text-primary underline-offset-2 hover:underline"
-            >
-              Filtreleri temizle
-            </button>
-          </div>
-        )}
+      {/* Filter row — design's label-above-value dropdowns */}
+      <div className="mb-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <FilterDropdown
+          label="Spor Dalı"
+          value={filters.sport}
+          options={buildAllOptions(SPORT_TAGS)}
+          onChange={v => patch({ sport: v as FilterState['sport'] })}
+          open={openDD === 'sport'}
+          onToggle={() => toggleDD('sport')}
+        />
+        <FilterDropdown
+          label="Zorluk Seviyesi"
+          value={filters.level}
+          options={buildAllOptions(LEVEL_TAGS)}
+          onChange={v => patch({ level: v as FilterState['level'] })}
+          open={openDD === 'level'}
+          onToggle={() => toggleDD('level')}
+        />
+        <FilterDropdown
+          label="Ekipman"
+          value={filters.equipment}
+          options={buildAllOptions(EQUIPMENT_LIST, true)}
+          onChange={v => patch({ equipment: v as FilterState['equipment'] })}
+          open={openDD === 'equipment'}
+          onToggle={() => toggleDD('equipment')}
+        />
+        <FilterDropdown
+          label="Hedef Bölge"
+          value={filters.zone}
+          options={buildAllOptions(ZONE_TAGS)}
+          onChange={v => patch({ zone: v as FilterState['zone'] })}
+          open={openDD === 'zone'}
+          onToggle={() => toggleDD('zone')}
+        />
+        <FilterDropdown
+          label="Sırala:"
+          value={filters.sort}
+          options={SORT_OPTIONS}
+          onChange={v => patch({ sort: v as SortBy })}
+          open={openDD === 'sort'}
+          onToggle={() => toggleDD('sort')}
+        />
       </div>
+
+      {isFiltered && (
+        <div className="-mt-6 mb-8">
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="text-xs font-bold text-primary underline-offset-2 hover:underline"
+          >
+            Filtreleri temizle
+          </button>
+        </div>
+      )}
 
       {/* Toolbar */}
       <div className="mb-7 flex flex-wrap items-end justify-between gap-3">
-        <h2 className="font-display text-2xl font-extrabold text-primary-deep">
-          Egzersiz Videoları{' '}
-          <span className="ml-2 text-sm font-semibold text-muted-foreground">
-            {results.length} sonuç
-          </span>
-        </h2>
-        <div className="flex items-center gap-3">
+        <div>
+          <h2 className="font-display text-2xl font-extrabold text-primary-deep">
+            Egzersiz Videoları{' '}
+            <span className="ml-2 text-sm font-semibold text-muted-foreground">
+              {results.length} sonuç bulundu
+            </span>
+          </h2>
+        </div>
+        <div className="flex items-center gap-5">
+          {/* Subtitle-first toggle */}
+          <button
+            type="button"
+            role="switch"
+            aria-checked={filters.subsFirst}
+            onClick={() => patch({ subsFirst: !filters.subsFirst })}
+            className="flex items-center gap-2 text-xs font-semibold text-foreground"
+          >
+            Altyazılı önce göster
+            <span
+              className={`relative inline-block h-5 w-9 rounded-full transition ${
+                filters.subsFirst ? 'bg-success' : 'bg-muted ring-1 ring-border/60'
+              }`}
+              aria-hidden
+            >
+              <span
+                className={`absolute top-0.5 size-4 rounded-full bg-white shadow transition-all ${
+                  filters.subsFirst ? 'right-0.5' : 'left-0.5'
+                }`}
+              />
+            </span>
+          </button>
+
           <div className="flex rounded-full p-1 ring-1 ring-border/60" role="group" aria-label="Görünüm">
             <button
               type="button"
@@ -268,10 +403,7 @@ export function ExerciseLibrary() {
 
       {/* Results */}
       {results.length === 0 ? (
-        <div
-          role="status"
-          className="rounded-3xl bg-card p-8 text-center ring-1 ring-border/40"
-        >
+        <div role="status" className="rounded-3xl bg-card p-8 text-center ring-1 ring-border/40">
           <p className="text-sm text-foreground/85">
             Bu filtreyle eşleşen egzersiz videosu yok.
           </p>
@@ -292,41 +424,68 @@ export function ExerciseLibrary() {
               : 'grid gap-6 lg:grid-cols-2'
           }
         >
-          {results.map(exercise => (
+          {paged.map(exercise => (
             <ExerciseCard key={exercise.id} exercise={exercise} />
           ))}
         </section>
       )}
 
-      {/* Pagination (visual) */}
-      {results.length > 9 && (
-        <div className="mt-12 flex items-center justify-center gap-2 text-sm" role="navigation" aria-label="Sayfalama">
-          <button type="button" aria-label="Önceki" className="grid size-9 place-items-center rounded-full ring-1 ring-border/60 hover:bg-card">
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <nav className="mt-12 flex items-center justify-center gap-2 text-sm" aria-label="Sayfalama">
+          <button
+            type="button"
+            aria-label="Önceki"
+            disabled={pageSafe === 1}
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            className="grid size-9 place-items-center rounded-full ring-1 ring-border/60 hover:bg-card disabled:opacity-40"
+          >
             <ChevronLeft className="size-4" aria-hidden />
           </button>
-          {[1, 2, 3].map(n => (
+          {Array.from({ length: Math.min(totalPages, 3) }, (_, i) => i + 1).map(n => (
             <button
               key={n}
               type="button"
-              aria-current={n === 1 ? 'page' : undefined}
+              onClick={() => setPage(n)}
+              aria-current={n === pageSafe ? 'page' : undefined}
               className={`grid size-9 place-items-center rounded-full font-bold ${
-                n === 1 ? 'bg-primary text-primary-foreground shadow-glow' : 'hover:bg-card'
+                n === pageSafe ? 'bg-primary text-primary-foreground shadow-glow' : 'hover:bg-card'
               }`}
             >
               {n}
             </button>
           ))}
-          <span aria-hidden className="px-1 text-muted-foreground">…</span>
-          <button type="button" aria-label="Sonraki" className="grid size-9 place-items-center rounded-full ring-1 ring-border/60 hover:bg-card">
+          {totalPages > 4 && (
+            <>
+              <span aria-hidden className="px-1 text-muted-foreground">…</span>
+              <button
+                type="button"
+                onClick={() => setPage(totalPages)}
+                aria-current={pageSafe === totalPages ? 'page' : undefined}
+                className={`grid size-9 place-items-center rounded-full font-bold ${
+                  pageSafe === totalPages ? 'bg-primary text-primary-foreground shadow-glow' : 'hover:bg-card'
+                }`}
+              >
+                {totalPages}
+              </button>
+            </>
+          )}
+          <button
+            type="button"
+            aria-label="Sonraki"
+            disabled={pageSafe === totalPages}
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            className="grid size-9 place-items-center rounded-full ring-1 ring-border/60 hover:bg-card disabled:opacity-40"
+          >
             <ChevronRight className="size-4" aria-hidden />
           </button>
-        </div>
+        </nav>
       )}
 
-      {/* Footer help */}
-      <section className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] bg-accent/8 px-7 py-6">
+      {/* Footer ask block */}
+      <section className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] bg-accent/10 px-7 py-6">
         <div className="flex items-center gap-4">
-          <span aria-hidden className="grid size-12 place-items-center rounded-2xl bg-card text-primary-deep">
+          <span aria-hidden className="grid size-12 place-items-center rounded-2xl bg-white text-primary-deep">
             <MessageCircleQuestion className="size-5" />
           </span>
           <div>
@@ -340,7 +499,7 @@ export function ExerciseLibrary() {
           to="/community"
           className="inline-flex items-center gap-2 rounded-full bg-primary-deep px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow"
         >
-          Topluluğa sor <ArrowRight aria-hidden className="size-3.5" />
+          Topluluğa sor <ArrowRight className="size-3.5" aria-hidden />
         </Link>
       </section>
     </div>

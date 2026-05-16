@@ -3,17 +3,23 @@ import { Link } from 'react-router-dom'
 import {
   Accessibility, Target, Pencil, CheckCircle2, MapPin, RefreshCw, Heart,
   Sparkles as SparklesIcon, Footprints,
+  Waves, CircleDot, Trophy,
 } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { useProfile } from '../contexts/ProfileContext'
 import { matchSports } from '../lib/sport-match'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
 import { DemoBadge } from '../components/ui/DemoBadge'
 import { SpeakButton } from '../components/ui/SpeakButton'
-import { getSportIcon } from '../lib/sport-icons'
 import sportsData from '../data/sports.json'
 import type { Sport, Facility } from '../types'
 import type { MatchResult } from '../lib/sport-match'
+import sportSwim from '../assets/sport-swimming.jpg'
+import sportBasket from '../assets/sport-basketball.jpg'
+import sportTT from '../assets/sport-tabletennis.jpg'
+import facilityPool from '../assets/facility-pool.jpg'
+import facilityEryaman from '../assets/facility-eryaman.jpg'
 
 const DISABILITY_LABELS: Record<string, string> = {
   wheelchair: 'Tekerlekli Sandalye',
@@ -35,43 +41,61 @@ const GOAL_LABELS: Record<string, string> = {
 
 const TINTS = [
   {
-    photo: 'bg-accent text-primary-foreground',
-    pill:  'text-accent bg-accent/10',
+    num:   'bg-accent text-primary-foreground',
     check: 'text-accent',
     icon:  'text-sky-foreground bg-sky/60',
-    link:  'text-accent decoration-2',
+    pill:  'text-accent bg-accent/10',
+    link:  'text-accent',
   },
   {
-    photo: 'bg-success text-primary-foreground',
-    pill:  'text-success bg-success/10',
+    num:   'bg-success text-primary-foreground',
     check: 'text-success',
     icon:  'text-mint-foreground bg-mint/60',
-    link:  'text-success decoration-2',
+    pill:  'text-success bg-success/10',
+    link:  'text-success',
   },
   {
-    photo: 'bg-[oklch(0.62_0.18_55)] text-primary-foreground',
-    pill:  'text-[oklch(0.55_0.18_50)] bg-[oklch(0.92_0.07_60)]',
+    num:   'bg-[oklch(0.62_0.18_55)] text-primary-foreground',
     check: 'text-[oklch(0.62_0.18_55)]',
     icon:  'text-[oklch(0.55_0.18_50)] bg-[oklch(0.92_0.07_60)]',
-    link:  'text-[oklch(0.55_0.18_50)] decoration-2',
+    pill:  'text-[oklch(0.55_0.18_50)] bg-[oklch(0.92_0.07_60)]',
+    link:  'text-[oklch(0.55_0.18_50)]',
   },
 ] as const
+
+const SPORT_DETAIL_ICONS: LucideIcon[] = [Waves, CircleDot, Trophy]
+
+function getSportImage(sportId: string): string {
+  if (sportId.includes('swim') || sportId.includes('aqua') || sportId.includes('water')) return sportSwim
+  if (sportId.includes('basket') || sportId.includes('volleyball') || sportId.includes('football')) return sportBasket
+  if (sportId.includes('tennis') || sportId.includes('table') || sportId.includes('boccia') || sportId.includes('archery') || sportId.includes('goalball')) return sportTT
+  if (sportId.includes('yoga') || sportId.includes('pilates') || sportId.includes('athletics')) return facilityPool
+  return facilityEryaman
+}
+
+function calcMatchPercent(score: number): number {
+  // sport-match.ts max score = 3 + 2 + 2 = 7
+  return Math.min(99, Math.round((score / 7) * 100) + 10)
+}
+
+function facilityScorePct(verifiedCount: number): number {
+  return Math.round((verifiedCount / 6) * 100)
+}
 
 function SportPhoto({ idx, match, sport }: { idx: number; match: number; sport: Sport }) {
   const t = TINTS[idx]
   return (
-    <div className="relative h-60 overflow-hidden rounded-[1.5rem] bg-gradient-brand sm:h-72">
-      <div
-        aria-hidden
-        className="absolute inset-0 grid place-items-center text-7xl"
+    <div className="relative h-72 overflow-hidden rounded-[1.5rem]">
+      <img
+        src={getSportImage(sport.id)}
+        alt={sport.name}
+        className="absolute inset-0 h-full w-full object-cover"
         style={{
           WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 96%)',
           maskImage: 'linear-gradient(to bottom, black 50%, transparent 96%)',
         }}
-      >
-        {getSportIcon(sport.id)}
-      </div>
-      <div className={`absolute left-5 top-5 grid size-9 place-items-center rounded-full text-sm font-extrabold ${t.photo}`}>
+      />
+      <div className={`absolute left-5 top-5 grid size-9 place-items-center rounded-full text-sm font-extrabold ${t.num}`}>
         {idx + 1}
       </div>
       <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
@@ -81,11 +105,6 @@ function SportPhoto({ idx, match, sport }: { idx: number; match: number; sport: 
       </div>
     </div>
   )
-}
-
-function calcMatchPercent(score: number): number {
-  // sport-match.ts max score = 3 + 2 + 2 = 7
-  return Math.min(99, Math.round((score / 7) * 100) + 10)
 }
 
 export function MatchSport() {
@@ -106,7 +125,7 @@ export function MatchSport() {
   return (
     <div className="mx-auto max-w-7xl pt-2">
       {/* Header */}
-      <header className="mb-10 flex flex-wrap items-start justify-between gap-6">
+      <header className="mb-12 flex flex-wrap items-start justify-between gap-8">
         <div>
           <p className="text-sm font-semibold text-primary">
             Sana özel eşleşme tamamlandı! <span aria-hidden>🎉</span>
@@ -114,13 +133,14 @@ export function MatchSport() {
           <h1 className="mt-3 font-display text-[clamp(2rem,3.5vw,3rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
             Sana en uygun <span className="text-accent">{matches.length} spor</span> önerimiz
           </h1>
-          <p className="mt-3 flex items-center gap-3 max-w-xl text-sm text-muted-foreground">
+          <p className="mt-3 flex items-center gap-3 max-w-xl text-muted-foreground">
             Profiline, hedeflerine ve tercihine en uygun sporları senin için belirledik.
             <DemoBadge />
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-5 rounded-3xl bg-card/85 px-5 py-3 ring-1 ring-border/40 backdrop-blur">
+        {/* Profile chip row — clean, no card */}
+        <div className="flex flex-wrap items-center gap-7 rounded-3xl bg-card/70 px-6 py-4 ring-1 ring-border/40 backdrop-blur">
           <ProfileChip i={Accessibility} l="Engel Tipi" v={DISABILITY_LABELS[profile.disabilityType]} />
           <ProfileChip i={Footprints}     l="Hareket"    v={MOBILITY_LABELS[profile.mobilityLevel]} />
           <ProfileChip i={Target}         l="Hedefin"    v={GOAL_LABELS[profile.goal]} />
@@ -137,10 +157,7 @@ export function MatchSport() {
 
       {/* No-match fallback */}
       {matches.length === 0 ? (
-        <div
-          role="status"
-          className="rounded-3xl bg-card p-8 text-center ring-1 ring-border/40"
-        >
+        <div role="status" className="rounded-3xl bg-card p-8 text-center ring-1 ring-border/40">
           <SparklesIcon aria-hidden className="mx-auto size-8 text-primary" />
           <p className="mt-3 text-sm text-foreground">
             Profiline tam uyan bir spor şu anda veri tabanımızda bulunmuyor.
@@ -157,7 +174,7 @@ export function MatchSport() {
         </div>
       ) : (
         <>
-          {/* Photo row */}
+          {/* 3 hero photos that fade into the canvas */}
           <div className="grid gap-x-8 gap-y-6 md:grid-cols-3">
             {matches.map((m, i) => (
               <SportPhoto key={m.sport.id} idx={i} match={calcMatchPercent(m.score)} sport={m.sport} />
@@ -169,7 +186,8 @@ export function MatchSport() {
             {matches.map((m, i) => {
               const t = TINTS[i]
               const matchPct = calcMatchPercent(m.score)
-              const relatedFacilities = pickTopFacilities(
+              const Icon = SPORT_DETAIL_ICONS[i] ?? Trophy
+              const related = pickTopFacilities(
                 facilities.filter(f => f.sports.includes(m.sport.id)),
                 profile,
                 3,
@@ -182,20 +200,18 @@ export function MatchSport() {
                   <span className={`mt-2 inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-bold ${t.pill}`}>
                     %{matchPct} Uygunluk
                   </span>
-                  <p className="mt-4 text-sm leading-relaxed text-foreground/80 hc:text-black">
+                  <p className="mt-4 text-sm leading-relaxed text-foreground/80">
                     {m.sport.description}
                   </p>
 
                   <div className="mt-6">
                     <div className="flex items-center justify-between">
-                      <p className="text-[13px] font-bold text-primary-deep">
-                        Sana göre neden uygun?
-                      </p>
+                      <div className="text-[13px] font-bold text-primary-deep">Sana göre neden uygun?</div>
                       <SpeakButton text={m.reason} label={`${m.sport.name} önerisi`} />
                     </div>
                     <ul className="mt-3 space-y-2">
                       {m.reason.split(',').slice(0, 4).map(r => (
-                        <li key={r} className="flex items-start gap-2 text-[13.5px] text-foreground/85 hc:text-black">
+                        <li key={r} className="flex items-start gap-2 text-[13.5px] text-foreground/85">
                           <CheckCircle2 aria-hidden className={`mt-0.5 size-4 shrink-0 ${t.check}`} />
                           <span>{r.trim().replace(/\.$/, '')}</span>
                         </li>
@@ -203,22 +219,23 @@ export function MatchSport() {
                     </ul>
                   </div>
 
-                  {relatedFacilities.length > 0 && (
+                  {related.length > 0 && (
                     <div className="mt-7">
-                      <p className="text-[13px] font-bold text-primary-deep">
-                        Erişilebilir Tesisler (Ankara)
-                      </p>
-                      <ul className="mt-3 space-y-2">
-                        {relatedFacilities.map(({ facility }) => (
+                      <div className="text-[13px] font-bold text-primary-deep">Erişilebilir Tesisler (Ankara)</div>
+                      <ul className="mt-3 space-y-2.5">
+                        {related.map(({ facility, verifiedCount }) => (
                           <li key={facility.id} className="flex items-center gap-2 text-[13px]">
                             <MapPin className="size-3.5 text-muted-foreground" aria-hidden />
                             <Link
                               to={`/facility/${facility.id}`}
-                              className="flex-1 truncate hover:text-primary hc:text-black"
+                              className="flex-1 truncate hover:text-primary"
                             >
                               {facility.name}
                             </Link>
-                            <span className="text-muted-foreground">{facility.district}</span>
+                            <span className="text-muted-foreground">{facility.district.split(',')[0]}</span>
+                            <span className={`rounded-md px-1.5 py-0.5 text-[10.5px] font-bold ${t.pill}`}>
+                              %{facilityScorePct(verifiedCount)}
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -232,12 +249,12 @@ export function MatchSport() {
                   )}
 
                   <div className="mt-8 flex flex-wrap items-center gap-3">
-                    <Link to={`/map?sport=${m.sport.id}`} className="inline-flex items-center gap-3">
+                    <Link to={`/map?sport=${m.sport.id}`} className="inline-flex items-center gap-3 self-start">
                       <span className={`grid size-12 place-items-center rounded-full ${t.icon}`}>
-                        <MapPin className="size-5" aria-hidden />
+                        <Icon className="size-5" aria-hidden />
                       </span>
-                      <span className={`text-sm font-bold underline underline-offset-[6px] ${t.link}`}>
-                        Tesisleri gör →
+                      <span className={`text-sm font-bold underline underline-offset-[6px] decoration-2 ${t.link}`}>
+                        Detayları incele →
                       </span>
                     </Link>
                     <Link
@@ -252,10 +269,10 @@ export function MatchSport() {
             })}
           </div>
 
-          {/* Feedback row */}
-          <section className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] bg-accent/8 px-7 py-6">
+          {/* Footer feedback row */}
+          <section className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] bg-accent/10 px-7 py-6">
             <div className="flex items-center gap-4">
-              <span aria-hidden className="grid size-12 place-items-center rounded-2xl bg-card text-primary-deep">
+              <span aria-hidden className="grid size-12 place-items-center rounded-2xl bg-white text-primary-deep">
                 <RefreshCw className="size-5" />
               </span>
               <div>
@@ -267,7 +284,7 @@ export function MatchSport() {
             </div>
             <Link
               to="/onboarding"
-              className="inline-flex items-center gap-2 rounded-full bg-card px-5 py-2.5 text-xs font-bold text-primary-deep ring-1 ring-border/60 hover:ring-primary/40"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-primary-deep ring-1 ring-border/60 hover:ring-primary/40"
             >
               <RefreshCw aria-hidden className="size-3.5" /> Yeniden eşleştir
             </Link>
@@ -284,15 +301,7 @@ export function MatchSport() {
   )
 }
 
-function ProfileChip({
-  i: I,
-  l,
-  v,
-}: {
-  i: typeof Accessibility
-  l: string
-  v: string
-}) {
+function ProfileChip({ i: I, l, v }: { i: LucideIcon; l: string; v: string }) {
   return (
     <div className="flex items-center gap-3">
       <span aria-hidden className="grid size-10 place-items-center rounded-full bg-accent/10 text-accent">
@@ -300,7 +309,7 @@ function ProfileChip({
       </span>
       <div>
         <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{l}</div>
-        <div className="text-[13px] font-bold text-foreground hc:text-black">{v}</div>
+        <div className="text-[13px] font-bold text-foreground">{v}</div>
       </div>
     </div>
   )
