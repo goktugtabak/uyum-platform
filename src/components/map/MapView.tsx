@@ -14,13 +14,12 @@ const ANKARA_CENTER: [number, number] = [39.9334, 32.8597]
 
 export function MapView({ facilities, disabilityType, sportFilter }: MapViewProps) {
   return (
-    <div className="relative h-full w-full min-h-[60vh] md:min-h-[calc(100vh-8rem)]">
+    <div className="relative h-full w-full">
       <MapContainer
         center={ANKARA_CENTER}
         zoom={12}
         scrollWheelZoom
         className="h-full w-full"
-        style={{ minHeight: 'inherit' }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

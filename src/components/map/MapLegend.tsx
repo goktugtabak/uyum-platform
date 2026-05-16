@@ -12,58 +12,39 @@ export function MapLegend() {
     <div className="absolute bottom-4 left-4 z-[400]">
       <details className="group">
         <summary
-          className="
-            cursor-pointer select-none
-            px-3 py-1.5 rounded-lg
-            bg-uyum-dark/90 border border-white/20
-            text-white text-xs font-heading font-semibold
-            hover:bg-uyum-dark focus-visible:ring-2 focus-visible:ring-uyum-purple
-            hc:bg-black hc:border-white hc:text-white
-          "
+          className="cursor-pointer select-none rounded-full bg-card/95 px-4 py-1.5 text-xs font-bold text-primary-deep ring-1 ring-border/60 backdrop-blur hover:ring-primary/40 hc:bg-white hc:ring-black hc:text-black"
           aria-label="Harita lejantını aç"
         >
           Lejant
         </summary>
 
-        <div
-          className="
-            mt-1 p-3 rounded-lg min-w-[180px]
-            bg-uyum-dark/95 border border-white/20
-            hc:bg-black hc:border-white
-          "
-        >
-          {/* Accessibility color legend */}
-          <p className="text-xs font-heading font-semibold text-white/60 uppercase tracking-wider mb-2 hc:text-white">
+        <div className="mt-2 rounded-2xl bg-card/95 p-4 shadow-card ring-1 ring-border/40 backdrop-blur min-w-[200px] hc:bg-white hc:ring-black">
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hc:text-black">
             Erişilebilirlik
           </p>
-          <ul className="space-y-1 mb-3" role="list">
+          <ul role="list" className="space-y-1.5">
             {COLOR_ITEMS.map(({ color, glyph, label }) => (
-              <li key={color} className="flex items-center gap-2" role="listitem">
+              <li key={color} className="flex items-center gap-2">
                 <span
-                  className="inline-flex items-center justify-center w-4 h-4 rounded-full text-[10px] font-bold text-white flex-shrink-0 hc:border hc:border-white"
+                  aria-hidden
+                  className="inline-flex size-4 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white"
                   style={{ backgroundColor: color }}
-                  aria-hidden="true"
                 >
                   {glyph}
                 </span>
-                <span className="text-xs font-body text-white/80 hc:text-white">{label}</span>
+                <span className="text-xs text-foreground/80 hc:text-black">{label}</span>
               </li>
             ))}
           </ul>
 
-          {/* Sport icon legend */}
-          <p className="text-xs font-heading font-semibold text-white/60 uppercase tracking-wider mb-2 hc:text-white">
-            Spor İkonu
+          <p className="mt-3 mb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground hc:text-black">
+            Spor İkonları
           </p>
-          <ul className="space-y-1" role="list">
+          <ul role="list" className="grid grid-cols-2 gap-x-3 gap-y-1">
             {LEGEND_SPORTS.map(id => (
-              <li key={id} className="flex items-center gap-2" role="listitem">
-                <span className="text-sm leading-none flex-shrink-0" aria-hidden="true">
-                  {getSportIcon(id)}
-                </span>
-                <span className="text-xs font-body text-white/80 hc:text-white">
-                  {getSportLabel(id)}
-                </span>
+              <li key={id} className="flex items-center gap-1.5 text-xs text-foreground/80 hc:text-black">
+                <span aria-hidden className="text-sm leading-none">{getSportIcon(id)}</span>
+                <span className="truncate">{getSportLabel(id)}</span>
               </li>
             ))}
           </ul>

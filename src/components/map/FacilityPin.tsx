@@ -46,6 +46,7 @@ function buildDivIcon(
   const opacity = isDimmed ? 0.45 : 1
   const highlightShadow = `0 0 0 3px #4C2A85, 0 0 0 5px rgba(76,42,133,0.4)`
 
+  // Teardrop pin (matches design/2026_uyum/tesisler.tsx style) — sport icon centered, status glyph as badge.
   const html = `
     <div
       role="img"
@@ -53,37 +54,50 @@ function buildDivIcon(
       style="
         position: relative;
         width: ${size}px;
-        height: ${size}px;
-        border-radius: 50%;
-        border: 4px solid ${color};
-        background: #1a1a2e;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
+        height: ${size + 12}px;
         opacity: ${opacity};
         cursor: pointer;
-        box-shadow: ${isHighlighted ? highlightShadow : '0 2px 6px rgba(0,0,0,0.4)'};
+        filter: ${isHighlighted ? 'drop-shadow(0 0 0 #4C2A85)' : 'drop-shadow(0 3px 6px rgba(0,0,0,0.18))'};
       "
     >
-      <span aria-hidden="true">${icon}</span>
+      <svg width="${size}" height="${size + 12}" viewBox="0 0 40 52" style="position:absolute;inset:0;">
+        <path
+          d="M20 2 C 10 2, 2.5 9.5, 2.5 19 C 2.5 31, 20 50, 20 50 C 20 50, 37.5 31, 37.5 19 C 37.5 9.5, 30 2, 20 2 Z"
+          fill="${color}"
+          stroke="${isHighlighted ? '#4C2A85' : 'rgba(255,255,255,0.6)'}"
+          stroke-width="${isHighlighted ? 3 : 2}"
+        />
+      </svg>
       <span
         aria-hidden="true"
         style="
           position: absolute;
-          top: -6px;
-          right: -6px;
-          min-width: 16px;
-          height: 16px;
-          padding: 0 3px;
-          border-radius: 999px;
-          background: ${color};
+          top: 8px;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 16px;
+          line-height: 1;
           color: #fff;
+        "
+      >${icon}</span>
+      <span
+        aria-hidden="true"
+        style="
+          position: absolute;
+          top: -4px;
+          right: -2px;
+          min-width: 18px;
+          height: 18px;
+          padding: 0 4px;
+          border-radius: 999px;
+          background: #fff;
+          color: ${color};
           font-size: 11px;
-          line-height: 16px;
+          line-height: 18px;
           text-align: center;
-          font-weight: 700;
-          box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+          font-weight: 800;
+          border: 2px solid ${color};
+          box-shadow: 0 1px 2px rgba(0,0,0,0.15);
         "
       >${glyph}</span>
     </div>
@@ -92,8 +106,8 @@ function buildDivIcon(
   return L.divIcon({
     html,
     className: '',
-    iconSize:  [size, size],
-    iconAnchor: [size / 2, size / 2],
+    iconSize:   [size, size + 12],
+    iconAnchor: [size / 2, size + 12],
   })
 }
 

@@ -22,64 +22,64 @@ export function FacilityMap() {
 
   useEffect(() => {
     loadFacilities()
-      .then(data => setFacilities(data))
+      .then(setFacilities)
       .finally(() => setLoading(false))
   }, [])
 
-  function handleDisabilityChange(dt: DisabilityType) {
-    setDisabilityType(dt)
-  }
-
-  function handleClearSport() {
-    setSearchParams({})
-  }
-
+  function handleDisabilityChange(dt: DisabilityType) { setDisabilityType(dt) }
+  function handleClearSport() { setSearchParams({}) }
   function handleReset() {
     setDisabilityType(profile?.disabilityType ?? 'wheelchair')
     setSearchParams({})
   }
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <Spinner label="Tesisler yükleniyor" />
-      </div>
-    )
-  }
-
   return (
-    <div className="flex flex-col min-h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-4rem)]">
-      {/* Top bar: filter + demo badge */}
-      <div className="flex items-center justify-between flex-wrap gap-2 pr-2 md:pr-4">
-        <div className="flex-1 min-w-0">
-          <MapFilterBar
-            disabilityType={disabilityType}
-            sportFilter={sportFilter}
-            onDisabilityChange={handleDisabilityChange}
-            onClearSport={handleClearSport}
-            onReset={handleReset}
-          />
+    <div className="mx-auto max-w-7xl space-y-6 pt-2">
+      {/* Header */}
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="font-display text-[clamp(1.8rem,3vw,2.5rem)] font-extrabold tracking-tight text-primary-deep">
+            Tesisleri Keşfet
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Konumuna en uygun, erişilebilir tesisleri haritada keşfet.
+          </p>
         </div>
-        <div className="px-2 md:px-4 py-2 md:py-3">
-          <DemoBadge label="Konumlar OpenStreetMap, erişilebilirlik verileri mock" />
-        </div>
-      </div>
+        <DemoBadge label="Konumlar OpenStreetMap, erişilebilirlik mock" />
+      </header>
 
-      {/* Main content: list + map */}
-      <div className="flex flex-col md:flex-row flex-1 min-h-0 overflow-hidden">
-        <FacilityList
-          facilities={facilities}
-          disabilityType={disabilityType}
-          sportFilter={sportFilter}
-        />
-        <div className="flex-1 min-h-[60vh] md:min-h-0 overflow-hidden">
-          <MapView
+      {/* Filters */}
+      <MapFilterBar
+        disabilityType={disabilityType}
+        sportFilter={sportFilter}
+        onDisabilityChange={handleDisabilityChange}
+        onClearSport={handleClearSport}
+        onReset={handleReset}
+      />
+
+      {loading ? (
+        <div className="flex h-64 items-center justify-center">
+          <Spinner label="Tesisler yükleniyor" />
+        </div>
+      ) : (
+        <div className="grid gap-6 xl:grid-cols-[1fr_22rem]">
+          {/* Map column */}
+          <div className="relative h-[60vh] min-h-[420px] overflow-hidden rounded-[1.5rem] ring-1 ring-border/30 xl:h-[calc(100dvh-12rem)]">
+            <MapView
+              facilities={facilities}
+              disabilityType={disabilityType}
+              sportFilter={sportFilter}
+            />
+          </div>
+
+          {/* List column */}
+          <FacilityList
             facilities={facilities}
             disabilityType={disabilityType}
             sportFilter={sportFilter}
           />
         </div>
-      </div>
+      )}
     </div>
   )
 }

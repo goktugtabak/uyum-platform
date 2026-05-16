@@ -1,3 +1,4 @@
+import { SlidersHorizontal, ChevronDown, X } from 'lucide-react'
 import { getSportLabel } from '../../lib/sport-icons'
 import type { DisabilityType } from '../../types'
 
@@ -24,52 +25,49 @@ export function MapFilterBar({
   onReset,
 }: MapFilterBarProps) {
   return (
-    <div className="flex flex-wrap items-center gap-3 px-4 py-3 border-b border-white/10 bg-uyum-dark hc:border-white">
-      {/* Disability type selector */}
-      <label className="flex items-center gap-2">
-        <span className="text-xs font-body text-white/60 whitespace-nowrap hc:text-white">
-          Engel tipi:
-        </span>
+    <div className="flex flex-wrap items-center gap-3" role="group" aria-label="Harita filtreleri">
+      <button
+        type="button"
+        className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow"
+      >
+        <SlidersHorizontal className="size-4" aria-hidden /> Filtrele
+      </button>
+
+      <label className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2.5 text-sm font-medium text-foreground/85 ring-1 ring-border/60 hover:ring-primary/40 hc:bg-white hc:ring-black">
+        <span className="text-[12px] text-muted-foreground hc:text-black">Engel tipi:</span>
         <select
           value={disabilityType}
           onChange={e => onDisabilityChange(e.target.value as DisabilityType)}
-          aria-label="Engel tipi seç"
-          className="
-            text-xs font-body bg-white/10 border border-white/20 rounded-md
-            px-2 py-1 text-white
-            focus-visible:ring-2 focus-visible:ring-uyum-purple focus-visible:outline-none
-            hc:bg-black hc:border-white hc:text-white
-          "
+          aria-label="Engel tipi"
+          className="bg-transparent text-sm font-semibold text-foreground outline-none hc:text-black"
         >
           {DISABILITY_OPTIONS.map(({ value, label }) => (
-            <option key={value} value={value} className="bg-uyum-dark text-white">
-              {label}
-            </option>
+            <option key={value} value={value}>{label}</option>
           ))}
         </select>
+        <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
       </label>
 
-      {/* Active sport filter chip */}
       {sportFilter && (
-        <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-uyum-purple/20 border border-uyum-purple/50 text-xs font-body text-white">
-          Spor: {getSportLabel(sportFilter)}
+        <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
+          {getSportLabel(sportFilter)}
           <button
+            type="button"
             onClick={onClearSport}
-            aria-label={`${getSportLabel(sportFilter)} spor filtresini kaldır`}
-            className="ml-1 rounded-full hover:bg-white/20 focus-visible:ring-1 focus-visible:ring-white leading-none p-0.5"
+            aria-label={`${getSportLabel(sportFilter)} filtresini kaldır`}
+            className="grid size-4 place-items-center rounded-full bg-primary/20 hover:bg-primary/30"
           >
-            ×
+            <X className="size-3" aria-hidden />
           </button>
         </span>
       )}
 
-      {/* Reset link */}
       <button
+        type="button"
         onClick={onReset}
-        aria-label="Tüm filtreleri sıfırla"
-        className="text-xs font-body text-white/50 hover:text-white underline focus-visible:ring-2 focus-visible:ring-uyum-purple rounded hc:text-white"
+        className="text-xs font-semibold text-muted-foreground underline-offset-2 hover:text-primary hover:underline"
       >
-        Filtreyi sıfırla
+        Filtreleri temizle
       </button>
     </div>
   )
