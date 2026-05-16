@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
+import { Mail, Phone, Star, Sparkles } from 'lucide-react'
 import type { Coach, Facility, DisabilityType } from '../../types'
-import { getSportIcon, getSportLabel } from '../../lib/sport-icons'
+import { getSportLabel } from '../../lib/sport-icons'
 
 const DISABILITY_LABELS: Record<DisabilityType, string> = {
   wheelchair: 'Tekerlekli Sandalye',
@@ -24,54 +25,48 @@ export function CoachCard({ coach, facilities, profileMatch = false }: CoachCard
   return (
     <article
       aria-labelledby={titleId}
-      className={
-        'flex flex-col gap-3 p-5 rounded-xl border transition-colors ' +
-        (profileMatch
-          ? 'border-uyum-purple/40 bg-uyum-purple/10 hover:border-uyum-purple/70'
-          : 'border-white/10 bg-white/5 hover:border-uyum-purple/40')
-      }
+      className="flex flex-col gap-4 rounded-3xl bg-card p-5 ring-1 ring-border/40 transition hover:-translate-y-0.5 hover:shadow-card hc:bg-white hc:ring-black"
     >
-      <header className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h3
-            id={titleId}
-            className="text-base font-heading font-semibold text-white"
-          >
+      <header className="flex items-start gap-3">
+        <div
+          aria-hidden
+          className="grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-brand text-xl font-bold text-primary-foreground"
+        >
+          {coach.name[0]}
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 id={titleId} className="font-display text-base font-extrabold text-primary-deep hc:text-black">
             {coach.name}
           </h3>
-          <p className="text-xs text-white/60 mt-0.5">
+          <p className="text-xs text-muted-foreground">
             {coach.city} · {coach.yearsExperience} yıl deneyim
           </p>
+          <div className="mt-1.5 flex items-center gap-2">
+            <span className="inline-flex items-center gap-1 rounded-full bg-warning/15 px-2 py-0.5 text-[11px] font-bold text-[oklch(0.55_0.12_85)]">
+              <Star aria-hidden className="size-3 fill-current" />
+              4.8
+            </span>
+            {profileMatch && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-mint/60 px-2 py-0.5 text-[10px] font-bold text-mint-foreground">
+                <Sparkles aria-hidden className="size-2.5" /> Sana uygun
+              </span>
+            )}
+          </div>
         </div>
-        {profileMatch && (
-          <span
-            className="text-[10px] uppercase tracking-wider text-uyum-frost-blue font-heading flex-shrink-0"
-            aria-label="Profiline uygun uzmanlık"
-          >
-            Uzmanlık eşleşti
-          </span>
-        )}
       </header>
 
-      <p className="text-sm font-body text-white/80 leading-relaxed line-clamp-3">
+      <p className="text-sm leading-relaxed text-foreground/85 line-clamp-3 hc:text-black">
         {coach.bio}
       </p>
 
       <div className="space-y-1.5">
-        <p className="text-[10px] uppercase tracking-wider text-white/50 font-heading">
-          Sporlar
-        </p>
+        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Sporlar</p>
         <div className="flex flex-wrap gap-1.5">
           {coach.sports.map(sportId => (
             <span
               key={sportId}
-              className="
-                inline-flex items-center gap-1
-                text-xs px-2 py-0.5 rounded-md
-                bg-white/10 text-white/90 border border-white/10
-              "
+              className="rounded-full bg-accent/15 px-2 py-0.5 text-[10.5px] font-bold text-accent"
             >
-              <span aria-hidden="true">{getSportIcon(sportId)}</span>
               {getSportLabel(sportId)}
             </span>
           ))}
@@ -79,14 +74,12 @@ export function CoachCard({ coach, facilities, profileMatch = false }: CoachCard
       </div>
 
       <div className="space-y-1.5">
-        <p className="text-[10px] uppercase tracking-wider text-white/50 font-heading">
-          Uzmanlık
-        </p>
+        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Uzmanlık</p>
         <div className="flex flex-wrap gap-1.5">
           {coach.disabilityExpertise.map(d => (
             <span
               key={d}
-              className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/80 border border-white/10"
+              className="rounded-full bg-mint/50 px-2 py-0.5 text-[10.5px] font-bold text-mint-foreground"
             >
               {DISABILITY_LABELS[d]}
             </span>
@@ -96,20 +89,13 @@ export function CoachCard({ coach, facilities, profileMatch = false }: CoachCard
 
       {linkedFacilities.length > 0 && (
         <div className="space-y-1.5">
-          <p className="text-[10px] uppercase tracking-wider text-white/50 font-heading">
-            Çalıştığı tesisler
-          </p>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Çalıştığı tesisler</p>
           <ul role="list" className="flex flex-wrap gap-1.5">
             {linkedFacilities.map(f => (
               <li key={f.id}>
                 <Link
                   to={`/facility/${f.id}`}
-                  className="
-                    text-xs px-2 py-0.5 rounded-md
-                    text-uyum-frost-blue underline hover:text-white
-                    focus-visible:outline focus-visible:outline-2
-                    focus-visible:outline-uyum-purple rounded
-                  "
+                  className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-semibold text-primary hover:bg-primary/10 hc:bg-white hc:text-black"
                 >
                   {f.name}
                 </Link>
@@ -119,29 +105,23 @@ export function CoachCard({ coach, facilities, profileMatch = false }: CoachCard
         </div>
       )}
 
-      <footer className="flex flex-wrap items-center gap-3 pt-2 border-t border-white/10 mt-auto">
+      <footer className="mt-auto flex flex-wrap items-center gap-3 border-t border-border/40 pt-3">
         {coach.contact.email && (
           <a
             href={`mailto:${coach.contact.email}`}
             aria-label={`E-posta gönder: ${coach.contact.email}`}
-            className="
-              text-xs text-uyum-purple underline hover:text-uyum-blue
-              focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple rounded
-            "
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary-deep"
           >
-            ✉ {coach.contact.email}
+            <Mail aria-hidden className="size-3.5" /> {coach.contact.email}
           </a>
         )}
         {coach.contact.phone && (
           <a
             href={`tel:${coach.contact.phone.replace(/\s+/g, '')}`}
             aria-label={`Telefon: ${coach.contact.phone}`}
-            className="
-              text-xs text-uyum-purple underline hover:text-uyum-blue
-              focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple rounded
-            "
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary-deep"
           >
-            ☎ {coach.contact.phone}
+            <Phone aria-hidden className="size-3.5" /> {coach.contact.phone}
           </a>
         )}
       </footer>

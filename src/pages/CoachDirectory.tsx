@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { ArrowLeft, ArrowRight, X, MessageCircleQuestion } from 'lucide-react'
 import type { Coach, Facility, DisabilityType } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
 import { DemoBadge } from '../components/ui/DemoBadge'
@@ -29,7 +30,7 @@ export function CoachDirectory() {
   const [params, setParams] = useSearchParams()
   const [expertise, setExpertise] = useState<DisabilityType[]>([])
 
-  const rawSport    = params.get('sport') ?? undefined
+  const rawSport = params.get('sport') ?? undefined
   const rawFacility = params.get('facility') ?? undefined
 
   const facility = rawFacility
@@ -39,12 +40,8 @@ export function CoachDirectory() {
   const sportLabel = rawSport ? getSportLabel(rawSport) : undefined
 
   useEffect(() => {
-    if (rawSport && !sportKnown) {
-      console.warn(`[CoachDirectory] Unknown sport id in query: ${rawSport}`)
-    }
-    if (rawFacility && !facility) {
-      console.warn(`[CoachDirectory] Unknown facility id in query: ${rawFacility}`)
-    }
+    if (rawSport && !sportKnown) console.warn(`[CoachDirectory] Unknown sport id: ${rawSport}`)
+    if (rawFacility && !facility) console.warn(`[CoachDirectory] Unknown facility id: ${rawFacility}`)
   }, [rawSport, rawFacility, facility, sportKnown])
 
   const results = useMemo(() => {
@@ -65,13 +62,11 @@ export function CoachDirectory() {
     setParams({})
     setExpertise([])
   }
-
   function clearSport() {
     const next = new URLSearchParams(params)
     next.delete('sport')
     setParams(next)
   }
-
   function clearFacility() {
     const next = new URLSearchParams(params)
     next.delete('facility')
@@ -81,69 +76,56 @@ export function CoachDirectory() {
   if (!profile) return null
 
   return (
-    <div className="max-w-5xl mx-auto p-4 md:p-6 space-y-6">
-      <header className="flex flex-wrap items-start justify-between gap-4 pb-4 border-b border-white/10">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-heading font-bold text-white mb-2">
-            Koç & Antrenör Dizini
-          </h1>
-          <p className="text-sm text-white/60 font-body max-w-2xl">
-            Engel tipi uzmanlığı olan koçlar. Profilinle uyumlu olanlar listenin başında.
-          </p>
-        </div>
-        <DemoBadge label="Koç verileri mock" />
+    <div className="mx-auto max-w-7xl pt-2">
+      <Link
+        to="/"
+        className="mb-6 inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-primary"
+      >
+        <ArrowLeft aria-hidden className="size-3.5" /> Ana Sayfa / Koçlar
+      </Link>
+
+      <header className="mb-10">
+        <h1 className="font-display text-[clamp(2rem,4vw,3rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
+          Koçlar &amp; Antrenörler
+        </h1>
+        <p className="mt-3 flex max-w-2xl flex-wrap items-center gap-3 text-base text-muted-foreground">
+          Sana en uygun, deneyimli, alanında uzman koçlarla tanış.
+          <DemoBadge label="Koç verileri mock" />
+        </p>
       </header>
 
       {(sportLabel || facility) && (
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="mb-5 flex flex-wrap items-center gap-2">
           {sportLabel && (
-            <span className="
-              inline-flex items-center gap-2 text-xs
-              px-3 py-1.5 rounded-full
-              bg-uyum-purple/20 text-uyum-frost-blue border border-uyum-purple/40
-            ">
-              Spor filtresi: <strong className="font-heading">{sportLabel}</strong>
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
+              Spor: <strong>{sportLabel}</strong>
               <button
                 type="button"
                 onClick={clearSport}
                 aria-label="Spor filtresini temizle"
-                className="text-white/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple rounded"
+                className="grid size-4 place-items-center rounded-full bg-primary/20 hover:bg-primary/30"
               >
-                ×
+                <X className="size-3" aria-hidden />
               </button>
             </span>
           )}
           {facility && (
-            <span className="
-              inline-flex items-center gap-2 text-xs
-              px-3 py-1.5 rounded-full
-              bg-uyum-purple/20 text-uyum-frost-blue border border-uyum-purple/40
-            ">
-              Tesis filtresi: <strong className="font-heading">{facility.name}</strong>
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
+              Tesis: <strong>{facility.name}</strong>
               <button
                 type="button"
                 onClick={clearFacility}
                 aria-label="Tesis filtresini temizle"
-                className="text-white/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple rounded"
+                className="grid size-4 place-items-center rounded-full bg-primary/20 hover:bg-primary/30"
               >
-                ×
+                <X className="size-3" aria-hidden />
               </button>
             </span>
           )}
         </div>
       )}
 
-      <section
-        aria-labelledby="coach-filters-heading"
-        className="rounded-xl border border-white/10 bg-white/5 p-4 space-y-3"
-      >
-        <h2
-          id="coach-filters-heading"
-          className="text-xs uppercase tracking-wider text-white/60 font-heading"
-        >
-          Engel uzmanlığı (çoklu seçim)
-        </h2>
-
+      <div className="mb-8 space-y-3 rounded-3xl bg-card/85 p-4 ring-1 ring-border/40 backdrop-blur">
         <FilterGroup label="Engel uzmanlığı" multi>
           {DISABILITY_OPTIONS.map(opt => (
             <FilterChip
@@ -157,34 +139,25 @@ export function CoachDirectory() {
         </FilterGroup>
 
         {isFiltered && (
-          <div className="pt-2 border-t border-white/10">
+          <div className="pt-2">
             <button
               type="button"
               onClick={clearAll}
-              className="
-                text-xs font-body text-uyum-frost-blue hover:text-white underline
-                focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-                focus-visible:outline-uyum-purple rounded
-              "
+              className="text-xs font-bold text-primary underline-offset-2 hover:underline"
             >
               Tüm filtreleri temizle
             </button>
           </div>
         )}
-      </section>
+      </div>
 
       {results.length === 0 ? (
-        <div
-          role="status"
-          className="rounded-xl border border-white/10 bg-white/5 p-8 text-center space-y-3"
-        >
-          <p className="text-white/80 font-body">
-            Bu filtreyle eşleşen koç yok.
-          </p>
+        <div role="status" className="rounded-3xl bg-card p-8 text-center ring-1 ring-border/40">
+          <p className="text-sm text-foreground/85">Bu filtreyle eşleşen koç yok.</p>
           <button
             type="button"
             onClick={clearAll}
-            className="text-sm text-uyum-frost-blue underline hover:text-white"
+            className="mt-3 text-sm font-bold text-primary underline"
           >
             Filtreleri temizle
           </button>
@@ -192,7 +165,7 @@ export function CoachDirectory() {
       ) : (
         <section
           aria-label="Koç dizini sonuçları"
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {results.map(coach => {
             const isMatch = coach.disabilityExpertise.includes(profile.disabilityType)
@@ -208,14 +181,25 @@ export function CoachDirectory() {
         </section>
       )}
 
-      <div className="pt-4 border-t border-white/10">
+      <section className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] bg-accent/8 px-7 py-6">
+        <div className="flex items-center gap-4">
+          <span aria-hidden className="grid size-12 place-items-center rounded-2xl bg-card text-primary-deep">
+            <MessageCircleQuestion className="size-5" />
+          </span>
+          <div>
+            <div className="font-bold text-primary-deep">İhtiyacın olan koçu bulamadın mı?</div>
+            <div className="text-xs text-muted-foreground">
+              Topluluğa ihtiyacını sor, ekip sana uygun koçları yönlendirsin.
+            </div>
+          </div>
+        </div>
         <Link
-          to="/"
-          className="text-sm text-uyum-purple underline hover:text-uyum-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple"
+          to="/community"
+          className="inline-flex items-center gap-2 rounded-full bg-primary-deep px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow"
         >
-          ← Ana sayfaya dön
+          Topluluğa sor <ArrowRight aria-hidden className="size-3.5" />
         </Link>
-      </div>
+      </section>
     </div>
   )
 }
