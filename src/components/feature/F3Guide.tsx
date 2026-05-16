@@ -61,29 +61,10 @@ export function F3Guide({ facility, profile }: Props) {
       const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
 
       const pageWidth = pdf.internal.pageSize.getWidth()
-      const pageHeight = pdf.internal.pageSize.getHeight()
       const imgWidth = pageWidth - 20
       const imgHeight = (canvas.height * imgWidth) / canvas.width
-      const maxImgHeight = pageHeight - 20
 
-      if (imgHeight <= maxImgHeight) {
-        pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight)
-      } else {
-        let yPosition = 10
-        let remainingHeight = imgHeight
-        let sourceY = 0
-
-        while (remainingHeight > 0) {
-          const sliceHeight = Math.min(maxImgHeight, remainingHeight)
-          pdf.addImage(imgData, 'PNG', 10, yPosition, imgWidth, sliceHeight, undefined, 'FAST', 0, sourceY)
-          remainingHeight -= sliceHeight
-          sourceY += sliceHeight
-          if (remainingHeight > 0) {
-            pdf.addPage()
-            yPosition = 10
-          }
-        }
-      }
+      pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight)
 
       const safeName = facility.name
         .replace(/\s+/g, '-')
