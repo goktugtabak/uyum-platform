@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { MapPin, Clock, Accessibility, ArrowRight, Bookmark } from 'lucide-react'
 import type { SportEvent, DisabilityType, EventLevel } from '../../types'
 import { getSportIcon, getSportLabel } from '../../lib/sport-icons'
 
@@ -16,30 +17,33 @@ const LEVEL_LABELS: Record<EventLevel, string> = {
   'yarışma':   'Yarışma',
 }
 
-function formatDate(iso: string): string {
-  const date = new Date(iso)
-  const month = date.toLocaleDateString('tr-TR', { month: 'long', day: 'numeric' })
-  const time  = date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
-  return `${month} · ${time}`
-}
-
 function relativeDays(iso: string, now: number): string {
   const diffMs = new Date(iso).getTime() - now
   const diffDays = Math.ceil(diffMs / 86_400_000)
   if (diffDays === 0) return 'Bugün'
   if (diffDays === 1) return 'Yarın'
-  if (diffDays > 0)   return `${diffDays} gün sonra`
+  if (diffDays > 0) return `${diffDays} gün sonra`
   if (diffDays === -1) return 'Dün'
   return `${Math.abs(diffDays)} gün önce`
 }
 
+function categoryTone(sportId: string): string {
+  if (sportId.includes('swim') || sportId.includes('aqua') || sportId.includes('waterpolo'))
+    return 'bg-sky/60 text-sky-foreground'
+  if (sportId.includes('basket') || sportId.includes('volley') || sportId.includes('football'))
+    return 'bg-[oklch(0.95_0.06_30)] text-[oklch(0.55_0.18_30)]'
+  if (sportId.includes('yoga') || sportId.includes('pilates') || sportId.includes('strength'))
+    return 'bg-mint/60 text-mint-foreground'
+  return 'bg-accent/15 text-accent'
+}
+
 interface EventCardProps {
-  event:         SportEvent
-  facilityName:  string
+  event:          SportEvent
+  facilityName:   string
   facilityExists: boolean
-  now:           number
-  dimmed?:       boolean
-  profileMatch?: boolean
+  now:            number
+  dimmed?:        boolean
+  profileMatch?:  boolean
 }
 
 export function EventCard({
@@ -50,107 +54,118 @@ export function EventCard({
   dimmed = false,
   profileMatch = false,
 }: EventCardProps) {
-  const titleId = `event-${event.id}-title`
-  const sportLabel = getSportLabel(event.sport)
+  const date = new Date(event.date)
+  const day = date.toLocaleDateString('tr-TR', { day: '2-digit' })
+  const month = date.toLocaleDateString('tr-TR', { month: 'long' })
+  const weekday = date.toLocaleDateString('tr-TR', { weekday: 'long' })
+  const time = date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
 
   return (
     <article
-      aria-labelledby={titleId}
-      className={
-        'flex flex-col gap-3 p-5 rounded-xl border transition-colors ' +
-        (dimmed
-          ? 'border-white/5 bg-white/[0.02] opacity-70'
-          : profileMatch
-            ? 'border-uyum-purple/40 bg-uyum-purple/10 hover:border-uyum-purple/70'
-            : 'border-white/10 bg-white/5 hover:border-uyum-purple/40')
-      }
+      aria-labelledby={`event-${event.id}-title`}
+      className={`grid items-stretch gap-5 transition-opacity sm:grid-cols-[12rem_auto_1fr] ${dimmed ? 'opacity-60' : ''}`}
     >
-      <header className="flex items-start justify-between gap-3">
-        <div className="flex items-start gap-3 min-w-0">
-          <span
-            className="text-3xl flex-shrink-0 leading-none mt-0.5"
-            aria-hidden="true"
-          >
-            {getSportIcon(event.sport)}
+      {/* Photo / icon */}
+      <div className="relative h-40 overflow-hidden rounded-3xl bg-gradient-brand sm:h-full">
+        <div
+          aria-hidden
+          className="absolute inset-0 grid place-items-center text-6xl text-primary-foreground"
+        >
+          {getSportIcon(event.sport)}
+        </div>
+      </div>
+
+      {/* Date column */}
+      <div className="flex flex-col items-center justify-start pt-2 text-center">
+        <span className="font-display text-3xl font-extrabold leading-none text-primary-deep">
+          {day}
+        </span>
+        <span className="mt-1 text-[12px] font-bold text-foreground/70">{month}</span>
+        <span className="mt-0.5 text-[11px] text-muted-foreground">{weekday}</span>
+      </div>
+
+      {/* Content */}
+      <div className="relative">
+        {profileMatch && (
+          <div className="absolute right-0 top-0 text-right">
+            <span className="block text-[11px] font-bold text-success">Sana uygun</span>
+            <span className="block text-[10px] text-muted-foreground">Profil eşleşmesi</span>
+          </div>
+        )}
+        <h3
+          id={`event-${event.id}-title`}
+          className={`pr-24 font-display text-[19px] font-extrabold leading-tight text-primary-deep ${dimmed ? '' : ''}`}
+        >
+          {event.title}
+        </h3>
+        <span className={`mt-2 inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold ${categoryTone(event.sport)}`}>
+          {getSportLabel(event.sport)}
+        </span>
+
+        <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12.5px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <MapPin aria-hidden className="size-3.5 text-accent" />{' '}
+            {facilityExists ? (
+              <Link to={`/facility/${event.facilityId}`} className="hover:text-primary">
+                {facilityName}
+              </Link>
+            ) : facilityName}
           </span>
-          <div className="min-w-0">
-            <h3
-              id={titleId}
-              className="text-base font-heading font-semibold text-white"
+          <span className="inline-flex items-center gap-1.5">
+            <Clock aria-hidden className="size-3.5" /> {time} · {relativeDays(event.date, now)}
+          </span>
+        </div>
+
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
+          <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 font-semibold text-accent">
+            <Accessibility aria-hidden className="size-3" /> Erişilebilir
+          </span>
+          <span className="rounded-full bg-muted px-2 py-0.5 font-semibold text-foreground/70 hc:text-black">
+            {LEVEL_LABELS[event.level]}
+          </span>
+          {event.disabilityTypes.map(d => (
+            <span key={d} className="rounded-full bg-card px-2 py-0.5 text-muted-foreground ring-1 ring-border/40">
+              {DISABILITY_LABELS[d]}
+            </span>
+          ))}
+        </div>
+
+        <p className="mt-2.5 max-w-md text-[13px] leading-relaxed text-foreground/75 line-clamp-3 hc:text-black">
+          {event.description}
+        </p>
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="text-[11px] text-muted-foreground">
+            Organizatör: <span className="font-semibold text-foreground hc:text-black">{event.organizer}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            {event.registrationUrl ? (
+              <a
+                href={event.registrationUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 rounded-full bg-card px-5 py-2 text-xs font-bold text-primary ring-1 ring-primary/30 hover:bg-primary hover:text-primary-foreground"
+              >
+                Katılacağım <ArrowRight aria-hidden className="size-3.5" />
+              </a>
+            ) : (
+              <Link
+                to={facilityExists ? `/facility/${event.facilityId}` : '/events'}
+                className="inline-flex items-center gap-1.5 rounded-full bg-card px-5 py-2 text-xs font-bold text-primary ring-1 ring-primary/30 hover:bg-primary hover:text-primary-foreground"
+              >
+                Detayları Gör <ArrowRight aria-hidden className="size-3.5" />
+              </Link>
+            )}
+            <button
+              type="button"
+              aria-label="Kaydet"
+              className="grid size-9 place-items-center rounded-full text-foreground/70 hover:bg-card hc:bg-white"
             >
-              {event.title}
-            </h3>
-            <p className="text-xs text-white/60 mt-0.5">
-              {sportLabel} · {LEVEL_LABELS[event.level]}
-            </p>
+              <Bookmark aria-hidden className="size-4" />
+            </button>
           </div>
         </div>
-        {profileMatch && (
-          <span
-            className="text-[10px] uppercase tracking-wider text-uyum-frost-blue font-heading flex-shrink-0"
-            aria-label="Profiline uygun"
-          >
-            Sana uygun
-          </span>
-        )}
-      </header>
-
-      <p className="text-sm font-body text-white/80 leading-relaxed line-clamp-3">
-        {event.description}
-      </p>
-
-      <div className="flex flex-wrap gap-2 text-xs">
-        <span className="px-2 py-0.5 rounded-md bg-white/10 text-white/80">
-          📅 {formatDate(event.date)}
-        </span>
-        <span className="px-2 py-0.5 rounded-md bg-white/10 text-white/60">
-          {relativeDays(event.date, now)}
-        </span>
       </div>
-
-      <div className="flex flex-wrap gap-1.5" aria-label="Engel tipleri">
-        {event.disabilityTypes.map(d => (
-          <span
-            key={d}
-            className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/80 border border-white/10"
-          >
-            {DISABILITY_LABELS[d]}
-          </span>
-        ))}
-      </div>
-
-      <footer className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/10 mt-auto">
-        <div className="text-xs text-white/60">
-          Tesis:{' '}
-          {facilityExists ? (
-            <Link
-              to={`/facility/${event.facilityId}`}
-              className="text-uyum-purple underline hover:text-uyum-blue focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple rounded"
-            >
-              {facilityName}
-            </Link>
-          ) : (
-            <span className="text-white/80">{facilityName}</span>
-          )}
-        </div>
-        {event.registrationUrl && (
-          <a
-            href={event.registrationUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="
-              text-xs font-heading font-semibold text-uyum-frost-blue hover:text-white underline
-              focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple rounded
-            "
-          >
-            Kayıt linki ↗
-          </a>
-        )}
-      </footer>
-
-      <p className="text-[11px] text-white/40 font-body">
-        Organizatör: {event.organizer}
-      </p>
     </article>
   )
 }
