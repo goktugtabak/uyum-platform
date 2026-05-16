@@ -9,10 +9,10 @@ export function Spinner({ label, className = '' }: Props) {
       <span
         role="status"
         aria-label={label ?? 'Yükleniyor'}
-        className="inline-block w-8 h-8 rounded-full border-2 border-white/20 border-t-uyum-purple animate-spin hc:border-white/40 hc:border-t-white"
+        className="inline-block w-8 h-8 rounded-full border-2 border-primary/20 border-t-primary animate-spin hc:border-black/30 hc:border-t-black"
       />
       {label && (
-        <p className="text-xs font-body text-white/60 hc:text-white">{label}</p>
+        <p className="text-xs font-body text-muted-foreground hc:text-black">{label}</p>
       )}
     </div>
   )
