@@ -36,6 +36,27 @@
 
 ## Kayıtlar
 
+### 2026-05-16 — `[TECH]` Faz 6 F1 radar: Recharts native animasyon, framer-motion kullanılmadı
+
+- **Karar:** AccessibilityRadar component'i Recharts `RadarChart` + `animationDuration={1500}` ile inşa edildi. framer-motion paketi yüklü ama bu component için kullanılmadı.
+- **Niye:** Recharts native animasyonu radar remount (key prop) ile birlikte sorunsuz çalışıyor; framer-motion ek katmanı gereksiz state karmaşası ve 200+ satır kod demek.
+- **Etki:** `src/components/facility/AccessibilityRadar.tsx` — sadece Recharts importu var.
+- **Geri al kuralı:** Radar'a özel transition (morph effect) istenir ve Recharts kısıtı olursa framer-motion AnimatePresence ile sarılır (Faz 10 polish).
+
+### 2026-05-16 — `[SCOPE]` Faz 6 WF-02 webhook scope dışı, Faz 9'a taşındı
+
+- **Karar:** F4 Canlı Durum paneli statik JSON verisinden besleniyor; gerçek WF-02 webhook entegrasyonu Faz 9'a ertelendi.
+- **Niye:** Build plan §3.1 webhook'u stretch goal olarak işaretliyor. Demo için JSON mock yeterli; webhook olmadan F4 görsel DoD'u geçiyor.
+- **Etki:** `src/components/facility/LiveStatus.tsx` — `DemoBadge label="Webhook Faz 9'da"` ile vurgulandı.
+- **Geri al kuralı:** Faz 9'da `live-status.ts` helpers değişmez; sadece LiveStatus component'i fetch kaynağını değiştirir.
+
+### 2026-05-16 — `[TECH]` Faz 6 testimony storage: `uyum:testimonies` localStorage, seed merge
+
+- **Karar:** Tanıklıklar `localStorage` `uyum:testimonies` anahtarında JSON dizisi olarak tutulur. Sayfa açılışında `testimonies.seed.json` + localStorage birleştirilir, `timestamp DESC` sıralanır.
+- **Niye:** Backend yok (CLAUDE.md: "Frontend-only MVP"). Seed, demo için gerçekçi veri sağlar; localStorage kullanıcının session'ı boyunca persist eder. CLAUDE.md prefix kuralı `uyum:` zorunlu kılıyor.
+- **Etki:** `src/lib/testimony-store.ts`, `src/components/feature/Testimonies.tsx`.
+- **Geri al kuralı:** Faz 8+ Supabase entegrasyonunda `saveTestimony` fonksiyonu API call'a dönüştürülür, component değişmez.
+
 ### 2026-05-16 — `[TECH]` Faz 5 veri kaynağı: manual-first, Overpass cache dekoratif
 
 - **Karar:** `src/data/facilities.json` (10 Ankara tesisi, koordinat + tam a11y matrisi) haritanın birincil ve tek runtime kaynağıdır. `public/data/facilities-overpass-cache.json` (269 OSM nokta) sadece `console.info` logu için yüklenir; render edilmez.
