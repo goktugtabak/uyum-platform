@@ -1,3 +1,4 @@
+import { ChevronDown } from 'lucide-react'
 import type { DisabilityType } from '../../types'
 
 const OPTIONS: { value: DisabilityType; label: string }[] = [
@@ -14,29 +15,19 @@ interface Props {
 
 export function DisabilityTypeSelect({ value, onChange }: Props) {
   return (
-    <div className="flex items-center gap-2">
-      <label
-        htmlFor="disability-type"
-        className="text-sm font-medium text-gray-700 hc:text-white whitespace-nowrap"
-      >
-        Engel türü:
-      </label>
+    <label className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2 text-sm font-medium text-foreground/85 ring-1 ring-border/60 hover:ring-primary/40 hc:bg-white hc:ring-black">
+      <span className="text-[12px] text-muted-foreground hc:text-black">Engel türü:</span>
       <select
-        id="disability-type"
         value={value}
         onChange={e => onChange(e.target.value as DisabilityType)}
-        className={
-          'rounded border border-gray-300 bg-white px-2 py-1 text-sm ' +
-          'focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple ' +
-          'hc:border-white hc:bg-black hc:text-white'
-        }
+        aria-label="Engel türü"
+        className="bg-transparent text-sm font-semibold outline-none hc:text-black"
       >
         {OPTIONS.map(opt => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
+          <option key={opt.value} value={opt.value}>{opt.label}</option>
         ))}
       </select>
-    </div>
+      <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
+    </label>
   )
 }

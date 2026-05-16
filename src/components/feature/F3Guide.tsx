@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { FileSpreadsheet, Sparkles, FileDown, AlertTriangle, ArrowLeft } from 'lucide-react'
 import type { Facility, UserProfile } from '../../types'
 import { fetchF3Guide } from '../../lib/f3-service'
 import type { F3GuideResult } from '../../lib/f3-service'
@@ -11,7 +12,8 @@ interface Props {
 
 type GuideState = 'idle' | 'loading' | 'success' | 'red-flag'
 
-const DISCLAIMER = 'Bu rehber yapay zeka destekli araçlar kullanılarak oluşturulmuştur ve profesyonel sağlık tavsiyesi değildir.'
+const DISCLAIMER =
+  'Bu rehber yapay zeka destekli araçlar kullanılarak oluşturulmuştur ve profesyonel sağlık tavsiyesi değildir.'
 
 export function F3Guide({ facility, profile }: Props) {
   const [state, setState] = useState<GuideState>('idle')
@@ -23,35 +25,27 @@ export function F3Guide({ facility, profile }: Props) {
   async function handleGenerate() {
     setState('loading')
     setShowOverlay(false)
-
-    // Show "Rehber hazırlanıyor..." overlay after 2s
     overlayTimer.current = setTimeout(() => setShowOverlay(true), 2000)
 
     try {
       const data = await fetchF3Guide(profile, facility)
-
       clearTimeout(overlayTimer.current ?? undefined)
       setShowOverlay(false)
-
       if (data.redFlag) {
         setState('red-flag')
         return
       }
-
       setResult(data)
       setState('success')
     } catch {
       clearTimeout(overlayTimer.current ?? undefined)
       setShowOverlay(false)
-      // fetchF3Guide never throws — catches internally and returns fallback
-      // This path should not be reachable, but guard just in case
       setState('idle')
     }
   }
 
   async function handleDownloadPdf() {
     if (!guideRef.current) return
-
     try {
       const { default: html2canvas } = await import('html2canvas')
       const { jsPDF } = await import('jspdf')
@@ -59,83 +53,80 @@ export function F3Guide({ facility, profile }: Props) {
       const canvas = await html2canvas(guideRef.current, { scale: 2, useCORS: true })
       const imgData = canvas.toDataURL('image/png')
       const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
-
       const pageWidth = pdf.internal.pageSize.getWidth()
       const imgWidth = pageWidth - 20
       const imgHeight = (canvas.height * imgWidth) / canvas.width
-
       pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight)
-
       const safeName = facility.name
         .replace(/\s+/g, '-')
         .replace(/[^a-zA-Z0-9\-çğışöüÇĞİŞÖÜ]/g, '')
         .slice(0, 50)
-
       pdf.save(`UYUM-${safeName}-ziyaret-rehberi.pdf`)
     } catch (err) {
       console.warn('[F3] PDF generation failed', err)
     }
   }
 
-  // IDLE STATE
   if (state === 'idle') {
     return (
-      <div className="border border-dashed border-gray-200 rounded-xl p-6 flex flex-col items-center gap-3 text-center">
-        <span className="text-3xl" aria-hidden="true">🗺️</span>
-        <p className="text-sm text-gray-600 hc:text-gray-200 max-w-sm">
-          Profiline ve bu tesisin erişilebilirlik verilerine göre kişiselleştirilmiş bir ziyaret rehberi oluşturabiliriz.
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-deep p-6 text-primary-foreground">
+        <div aria-hidden className="absolute -right-8 -top-8 size-40 rounded-full bg-mint/25 blur-2xl" />
+        <FileSpreadsheet className="size-7 opacity-90" aria-hidden />
+        <h3 className="mt-3 font-display text-lg font-extrabold">
+          İlk ziyaret rehberini oluştur
+        </h3>
+        <p className="mt-1 max-w-md text-[12.5px] text-primary-foreground/80">
+          Profiline ve bu tesisin erişilebilirlik verilerine göre kişiselleştirilmiş bir ziyaret rehberi oluşturalım.
         </p>
         <button
           type="button"
           onClick={handleGenerate}
-          className="mt-1 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-uyum-purple text-white text-sm font-heading font-semibold hover:bg-uyum-blue transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple focus-visible:outline-offset-2"
+          className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-xs font-bold text-primary-deep transition hover:bg-mint/40"
         >
-          <span aria-hidden="true">✨</span>
-          İlk Ziyaret Rehberi Oluştur
+          <Sparkles className="size-3.5" aria-hidden />
+          Rehber Oluştur
         </button>
-        <p className="text-xs text-gray-400 hc:text-gray-400">
+        <p className="mt-3 text-[10.5px] text-primary-foreground/60">
           Yapay zeka destekli — Türkçe, kişiselleştirilmiş
         </p>
       </div>
     )
   }
 
-  // LOADING STATE
   if (state === 'loading') {
     return (
       <div
         role="status"
         aria-live="polite"
         aria-label="Rehber yükleniyor"
-        className="border rounded-xl p-6 space-y-4 relative"
+        className="relative rounded-3xl bg-card p-6 ring-1 ring-border/40"
       >
-        {/* Skeleton lines */}
         <div className="space-y-2">
           {[100, 80, 90, 70, 85].map((w, i) => (
             <div
               key={i}
-              className="h-4 bg-gray-200 rounded animate-pulse"
+              aria-hidden
+              className="h-4 animate-pulse rounded bg-muted"
               style={{ width: `${w}%` }}
-              aria-hidden="true"
             />
           ))}
         </div>
-        <div className="space-y-2">
+        <div className="mt-4 space-y-2">
           {[75, 88, 60].map((w, i) => (
             <div
               key={i}
-              className="h-4 bg-gray-200 rounded animate-pulse"
+              aria-hidden
+              className="h-4 animate-pulse rounded bg-muted"
               style={{ width: `${w}%` }}
-              aria-hidden="true"
             />
           ))}
         </div>
         {showOverlay && (
           <div
-            className="absolute inset-0 flex items-center justify-center bg-white/80 rounded-xl"
-            aria-hidden="true"
+            aria-hidden
+            className="absolute inset-0 grid place-items-center rounded-3xl bg-card/80 backdrop-blur"
           >
-            <p className="text-sm font-body text-uyum-purple animate-pulse">
+            <p className="text-sm font-semibold text-primary animate-pulse">
               Rehber hazırlanıyor...
             </p>
           </div>
@@ -144,32 +135,31 @@ export function F3Guide({ facility, profile }: Props) {
     )
   }
 
-  // RED FLAG STATE
   if (state === 'red-flag') {
     return (
       <div
         role="alert"
-        className="border border-red-300 bg-red-50 rounded-xl p-6 space-y-3 hc:bg-black hc:border-white"
+        className="space-y-3 rounded-3xl bg-destructive/8 p-5 ring-1 ring-destructive/30 hc:bg-white hc:ring-black"
       >
-        <p className="text-base font-heading font-semibold text-red-800 hc:text-white">
-          ⚠️ Lütfen bir sağlık profesyoneline danışın
+        <p className="flex items-center gap-2 font-display text-base font-bold text-destructive hc:text-black">
+          <AlertTriangle className="size-5" aria-hidden />
+          Lütfen bir sağlık profesyoneline danışın
         </p>
-        <p className="text-sm text-red-700 hc:text-gray-200">
+        <p className="text-sm text-foreground/80 hc:text-black">
           Fiziksel semptomlar yaşıyorsanız ziyaretinizi ertelemenizi öneririz.
           Acil bir durumda <strong>112</strong>'yi arayın.
         </p>
         <button
           type="button"
           onClick={() => setState('idle')}
-          className="text-sm text-red-600 hc:text-white underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-red-500"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-destructive underline hover:text-destructive/80"
         >
-          Geri dön
+          <ArrowLeft className="size-3.5" aria-hidden /> Geri dön
         </button>
       </div>
     )
   }
 
-  // SUCCESS STATE (also covers fallback — looks identical to user)
   if (state === 'success' && result) {
     const paragraphs = result.guide
       .split(/\n{2,}/)
@@ -177,38 +167,37 @@ export function F3Guide({ facility, profile }: Props) {
       .filter(Boolean)
 
     return (
-      <div className="border rounded-xl overflow-hidden">
-        <div className="bg-uyum-purple/5 px-5 py-3 flex items-center justify-between gap-3 flex-wrap border-b border-gray-100">
-          <span className="text-sm font-heading font-semibold text-gray-800 hc:text-white">
-            🗺️ İlk Ziyaret Rehberi
+      <div className="overflow-hidden rounded-3xl bg-card ring-1 ring-border/40">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/40 bg-primary/5 px-5 py-3">
+          <span className="inline-flex items-center gap-2 text-sm font-bold text-primary-deep">
+            <FileSpreadsheet aria-hidden className="size-4 text-primary" />
+            İlk Ziyaret Rehberi
           </span>
           <div className="flex items-center gap-2">
             <SpeakButton text={result.guide} label="ziyaret rehberini oku" />
             <button
               type="button"
               onClick={handleDownloadPdf}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded text-xs font-heading font-semibold text-white bg-uyum-purple hover:bg-uyum-blue transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple"
               aria-label="Rehberi PDF olarak indir"
+              className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-primary-foreground hover:bg-primary-deep"
             >
-              <span aria-hidden="true">📄</span>
+              <FileDown className="size-3.5" aria-hidden />
               PDF İndir
             </button>
           </div>
         </div>
 
-        <div ref={guideRef} className="px-5 py-4 space-y-4">
+        <div ref={guideRef} className="space-y-4 px-5 py-5">
           {paragraphs.map((para, idx) => (
             <div key={idx} className="flex items-start gap-2">
-              <p className="text-sm text-gray-700 hc:text-gray-100 leading-relaxed flex-1">
-                {para}
-              </p>
-              <SpeakButton text={para} className="flex-shrink-0 self-start mt-0.5" />
+              <p className="flex-1 text-[14px] leading-relaxed text-foreground/85 hc:text-black">{para}</p>
+              <SpeakButton text={para} className="mt-0.5 shrink-0" />
             </div>
           ))}
         </div>
 
-        <div className="px-5 py-3 border-t border-gray-100 bg-gray-50 hc:bg-gray-900">
-          <p className="text-xs text-gray-500 hc:text-gray-300 italic">
+        <div className="border-t border-border/40 bg-muted/60 px-5 py-3">
+          <p className="text-xs italic text-muted-foreground hc:text-black">
             {result.disclaimer ?? DISCLAIMER}
           </p>
         </div>
