@@ -36,6 +36,13 @@
 
 ## Kayıtlar
 
+### 2026-05-16 — `[UX]` A1 renk körlüğü kapsamı 3 moda genişletildi
+
+- **Karar:** Ana döküman A1 yalnızca deuteranopia + protanopia listelerken, Faz 1'de globals.css + index.html + types/index.ts tritanopia için de hazırlandı. Faz 2'de bu altyapı korundu, dropdown 4 seçenek sunar (Kapalı / Deuteranopia / Protanopia / Tritanopia).
+- **Niye:** Mevcut altyapıyı geri almak boşa iş; tritanopia gerçek bir renk körlüğü tipi ve ekstra maliyet neredeyse sıfır (CSS filter matrisi zaten yazılmış).
+- **Etki:** `src/contexts/AccessibilityContext.tsx` + `src/components/a11y/AccessibilityToolbar.tsx` 3 modu destekler. `AccessibilityPrefs.colorblindMode` union'ı `tritanopia` içeriyor.
+- **Geri al kuralı:** Jüri/kural sorunu çıkarırsa dropdown'dan Tritanopia seçeneğini kaldırmak 1 satır değişiklik.
+
 ### 2026-05-15 — `[PROCESS]` Governance paketi hazırlandı
 
 - **Karar:** Hackathon öncesi bir governance paketi (DISCIPLINE, COMMITS, SCOPE, COMPLIANCE, DEMO, DECISIONS, RISKS, README) hazırlandı.
