@@ -1,9 +1,17 @@
-import { useMemo } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Facility, SportEvent, DisabilityType, Testimony } from '../../types'
 import { loadTestimonies } from '../../lib/testimony-store'
 import { formatRelative } from '../../lib/live-status'
 import eventsData from '../../data/events.json'
+
+const SORTED_EVENTS: SportEvent[] = (eventsData as SportEvent[])
+  .slice()
+  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
+function findUpcomingEvent(now: number = Date.now()): SportEvent | null {
+  return SORTED_EVENTS.find(e => new Date(e.date).getTime() > now) ?? null
+}
 
 const DISABILITY_LABELS: Record<DisabilityType, string> = {
   wheelchair: 'Tekerlekli Sandalye',
@@ -29,18 +37,8 @@ interface Props {
 }
 
 export function CommunityFeed({ facilities }: Props) {
-  const testimonies: Testimony[] = useMemo(
-    () => loadTestimonies().slice(0, 3),
-    [],
-  )
-
-  const upcomingEvent: SportEvent | null = useMemo(() => {
-    const now = Date.now()
-    const future = (eventsData as SportEvent[])
-      .filter(e => new Date(e.date).getTime() > now)
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    return future[0] ?? null
-  }, [])
+  const [testimonies] = useState<Testimony[]>(() => loadTestimonies().slice(0, 3))
+  const [upcomingEvent] = useState<SportEvent | null>(() => findUpcomingEvent())
 
   return (
     <div className="space-y-4">
