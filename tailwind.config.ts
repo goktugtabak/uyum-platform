@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import plugin from 'tailwindcss/plugin'
 
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
@@ -30,5 +31,11 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // A2 — high-contrast variant: use `hc:` prefix on any utility
+    // AccessibilityContext sets html.high-contrast when enabled
+    plugin(({ addVariant }) => {
+      addVariant('hc', 'html.high-contrast &')
+    }),
+  ],
 } satisfies Config
