@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { MatchResult } from '../../lib/sport-match'
+import { SpeakButton } from '../ui/SpeakButton'
 
 const RANK_LABELS: Record<1 | 2 | 3, string> = {
   1: 'Sana en uygun',
@@ -51,9 +52,12 @@ export function SportMatchCard({ result, rank }: SportMatchCardProps) {
         </p>
       </div>
 
-      <p className="text-sm font-body text-white/90 leading-relaxed border-l-2 border-uyum-purple pl-3">
-        {reason}
-      </p>
+      <div className="flex items-start gap-2 border-l-2 border-uyum-purple pl-3">
+        <p className="text-sm font-body text-white/90 leading-relaxed flex-1">
+          {reason}
+        </p>
+        <SpeakButton text={reason} label={`${sport.name} önerisi`} className="flex-shrink-0 self-start !text-white/60 hover:!text-white" />
+      </div>
 
       <div className="flex flex-col sm:flex-row gap-2 mt-auto pt-2">
         <Link

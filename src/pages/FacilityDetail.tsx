@@ -11,11 +11,13 @@ import { AccessibilityRadar } from '../components/facility/AccessibilityRadar'
 import { AccessibilityLabelList } from '../components/facility/AccessibilityLabelList'
 import { LiveStatus } from '../components/facility/LiveStatus'
 import { Testimonies } from '../components/feature/Testimonies'
+import { F3Guide } from '../components/feature/F3Guide'
 
-function FacilityDetailInner({ facility, disabilityType, onDisabilityChange }: {
+function FacilityDetailInner({ facility, disabilityType, onDisabilityChange, profile }: {
   facility: Facility
   disabilityType: DisabilityType
   onDisabilityChange: (v: DisabilityType) => void
+  profile: NonNullable<ReturnType<typeof useProfile>['profile']>
 }) {
   const { dimensions } = useFacilityScore(facility, disabilityType)
 
@@ -89,6 +91,17 @@ function FacilityDetailInner({ facility, disabilityType, onDisabilityChange }: {
         <Testimonies facilityId={facility.id} defaultDisabilityType={disabilityType} />
       </section>
 
+      {/* F3 — İlk Ziyaret Rehberi */}
+      <section aria-labelledby="f3-heading">
+        <h2
+          id="f3-heading"
+          className="text-lg font-heading font-semibold text-gray-800 hc:text-white mb-4"
+        >
+          İlk Ziyaret Rehberi
+        </h2>
+        <F3Guide facility={facility} profile={profile} />
+      </section>
+
       <div className="pt-4 border-t border-gray-100">
         <Link
           to="/"
@@ -144,6 +157,7 @@ export function FacilityDetail() {
       facility={facility}
       disabilityType={disabilityType}
       onDisabilityChange={setDisabilityType}
+      profile={profile!}
     />
   )
 }
