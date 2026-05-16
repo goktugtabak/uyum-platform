@@ -102,6 +102,35 @@ function FacilityDetailInner({ facility, disabilityType, onDisabilityChange, pro
         <F3Guide facility={facility} profile={profile} />
       </section>
 
+      {/* Coaches at this facility — Faz 9 link */}
+      {facility.coaches.length > 0 && (
+        <section
+          aria-labelledby="coaches-link-heading"
+          className="rounded-xl border border-gray-200 bg-gray-50 hc:bg-white/5 hc:border-white/10 p-4"
+        >
+          <h2
+            id="coaches-link-heading"
+            className="text-sm font-heading font-semibold text-gray-800 hc:text-white mb-2"
+          >
+            Bu tesiste çalışan koçlar
+          </h2>
+          <p className="text-sm text-gray-600 hc:text-white/70 font-body mb-3">
+            {facility.coaches.length} koç bu tesisle çalışıyor. Engel tipine uyumlu olanlar
+            koç dizininde listenin başında.
+          </p>
+          <Link
+            to={`/coaches?facility=${facility.id}`}
+            className="
+              inline-flex items-center gap-1 text-sm font-heading font-semibold
+              text-uyum-purple underline hover:text-uyum-blue
+              focus-visible:outline focus-visible:outline-2 focus-visible:outline-uyum-purple rounded
+            "
+          >
+            Koçları gör →
+          </Link>
+        </section>
+      )}
+
       <div className="pt-4 border-t border-gray-100">
         <Link
           to="/"
