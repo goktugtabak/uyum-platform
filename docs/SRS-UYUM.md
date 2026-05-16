@@ -71,7 +71,7 @@ Bu belge beş ana bölümden oluşur:
 UYUM, mevcut herhangi bir sistemin bileşeni değildir. Bağımsız bir web uygulamasıdır. Dış sistem bağımlılıkları:
 
 - **OpenStreetMap / Overpass API** — Ankara spor tesisi koordinatları (build-time önbellekleme)
-- **OpenAI API (gpt-4o-mini)** veya **n8n webhook** — F3 İlk Ziyaret Rehberi kişiselleştirmesi
+- **n8n webhook** (üretim) → **OpenAI API (gpt-4o-mini)** (n8n içinden çağrılır) — F3 İlk Ziyaret Rehberi kişiselleştirmesi
 - **Web Speech API** — Tarayıcı yerel sesli okuma (A3)
 - **YouTube** — F6 egzersiz video referansları (hardcoded ID'ler, canlı API çağrısı yok)
 
@@ -116,7 +116,7 @@ Bkz. Bölüm 3.5 (Design Constraints).
 **Varsayımlar:**
 - Hackathon jürisi platformu masaüstü Chrome ile demo ortamında değerlendirir.
 - Overpass API verisi build öncesinde çekilmiş ve `public/data/facilities-overpass-cache.json` commit edilmiştir.
-- OpenAI API anahtarı demo anında erişilebilir durumdadır; yoksa statik fallback devreye girer.
+- n8n workflow `f3-rehber` demo anında **Active** durumdadır ve OpenAI API anahtarı yalnızca n8n workflow ortamında tanımlıdır. Webhook 5 saniye içinde yanıt vermezse veya başarısız olursa statik fallback devreye girer. OpenAI key frontend bundle'ında veya `VITE_*` env değişkenlerinde bulunmaz.
 - Türkçe Web Speech API desteği demo tarayıcısında aktiftir.
 
 **Bağımlılıklar:**
@@ -147,7 +147,7 @@ Geçerli değil — web uygulaması.
 
 **SW-001:** Sistem, Overpass API'yi yalnızca build öncesinde çağıracak; üretilen `facilities-overpass-cache.json` dosyasını runtime'da kullanacaktır.
 
-**SW-002:** Sistem, F3 İlk Ziyaret Rehberi için OpenAI API'yi (`gpt-4o-mini`) n8n webhook veya doğrudan çağrı üzerinden kullanacaktır.
+**SW-002:** Sistem, F3 İlk Ziyaret Rehberi için OpenAI API'yi (`gpt-4o-mini`) **yalnızca n8n webhook üzerinden** çağıracaktır. Frontend'den doğrudan OpenAI çağrısı üretimde kullanılmayacaktır.
 
 **SW-003:** Sistem, sesli okuma işlevi için Web Speech API'yi `lang: 'tr-TR'`, `rate: 0.9` parametreleriyle kullanacaktır.
 
@@ -263,7 +263,7 @@ Geçerli değil — web uygulaması.
 #### 3.3.2 Güvenlik
 *ISO/IEC 25010:2023 — Confidentiality, Integrity*
 
-**QoS-SEC-001:** Sistem, OpenAI API anahtarını veya n8n webhook URL'ini kaynak koduna, bundle çıktısına veya git geçmişine yazmayacaktır; bu değerler yalnızca `.env.local` dosyasında tutulacaktır.
+**QoS-SEC-001:** Sistem, OpenAI API anahtarını kaynak koduna, bundle çıktısına veya git geçmişine yazmayacaktır. OpenAI API anahtarı yalnızca n8n workflow ortamında tutulacaktır; frontend `.env.local`, `.env.production` veya bundle çıktısı içinde bulunmayacaktır. `VITE_N8N_F3_WEBHOOK_URL` ve `VITE_N8N_REPORT_ISSUE_WEBHOOK_URL` ortam değişkenleri yalnızca webhook adresini içerir ve gizli anahtar değildir.
 
 **QoS-SEC-002:** Sistem, F3 OpenAI çağrısı öncesinde kullanıcı metnini red flag listesine karşı filtreleyecektir; aşağıdaki ifadeler algılandığında LLM çağrısı yapılmayacak ve statik güvenlik yönlendirme ekranı gösterilecektir: "göğüs ağrısı", "nefes alamıyorum", "bayılacak", "çok şiddetli ağrı" ve eşdeğer Türkçe argo varyantları.
 
@@ -319,7 +319,7 @@ Geçerli değil — web uygulaması.
 
 ### 3.4 Uyumluluk Gereksinimleri
 
-**CMP-001 (KVKK):** Sistem, kullanıcı profilini yalnızca `localStorage`'da, cihaz yerelinde saklayacaktır; profil verisi hiçbir sunucuya iletilmeyecektir (F3 çağrısı hariç: yalnızca engel tipi ve tesis kimliği gönderilir, kişisel tanımlayıcı gönderilmez).
+**CMP-001 (KVKK):** Sistem, kullanıcı profilini yalnızca `localStorage`'da, cihaz yerelinde saklayacaktır; profil verisi hiçbir sunucuya iletilmeyecektir (F3 ve WF-02 webhook çağrıları hariç: yalnızca engel tipi, hareket durumu, hedef, tesis kimliği ve — WF-02 için — sorun açıklaması gönderilir. Ad, e-posta, telefon, kesin konum ve cihaz tanımlayıcısı hiçbir webhook'a iletilmez.).
 
 **CMP-002 (KVKK):** Sistem, tanıklık kayıtlarını anonim olarak saklayacaktır; kayıt şeması ad, e-posta veya cihaz parmak izi alanı içermeyecektir.
 
@@ -406,11 +406,11 @@ Geçerli değil — web uygulaması.
 
 #### 3.6.3 Yedek Davranış
 
-**AI-006:** OpenAI API veya n8n webhook 5 saniye içinde yanıt vermediğinde veya hata döndürdüğünde sistem statik şablon rehberi gösterecektir; kullanıcıya hata mesajı yerine içerik sunulacaktır.
+**AI-006:** n8n webhook 5 saniye içinde yanıt vermediğinde, ağ hatası, CORS hatası, HTTP 4xx/5xx, malformed JSON veya eksik response field (`sections` / `guide`) durumlarından herhangi birinde sistem statik şablon rehberi gösterecektir; kullanıcıya hata mesajı yerine içerik sunulacaktır.
 
 #### 3.6.4 Yaşam Döngüsü
 
-**AI-007:** Sistem promptu ve red flag listesi `src/lib/f3-service.ts` dosyasında sabit string olarak tutulacaktır; bu dosya dışından değiştirilmesi mümkün olmayacaktır.
+**AI-007:** Sistem promptu ve OpenAI çağrı kısıtları **n8n workflow** içindeki Build Prompt node ve OpenAI node'da sabit olarak tutulacaktır; frontend'den değiştirilmesi mümkün olmayacaktır. Red flag listesi defense-in-depth amacıyla hem n8n workflow'unda (Red Flag Check node) hem de frontend `src/lib/redflag.ts` dosyasında bulunacak; iki taraf da eşleşme durumunda OpenAI çağrısını engelleyecektir.
 
 ---
 
@@ -465,7 +465,7 @@ Aşağıdaki koşulların tamamı sağlandığında MVP kabul edilmiş sayılır
 | Varlık | Anahtar Alanlar | Depolama |
 |---|---|---|
 | `Facility` | id, name, type, district, lat, lng, sports[], AccessibilityMatrix, source | `src/data/facilities.json` |
-| `UserProfile` | disability, mobility, goals[], city | `localStorage` (`uyum:profile`) |
+| `UserProfile` | disabilityType, mobilityLevel, goals[], interests[], city | `localStorage` (`uyum:profile`) |
 | `Testimony` | id, facilityId, userAlias, disability, rating, text, date | `localStorage` (`uyum:testimonies`) |
 | `SportEvent` | id, title, date, facilityId, sport, level, disabilityTags[] | `src/data/events.json` |
 | `Coach` | id, name, sports[], disabilitySpecialties[], certifications[] | `src/data/coaches.json` |

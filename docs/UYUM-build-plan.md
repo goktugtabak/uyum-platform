@@ -105,6 +105,24 @@ uyum/
 - **Erişim:** Tüm interactive elementler `aria-label` veya görünür `<label>` ile etiketli, hiçbir element `outline: none` almaz.
 - **Türkçe varsayılan.** Tüm UI metni Türkçe, kod ve commit mesajları İngilizce/Türkçe karışık olabilir ama tutarlı.
 
+## 0.4. Do Not Do — Scope Guard
+
+Aşağıdaki maddeler hackathon MVP boyunca uygulanmaz. Tartışma açılmaz, kayıt da düşülmez — bu liste karardır. Tam liste için ana doküman Bölüm 13.
+
+- ❌ Tam backend (Express, Fastify, NestJS, Django, FastAPI vb.) yazma
+- ❌ Gerçek kimlik doğrulama (login, JWT, session)
+- ❌ Supabase / Firebase / MongoDB / Postgres / Prisma ekleme
+- ❌ Admin paneli / rol sistemi / yönetici akışı
+- ❌ F5 spor eşleştirmesinde n8n veya OpenAI kullanma
+- ❌ Harita pin renginde n8n veya OpenAI kullanma
+- ❌ Kullanıcı runtime'ında canlı Overpass çağrısı
+- ❌ Kullanıcı runtime'ında canlı YouTube Data API çağrısı
+- ❌ Sahte kesinlikli yüzde (`%92`, `%87`) gösterimi
+- ❌ n8n'e ad, e-posta, telefon, kesin konum, cihaz ID, kişisel tanımlayıcı gönderme
+- ❌ Hackathon MVP'sinde 7 n8n workflow'unun tamamını kurma
+- ❌ Opsiyonel n8n workflow'larının (WF-02+) P1 feature'larını bloklaması
+- ❌ Direkt frontend OpenAI çağrısını üretim deploy'una almak
+
 ---
 
 ## FAZ 0 — Repo & Infra Bootstrap
@@ -124,11 +142,15 @@ Vite + React + TypeScript + Tailwind projesini ayağa kaldır, klasör iskeletin
 4. **Bağımlılıkları kur:** `react-router-dom`, `framer-motion`, `recharts`, `leaflet`, `react-leaflet`, `@types/leaflet`, `html2canvas`, `jspdf`. Hepsi ana döküman stack'inden.
 5. **`.env.example` oluştur:**
    ```
-   # F3 Opsiyon 1 (n8n) kullanılırsa:
-   VITE_N8N_WEBHOOK_URL=
+   # F3 İlk Ziyaret Rehberi — üretimde aktif workflow
+   VITE_N8N_F3_WEBHOOK_URL=
 
-   # F3 Opsiyon 2 (direkt OpenAI) kullanılırsa:
-   VITE_OPENAI_KEY=
+   # Opsiyonel: WF-02 anonim sorun bildirimi (P1 stabilse Faz 6'da)
+   VITE_N8N_REPORT_ISSUE_WEBHOOK_URL=
+
+   # Yerel geliştirme için isteğe bağlı — ÜRETİMDE KULLANILMAZ
+   # Üretimde F3, n8n webhook üzerinden çalışır; OpenAI key n8n'de tutulur.
+   # VITE_OPENAI_KEY=
    ```
 6. **`.gitignore`** — node_modules, dist, .env.local, .vercel.
 7. **Klasör iskeleti:** Bölüm 0.2'deki tüm boş klasörleri `mkdir -p` ile oluştur. Her klasörde `.gitkeep` koy.
@@ -152,6 +174,7 @@ Vite + React + TypeScript + Tailwind projesini ayağa kaldır, klasör iskeletin
 - [ ] Vercel deploy aktif, URL README'de
 - [ ] Tailwind çalışıyor (test: `<h1 className="text-3xl font-bold">UYUM</h1>` doğru render ediyor)
 - [ ] `.env.local` dosyası **commit edilmemiş** olarak local'de var
+- [ ] `VITE_OPENAI_KEY` production deploy ortam değişkenleri arasında **yok** (Vercel Settings → Environment Variables manuel kontrol)
 
 ### Commit
 `chore(faz-0): bootstrap vite+react+ts+tailwind, klasör iskeleti, ilk vercel deploy`
@@ -219,6 +242,17 @@ Tüm projenin üstüne inşa edileceği zemin: tasarım tokenları, TypeScript t
 
 **5. `DemoBadge` komponenti (`src/components/ui/DemoBadge.tsx`):**
    Küçük, sağ üst köşeye gelen `DEMO VERİSİ` rozeti. Tailwind ile yarı saydam, hover'da tooltip.
+
+**6. API kontrat dokümantasyonu:**
+   - `docs/api-contracts.md` dosyasını yaz (Faz 1 başlarken zaten hazır olabilir — kontrol et).
+   - Mock response dosyası iskeletini koy: `src/lib/mocks/f3-mock-response.json` (Faz 7'de doldurulur, şimdi `{ "ok": true, "source": "mock" }` yer tutucu).
+
+**7. Tasarım Düzeltme Notu (kalıcı):**
+   - Tasarım ekranlarındaki `%92 Uygunluk`, `Erişilebilirlik Puanı %92` gibi sayısal yüzdeler **kullanılmaz**.
+   - F1 boyutları: `Doğrulanmış / Kısmi / Mevcut Değil / Bilgi Yok`.
+   - F5 kart üst etiketi: `Sana en uygun #1 / Güçlü aday #2 / Denemeye değer #3`.
+   - F5 uyum etiketi: `Çok uygun / Uygun / Kısmi uygun / Bilgi eksik`.
+   - Bu kural Faz 4, 6, 8'de doğrulanır.
 
 ### Oluşacak Dosyalar
 - `tailwind.config.ts`, `src/styles/globals.css`
@@ -344,7 +378,7 @@ Platform erişilebilirlik katmanını **tüm uygulamadan önce** kur. Sonradan b
 **Hedef hackathon saati:** 3:00 - 4:00
 
 ### Amaç
-Tüm sayfaların oturduğu kabuğu kur. Kullanıcının profil oluşturma akışını bitir (3 soru) — bu olmadan F5'in girdisi yok, F9 boş kalır.
+Tüm sayfaların oturduğu kabuğu kur. Kullanıcının profil oluşturma akışını bitir (**4 adım**: Welcome → Erişim Profili → Hedefler + İlgi → Review) — bu olmadan F5'in girdisi yok, F9 boş kalır.
 
 ### Yapılacak İşler
 
@@ -372,14 +406,30 @@ Tüm sayfaların oturduğu kabuğu kur. Kullanıcının profil oluşturma akış
    - `<Footer>` — minimal, link yok, sadece "UYUM — METU Sports Tech Hackathon 2026"
    - Tasarımdan layout referans alınır
 
-**4. Onboarding sayfası (`src/pages/Onboarding.tsx`):**
-   - 3 adım, ana dökümandaki F5 sorularıyla **birebir aynı değil** — burası kişisel profil:
-     1. Engel tipiniz? (4 seçenek: tekerlekli sandalye / görme / işitme / üst ekstremite)
-     2. Hareket durumunuz? (oturarak / destekle / bağımsız / kol-el kısıtlı)
-     3. Hedefiniz? (güç / esneklik / sosyal / yarışma)
-   - Tüm adımlar tamamlanınca `ProfileContext`'e yaz, Dashboard'a yönlendir
-   - Her seçenek görsel + ikon + metin, klavye ile gezilebilir (`role="radiogroup"`)
-   - Şehir alanı: varsayılan "Ankara" (hackathon kapsamında tek şehir)
+**4. Onboarding sayfası (`src/pages/Onboarding.tsx`) — 4 adım:**
+
+   **Adım 1 — Welcome / Değer Önerisi:**
+   - UYUM'un tek cümle tanımı + tek görsel + "Başla" butonu
+   - Profil verisi toplanmaz, sadece anlatım
+   - Klavye: Enter ile devam, Tab ile "Geç" linkine ulaşılır
+
+   **Adım 2 — Erişim Profili (Engel tipi + Hareket durumu):**
+   - Üst alt-bölüm: Engel tipiniz? (4 seçenek: tekerlekli sandalye / görme / işitme / üst ekstremite)
+   - Alt alt-bölüm: Hareket durumunuz? (3 seçenek: oturarak / destekle / bağımsız)
+     - **Progressive reveal:** engel tipi seçildikten sonra görünür
+   - Her iki alt-bölüm de `role="radiogroup"`, ortak ileri butonu
+   - `mobilityLevel` F5 algoritmasının zorunlu girdisi — kaldırılamaz
+
+   **Adım 3 — Hedefler + İlgi Alanları:**
+   - Hedef (çoklu seçim, en az 1): güç / esneklik / sosyal / yarışma / wellbeing
+   - İlgi alanları (opsiyonel çoklu seçim, görsel chip'ler): yüzme / basketbol / tenis / fitness / atletizm / boccia ...
+   - Şehir alanı görünmez — sabit "Ankara" (DECISIONS.md mevcut kararı korunur)
+
+   **Adım 4 — Review & Confirm:**
+   - Üç adımdan toplanan profil özeti kart halinde
+   - "Düzenle" linki her satırın yanında — ilgili adıma döndürür
+   - "Profili oluştur" butonu → `ProfileContext`'e yaz → Dashboard'a yönlendir
+   - Her seçenek görsel + ikon + metin, klavye ile gezilebilir
 
 **5. Dashboard sayfası iskeleti (`src/pages/Dashboard.tsx`):**
    - **Şimdilik sadece boş kabuk** — Faz 8'de doldurulacak
@@ -394,10 +444,12 @@ Tüm sayfaların oturduğu kabuğu kur. Kullanıcının profil oluşturma akış
 
 ### Test
 - [ ] İlk açılışta `/` → `/onboarding`'e redirect (profil yok)
-- [ ] 3 adımı tamamlayınca profil localStorage'a yazılıyor (`uyum:profile`)
+- [ ] 4 adımı tamamlayınca profil localStorage'a yazılıyor (`uyum:profile`)
 - [ ] Yenileyince Dashboard direkt açılıyor, redirect olmuyor
 - [ ] AccessibilityToolbar header'da görünür ve çalışıyor
-- [ ] Klavye ile 3 soru tamamen tab + arrow + enter ile tamamlanabiliyor
+- [ ] Klavye ile 4 adım tamamen tab + arrow + enter ile tamamlanabiliyor
+- [ ] Adım 2 progressive reveal: engel tipi seçilmeden hareket durumu görünmez
+- [ ] Review (Adım 4) "Düzenle" linkleri ilgili adıma geri yönlendiriyor
 
 ### Definition of Done
 - [ ] Profil tipleri ana döküman Bölüm 7 ile bire bir uyumlu
@@ -499,9 +551,13 @@ P1 feature. Ankara'da gerçek koordinatlardan tesisler haritada. Profile göre p
 **3. MapView komponenti (`src/components/map/MapView.tsx`):**
    - React Leaflet
    - Ankara merkez koordinatı (39.9334, 32.8597), zoom 12
-   - Her tesis bir custom pin (renk profile göre)
+   - **Custom pin — hibrit tasarım:**
+     - **Dış halka rengi** = `useFacilityScore` çıktısı (green / yellow / red / gray)
+     - **İç ikon** = tesisin baskın sporu (`facility.sports[0]` veya seçili filtre sporu)
+     - SVG path'leri `<g>` içinde, ikon `aria-hidden`, dış halka `role="img"` + `aria-label="[Tesis adı] — erişilebilirlik: yeşil, ana spor: yüzme"`
+   - Spor filtresi seçili sporu vurgular (halka kalınlığı artar) ama dış renk erişilebilirlikten gelmeye devam eder — **filtre rengi bastırmaz**
    - Pin tıklanınca: `navigate(`/facility/${id}`)`
-   - Sport filter query param varsa (`?sport=basketball_wheelchair`), o sporu yapılabilen tesisler vurgulu, diğerleri soluk
+   - Sport filter query param varsa (`?sport=basketball_wheelchair`), o sporu yapılabilen tesisler vurgulu, diğerleri soluk (renk durumu korunur)
 
 **4. FacilityMap sayfası (`src/pages/FacilityMap.tsx`):**
    - Üstte: filtre çubuğu — engel tipi (profile göre default, değiştirilebilir), spor (query param'dan)
@@ -512,6 +568,12 @@ P1 feature. Ankara'da gerçek koordinatlardan tesisler haritada. Profile göre p
 **5. Klavye erişimi:**
    - Harita üzerinde Tab ile pin'lere ulaşılabilir (Leaflet'in default davranışı yetersiz, custom)
    - Tesis listesi tamamen klavye ile gezilir, Enter pin'i seçer
+
+**6. Lejant komponenti (`src/components/map/MapLegend.tsx`):**
+   - Sol alt köşe, accordion açılabilir
+   - **Renk anlamı:** 4 satır (yeşil / sarı / kırmızı / gri + Türkçe etiket)
+   - **Spor ikon anlamı:** 5-8 satır (yüzme / basketbol / tenis / fitness / atletizm…)
+   - `aria-expanded` doğru, klavye ile açılır
 
 ### Oluşacak Dosyalar
 - `src/lib/overpass-loader.ts`
@@ -528,6 +590,9 @@ P1 feature. Ankara'da gerçek koordinatlardan tesisler haritada. Profile göre p
 
 ### Definition of Done
 - [ ] Pin renk hesaplaması kural tabanlı, LLM yok
+- [ ] Pin renkleri engel tipine göre değişiyor, **spor filtresi rengi bastırmıyor** — manuel test edildi
+- [ ] Pin iç ikonu spor tipini yansıtıyor (dış halka erişilebilirlik, iç ikon spor)
+- [ ] Lejant her iki katmanı (renk + ikon) açıklıyor
 - [ ] DEMO VERİSİ rozeti görünür ve doğru metinli ("Konumlar OpenStreetMap'ten gerçek...")
 - [ ] Hata senaryosu manuel test edildi (cache dosyasını `mv` ile gizle, sayfa yine açılmalı)
 
@@ -579,6 +644,20 @@ Tesis detay sayfasının üç ana feature'ını birleştir. F1 radar üstte, F4 
      - Listeye anlık eklensin (no refresh)
    - Sayım: *"Bu ay bu tesisi 12 engelli sporcu ziyaret etti"* — son 30 gündeki tanıklıkları say
 
+**3.1. Sorun Bildirimi (Opsiyonel WF-02 hook noktası — Faz 6 sonunda):**
+
+   localStorage akışı **birincil ve zorunludur**. Tanıklık + sorun bildirimi her koşulda `uyum:testimonies` altına yazılır. WF-02 webhook yalnızca P1 zinciri (F1+F2+F3+F4+F5+F9 + A katmanı) tamamen stabil olduktan sonra eklenir.
+
+   **Akış (eklenirse):**
+   1. Kullanıcı sorun bildirir → önce localStorage'a yaz (success state lokal kalır)
+   2. `VITE_N8N_REPORT_ISSUE_WEBHOOK_URL` tanımlıysa fire-and-forget POST gönder
+      - Sadece `facilityId`, `issueType`, `message`, `disabilityType`, `anonymous: true`, `createdAt`
+      - **Asla gönderilmez:** ad, e-posta, telefon, kesin konum, cihaz ID
+   3. Webhook fail/timeout/CORS — kullanıcı görmez, akış lokal başarı ile biter
+   4. `console.warn` ile DevTools'a düşür
+
+   **Kabul:** WF-02 yokken de F4 akışı baştan sona çalışır. F4'ün DoD'u WF-02'ye bağlı değildir.
+
 **4. FacilityDetail sayfası (`src/pages/FacilityDetail.tsx`):**
    - URL: `/facility/:id`
    - Tesis bulunamıyorsa "Tesis bulunamadı" + Map'e dönüş linki
@@ -623,15 +702,9 @@ Tesis detay sayfasının üç ana feature'ını birleştir. F1 radar üstte, F4 
 ### Amaç
 F3 — duygusal ağırlık merkezi. OpenAI çağrısı (n8n veya direkt — bu fazın başında kullanıcıdan karar alınır). A3 sesli okuma F3 başta olmak üzere F1, F4, F5'e entegre.
 
-### Faz Başlangıcında Karar Alma
+### Mimari Karar — Kilitli, Sormadan Devam Et
 
-**ÖNEMLİ — Bu fazda başlamadan önce kullanıcıya sor:**
-> "F3 API çağrı stratejisi için hangi opsiyonu seçiyorsun?
-> - **Opsiyon 1 (n8n webhook):** `VITE_N8N_WEBHOOK_URL` ile, n8n workflow kurulmuş olmalı
-> - **Opsiyon 2 (Direkt OpenAI):** `VITE_OPENAI_KEY` ile frontend'den direkt çağrı
-> Seçim yapmadan koda devam etmeyeceğim."
-
-Kullanıcı seçim yapana kadar F3 implementasyonuna başlama. Diğer alt task'lara (A3, PDF) başlayabilirsin.
+F3 üretimde **yalnızca n8n webhook üzerinden** çalışır. Frontend'den direkt OpenAI çağrısı bu fazda implement edilmez. `VITE_OPENAI_KEY` production'a girmez. Kullanıcıya seçenek sorulmaz — karar `docs/UYUM-platform-final.md` Bölüm 3 "F3 API Çağrı Stratejisi"nde kilitli, kontrat `docs/api-contracts.md` WF-01'de.
 
 ### Yapılacak İşler
 
@@ -648,29 +721,27 @@ Kullanıcı seçim yapana kadar F3 implementasyonuna başlama. Diğer alt task'l
    - F3 sonucunda kullanılır — eğer LLM yanıtı veya kullanıcı girdisi red flag içerirse statik yönlendirme ekranı: "Lütfen bir sağlık profesyoneline danışın. Acil durum: 112"
 
 **2. F3 service (`src/lib/f3-service.ts`):**
-   - Seçilen opsiyona göre iki implementasyon hazırla, env varına göre seç:
-     ```ts
-     if (import.meta.env.VITE_N8N_WEBHOOK_URL) {
-       // Opsiyon 1
-     } else if (import.meta.env.VITE_OPENAI_KEY) {
-       // Opsiyon 2
-     } else {
-       // Fallback only
-     }
-     ```
-   - Her iki opsiyonda da:
-     - Input: `{ profile: UserProfile, facility: Facility }`
-     - Output: `{ guide: string, sections: { arrival, parking, inside, attention, contact } }`
-     - Sistem promptu (Opsiyon 1'de n8n'de, Opsiyon 2'de kodda):
-       ```
-       Sen bir adaptif spor erişilebilirlik rehberisin. Verilen kullanıcı profili ve tesis JSON'una göre,
-       o kullanıcının bu tesise ilk ziyaretinde dikkat etmesi gereken pratik bilgileri Türkçe, kısa
-       paragraflar halinde yaz. Yalnızca sağlanan JSON'da bulunan alanları kullan. JSON'da olmayan
-       hiçbir fiziksel detayı çıkarsama, üretme veya ima etme. Bilgi yoksa o alanı tamamen atla.
-       Her cevabın sonunda mutlaka şu cümleyi koy: "Tesis koşullarını doğrulayamayız — ziyaretten
-       önce tesisi arayın."
-       ```
-     - Timeout 10 saniye, başarısız olursa fallback
+
+   - **Tek çağrı yolu:** n8n webhook (`VITE_N8N_F3_WEBHOOK_URL`).
+   - Input: `{ profile: UserProfile, facility: Facility }`
+   - Output: `{ ok: true, sections: {...}, guide, warningAppended, disclaimer }` veya `{ ok: false, error: '...' }` (bkz. `docs/api-contracts.md`)
+   - **Timeout: 5 saniye.** `AbortController` ile sertçe kesilir.
+   - **Loading UX:**
+     - 0 sn: skeleton görünür
+     - 2 sn: skeleton üstüne "Rehber hazırlanıyor..." metni
+     - 5 sn timeout: sessizce `fallbackGuide()` çıktısı normal içerik olarak akar
+   - **Fallback tetikleyiciler (hepsi aynı sonuca gider):**
+     1. Timeout (5 sn)
+     2. Network error
+     3. CORS error
+     4. HTTP 4xx/5xx
+     5. Malformed JSON
+     6. Response'da `sections` veya `guide` yok
+     7. `VITE_N8N_F3_WEBHOOK_URL` env tanımlı değil
+     8. `ok: false` ile dönen herhangi bir hata kodu
+   - **Hata UX kuralı:** Korkutucu mesaj **yok**. Kullanıcı fallback ile normal rehber görüyormuş hissinde olur. Detay `console.warn`'a düşer.
+   - **Red flag:** Frontend'de yine `containsRedFlag()` çağrılır — kullanıcı metni içeren akış varsa eşleşme durumunda n8n çağrısı atılmaz, yönlendirme ekranı açılır. (n8n tarafında da ikinci kademe red flag node bulunur — defense in depth.)
+   - Sistem promptu **frontend'de tutulmaz** — n8n workflow Build Prompt node'unda yaşar.
 
 **3. Statik fallback şablonu (`src/lib/f3-fallback.ts`):**
    - Profil + tesis JSON'undan template doldur:
@@ -725,19 +796,25 @@ Kullanıcı seçim yapana kadar F3 implementasyonuna başlama. Diğer alt task'l
 - `src/hooks/useSpeech.ts`
 - `src/components/feature/F3Guide.tsx`
 - `src/components/ui/SpeakButton.tsx`
-- `.env.local` (kullanıcı seçimine göre VITE_N8N_WEBHOOK_URL veya VITE_OPENAI_KEY)
+- `.env.local` (yalnızca `VITE_N8N_F3_WEBHOOK_URL` — `VITE_OPENAI_KEY` production'a girmez)
 
 ### Test
 - [ ] **Happy path:** F3 butonu → loading → rehber metni geliyor → sesli okuma çalışıyor → PDF indiriliyor
 - [ ] **API hatası simülasyonu:** Network'ü kapat (DevTools offline), F3 butonu → fallback şablon görünüyor, demo durmuyor
-- [ ] **Red flag testi:** Test amaçlı bir tesis description'ına "göğüs ağrısı" ekle, F3 tetikleneneince yönlendirme ekranı çıkıyor
+- [ ] **n8n timeout simülasyonu:** n8n workflow'unu durdur veya yanıtı 6+ sn geciktir → 5 sn sonunda fallback metni görünüyor, hata mesajı yok
+- [ ] **n8n malformed response:** Webhook test modunda kasten `{"foo":"bar"}` döndür → fallback devreye giriyor
+- [ ] **n8n webhook URL eksik:** `.env.local`'dan `VITE_N8N_F3_WEBHOOK_URL` kaldır → fallback direkt görünüyor, console.warn düşüyor
+- [ ] **n8n CORS:** Vercel domain'inden çağrı CORS hatası vermiyor
+- [ ] **Red flag testi:** Test amaçlı bir tesis description'ına "göğüs ağrısı" ekle, F3 tetiklenince yönlendirme ekranı çıkıyor
 - [ ] **Sesli okuma Türkçe:** "Merhaba dünya" cümlesi Türkçe aksanla okunuyor
 - [ ] **PDF:** İndirilen PDF açılıyor, içerikte tesis adı ve rehber metni okunabilir
 
 ### Definition of Done
-- [ ] F3 hem n8n hem direkt opsiyonunda çalışacak şekilde kod var (env var'a göre branch)
+- [ ] F3 yalnızca n8n yolunu çağırıyor; direkt OpenAI çağrısı yok
+- [ ] Timeout 5 saniye olarak ayarlı, manuel test geçti
+- [ ] 7 fallback tetikleyicinin tamamı manuel olarak doğrulandı (en az 3'ü gerçek ortamda denendi)
 - [ ] Fallback her API hatasında devreye giriyor — demo boş ekran göstermiyor
-- [ ] Red flag listesi en az 11 ifade içeriyor (ana döküman)
+- [ ] Red flag listesi en az 11 ifade içeriyor (ana döküman); hem frontend hem n8n tarafında aktif
 - [ ] Zorunlu uyarı her F3 çıktısında görünür
 - [ ] PDF Türkçe karakterleri doğru render ediyor (font embed kontrolü)
 - [ ] SpeakButton 4 yerde aktif (F1, F3, F4, F5)
@@ -780,6 +857,11 @@ Kullanıcı seçim yapana kadar F3 implementasyonuna başlama. Diğer alt task'l
    - 🧑‍🏫 Koç bul → `/coaches`
 
 **5. Erişilebilirlik toggleları zaten Header'da, Dashboard'da ayrıca tekrar gösterme.**
+
+**6. Dashboard ↔ n8n Sınırı (Önemli):**
+   Dashboard tüm verileri local/static kaynaktan çeker (mock JSON + localStorage). Dashboard'dan tek runtime n8n çağrısı yapılabilir: "İlk ziyaret rehberi oluştur" CTA → WF-01. Bu CTA tesis kartı detayına gitmeden hızlı bir rehber tetikleyebilir, ama feature kapsam dışıdır — varsa polish'te, yoksa Faz 7 akışına bırakılır.
+
+   "Topluluktan" bölümü `uyum:testimonies` + `testimonies.seed.json`'dan beslenir; n8n çağrısı **yok**.
 
 ### Oluşacak Dosyalar
 - `src/pages/Dashboard.tsx` (Faz 3'teki placeholder dolduruluyor)
@@ -828,6 +910,8 @@ Eksik varsa Faz 9'a başlama, eksiği bitir. Demo'nun core'u burası — F6/F7/F
 ### Amaç
 P2 feature'lar — demo'yu zenginleştirir, fakat ÇEKİRDEK'in core'u olmadan da iş görür. Eğer süre dar geliyorsa F8 atlanabilir (en az kritik), pitch deck'e taşınır.
 
+F6 (egzersiz), F7 (etkinlik) ve F8 (koç) verileri **JSON-first**'tür: `src/data/*.json` tek kaynak. Hackathon MVP'sinde bu üç feature için n8n runtime çağrısı yapılmaz. WF-03/WF-04/WF-07 pitch deck roadmap'inde.
+
 ### Yapılacak İşler
 
 **1. F6 — ExerciseLibrary (`src/pages/ExerciseLibrary.tsx`):**
@@ -866,6 +950,7 @@ P2 feature'lar — demo'yu zenginleştirir, fakat ÇEKİRDEK'in core'u olmadan d
 - [ ] Üç sayfa da dolu, boş state yok
 - [ ] Tüm linkler doğru yönlendiriyor
 - [ ] DEMO VERİSİ rozetleri var
+- [ ] F6/F7/F8 sayfaları runtime n8n çağrısı yapmıyor (network tab manuel doğrulandı)
 
 ### Commit
 `feat(faz-9): F6 egzersiz + F7 etkinlik + F8 koç dizini`
@@ -913,6 +998,23 @@ Yarım hiçbir şey yok, görünüm tutarlı, mobile bozuk değil, a11y audit te
 **7. Error boundary:**
    - `<ErrorBoundary>` App'i sarar — JS hata olursa "Bir şey ters gitti, demo URL'sini paylaş" mesajı (demo'da hata gizli kalsın)
 
+**8. Yüzde Temizliği (Tasarım Düzeltme):**
+   - Tüm sayfaları tara, kalan `%XX Uygunluk` / `Puan %XX` metnini bul ve sil
+   - F1 boyut etiketleri: `Doğrulanmış / Kısmi / Mevcut Değil / Bilgi Yok`
+   - F5 sıralama: `Sana en uygun #1 / Güçlü aday #2 / Denemeye değer #3`
+   - F5 uyum metni: `Çok uygun / Uygun / Kısmi uygun / Bilgi eksik`
+
+**9. DEMO VERİSİ Rozet Audit:**
+   - Her mock kaynaklı içerik bileşeninde `<DemoBadge />` görünür
+   - Grep ile `facilities.json`, `events.json`, `coaches.json`, `exercises.json`, `sports.json`, `testimonies.seed.json` consumer'larını tara — eksiği ekle
+
+**10. Erişilebilirlik Mod Toggle ↔ Renk Semantiği Senkronizasyonu:**
+   - Renk körlüğü ve yüksek kontrast modlarında pin renkleri ayırt edilebilir mi? Manuel test (deuteranopia + protanopia + yüksek kontrast)
+   - Renk + ikon + etiket üçlüsünün her birinde tek başına da bilgi aktarması: pin'de ikon, radar'da etiket, F4 durumda metin + ikon
+
+**11. Renk-Tek-Bilgi Tarama:**
+   - "Yeşil = iyi, kırmızı = kötü" mantığıyla **yalnızca renge bağlı** hiçbir bilgi kalmasın. Her renkli durumun yanında ikon ve metin etiketi bulunmalı. Audit listesi: F1 radar, F2 pin, F4 canlı durum, F5 uyum etiketi.
+
 ### Test
 - [ ] Lighthouse A11y skoru 95+
 - [ ] iPhone SE (375px) ekranda hiçbir sayfa kırık değil
@@ -951,6 +1053,7 @@ Demo akışını 3 kez kesintisiz çalıştır, final Vercel deploy, URL paylaş
    8. Bir tesise tıkla → F1 radar morph (engel tipi değiştirme demonstrasyonu)
    9. F4 tanıklık ekle — anlık liste güncellenmesi
    10. F3 "İlk Ziyaret Rehberi" → metin gel — sesli okuma butonu → Türkçe okuma
+   10.1. (Opsiyonel showcase) Tesis detayında "Sorun bildir" → anonim rapor → lokal başarı (WF-02 implement edildiyse network tab'da n8n çağrısı da görünür)
    11. PDF indir — dosyayı aç
    12. F9 → F7 etkinlikler → bir tesisle bağlantı
 
@@ -975,6 +1078,19 @@ Demo akışını 3 kez kesintisiz çalıştır, final Vercel deploy, URL paylaş
    - F3 down → fallback şablon (zaten otomatik)
    - F2 cache fail → inline fallback (zaten otomatik)
    - Internet yok → ?
+
+**6. n8n Demo Hazırlığı Checklist'i:**
+
+   - [ ] `VITE_N8N_F3_WEBHOOK_URL` Vercel Environment Variables'da tanımlı
+   - [ ] n8n workflow status: **Active** (Inactive değil)
+   - [ ] Demo öncesi workflow warm-up: webhook'a test isteği at, ilk çağrının cold start'ını yiyelim
+   - [ ] Vercel domain → n8n webhook CORS test: gerçek frontend'den çağrı
+   - [ ] F3 happy path: profil + tesis → kişiselleştirilmiş rehber metni
+   - [ ] F3 fallback testi: webhook URL'i kasten yanlış değere set et, skeleton → 2 sn metni → 5 sn fallback akışı görünüyor
+   - [ ] (Opsiyonel) F3 malformed response testi: n8n'de Respond node'unu bozuk JSON döndürecek şekilde geçici set et
+   - [ ] WF-02 implement edildiyse: anonim sorun bildirimi test edildi, n8n'de gerçekten kayıt göründü; webhook fail → akış lokalde tamamlanıyor
+   - [ ] Hiçbir n8n hatasında ekran boş kalmıyor — manuel olarak 3 farklı failure modu denendi
+   - [ ] OpenAI key Vercel env'inde **yok** (`VITE_OPENAI_KEY` gizli kalmış olsa bile production deploy ortamında bulunmamalı)
 
 ### Test
 - [ ] 3 kez kesintisiz demo akışı tamamlandı
