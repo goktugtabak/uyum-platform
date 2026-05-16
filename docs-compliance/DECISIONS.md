@@ -36,6 +36,20 @@
 
 ## Kayıtlar
 
+### 2026-05-16 — `[TECH]` F3 üretimde yalnızca n8n; direkt OpenAI yok
+
+- **Karar:** F3 İlk Ziyaret Rehberi üretimde sadece n8n webhook üzerinden çağrılır. Frontend'den direkt OpenAI çağrısı `VITE_OPENAI_KEY` ile Vercel deploy'a girmez. OpenAI key, sistem promptu, JSON kısıtı, red flag ve response doğrulama n8n workflow içinde tutulur.
+- **Niye:** Brief n8n kredisi sağladı; key bundle'a sızmaz, prompt bypass edilemez, defense-in-depth (frontend + n8n iki kademe red flag). Faz 7 başında ekibe seçim sorusu sormak boşa zaman.
+- **Etki:** `docs/UYUM-platform-final.md` Bölüm 3, `docs/UYUM-build-plan.md` Faz 0 + Faz 7, `docs/SRS-UYUM.md` SW-002/AI-007, `.env.example`, yeni `docs/api-contracts.md`.
+- **Geri al kuralı:** n8n hackathon kredisi çekilirse veya workflow demo öncesi çökerse fallback statik şablon zaten yanıt veriyor — geri alma gerekmez. Direkt OpenAI'a geçmek gizlilik riski getirir.
+
+### 2026-05-16 — `[UX]` Onboarding 3 → 4 adım
+
+- **Karar:** Onboarding Welcome → Erişim Profili (engel tipi + hareket durumu progressive reveal) → Hedefler + İlgi Alanları → Review & Confirm olarak 4 adıma çıktı. `mobilityLevel` Adım 2'de korunur.
+- **Niye:** Yeni tasarım ekranları 4 adım gösteriyor. Welcome adımı pazarlama tonunu kurar, Review adımı yanlış profil oluşturmayı azaltır. 5 adıma çıkmadan mobility level'ı Adım 2 alt bölümüne birleştirdik — F5 algoritmasının girdisi kaybolmadı.
+- **Etki:** `src/pages/Onboarding.tsx` (Faz 3), `docs/UYUM-platform-final.md` Bölüm 7 (`goals[]` çoklu), `docs/UYUM-build-plan.md` Faz 3.
+- **Geri al kuralı:** Demo provasında kullanıcı akışı 4 adımda yavaş geliyorsa Adım 1 (Welcome) statik landing'e taşınır, onboarding 3 adıma geri döner.
+
 ### 2026-05-16 — `[UX]` Onboarding şehir adımı yok — varsayılan Ankara
 
 - **Karar:** Onboarding 3 adımdan oluşur (engel tipi / hareket durumu / hedef). Şehir seçimi UI'da sorulmaz, otomatik "Ankara" atanır.
