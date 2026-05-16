@@ -7,9 +7,8 @@
     "facilityId": "f-ank-002",
     "sport": "s-swim",
     "level": "yarışma",
-    "disabilityTags": ["wheelchair", "visual", "hearing", "upper_limb"],
-    "capacity": 80,
-    "registered": 62,
+    "disabilityTypes": ["wheelchair", "visual", "hearing", "upper_limb"],
+    "registrationUrl": "https://ankaraparasporfd.org.tr/bahar-yuzmesi-2026",
     "organizer": "Ankara Para Spor Federasyonu"
   },
   {
@@ -20,9 +19,8 @@
     "facilityId": "f-ank-004",
     "sport": "s-wheelchair-basket",
     "level": "yarışma",
-    "disabilityTags": ["wheelchair"],
-    "capacity": 200,
-    "registered": 187,
+    "disabilityTypes": ["wheelchair"],
+    "registrationUrl": "https://tktsf.org.tr/ankara-ligi-finali",
     "organizer": "Türkiye Tekerlekli Sandalye Spor Federasyonu"
   },
   {
@@ -33,9 +31,8 @@
     "facilityId": "f-ank-009",
     "sport": "s-yoga",
     "level": "başlangıç",
-    "disabilityTags": ["wheelchair", "visual", "hearing", "upper_limb"],
-    "capacity": 15,
-    "registered": 9,
+    "disabilityTypes": ["wheelchair", "visual", "hearing", "upper_limb"],
+    "registrationUrl": "https://uyumyoga.com.tr/acik-sinif",
     "organizer": "UYUM Platform"
   },
   {
@@ -46,9 +43,7 @@
     "facilityId": "f-ank-008",
     "sport": "s-goalball",
     "level": "başlangıç",
-    "disabilityTags": ["visual"],
-    "capacity": 20,
-    "registered": 11,
+    "disabilityTypes": ["visual"],
     "organizer": "Ankara Görme Engelliler Derneği"
   },
   {
@@ -59,9 +54,8 @@
     "facilityId": "f-ank-010",
     "sport": "s-boccia",
     "level": "orta",
-    "disabilityTags": ["wheelchair", "upper_limb"],
-    "capacity": 40,
-    "registered": 28,
+    "disabilityTypes": ["wheelchair", "upper_limb"],
+    "registrationUrl": "https://ankarabeskulubu.org/boccia-turnuvasi",
     "organizer": "Ankara Bedensel Engelliler Spor Kulübü"
   },
   {
@@ -72,9 +66,8 @@
     "facilityId": "f-ank-006",
     "sport": "s-athletics",
     "level": "ileri",
-    "disabilityTags": ["wheelchair", "upper_limb"],
-    "capacity": 30,
-    "registered": 24,
+    "disabilityTypes": ["wheelchair", "upper_limb"],
+    "registrationUrl": "https://paraatletizm.org.tr/ankara-kamp-2026",
     "organizer": "Türkiye Para Atletizm Federasyonu"
   },
   {
@@ -85,9 +78,7 @@
     "facilityId": "f-ank-005",
     "sport": "s-strength",
     "level": "başlangıç",
-    "disabilityTags": ["wheelchair", "upper_limb", "hearing"],
-    "capacity": 12,
-    "registered": 8,
+    "disabilityTypes": ["wheelchair", "upper_limb", "hearing"],
     "organizer": "Etimesgut Engelli Spor Merkezi"
   },
   {
@@ -98,9 +89,7 @@
     "facilityId": "f-ank-004",
     "sport": "s-sitting-volleyball",
     "level": "orta",
-    "disabilityTags": ["wheelchair", "upper_limb"],
-    "capacity": 24,
-    "registered": 16,
+    "disabilityTypes": ["wheelchair", "upper_limb"],
     "organizer": "Mamak Spor Kulübü"
   }
 ]

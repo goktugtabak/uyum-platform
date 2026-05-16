@@ -2,79 +2,109 @@
   {
     "id": "c-001",
     "name": "Ayşe Kara",
-    "bio": "15 yıllık para yüzme antrenörlüğü deneyimine sahip. Türkiye Milli Para Yüzme Takımı ile çalışmış, 3 Paralimpik madalyalı sporcu yetiştirmiştir. Fiziksel ve görme engeli olan sporcularla uzmanlaşmıştır.",
+    "bio": "Türkiye Milli Para Yüzme Takımı ile çalışmış, 3 Paralimpik madalyalı sporcu yetiştirmiş deneyimli antrenör. Fiziksel ve görme engeli olan sporcularla uzmanlaşmıştır.",
     "sports": ["s-swim", "s-aqua"],
-    "disabilitySpecialties": ["wheelchair", "visual"],
-    "certifications": ["IPC Swimming Level 2 Coach", "Adaptif Su Sporları Eğitimi", "Paralimpik Hazırlık Sertifikası"],
+    "disabilityExpertise": ["wheelchair", "visual"],
+    "facilityIds": ["f-ank-001", "f-ank-002"],
+    "yearsExperience": 15,
     "city": "Ankara",
-    "contact": "ayse.kara@parasporansrt.tr"
+    "contact": {
+      "email": "ayse.kara@parasporansrt.tr",
+      "phone": "+90 555 111 22 33"
+    }
   },
   {
     "id": "c-002",
     "name": "Mehmet Yıldız",
-    "bio": "Tekerlekli sandalye basketbolunda 10 yıldır aktif antrenör. Ankara'nın lider para spor kulübünde baş antrenman koordinatörü. Genç sporcuların gelişimine odaklanmaktadır.",
+    "bio": "Ankara'nın lider para spor kulübünde baş antrenman koordinatörü. Genç sporcuların gelişimine odaklanmakta; tekerlekli basketbol ve oturarak voleybolda uzman.",
     "sports": ["s-wheelchair-basket", "s-sitting-volleyball"],
-    "disabilitySpecialties": ["wheelchair"],
-    "certifications": ["IWBF Coaching Certificate Level 2", "Engelli Sporcu Gelişimi Programı"],
+    "disabilityExpertise": ["wheelchair"],
+    "facilityIds": ["f-ank-004", "f-ank-005", "f-ank-007"],
+    "yearsExperience": 10,
     "city": "Ankara",
-    "contact": "mehmet.yildiz@ankarapara.org"
+    "contact": {
+      "email": "mehmet.yildiz@ankarapara.org"
+    }
   },
   {
     "id": "c-003",
     "name": "Fatma Demir",
-    "bio": "Adaptif yoga ve pilates uzmanı. Hareket kısıtlılığı, kronik ağrı ve fiziksel engeli olan bireylerle çalışan sertifikalı yoga terapisti. Nefes ve bilinçli hareket tekniklerini ön planda tutar.",
+    "bio": "Hareket kısıtlılığı, kronik ağrı ve fiziksel engeli olan bireylerle çalışan sertifikalı yoga terapisti. Nefes ve bilinçli hareket tekniklerini ön planda tutar.",
     "sports": ["s-yoga", "s-pilates"],
-    "disabilitySpecialties": ["wheelchair", "upper_limb"],
-    "certifications": ["RYT-500 Yoga Alliance", "Adaptif Yoga Terapi Sertifikası", "Pilates Mat Level 3"],
-    "city": "Ankara"
+    "disabilityExpertise": ["wheelchair", "upper_limb"],
+    "facilityIds": ["f-ank-009"],
+    "yearsExperience": 8,
+    "city": "Ankara",
+    "contact": {
+      "email": "fatma.demir@uyumyoga.com.tr",
+      "phone": "+90 555 444 55 66"
+    }
   },
   {
     "id": "c-004",
     "name": "Serdar Özkan",
-    "bio": "Para atletizm ve kuvvet antrenmanı konusunda uzman. Ampute ve tekerlekli sporculara özel güç-hız programları geliştirmektedir. Ankara Üniversitesi Spor Bilimleri mezunu.",
+    "bio": "Ampute ve tekerlekli sporculara özel güç-hız programları geliştiren para atletizm ve kuvvet antrenmanı uzmanı. Ankara Üniversitesi Spor Bilimleri mezunu.",
     "sports": ["s-athletics", "s-strength"],
-    "disabilitySpecialties": ["wheelchair", "upper_limb"],
-    "certifications": ["Para Athletics Level 1", "Kuvvet ve Kondisyon Antrenörü (NSCA-CSCS)", "Adaptif Spor Uzmanı"],
+    "disabilityExpertise": ["wheelchair", "upper_limb"],
+    "facilityIds": ["f-ank-005", "f-ank-006"],
+    "yearsExperience": 9,
     "city": "Ankara",
-    "contact": "serdar.ozkan@parasporansrt.tr"
+    "contact": {
+      "email": "serdar.ozkan@parasporansrt.tr",
+      "phone": "+90 555 777 88 99"
+    }
   },
   {
     "id": "c-005",
     "name": "Zeynep Arslan",
-    "bio": "Görme engelli sporcular için goalball ve para judo antrenörü. İşaret dili biliyor; hem işitme hem görme engeli olan sporcularla etkili iletişim kurabilmektedir.",
+    "bio": "İşaret dili bilen goalball ve para judo antrenörü. Hem işitme hem görme engeli olan sporcularla etkili iletişim kurabilmektedir.",
     "sports": ["s-goalball", "s-judo-para"],
-    "disabilitySpecialties": ["visual", "hearing"],
-    "certifications": ["IBSA Goalball Coaching Certificate", "Para Judo Federation Eğitimi", "Türk İşaret Dili Sertifikası"],
+    "disabilityExpertise": ["visual", "hearing"],
+    "facilityIds": ["f-ank-008"],
+    "yearsExperience": 7,
     "city": "Ankara",
-    "contact": "zeynep.arslan@gorusengel.org"
+    "contact": {
+      "email": "zeynep.arslan@gorusengel.org"
+    }
   },
   {
     "id": "c-006",
     "name": "Can Koç",
-    "bio": "Para okçuluk ve boccia branşlarında uzman. Özellikle üst ekstremite engeli olan sporcuların teknik gelişimini takip etmektedir. Gölbaşı Para Okçuluk Tesisi'nin kurucu antrenörü.",
+    "bio": "Gölbaşı Para Okçuluk Tesisi'nin kurucu antrenörü. Özellikle üst ekstremite engeli olan sporcuların teknik gelişimini takip etmektedir.",
     "sports": ["s-archery-para", "s-boccia"],
-    "disabilitySpecialties": ["wheelchair", "upper_limb"],
-    "certifications": ["World Archery Para Antrenörlük Belgesi", "Boccia Level 1 Coach", "Adaptif Spor Antrenman Planlaması"],
-    "city": "Ankara"
+    "disabilityExpertise": ["wheelchair", "upper_limb"],
+    "facilityIds": ["f-ank-010"],
+    "yearsExperience": 12,
+    "city": "Ankara",
+    "contact": {
+      "email": "can.koc@golbasispor.tr",
+      "phone": "+90 555 222 33 44"
+    }
   },
   {
     "id": "c-007",
     "name": "Hüseyin Çelik",
-    "bio": "Tekerlekli sandalye tenisi ve su topu alanında deneyimli antrenör. İşitme engelli sporcularla da çalışmış; görsel iletişim tekniklerini antrenmanlarına entegre etmiştir.",
+    "bio": "Tekerlekli sandalye tenisi ve su topu alanında deneyimli antrenör. Görsel iletişim tekniklerini antrenmanlarına entegre etmiştir.",
     "sports": ["s-wheelchair-tennis", "s-waterpolo"],
-    "disabilitySpecialties": ["wheelchair", "hearing"],
-    "certifications": ["ITF Wheelchair Tennis Coach", "LEN Para Su Sporları Eğitimi"],
+    "disabilityExpertise": ["wheelchair", "hearing"],
+    "facilityIds": ["f-ank-001", "f-ank-002", "f-ank-007"],
+    "yearsExperience": 6,
     "city": "Ankara",
-    "contact": "huseyin.celik@ankaratennis.org"
+    "contact": {
+      "email": "huseyin.celik@ankaratennis.org"
+    }
   },
   {
     "id": "c-008",
     "name": "Merve Şahin",
-    "bio": "Adaptif kuvvet ve kondisyon antrenörü. Görme engelli ve işitme engelli sporculara yönelik güvenli kuvvet antrenmanı protokolleri geliştirmiştir. Grupla ve bireysel antrenman yapmaktadır.",
+    "bio": "Görme ve işitme engelli sporculara yönelik güvenli kuvvet antrenmanı protokolleri geliştirmiş adaptif kondisyon antrenörü.",
     "sports": ["s-strength", "s-pilates"],
-    "disabilitySpecialties": ["visual", "hearing"],
-    "certifications": ["ACSM Sertifikalı Antrenör", "Görme Engelli Spor Uzmanı (IBSA)", "Adaptif Fitness Sertifikası"],
+    "disabilityExpertise": ["visual", "hearing"],
+    "facilityIds": ["f-ank-005", "f-ank-009"],
+    "yearsExperience": 5,
     "city": "Ankara",
-    "contact": "merve.sahin@uyumplatform.tr"
+    "contact": {
+      "email": "merve.sahin@uyumplatform.tr"
+    }
   }
 ]

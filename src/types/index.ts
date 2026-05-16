@@ -3,6 +3,7 @@ export type DisabilityType = 'wheelchair' | 'visual' | 'hearing' | 'upper_limb'
 export type MobilityLevel = 'sitting' | 'supported' | 'independent'
 export type Goal = 'strength' | 'flexibility' | 'social' | 'compete'
 export type EventLevel = 'başlangıç' | 'orta' | 'ileri' | 'yarışma'
+export type FacilityType = 'havuz' | 'spor_salonu' | 'açık_alan' | 'atletizm'
 
 export interface AccessibilityMatrix {
   entry:         Record<DisabilityType, AccessibilityDimension>
@@ -13,39 +14,71 @@ export interface AccessibilityMatrix {
   communication: Record<DisabilityType, AccessibilityDimension>
 }
 
+export interface LiveStatusEntry {
+  status: boolean | null
+  verifiedAt: string | null
+  verifiedBy: string | null
+}
+
+export interface LiveStatus {
+  lift:     LiveStatusEntry
+  elevator: LiveStatusEntry
+  ramp:     LiveStatusEntry
+  changing: LiveStatusEntry
+}
+
+export interface Coordinates {
+  lat: number
+  lng: number
+}
+
+export interface FacilityContact {
+  phone?: string
+  email?: string
+  address?: string
+}
+
 export interface Facility {
   id: string
   name: string
-  type: string
+  type: FacilityType
   district: string
-  address: string
-  lat: number
-  lng: number
+  coordinates: Coordinates
   sports: string[]
   accessibility: AccessibilityMatrix
-  verifiedAt?: string
+  liveStatus: LiveStatus
+  coaches: string[]
+  contact: FacilityContact
   source?: 'manual' | 'overpass'
-  phone?: string
   website?: string
 }
 
+export interface AccessibilityPrefs {
+  colorblindMode: 'none' | 'deuteranopia' | 'protanopia' | 'tritanopia'
+  highContrast: boolean
+  fontSize: 'normal' | 'large' | 'xlarge'
+  speechEnabled: boolean
+}
+
 export interface UserProfile {
-  disability: DisabilityType
-  mobility: MobilityLevel
-  goals: Goal[]
+  disabilityType: DisabilityType
+  mobilityLevel: MobilityLevel
+  goal: Goal
   city: string
-  preferredDistricts?: string[]
+  favoriteFacilities: string[]
+  favoriteEvents: string[]
+  accessibility: AccessibilityPrefs
 }
 
 export interface Testimony {
   id: string
   facilityId: string
-  userAlias: string
-  disability: DisabilityType
-  rating: number
+  timestamp: string
+  disabilityType: DisabilityType
+  anonymous: boolean
+  displayName?: string
   text: string
-  date: string
-  helpfulCount: number
+  issueReport?: string
 }
 
 // 'Event' DOM tipiyle cakismasin diye SportEvent kullaniliyor
@@ -57,10 +90,14 @@ export interface SportEvent {
   facilityId: string
   sport: string
   level: EventLevel
-  disabilityTags: DisabilityType[]
-  capacity: number
-  registered: number
+  disabilityTypes: DisabilityType[]
+  registrationUrl?: string
   organizer: string
+}
+
+export interface CoachContact {
+  email?: string
+  phone?: string
 }
 
 export interface Coach {
@@ -68,10 +105,11 @@ export interface Coach {
   name: string
   bio: string
   sports: string[]
-  disabilitySpecialties: DisabilityType[]
-  certifications: string[]
+  disabilityExpertise: DisabilityType[]
+  facilityIds: string[]
+  yearsExperience: number
   city: string
-  contact?: string
+  contact: CoachContact
   photoUrl?: string
 }
 
@@ -80,18 +118,25 @@ export interface Exercise {
   title: string
   description: string
   youtubeId: string
-  durationSec: number
-  disabilityTags: DisabilityType[]
-  mobilityTags: MobilityLevel[]
+  duration: number
+  disabilityTypes: DisabilityType[]
+  mobilityLevel: MobilityLevel[]
+  equipment: string[]
+  language: 'tr' | 'en'
+  hasSubtitles: boolean
   goals: Goal[]
-  lang: 'tr' | 'en'
   channelName: string
+  tags: string[]
 }
 
+// Sport: ana dokumanda tip yok, ama Faz 4 sport-match.ts'in ihtiyaci
 export interface Sport {
   id: string
   name: string
   nameEn?: string
   category: 'team' | 'individual' | 'adaptive' | 'water' | 'indoor' | 'outdoor'
-  disabilityFitness: Record<DisabilityType, 'high' | 'medium' | 'low'>
+  description: string
+  suitableFor: DisabilityType[]
+  mobilityLevel: MobilityLevel[]
+  goals: Goal[]
 }
