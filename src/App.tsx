@@ -3,6 +3,7 @@ import { AccessibilityProvider } from './contexts/AccessibilityContext'
 import { ProfileProvider } from './contexts/ProfileContext'
 import { useProfile } from './contexts/ProfileContext'
 import { AppShell } from './components/layout/AppShell'
+import { ErrorBoundary } from './components/layout/ErrorBoundary'
 
 function RequireProfile({ children }: { children: React.ReactNode }) {
   const { hasProfile } = useProfile()
@@ -100,14 +101,16 @@ const CoachDirectoryPage  = lazy(() => import('./pages/CoachDirectory').then(m =
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AccessibilityProvider>
-        <ProfileProvider>
-          <Suspense fallback={<div className="p-8 text-center">Yükleniyor...</div>}>
-            <AppRoutes />
-          </Suspense>
-        </ProfileProvider>
-      </AccessibilityProvider>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AccessibilityProvider>
+          <ProfileProvider>
+            <Suspense fallback={<div className="p-8 text-center">Yükleniyor...</div>}>
+              <AppRoutes />
+            </Suspense>
+          </ProfileProvider>
+        </AccessibilityProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
   )
 }
