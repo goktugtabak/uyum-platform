@@ -36,6 +36,34 @@
 
 ## Kayıtlar
 
+### 2026-05-16 — `[UX]` Faz 9 F8: koç dizini ?facility= query desteği eklendi (spec dışı extension)
+
+- **Karar:** CoachDirectory'ye `?facility=<id>` query param desteği eklendi. Build planı sadece `?sport=` ister. Ek query, FacilityDetail'deki "Bu tesiste çalışan koçlar" linkinin gerçek bir varış sayfası vermesi için zorunlu — aksi halde link kullanıcıyı filtre uygulanmamış 8-koç listesine atardı.
+- **Niye:** Build plan §FAZ 6 "Bu tesiste çalışan koçlar → F8'e link" satırını UX olarak değerli kılan tek yol facility filtresi. Profile boost zaten var, ama tesis bağlamı kaybolurdu.
+- **Etki:** `src/pages/CoachDirectory.tsx`, `src/lib/coach-filter.ts`, `src/pages/FacilityDetail.tsx`.
+- **Geri al kuralı:** Polish saatinde query unrender olursa filtre chip yine "× Temizle" ile manuel kaldırılır; geri alma riski yok.
+
+### 2026-05-16 — `[UX]` Faz 9 F6: YouTube embed `youtube-nocookie.com` domaini
+
+- **Karar:** `<iframe>` src'i `youtube.com/embed` yerine `youtube-nocookie.com/embed` kullanır. Aynı player, ama 3rd party cookie set etmez ve daha gizlilik dostu.
+- **Niye:** Hackathon demo'sunda jüri tarayıcısında 3rd party cookie warning'i çıkmasın. YouTube Data API kullanmama kuralı (CLAUDE.md, build plan §0.4) iframe embed'i etkilemez; iframe runtime API çağrısı değil, video sunucusundan stream.
+- **Etki:** `src/components/feature/ExerciseCard.tsx`.
+- **Geri al kuralı:** Eğer nocookie domain bazı videolarda block ederse standart domain'e dön.
+
+### 2026-05-16 — `[SCOPE]` Faz 9 F7: geçmiş etkinlikler dimmed bölümde, filter `all` iken görünür
+
+- **Karar:** EventList sayfası, "Tarih → Tümü" filtresi seçildiğinde gelecek etkinliklerin altına dimmed bir "Geçmiş Etkinlikler" bölümü açar. "Bu hafta" veya "Bu ay" seçilince geçmiş gizli kalır.
+- **Niye:** Build plan §FAZ 9.2 "boş state yok" zorunluluğu. Mock veri (8 etkinlik) hackathon tarihine yakın; demo akarken filtre kombinasyonları bazen 0 future verir. Past fallback boş ekranı önler, ama varsayılan kullanım için (haftalık/aylık) dikkat dağıtmaz.
+- **Etki:** `src/lib/event-filter.ts`, `src/pages/EventList.tsx`, `src/components/feature/EventCard.tsx` (dimmed prop).
+- **Geri al kuralı:** Past fallback kafa karıştırırsa "all" filtresinde de gizlenir, empty state CTA yine "Filtreleri temizle" gösterir.
+
+### 2026-05-16 — `[TECH]` Faz 9 sayfaları: async load yok, direkt JSON import
+
+- **Karar:** ExerciseLibrary, EventList, CoachDirectory sayfaları `loadFacilities()` Promise yerine `facilities.json`'u doğrudan static import eder. Yalnızca facility **adı / id eşlemesi** için kullanıldıkları için Overpass merge gerekmiyor.
+- **Niye:** Faz 5'in `loadFacilities()` async kaynağı haritada koordinat birleştirmesi için var. Bu üç sayfada koordinat kullanılmıyor; async overhead'i Suspense/loading state ihtiyacı doğuruyor, hiçbir değer üretmiyor.
+- **Etki:** `src/pages/EventList.tsx`, `src/pages/CoachDirectory.tsx`.
+- **Geri al kuralı:** Eğer facility ad/id Overpass merge'iyle değişirse veya bu üç sayfaya koordinat gerekirse `loadFacilities()` switch'i 1 satırla geri eklenir.
+
 ### 2026-05-16 — `[TECH]` Faz 8 dashboard: facility sıralama saf fn, hook duplikasyonu kabul
 
 - **Karar:** Dashboard'da "Sana Yakında" için tesisleri puana göre sıralayan `lib/facility-rank.ts` saf fonksiyonu eklendi. `useFacilityScore` hook'unun puanlama kuralı (overall = red/green/yellow/gray) bu dosyada yeniden yazıldı (~15 satır).
