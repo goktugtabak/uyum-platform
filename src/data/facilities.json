@@ -1,0 +1,213 @@
+[
+  {
+    "id": "f-ank-001",
+    "name": "Çankaya Belediyesi Yüzme Havuzu",
+    "type": "pool",
+    "district": "Çankaya",
+    "address": "Dikmen Cad. No:5, Çankaya, Ankara",
+    "lat": 39.9037,
+    "lng": 32.8597,
+    "sports": ["s-swim", "s-aqua"],
+    "accessibility": {
+      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "changing":      { "wheelchair": "verified", "visual": "unknown",  "hearing": "verified", "upper_limb": "partial"  },
+      "equipment":     { "wheelchair": "partial",  "visual": "none",     "hearing": "verified", "upper_limb": "partial"  },
+      "staff":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "none",     "upper_limb": "partial"  },
+      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "none",     "upper_limb": "verified" }
+    },
+    "verifiedAt": "2026-02-10",
+    "source": "manual",
+    "phone": "+90 312 458 89 00",
+    "website": "https://cankaya.bel.tr"
+  },
+  {
+    "id": "f-ank-002",
+    "name": "Yenimahalle Olimpik Yüzme Havuzu",
+    "type": "pool",
+    "district": "Yenimahalle",
+    "address": "Batıkent Mah., Yenimahalle, Ankara",
+    "lat": 39.9663,
+    "lng": 32.7481,
+    "sports": ["s-swim", "s-aqua", "s-waterpolo"],
+    "accessibility": {
+      "entry":         { "wheelchair": "verified", "visual": "verified", "hearing": "partial",  "upper_limb": "verified" },
+      "internal":      { "wheelchair": "verified", "visual": "verified", "hearing": "partial",  "upper_limb": "verified" },
+      "changing":      { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" },
+      "equipment":     { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" },
+      "staff":         { "wheelchair": "verified", "visual": "verified", "hearing": "partial",  "upper_limb": "verified" },
+      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "none",     "upper_limb": "verified" }
+    },
+    "verifiedAt": "2026-01-20",
+    "source": "manual",
+    "phone": "+90 312 397 00 00"
+  },
+  {
+    "id": "f-ank-003",
+    "name": "Keçiören Spor Merkezi Havuzu",
+    "type": "pool",
+    "district": "Keçiören",
+    "address": "Bağlum Mah. Spor Cad., Keçiören, Ankara",
+    "lat": 40.0211,
+    "lng": 32.8642,
+    "sports": ["s-swim", "s-aqua"],
+    "accessibility": {
+      "entry":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "verified", "upper_limb": "partial"  },
+      "internal":      { "wheelchair": "partial",  "visual": "none",     "hearing": "partial",  "upper_limb": "partial"  },
+      "changing":      { "wheelchair": "partial",  "visual": "none",     "hearing": "partial",  "upper_limb": "none"     },
+      "equipment":     { "wheelchair": "none",     "visual": "none",     "hearing": "partial",  "upper_limb": "none"     },
+      "staff":         { "wheelchair": "partial",  "visual": "none",     "hearing": "none",     "upper_limb": "partial"  },
+      "communication": { "wheelchair": "partial",  "visual": "none",     "hearing": "none",     "upper_limb": "partial"  }
+    },
+    "verifiedAt": "2025-11-05",
+    "source": "manual"
+  },
+  {
+    "id": "f-ank-004",
+    "name": "Mamak Spor Salonu",
+    "type": "gym",
+    "district": "Mamak",
+    "address": "Şahintepe Mah. İnönü Cad. No:12, Mamak, Ankara",
+    "lat": 39.9266,
+    "lng": 32.9344,
+    "sports": ["s-wheelchair-basket", "s-strength", "s-sitting-volleyball"],
+    "accessibility": {
+      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "changing":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "equipment":     { "wheelchair": "verified", "visual": "unknown",  "hearing": "verified", "upper_limb": "verified" },
+      "staff":         { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" },
+      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" }
+    },
+    "verifiedAt": "2026-03-01",
+    "source": "manual",
+    "phone": "+90 312 371 00 00"
+  },
+  {
+    "id": "f-ank-005",
+    "name": "Etimesgut Engelli Spor Merkezi",
+    "type": "gym",
+    "district": "Etimesgut",
+    "address": "71 Evler Mah. Spor Sitesi, Etimesgut, Ankara",
+    "lat": 39.9496,
+    "lng": 32.6815,
+    "sports": ["s-wheelchair-basket", "s-boccia", "s-strength", "s-yoga"],
+    "accessibility": {
+      "entry":         { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" },
+      "internal":      { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" },
+      "changing":      { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" },
+      "equipment":     { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "staff":         { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" },
+      "communication": { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" }
+    },
+    "verifiedAt": "2026-04-15",
+    "source": "manual",
+    "phone": "+90 312 244 50 00",
+    "website": "https://etimesgut.bel.tr"
+  },
+  {
+    "id": "f-ank-006",
+    "name": "Sincan Atletizm ve Futbol Sahası",
+    "type": "field",
+    "district": "Sincan",
+    "address": "Sincan Stadyumu yanı, Sincan, Ankara",
+    "lat": 39.9697,
+    "lng": 32.5842,
+    "sports": ["s-athletics", "s-football"],
+    "accessibility": {
+      "entry":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "verified", "upper_limb": "partial"  },
+      "internal":      { "wheelchair": "partial",  "visual": "none",     "hearing": "verified", "upper_limb": "partial"  },
+      "changing":      { "wheelchair": "partial",  "visual": "none",     "hearing": "partial",  "upper_limb": "none"     },
+      "equipment":     { "wheelchair": "none",     "visual": "none",     "hearing": "partial",  "upper_limb": "none"     },
+      "staff":         { "wheelchair": "none",     "visual": "none",     "hearing": "none",     "upper_limb": "none"     },
+      "communication": { "wheelchair": "partial",  "visual": "none",     "hearing": "none",     "upper_limb": "partial"  }
+    },
+    "verifiedAt": "2025-09-12",
+    "source": "manual"
+  },
+  {
+    "id": "f-ank-007",
+    "name": "Çankaya Basketbol ve Tenis Tesisi",
+    "type": "court",
+    "district": "Çankaya",
+    "address": "Oran Sitesi Spor Alanı, Çankaya, Ankara",
+    "lat": 39.8742,
+    "lng": 32.8143,
+    "sports": ["s-wheelchair-basket", "s-wheelchair-tennis"],
+    "accessibility": {
+      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "changing":      { "wheelchair": "partial",  "visual": "unknown",  "hearing": "verified", "upper_limb": "partial"  },
+      "equipment":     { "wheelchair": "verified", "visual": "unknown",  "hearing": "verified", "upper_limb": "partial"  },
+      "staff":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "partial",  "upper_limb": "partial"  },
+      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" }
+    },
+    "verifiedAt": "2026-02-28",
+    "source": "manual",
+    "phone": "+90 312 491 00 00"
+  },
+  {
+    "id": "f-ank-008",
+    "name": "Yenimahalle Güreş ve Dövüş Spor Salonu",
+    "type": "gym",
+    "district": "Yenimahalle",
+    "address": "Karşıyaka Mah. Spor Merkezi, Yenimahalle, Ankara",
+    "lat": 40.0012,
+    "lng": 32.7821,
+    "sports": ["s-goalball", "s-judo-para"],
+    "accessibility": {
+      "entry":         { "wheelchair": "partial",  "visual": "verified", "hearing": "partial",  "upper_limb": "partial"  },
+      "internal":      { "wheelchair": "partial",  "visual": "verified", "hearing": "partial",  "upper_limb": "partial"  },
+      "changing":      { "wheelchair": "none",     "visual": "partial",  "hearing": "partial",  "upper_limb": "none"     },
+      "equipment":     { "wheelchair": "none",     "visual": "partial",  "hearing": "verified", "upper_limb": "none"     },
+      "staff":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "partial",  "upper_limb": "partial"  },
+      "communication": { "wheelchair": "partial",  "visual": "verified", "hearing": "partial",  "upper_limb": "partial"  }
+    },
+    "verifiedAt": "2025-12-18",
+    "source": "manual"
+  },
+  {
+    "id": "f-ank-009",
+    "name": "Çankaya Yoga ve Pilates Stüdyosu",
+    "type": "studio",
+    "district": "Çankaya",
+    "address": "Tunalı Hilmi Cad. No:88/3, Çankaya, Ankara",
+    "lat": 39.9108,
+    "lng": 32.8624,
+    "sports": ["s-yoga", "s-pilates"],
+    "accessibility": {
+      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "changing":      { "wheelchair": "partial",  "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "equipment":     { "wheelchair": "partial",  "visual": "partial",  "hearing": "verified", "upper_limb": "partial"  },
+      "staff":         { "wheelchair": "verified", "visual": "verified", "hearing": "partial",  "upper_limb": "verified" },
+      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "none",     "upper_limb": "verified" }
+    },
+    "verifiedAt": "2026-04-01",
+    "source": "manual",
+    "phone": "+90 312 467 33 00",
+    "website": "https://uyumyoga.com.tr"
+  },
+  {
+    "id": "f-ank-010",
+    "name": "Gölbaşı Para Okçuluk ve Atış Tesisi",
+    "type": "multi",
+    "district": "Gölbaşı",
+    "address": "Gölbaşı Spor Vadisi, Gölbaşı, Ankara",
+    "lat": 39.7953,
+    "lng": 32.8067,
+    "sports": ["s-archery-para", "s-boccia", "s-sitting-volleyball"],
+    "accessibility": {
+      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "changing":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "equipment":     { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "staff":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
+      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" }
+    },
+    "verifiedAt": "2026-03-22",
+    "source": "manual",
+    "phone": "+90 312 484 00 00",
+    "website": "https://golbasi.bel.tr"
+  }
+]
