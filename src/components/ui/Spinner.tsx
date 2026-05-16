@@ -8,7 +8,6 @@ export function Spinner({ label, className = '' }: Props) {
     <div className={`flex flex-col items-center gap-3 ${className}`}>
       <span
         role="status"
-        aria-live="polite"
         aria-label={label ?? 'Yükleniyor'}
         className="inline-block w-8 h-8 rounded-full border-2 border-white/20 border-t-uyum-purple animate-spin hc:border-white/40 hc:border-t-white"
       />
