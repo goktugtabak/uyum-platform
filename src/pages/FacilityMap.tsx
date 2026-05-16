@@ -14,16 +14,10 @@ export function FacilityMap() {
   const [facilities, setFacilities] = useState<Facility[]>([])
   const [loading, setLoading] = useState(true)
 
-  const sportFilterFromUrl = searchParams.get('sport')
+  const sportFilter = searchParams.get('sport')
   const [disabilityType, setDisabilityType] = useState<DisabilityType>(
     profile?.disabilityType ?? 'wheelchair',
   )
-  const [sportFilter, setSportFilter] = useState<string | null>(sportFilterFromUrl)
-
-  // Sync sport filter with URL
-  useEffect(() => {
-    setSportFilter(searchParams.get('sport'))
-  }, [searchParams])
 
   useEffect(() => {
     loadFacilities()
