@@ -36,6 +36,20 @@
 
 ## Kayıtlar
 
+### 2026-05-16 — `[SCOPE]` Faz 10: F3 red flag enforcement n8n tarafında, frontend client-side kontrol kaldırıldı
+
+- **Karar:** `f3-service.ts`'in girişindeki `containsRedFlag(facility.name + district + address)` çağrısı kaldırıldı. F3'te kullanıcıdan semptom textarea'sı alınmıyor; tesis metadata'sını red flag listesiyle karşılaştırmak hiçbir zaman pozitif vermez ve QA audit'inde dead code olarak işaretlendi. Red flag enforcement n8n workflow tarafında kalır; response `error:'RED_FLAG'` handler'ı yerinde.
+- **Niye:** Build plan §FAZ 7 "her LLM çağrısı öncesi kullanıcı girdisi kontrol edilir" satırı bir input surface varsayar; mevcut F3Guide tek "Oluştur" butonu olarak ship oldu. Misleading kod jüri sorduğunda zorlaşır — dürüstlük > gösteriş. `src/lib/redflag.ts` lib'i korunur: frontend entegrasyonunda textarea gelirse `containsRedFlag(userText)` yine kullanılır, sadece servis girişindeki yanlış hedef silindi.
+- **Etki:** `src/lib/f3-service.ts` (import + 4 satır kontrol kaldırıldı, intent yorumu eklendi).
+- **Geri al kuralı:** Frontend entegrasyonunda F3'e semptom textarea eklenirse `containsRedFlag(userText)` çağrısını `fetchF3Guide`'in başına geri koy. Lib hazır bekliyor.
+
+### 2026-05-16 — `[UX]` Faz 10: LiveStatus dot color sadece status'a bağlı, freshness ayrı text
+
+- **Karar:** LiveStatus row dot color artık yalnız `entry.status` ile belirlenir (true=verified yeşili, false=none kırmızısı, null=unknown grisi). Freshness (taze/son ay/eski) ayrı bir text etiketi olarak `relTime` yanına yerleşir. Outer `<div>` `<ul role="list">` + `<li>` olarak değişti, `aria-label`-on-div pattern'i içerik metnine dönüştü.
+- **Niye:** QA audit `LiveStatus` dot rengininin "freshness" + "status" iki anlam taşıdığını yakaladı — yeşil aynı tesiste hem "taze veri" hem "yerinde" anlamına geliyordu, screen reader ile sighted user farklı bilgi alıyordu. Rengi status'a kilitlemek anlam tekleştirir; freshness metin olarak hâlâ erişilebilir.
+- **Etki:** `src/components/facility/LiveStatus.tsx`.
+- **Geri al kuralı:** Frontend entegrasyonunda LiveStatus tasarımı freshness'i ayrı bir renk skalasıyla göstermek isterse iki ayrı dot (status + freshness) eklenir; aynı dot iki anlam taşımayacak.
+
 ### 2026-05-16 — `[UX]` Faz 10: harita pin'lerinde renk + glyph çift kodlaması
 
 - **Karar:** FacilityPin / FacilityList / MapLegend erişilebilirlik durumunu renk + glyph (✓ / ~ / ✕ / ?) + metin üçlüsüyle gösterir. Pin DivIcon'a sağ üstte 16px badge eklendi; lejant ve liste de aynı glyph'i kullanır.
