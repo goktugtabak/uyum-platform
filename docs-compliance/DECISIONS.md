@@ -36,6 +36,27 @@
 
 ## Kayıtlar
 
+### 2026-05-16 — `[UX]` Onboarding şehir adımı yok — varsayılan Ankara
+
+- **Karar:** Onboarding 3 adımdan oluşur (engel tipi / hareket durumu / hedef). Şehir seçimi UI'da sorulmaz, otomatik "Ankara" atanır.
+- **Niye:** Build plan "tek şehir Ankara, hackathon kapsamında" der (CLAUDE.md). Ek adım demo akışını uzatır, değer katmaz.
+- **Etki:** `src/pages/Onboarding.tsx` — `city: 'Ankara'` hardcoded. Gelecekte çok şehir desteği gelirse bu alanı serbest bırakmak yeterli.
+- **Geri al kuralı:** Çok şehir talebi gelince Onboarding'e Adım 4 ekle.
+
+### 2026-05-16 — `[PROCESS]` MobilityLevel 3 değer — "kol-el kısıtlı" upper_limb'e havale
+
+- **Karar:** Build plan Adım 2 için 4 seçenek önerdi (oturarak / destekle / bağımsız / kol-el kısıtlı). `MobilityLevel = 'sitting' | 'supported' | 'independent'` 3 değer — types değiştirilmedi.
+- **Niye:** Types değiştirmek facilities/sports/exercises mock data'daki tüm union'ları kırar (TypeScript hataları). "Kol-el kısıtlı" işlevselliği zaten Adım 1'deki `upper_limb` ile karşılanıyor — çift sayma olmaması için eklenmedi.
+- **Etki:** `src/pages/Onboarding.tsx` Adım 2 — 3 seçenek.
+- **Geri al kuralı:** `MobilityLevel` tipine `arm_limited` eklenirse mock data güncellenerek Adım 2'ye seçenek eklenir.
+
+### 2026-05-16 — `[PROCESS]` UserProfile.accessibility alanı runtime'da tüketilmiyor
+
+- **Karar:** `UserProfile.accessibility` alanı Onboarding'de default `AccessibilityPrefs` ile initialize edilir ama runtime'da source-of-truth `AccessibilityContext` (localStorage `uyum:a11y`). Faz 4+ kodu bu alanı yok sayar.
+- **Niye:** Faz 2'de `AccessibilityContext` kendi persist mekanizmasını (`uyum:a11y`) kurdu. İkinci bir persist katmanı eklemek yarış koşulu yaratır. Profile şemasını değiştirmek ise Bölüm 7 veri modeliyle sapmaya neden olur.
+- **Etki:** `src/pages/Onboarding.tsx` — `accessibility: DEFAULT_ACCESSIBILITY` sabit değerle atılır. Faz 7'de `useSpeech` gelince bu alan ya kaldırılır ya da `AccessibilityContext` ile senkronize edilir.
+- **Geri al kuralı:** Faz 7'de `profile.accessibility.speechEnabled` ile `AccessibilityContext.speechEnabled` birleştirilir — karar o zaman netleşir.
+
 ### 2026-05-16 — `[UX]` A1 renk körlüğü kapsamı 3 moda genişletildi
 
 - **Karar:** Ana döküman A1 yalnızca deuteranopia + protanopia listelerken, Faz 1'de globals.css + index.html + types/index.ts tritanopia için de hazırlandı. Faz 2'de bu altyapı korundu, dropdown 4 seçenek sunar (Kapalı / Deuteranopia / Protanopia / Tritanopia).
