@@ -5,13 +5,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        // TEMP: brand renkleri design/ klasoru dolduktan sonra migrate edilecek (Faz 10)
-        brand: {
-          primary: '#0ea5e9',
-          accent:  '#10b981',
-          dark:    '#0c4a6e',
-          light:   '#ecfeff',
-        },
+        // Design baseline (design/2026_uyum/shared/tailwind.config.js)
+        'uyum-dark':       '#320E3B',
+        'uyum-purple':     '#4C2A85',
+        'uyum-blue':       '#6B7FD7',
+        'uyum-frost-blue': '#BCEDF6',
+        'uyum-frost-mint': '#DDFBD2',
+
+        // A11y boyut renkleri — CLAUDE.md sabit karari, design folder kapsami disi
         a11y: {
           verified: '#16a34a',
           partial:  '#eab308',
@@ -19,11 +20,13 @@ export default {
           unknown:  '#6b7280',
         },
         focus: {
-          ring: '#0ea5e9',
+          ring: '#4C2A85',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans:    ['Inter',  'system-ui', 'sans-serif'],
+        heading: ['Outfit', 'sans-serif'],
+        body:    ['Inter',  'sans-serif'],
       },
     },
   },
