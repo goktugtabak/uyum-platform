@@ -1,21 +1,14 @@
 import { useMemo } from 'react'
 import type { Facility, DisabilityType, AccessibilityDimension } from '../types'
+import { DIMENSION_KEYS, type DimensionKey } from '../lib/a11y-dimensions'
 
 export type ScoreColor = 'green' | 'yellow' | 'gray' | 'red'
 
 export interface FacilityScore {
   overall: ScoreColor
   counts: { verified: number; partial: number; none: number; unknown: number }
+  dimensions: Record<DimensionKey, AccessibilityDimension>
 }
-
-const A11Y_DIM_KEYS = [
-  'entry',
-  'internal',
-  'changing',
-  'equipment',
-  'staff',
-  'communication',
-] as const
 
 export function useFacilityScore(
   facility: Facility,
@@ -23,10 +16,12 @@ export function useFacilityScore(
 ): FacilityScore {
   return useMemo(() => {
     const counts = { verified: 0, partial: 0, none: 0, unknown: 0 }
+    const dimensions = {} as Record<DimensionKey, AccessibilityDimension>
 
-    for (const key of A11Y_DIM_KEYS) {
+    for (const key of DIMENSION_KEYS) {
       const value: AccessibilityDimension =
         facility.accessibility[key][disabilityType]
+      dimensions[key] = value
       if (value === 'verified') counts.verified++
       else if (value === 'partial') counts.partial++
       else if (value === 'none') counts.none++
@@ -46,6 +41,6 @@ export function useFacilityScore(
       overall = 'yellow'
     }
 
-    return { overall, counts }
+    return { overall, counts, dimensions }
   }, [facility, disabilityType])
 }
