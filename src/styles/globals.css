@@ -7,42 +7,42 @@
 /* Tailwind v3 reads these via tailwind.config.ts color/shadow tokens. */
 /* ------------------------------------------------------------------ */
 :root {
-  /* Surfaces */
-  --color-background: oklch(0.985 0.005 290);
-  --color-foreground: oklch(0.18 0.06 305);
-  --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.18 0.06 305);
-  --color-popover: oklch(1 0 0);
-  --color-popover-foreground: oklch(0.18 0.06 305);
+  /* Surfaces — Landing palette ile uyumlu (beyaz + #f8f7f7) */
+  --color-background: #ffffff;
+  --color-foreground: #320E3B;
+  --color-card: #ffffff;
+  --color-card-foreground: #320E3B;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #320E3B;
 
-  /* Brand */
-  --color-primary: oklch(0.38 0.16 295);          /* Indigo Velvet #4C2A85 */
-  --color-primary-foreground: oklch(0.985 0.005 290);
-  --color-primary-deep: oklch(0.22 0.12 305);     /* Dark Amethyst #320E3B */
+  /* Brand — Landing ile birebir aynı hex değerler */
+  --color-primary: #4C2A85;                    /* Indigo Velvet */
+  --color-primary-foreground: #ffffff;
+  --color-primary-deep: #320E3B;               /* Dark Amethyst */
 
-  --color-accent: oklch(0.68 0.13 270);           /* Glaucous #6B7FD7 */
-  --color-accent-foreground: oklch(0.18 0.06 305);
+  --color-accent: #6B7FD7;                     /* Glaucous */
+  --color-accent-foreground: #320E3B;
 
-  --color-mint: oklch(0.94 0.08 145);             /* Frosted Mint #DDFBD2 */
-  --color-mint-foreground: oklch(0.30 0.10 150);
+  --color-mint: #DDFBD2;                       /* Frosted Mint */
+  --color-mint-foreground: #1f5a36;
 
-  --color-sky: oklch(0.93 0.06 215);              /* Frosted Blue #BCEDF6 */
-  --color-sky-foreground: oklch(0.28 0.10 230);
+  --color-sky: #BCEDF6;                        /* Frosted Blue */
+  --color-sky-foreground: #0f4858;
 
-  --color-secondary: oklch(0.96 0.02 290);
-  --color-secondary-foreground: oklch(0.22 0.12 305);
+  --color-secondary: #f5f3f7;
+  --color-secondary-foreground: #320E3B;
 
-  --color-muted: oklch(0.96 0.012 290);
-  --color-muted-foreground: oklch(0.50 0.04 290);
+  --color-muted: #f8f7f7;
+  --color-muted-foreground: #6b7280;           /* gray-500 — Landing'in alt metni */
 
   --color-destructive: oklch(0.62 0.22 25);
-  --color-destructive-foreground: oklch(0.99 0 0);
+  --color-destructive-foreground: #ffffff;
   --color-success: oklch(0.62 0.16 150);
   --color-warning: oklch(0.78 0.16 65);
 
-  --color-border: oklch(0.92 0.015 290);
-  --color-input: oklch(0.94 0.015 290);
-  --color-ring: oklch(0.38 0.16 295);
+  --color-border: #f3f4f6;                     /* gray-100 — Landing'in çerçeve rengi */
+  --color-input: #f3f4f6;
+  --color-ring: #320E3B;
 }
 
 /* ------------------------------------------------------------------ */
@@ -50,7 +50,7 @@
 /* ------------------------------------------------------------------ */
 @layer base {
   html {
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    font-family: 'Armin Grotesk', 'Inter', system-ui, sans-serif;
   }
   body {
     background-color: var(--color-background);
@@ -58,7 +58,7 @@
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 {
-    font-family: 'Sora', 'Outfit', sans-serif;
+    font-family: 'Armin Grotesk', 'Inter', system-ui, sans-serif;
     letter-spacing: -0.02em;
   }
   ::selection { background: oklch(0.68 0.13 270 / 0.3); }

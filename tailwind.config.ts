@@ -81,12 +81,12 @@ export default {
         },
       },
       fontFamily: {
-        // Faz 12 — Sora display + Plus Jakarta Sans body
-        sans:    ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
-        display: ['Sora', 'Plus Jakarta Sans', 'sans-serif'],
-        // Legacy aliases preserved for cards still on Outfit/Inter
-        heading: ['Sora', 'Outfit', 'sans-serif'],
-        body:    ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+        // Armin Grotesk site-wide (kullanıcı talebi). Yerel lisans gerektiren bir font;
+        // tarayıcıda yoksa Inter / system-ui fallback'ine düşer.
+        sans:    ['"Armin Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['"Armin Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
+        heading: ['"Armin Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
+        body:    ['"Armin Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         sm:   '0.5rem',
@@ -102,8 +102,8 @@ export default {
         glow: '0 20px 60px -20px oklch(0.38 0.16 295 / 0.45)',
       },
       backgroundImage: {
-        'gradient-brand': 'linear-gradient(135deg, oklch(0.38 0.16 295) 0%, oklch(0.68 0.13 270) 100%)',
-        'gradient-deep':  'linear-gradient(135deg, oklch(0.22 0.12 305) 0%, oklch(0.38 0.16 295) 100%)',
+        'gradient-brand': 'linear-gradient(135deg, #4C2A85 0%, #6B7FD7 100%)',
+        'gradient-deep':  'linear-gradient(135deg, #320E3B 0%, #4C2A85 100%)',
       },
     },
   },
