@@ -7,6 +7,7 @@ import {
   type Freshness,
 } from '../../lib/live-status'
 import { DemoBadge } from '../ui/DemoBadge'
+import { SpeakButton } from '../ui/SpeakButton'
 
 const STATUS_ICON: Record<string, string> = {
   true:    '✅',
@@ -42,11 +43,12 @@ export function LiveStatus({ facility }: Props) {
           entry.status === true ? 'Aktif' :
           entry.status === false ? 'Arızalı' : 'Bilinmiyor'
 
+        const speakText = `${getLiveStatusLabel(key)}: ${statusLabel}, son güncelleme ${relTime}`
         return (
           <div
             key={key}
             className="flex items-center gap-3"
-            aria-label={`${getLiveStatusLabel(key)}: ${statusLabel}, son güncelleme ${relTime}`}
+            aria-label={speakText}
           >
             <span
               className={`w-3 h-3 rounded-full flex-shrink-0 ${dotClass}`}
@@ -69,6 +71,7 @@ export function LiveStatus({ facility }: Props) {
                 <span className="ml-1 text-gray-400">· {entry.verifiedBy}</span>
               )}
             </span>
+            <SpeakButton text={speakText} label={getLiveStatusLabel(key)} />
           </div>
         )
       })}
