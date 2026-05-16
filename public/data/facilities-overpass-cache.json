@@ -1,0 +1,5292 @@
+{
+  "fetchedAt": "2026-05-16T07:04:08.837Z",
+  "bbox": {
+    "south": 39.7,
+    "west": 32.5,
+    "north": 40.05,
+    "east": 33.05
+  },
+  "count": 269,
+  "facilities": [
+    {
+      "id": "overpass-594544592",
+      "osmType": "node",
+      "name": "MoveOn Fitness Club",
+      "leisure": "sports_centre",
+      "sport": "fitness;basketball;volleyball",
+      "lat": 39.8954313,
+      "lng": 32.8794817,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "MoveOn Fitness Club",
+        "opening_hours": "Mo-Fr 07:00-22:00, Sa-So 09:00-21:00",
+        "sport": "fitness;basketball;volleyball"
+      }
+    },
+    {
+      "id": "overpass-824367628",
+      "osmType": "node",
+      "name": "MARS Athletic Club",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8477458,
+      "lng": 32.8332059,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "MARS Athletic Club"
+      }
+    },
+    {
+      "id": "overpass-2228375601",
+      "osmType": "node",
+      "name": "Sports International",
+      "leisure": "swimming_pool",
+      "sport": "swimming",
+      "lat": 39.882697,
+      "lng": 32.7635817,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "covered": "no",
+        "leisure": "swimming_pool",
+        "name": "Sports International",
+        "sport": "swimming"
+      }
+    },
+    {
+      "id": "overpass-2293040732",
+      "osmType": "node",
+      "name": "Base Life Club",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8778494,
+      "lng": 32.7064563,
+      "addr": "Angora Bulvarı",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:housenumber": "209",
+        "addr:street": "Angora Bulvarı",
+        "building": "yes",
+        "building:levels": "2",
+        "contact:phone": "+90 312 225 41 43",
+        "leisure": "sports_centre",
+        "name": "Base Life Club",
+        "opening_hours": "Mo-Fr 06:30-23:00; Sa-Su 08:00-22:00"
+      }
+    },
+    {
+      "id": "overpass-4073318304",
+      "osmType": "node",
+      "name": "Yıldızlar Spor Merkezi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9820639,
+      "lng": 32.8204545,
+      "addr": "Ayvalı Cad.",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Keçiören/Ankara",
+        "addr:street": "Ayvalı Cad.",
+        "leisure": "sports_centre",
+        "name": "Yıldızlar Spor Merkezi"
+      }
+    },
+    {
+      "id": "overpass-4228157765",
+      "osmType": "node",
+      "name": "Hacettepe Üniversitesi Olimpik Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": "swimming",
+      "lat": 39.8825178,
+      "lng": 32.7340209,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "swimming_pool",
+        "name": "Hacettepe Üniversitesi Olimpik Yüzme Havuzu",
+        "source": "mapbox",
+        "sport": "swimming"
+      }
+    },
+    {
+      "id": "overpass-4263059090",
+      "osmType": "node",
+      "name": "yogaville",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9016162,
+      "lng": 32.8496078,
+      "addr": "Hoşdere Cad.",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:housenumber": "23/19",
+        "addr:street": "Hoşdere Cad.",
+        "leisure": "fitness_centre",
+        "name": "yogaville"
+      }
+    },
+    {
+      "id": "overpass-4398906393",
+      "osmType": "node",
+      "name": "Sportif Yaşam Kulübü",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.895431,
+      "lng": 32.8112704,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Sportif Yaşam Kulübü"
+      }
+    },
+    {
+      "id": "overpass-4660747268",
+      "osmType": "node",
+      "name": "MoveOn Fitness Club Ankara",
+      "leisure": "fitness_centre",
+      "sport": "fitness;swimming;table_tennis",
+      "lat": 39.8474759,
+      "lng": 32.8568213,
+      "addr": "Güneypark Kümeevleri",
+      "website": "https://moveonfc.com",
+      "phone": "+90 312 490 21 15",
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "19-B/4",
+        "addr:neighbourhood": "İlkbahar Mahallesi",
+        "addr:postcode": "06450",
+        "addr:street": "Güneypark Kümeevleri",
+        "leisure": "fitness_centre",
+        "name": "MoveOn Fitness Club Ankara",
+        "opening_hours": "Mo-Fr 07:00-23:00, Su-Sa 09:00-21:00",
+        "phone": "+90 312 490 21 15",
+        "sport": "fitness;swimming;table_tennis",
+        "website": "https://moveonfc.com"
+      }
+    },
+    {
+      "id": "overpass-4751779749",
+      "osmType": "node",
+      "name": "winglife",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9659615,
+      "lng": 32.6945892,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "winglife"
+      }
+    },
+    {
+      "id": "overpass-4886017454",
+      "osmType": "node",
+      "name": "ALLIN Personal Coaching",
+      "leisure": "fitness_centre",
+      "sport": "fitness;exercise",
+      "lat": 39.8643256,
+      "lng": 32.8585069,
+      "addr": "Konrad Adenauer Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Çankaya/Ankara",
+        "addr:housenumber": "60",
+        "addr:neighbourhood": "İlkbahar",
+        "addr:street": "Konrad Adenauer Caddesi",
+        "leisure": "fitness_centre",
+        "name": "ALLIN Personal Coaching",
+        "opening_hours": "Mo-Sa 06:00-21:00",
+        "sport": "fitness;exercise"
+      }
+    },
+    {
+      "id": "overpass-4886017456",
+      "osmType": "node",
+      "name": "Fit Kids Academy",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8640905,
+      "lng": 32.8588009,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Fit Kids Academy"
+      }
+    },
+    {
+      "id": "overpass-4959827721",
+      "osmType": "node",
+      "name": "Bülent Ecevit Yüzme Havuzu",
+      "leisure": "sports_centre",
+      "sport": "swimming",
+      "lat": 39.9622279,
+      "lng": 32.7653758,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Bülent Ecevit Yüzme Havuzu",
+        "name:tr": "Bülent Ecevit Yüzme Havuzu",
+        "sport": "swimming"
+      }
+    },
+    {
+      "id": "overpass-5090963321",
+      "osmType": "node",
+      "name": "BOB GYM",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8681903,
+      "lng": 32.6849525,
+      "addr": "2873.Sk",
+      "website": "https://www.bobgym.com/",
+      "phone": "+90 312 238 11 37",
+      "wheelchair": null,
+      "tags": {
+        "addr:housenumber": "A3",
+        "addr:postcode": "06810",
+        "addr:street": "2873.Sk",
+        "email": "info@bobgym.com",
+        "internet_access": "wlan",
+        "leisure": "fitness_centre",
+        "name": "BOB GYM",
+        "opening_hours": "09:00-22:00",
+        "phone": "+90 312 238 11 37",
+        "website": "https://www.bobgym.com/"
+      }
+    },
+    {
+      "id": "overpass-5213720545",
+      "osmType": "node",
+      "name": "MACFit",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9791855,
+      "lng": 32.6250358,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "brand": "MACFit",
+        "brand:wikidata": "Q106801022",
+        "leisure": "fitness_centre",
+        "name": "MACFit"
+      }
+    },
+    {
+      "id": "overpass-6912514051",
+      "osmType": "node",
+      "name": "12.Etap Kapalı Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": "basketball;tennis",
+      "lat": 39.8489679,
+      "lng": 32.5604076,
+      "addr": "Evliya Çelebi Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:neighbourhood": "Yapracık Mahallesi",
+        "addr:street": "Evliya Çelebi Caddesi",
+        "building": "cabin",
+        "leisure": "sports_centre",
+        "name": "12.Etap Kapalı Spor Salonu",
+        "sport": "basketball;tennis"
+      }
+    },
+    {
+      "id": "overpass-6912514052",
+      "osmType": "node",
+      "name": "12.Etap Halı Saha",
+      "leisure": "sports_centre",
+      "sport": "soccer",
+      "lat": 39.8494954,
+      "lng": 32.5606941,
+      "addr": "Evliya Çelebi Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:neighbourhood": "Yapracık Mahallesi",
+        "addr:street": "Evliya Çelebi Caddesi",
+        "building": "yes",
+        "fee": "no",
+        "leisure": "sports_centre",
+        "name": "12.Etap Halı Saha",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-8093317746",
+      "osmType": "node",
+      "name": "One Gym",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8834659,
+      "lng": 32.8230462,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "One Gym"
+      }
+    },
+    {
+      "id": "overpass-8093317747",
+      "osmType": "node",
+      "name": "Zeran fit",
+      "leisure": "fitness_centre",
+      "sport": "fitness;pilates;yoga",
+      "lat": 39.8833014,
+      "lng": 32.8281878,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Zeran fit",
+        "sport": "fitness;pilates;yoga"
+      }
+    },
+    {
+      "id": "overpass-9163084907",
+      "osmType": "node",
+      "name": "Prof. Dr. Ahmet Taner Kışlalı Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8974785,
+      "lng": 32.8209863,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Prof. Dr. Ahmet Taner Kışlalı Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-9415864874",
+      "osmType": "node",
+      "name": "BOB GYM Çukurambar",
+      "leisure": "fitness_centre",
+      "sport": "fitness",
+      "lat": 39.8990803,
+      "lng": 32.8118734,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "BOB GYM Çukurambar",
+        "sport": "fitness"
+      }
+    },
+    {
+      "id": "overpass-9415881075",
+      "osmType": "node",
+      "name": "BOB GYM XXL Çayyolu",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8563432,
+      "lng": 32.6775858,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "BOB GYM XXL Çayyolu"
+      }
+    },
+    {
+      "id": "overpass-9415895376",
+      "osmType": "node",
+      "name": "BOB GYM Oran",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8514723,
+      "lng": 32.838131,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "BOB GYM Oran"
+      }
+    },
+    {
+      "id": "overpass-9443027241",
+      "osmType": "node",
+      "name": "Coopers Gym Pilates",
+      "leisure": "fitness_centre",
+      "sport": "fitness;pilates;crossfit;duruş_bozukluğu;reformer;atletik_performans",
+      "lat": 39.8968026,
+      "lng": 32.6565551,
+      "addr": "Bağlıca Bulvarı",
+      "website": "https://www.instagram.com/coopers.gym",
+      "phone": "+90 534 209 20 66",
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "ANKARA",
+        "addr:district": "ETİMESGUT",
+        "addr:housenumber": "28",
+        "addr:neighbourhood": "YENİ BAĞLICA MAHALLESİ BAĞLICA BULVARI FİRUZE SİTESİ NO: 28 DAİRE: C ETİMESGUT ANKARA",
+        "addr:postcode": "06890",
+        "addr:street": "Bağlıca Bulvarı",
+        "description": "\"Coopers GYM ailesi olarak postür sorunlarınız ( Kifoz, Skolyoz, Boyun Düzleşmesi, Ankilozon Spondilit, Bel Fıtığı, Black Disc, Fibromiyalji ) ile ilgili rahatlama çalışmalarınızı doktor raporları doğrultusunda sürdürmekteyiz. Fitness, Pilates, Reformer,",
+        "leisure": "fitness_centre",
+        "name": "Coopers Gym Pilates",
+        "opening_hours": "Mo-Su 09:00-22:00",
+        "phone": "+90 534 209 20 66",
+        "sport": "fitness;pilates;crossfit;duruş_bozukluğu;reformer;atletik_performans",
+        "website": "https://www.instagram.com/coopers.gym"
+      }
+    },
+    {
+      "id": "overpass-10220325081",
+      "osmType": "node",
+      "name": "MACFit",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9527855,
+      "lng": 32.8302444,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "brand": "MACFit",
+        "brand:wikidata": "Q106801022",
+        "leisure": "fitness_centre",
+        "name": "MACFit"
+      }
+    },
+    {
+      "id": "overpass-10286155811",
+      "osmType": "node",
+      "name": "Venom Gym",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8511093,
+      "lng": 32.6631146,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Venom Gym"
+      }
+    },
+    {
+      "id": "overpass-10286231794",
+      "osmType": "node",
+      "name": "SportsA",
+      "leisure": "fitness_centre",
+      "sport": "fitness;basketball;swimming;pilates",
+      "lat": 39.8573551,
+      "lng": 32.6457103,
+      "addr": "3297. Cadde",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "2/M;7",
+        "addr:neighbourhood": "Yaşamkent",
+        "addr:postcode": "06810",
+        "addr:street": "3297. Cadde",
+        "leisure": "fitness_centre",
+        "name": "SportsA",
+        "sport": "fitness;basketball;swimming;pilates"
+      }
+    },
+    {
+      "id": "overpass-10286231802",
+      "osmType": "node",
+      "name": "Atlantis Okçuluk",
+      "leisure": "pitch",
+      "sport": "archery",
+      "lat": 39.8574204,
+      "lng": 32.6458494,
+      "addr": "3297. Cd.",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:floor": "-2",
+        "addr:housenumber": "2/M;1",
+        "addr:neighbourhood": "Yaşamkent",
+        "addr:postcode": "06810",
+        "addr:street": "3297. Cd.",
+        "leisure": "pitch",
+        "name": "Atlantis Okçuluk",
+        "sport": "archery"
+      }
+    },
+    {
+      "id": "overpass-10292121242",
+      "osmType": "node",
+      "name": "Pro-Fight Personal Coaching",
+      "leisure": "fitness_centre",
+      "sport": "fighting",
+      "lat": 39.8805705,
+      "lng": 32.6523591,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Pro-Fight Personal Coaching",
+        "sport": "fighting"
+      }
+    },
+    {
+      "id": "overpass-10308587625",
+      "osmType": "node",
+      "name": "Park Personal Training",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8620308,
+      "lng": 32.6732606,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Park Personal Training"
+      }
+    },
+    {
+      "id": "overpass-10778085827",
+      "osmType": "node",
+      "name": "Elmadağ Kayak Merkezi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8062934,
+      "lng": 32.9643616,
+      "addr": "İmrahor Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:neighbourhood": "Yakupabdal Mahallesi",
+        "addr:street": "İmrahor Caddesi",
+        "leisure": "sports_centre",
+        "name": "Elmadağ Kayak Merkezi"
+      }
+    },
+    {
+      "id": "overpass-11104883606",
+      "osmType": "node",
+      "name": "MACFit",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9815169,
+      "lng": 32.8223672,
+      "addr": "Ayvalı Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:housenumber": "140",
+        "addr:postcode": "06010",
+        "addr:street": "Ayvalı Caddesi",
+        "leisure": "fitness_centre",
+        "name": "MACFit",
+        "opening_hours": "Mo-Fr 07:00-23:00; Sa-Su 09:00-20:00"
+      }
+    },
+    {
+      "id": "overpass-11105528566",
+      "osmType": "node",
+      "name": "Yoga Academy",
+      "leisure": "fitness_centre",
+      "sport": "yoga",
+      "lat": 39.8629586,
+      "lng": 32.6443207,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:housenumber": "17",
+        "leisure": "fitness_centre",
+        "name": "Yoga Academy",
+        "sport": "yoga"
+      }
+    },
+    {
+      "id": "overpass-11310458013",
+      "osmType": "node",
+      "name": "ASP Poligon",
+      "leisure": "pitch",
+      "sport": "shooting",
+      "lat": 39.9092215,
+      "lng": 32.8046366,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "ASP Poligon",
+        "sport": "shooting"
+      }
+    },
+    {
+      "id": "overpass-11592590111",
+      "osmType": "node",
+      "name": "X Fitness",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9703189,
+      "lng": 32.8961877,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "X Fitness"
+      }
+    },
+    {
+      "id": "overpass-11795527519",
+      "osmType": "node",
+      "name": "Spor Fakültesi Spor Salonu",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8714183,
+      "lng": 32.7314026,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Spor Fakültesi Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-12051506354",
+      "osmType": "node",
+      "name": "Değişim Spor Merkezi",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9517732,
+      "lng": 32.577178,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Değişim Spor Merkezi"
+      }
+    },
+    {
+      "id": "overpass-12075008075",
+      "osmType": "node",
+      "name": "MACFit",
+      "leisure": "fitness_centre",
+      "sport": "fitness;cycling",
+      "lat": 39.8535319,
+      "lng": 32.6558119,
+      "addr": "Şehit Eren Bülbül Caddesi",
+      "website": null,
+      "phone": "+90 850 241 30 00",
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "42/B;53",
+        "addr:neighbourhood": "Alacaatlı Mahallesi",
+        "addr:postcode": "06810",
+        "addr:street": "Şehit Eren Bülbül Caddesi",
+        "brand": "MACFit",
+        "brand:wikidata": "Q106801022",
+        "leisure": "fitness_centre",
+        "level": "1",
+        "name": "MACFit",
+        "phone": "+90 850 241 30 00",
+        "sport": "fitness;cycling"
+      }
+    },
+    {
+      "id": "overpass-12086661068",
+      "osmType": "node",
+      "name": "Battalgazi Yüzme Havuzu",
+      "leisure": "sports_centre",
+      "sport": "swimming",
+      "lat": 39.9651201,
+      "lng": 32.926183,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Battalgazi Yüzme Havuzu",
+        "operator": "T.C. Altındağ Belediyesi",
+        "sport": "swimming",
+        "start_date": "2021"
+      }
+    },
+    {
+      "id": "overpass-12318364722",
+      "osmType": "node",
+      "name": "MACFit",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8990029,
+      "lng": 32.8624388,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "brand": "MACFit",
+        "brand:wikidata": "Q106801022",
+        "leisure": "fitness_centre",
+        "name": "MACFit"
+      }
+    },
+    {
+      "id": "overpass-12358882901",
+      "osmType": "node",
+      "name": "Mamba",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9652596,
+      "lng": 32.8648135,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Mamba",
+        "opening_hours": "Mo-Su 09:00-19:00"
+      }
+    },
+    {
+      "id": "overpass-12358888901",
+      "osmType": "node",
+      "name": "Eğitim Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9678993,
+      "lng": 32.8704937,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Eğitim Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-12361987093",
+      "osmType": "node",
+      "name": "Akademi Olimpia Fitness",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9666456,
+      "lng": 32.7839365,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Akademi Olimpia Fitness"
+      }
+    },
+    {
+      "id": "overpass-12365117622",
+      "osmType": "node",
+      "name": "Xfit Spor Merkezi",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9676899,
+      "lng": 32.7838589,
+      "addr": null,
+      "website": null,
+      "phone": "+90 312 335 53 53",
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Xfit Spor Merkezi",
+        "phone": "+90 312 335 53 53"
+      }
+    },
+    {
+      "id": "overpass-12395793901",
+      "osmType": "node",
+      "name": "Ankara Üniversitesi Olimpik Yüzme Havuzu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9377945,
+      "lng": 32.8271854,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Ankara Üniversitesi Olimpik Yüzme Havuzu"
+      }
+    },
+    {
+      "id": "overpass-12651728630",
+      "osmType": "node",
+      "name": "Club One Fight Club",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9694713,
+      "lng": 32.7856577,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Club One Fight Club",
+        "survey:date": "2025-03-11"
+      }
+    },
+    {
+      "id": "overpass-12751868611",
+      "osmType": "node",
+      "name": "Terra Pilates",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8781857,
+      "lng": 32.8810521,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Terra Pilates"
+      }
+    },
+    {
+      "id": "overpass-12777133872",
+      "osmType": "node",
+      "name": "Zen Pilates",
+      "leisure": "fitness_centre",
+      "sport": "pilates",
+      "lat": 39.9691662,
+      "lng": 32.7289102,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Zen Pilates",
+        "sport": "pilates"
+      }
+    },
+    {
+      "id": "overpass-12957856389",
+      "osmType": "node",
+      "name": "Free GYM",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9657712,
+      "lng": 32.6076347,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "description": "İsmine rağmen, ücretli.",
+        "description:en": "Despite its name, it's paid.",
+        "leisure": "fitness_centre",
+        "name": "Free GYM"
+      }
+    },
+    {
+      "id": "overpass-12994406745",
+      "osmType": "node",
+      "name": "Move'n More GYM",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9688388,
+      "lng": 32.6357752,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Move'n More GYM"
+      }
+    },
+    {
+      "id": "overpass-12998743301",
+      "osmType": "node",
+      "name": "7 Fit",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9547981,
+      "lng": 32.5970463,
+      "addr": "İbni Sina Sokak",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:street": "İbni Sina Sokak",
+        "leisure": "fitness_centre",
+        "name": "7 Fit"
+      }
+    },
+    {
+      "id": "overpass-13009849768",
+      "osmType": "node",
+      "name": "JustFit20",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9864188,
+      "lng": 32.6575941,
+      "addr": "Mülk Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Yenimahalle",
+        "addr:neighbourhood": "Yeni Batı",
+        "addr:street": "Mülk Caddesi",
+        "leisure": "fitness_centre",
+        "name": "JustFit20"
+      }
+    },
+    {
+      "id": "overpass-13015277601",
+      "osmType": "node",
+      "name": "XFit Atapark",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 40.0041212,
+      "lng": 32.8433697,
+      "addr": "Atapark Caddesi",
+      "website": null,
+      "phone": "+90 312 378 19 05",
+      "wheelchair": null,
+      "tags": {
+        "addr:housenumber": "53/A",
+        "addr:postcode": "06280",
+        "addr:street": "Atapark Caddesi",
+        "contact:facebook": "xfitatapark06",
+        "contact:instagram": "xfitatapark06",
+        "leisure": "fitness_centre",
+        "name": "XFit Atapark",
+        "opening_hours": "Mo-Sa 09:00-23:00; Su 12:00-20:00",
+        "phone": "+90 312 378 19 05"
+      }
+    },
+    {
+      "id": "overpass-13023064860",
+      "osmType": "node",
+      "name": "Goril Bey GYM",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9899971,
+      "lng": 32.6436692,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Goril Bey GYM"
+      }
+    },
+    {
+      "id": "overpass-13059147417",
+      "osmType": "node",
+      "name": "Madame Pilates",
+      "leisure": "fitness_centre",
+      "sport": "pilates",
+      "lat": 39.9538224,
+      "lng": 32.733294,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Madame Pilates",
+        "sport": "pilates"
+      }
+    },
+    {
+      "id": "overpass-13477955001",
+      "osmType": "node",
+      "name": "Baghatur Fight Academy",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9057907,
+      "lng": 32.8155684,
+      "addr": "1415. Sokak",
+      "website": null,
+      "phone": "+905319262654",
+      "wheelchair": null,
+      "tags": {
+        "addr:housenumber": "6/D",
+        "addr:postcode": "06520",
+        "addr:street": "1415. Sokak",
+        "leisure": "sports_centre",
+        "name": "Baghatur Fight Academy",
+        "opening_hours": "Mo-Fr 12:00-22:00; Sa 09:30-16:00; Su 09:30-14:00",
+        "phone": "+905319262654"
+      }
+    },
+    {
+      "id": "overpass-13480972401",
+      "osmType": "node",
+      "name": "Karargah Atış Poligonu",
+      "leisure": "pitch",
+      "sport": "shooting",
+      "lat": 39.9034955,
+      "lng": 32.8103037,
+      "addr": "Muhsin Yazıcıoğlu Caddesi",
+      "website": "http://karargahpoligon.com",
+      "phone": "+90 312 286 7077",
+      "wheelchair": null,
+      "tags": {
+        "addr:housenumber": "19",
+        "addr:postcode": "06510",
+        "addr:street": "Muhsin Yazıcıoğlu Caddesi",
+        "indoor": "yes",
+        "leisure": "pitch",
+        "name": "Karargah Atış Poligonu",
+        "opening_hours": "Mo-Su 09:00-23:00",
+        "phone": "+90 312 286 7077",
+        "sport": "shooting",
+        "website": "http://karargahpoligon.com"
+      }
+    },
+    {
+      "id": "overpass-13543462160",
+      "osmType": "node",
+      "name": "Vision Fit Body",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9711632,
+      "lng": 32.7767479,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Vision Fit Body"
+      }
+    },
+    {
+      "id": "overpass-13626789071",
+      "osmType": "node",
+      "name": "Fetih Spor Akademisi",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9435112,
+      "lng": 32.611633,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "level": "0",
+        "name": "Fetih Spor Akademisi"
+      }
+    },
+    {
+      "id": "overpass-13634478524",
+      "osmType": "node",
+      "name": "Cool Pilates Studio",
+      "leisure": "fitness_centre",
+      "sport": "pilates",
+      "lat": 39.8485783,
+      "lng": 32.6368202,
+      "addr": "3408. Sokak",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "2C",
+        "addr:neighbourhood": "Alacaatlı",
+        "addr:postcode": "06810",
+        "addr:street": "3408. Sokak",
+        "leisure": "fitness_centre",
+        "name": "Cool Pilates Studio",
+        "sport": "pilates"
+      }
+    },
+    {
+      "id": "overpass-13727018700",
+      "osmType": "node",
+      "name": "Sporfit",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9327295,
+      "lng": 32.6516207,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Sporfit"
+      }
+    },
+    {
+      "id": "overpass-13727058248",
+      "osmType": "node",
+      "name": "Sancak Spor Kulübü",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9325532,
+      "lng": 32.6519834,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Sancak Spor Kulübü"
+      }
+    },
+    {
+      "id": "overpass-13758263911",
+      "osmType": "node",
+      "name": "Gym Fit",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9838383,
+      "lng": 32.6110255,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "level": "0",
+        "name": "Gym Fit"
+      }
+    },
+    {
+      "id": "overpass-13772872519",
+      "osmType": "node",
+      "name": "Kısakaya Tırmanış Evi",
+      "leisure": "sports_centre",
+      "sport": "climbing",
+      "lat": 39.8571408,
+      "lng": 32.6455358,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Kısakaya Tırmanış Evi",
+        "sport": "climbing"
+      }
+    },
+    {
+      "id": "overpass-13782790674",
+      "osmType": "node",
+      "name": "Pars Spor Kulübü",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9362048,
+      "lng": 32.6368028,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "level": "1",
+        "name": "Pars Spor Kulübü"
+      }
+    },
+    {
+      "id": "overpass-13787383433",
+      "osmType": "node",
+      "name": "Dolphin Academy Yüzme Kulübü",
+      "leisure": "sports_centre",
+      "sport": "swimming",
+      "lat": 39.8570724,
+      "lng": 32.6455984,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Dolphin Academy Yüzme Kulübü",
+        "sport": "swimming"
+      }
+    },
+    {
+      "id": "overpass-13808605641",
+      "osmType": "node",
+      "name": "Prime Yaşam",
+      "leisure": "fitness_centre",
+      "sport": "yoga",
+      "lat": 39.8597087,
+      "lng": 32.6756375,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Prime Yaşam",
+        "sport": "yoga"
+      }
+    },
+    {
+      "id": "overpass-13811129012",
+      "osmType": "node",
+      "name": "Redfit 2",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9419106,
+      "lng": 32.6494313,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Redfit 2"
+      }
+    },
+    {
+      "id": "overpass-13811129084",
+      "osmType": "node",
+      "name": "Xfit",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9419921,
+      "lng": 32.6435728,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "fitness_centre",
+        "name": "Xfit"
+      }
+    },
+    {
+      "id": "overpass-25893775",
+      "osmType": "way",
+      "name": "Halısaha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8891876,
+      "lng": 32.7855218,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halısaha",
+        "source": "mapbox",
+        "sport": "soccer",
+        "surface": "artificial_turf"
+      }
+    },
+    {
+      "id": "overpass-28115938",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8916453,
+      "lng": 32.7864494,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-28115942",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8919668,
+      "lng": 32.786147,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-28115990",
+      "osmType": "way",
+      "name": "Büyük Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": "basketball;climbing;volleyball",
+      "lat": 39.8913917,
+      "lng": 32.7875727,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": "limited",
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Büyük Spor Salonu",
+        "sport": "basketball;climbing;volleyball",
+        "wheelchair": "limited",
+        "wikimedia_commons": "Category:Middle East Technical University Sports Hall"
+      }
+    },
+    {
+      "id": "overpass-28115994",
+      "osmType": "way",
+      "name": "Açık Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": "swimming",
+      "lat": 39.8885235,
+      "lng": 32.786688,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "private",
+        "covered": "no",
+        "fee": "yes",
+        "leisure": "swimming_pool",
+        "name": "Açık Yüzme Havuzu",
+        "name:en": "Outdoor Swimming Pool",
+        "sport": "swimming"
+      }
+    },
+    {
+      "id": "overpass-28116009",
+      "osmType": "way",
+      "name": "Basketbol Sahaları",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8908944,
+      "lng": 32.7870192,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Basketbol Sahaları",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-28116011",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8913808,
+      "lng": 32.7881405,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-28470451",
+      "osmType": "way",
+      "name": "Selim Sırrı Tarcan Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": "basketball",
+      "lat": 39.9346705,
+      "lng": 32.8489244,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Selim Sırrı Tarcan Spor Salonu",
+        "sport": "basketball",
+        "wikidata": "Q6071632",
+        "wikimedia_commons": "Category:Selim Sırrı Tarcan Sports Hall",
+        "wikipedia": "tr:Ankara Selim Sırrı Tarcan Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-60733000",
+      "osmType": "way",
+      "name": "Fatih Stadyumu",
+      "leisure": "pitch",
+      "sport": null,
+      "lat": 39.9906863,
+      "lng": 32.875966,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Fatih Stadyumu"
+      }
+    },
+    {
+      "id": "overpass-174818500",
+      "osmType": "way",
+      "name": "Başkent Binicilik Tesisleri",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.7396417,
+      "lng": 32.7051941,
+      "addr": "Çevik Bir Cad.",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:housenumber": "141",
+        "addr:street": "Çevik Bir Cad.",
+        "alt_name": "Başkent Binicilik Klübü",
+        "int_name": "Capital Country Club",
+        "leisure": "sports_centre",
+        "name": "Başkent Binicilik Tesisleri",
+        "old_name": "Harapınar"
+      }
+    },
+    {
+      "id": "overpass-194702473",
+      "osmType": "way",
+      "name": "Kapalı Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.863324,
+      "lng": 32.7497235,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Kapalı Tenis Kortu",
+        "name:en": "Indoor Tennis Court",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-194709271",
+      "osmType": "way",
+      "name": "Yurtlar Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8638237,
+      "lng": 32.7455846,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:postcode": "06800",
+        "building": "university",
+        "leisure": "sports_centre",
+        "name": "Yurtlar Spor Salonu",
+        "name:en": "Dormitories Sports Hall",
+        "source": "University"
+      }
+    },
+    {
+      "id": "overpass-194726815",
+      "osmType": "way",
+      "name": "Merkez Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8666436,
+      "lng": 32.7483262,
+      "addr": null,
+      "website": "https://w3.bilkent.edu.tr/www/beden-egitim-ve-spor-merkezi/spor-tesisleri/",
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:postcode": "06800",
+        "building": "university",
+        "leisure": "sports_centre",
+        "name": "Merkez Spor Salonu",
+        "name:en": "Main Sport Hall",
+        "opening_hours": "Mo-Su 08:30-22:00",
+        "source": "University",
+        "website": "https://w3.bilkent.edu.tr/www/beden-egitim-ve-spor-merkezi/spor-tesisleri/"
+      }
+    },
+    {
+      "id": "overpass-195669721",
+      "osmType": "way",
+      "name": "Açık Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8748878,
+      "lng": 32.7506946,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Açık Tenis Kortu",
+        "name:en": "Outdoor Tennis Court",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-198196966",
+      "osmType": "way",
+      "name": "Eryaman Evleri Spor Kompleksi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.977203,
+      "lng": 32.6260945,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Eryaman Evleri Spor Kompleksi",
+        "source": "mapbox"
+      }
+    },
+    {
+      "id": "overpass-220177215",
+      "osmType": "way",
+      "name": "MACFit",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8753341,
+      "lng": 32.6753561,
+      "addr": "Safranbolu Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "12",
+        "addr:neighbourhood": "Prof. Dr. Ahmet Taner Kışlalı Mahallesi",
+        "addr:postcode": "06810",
+        "addr:street": "Safranbolu Caddesi",
+        "branch": "Konutkent",
+        "brand": "MACFit",
+        "brand:wikidata": "Q106801022",
+        "building": "yes",
+        "leisure": "fitness_centre",
+        "name": "MACFit"
+      }
+    },
+    {
+      "id": "overpass-220292886",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8710681,
+      "lng": 32.7628321,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Halı Saha",
+        "name:en": "Football Field",
+        "source": "University",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-220292900",
+      "osmType": "way",
+      "name": "Açık Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8703122,
+      "lng": 32.7636717,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Açık Basketbol Sahası",
+        "name:en": "Outdoor Basketball Court",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-220292904",
+      "osmType": "way",
+      "name": "Açık Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8705499,
+      "lng": 32.7634772,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Açık Tenis Kortu",
+        "name:en": "Outdoor Tennis Court",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-226093083",
+      "osmType": "way",
+      "name": "Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9536191,
+      "lng": 32.5828569,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Futbol Sahası",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-226093100",
+      "osmType": "way",
+      "name": "Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.9477695,
+      "lng": 32.5887734,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Basketbol Sahası",
+        "source": "mapbox",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-226315178",
+      "osmType": "way",
+      "name": "Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9795181,
+      "lng": 32.5796523,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Futbol Sahası",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-226315179",
+      "osmType": "way",
+      "name": "Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9797983,
+      "lng": 32.5785603,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Futbol Sahası",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-227756242",
+      "osmType": "way",
+      "name": "Atatürk Anadolu Lisesi Halı Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9352666,
+      "lng": 32.8168296,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Atatürk Anadolu Lisesi Halı Sahası",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-229013172",
+      "osmType": "way",
+      "name": "Lokman Hekim Mesleki ve Teknik Anadolu Lisesi Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8793469,
+      "lng": 32.8365679,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Lokman Hekim Mesleki ve Teknik Anadolu Lisesi Spor Salonu",
+        "source": "Bing"
+      }
+    },
+    {
+      "id": "overpass-230929584",
+      "osmType": "way",
+      "name": "Fitness Park Club",
+      "leisure": "sports_centre",
+      "sport": "multi",
+      "lat": 39.8507759,
+      "lng": 32.640607,
+      "addr": "5072. Cadde",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:neighbourhood": "Alacaatlı",
+        "addr:postcode": "06810",
+        "addr:street": "5072. Cadde",
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Fitness Park Club",
+        "source": "Bing",
+        "sport": "multi"
+      }
+    },
+    {
+      "id": "overpass-231206018",
+      "osmType": "way",
+      "name": "Kapalı Yüzme Havuzu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8644299,
+      "lng": 32.7456677,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:postcode": "06800",
+        "building": "university",
+        "leisure": "sports_centre",
+        "name": "Kapalı Yüzme Havuzu",
+        "name:en": "Indoor Swimming Pool",
+        "source": "University"
+      }
+    },
+    {
+      "id": "overpass-231372474",
+      "osmType": "way",
+      "name": "Etlik Olimpik Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.9713354,
+      "lng": 32.8260481,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "swimming_pool",
+        "lit": "yes",
+        "location": "indoor",
+        "name": "Etlik Olimpik Yüzme Havuzu"
+      }
+    },
+    {
+      "id": "overpass-231834495",
+      "osmType": "way",
+      "name": "Gençlerbirliği İlhan Cavcav Tesisleri",
+      "leisure": "pitch",
+      "sport": "multi",
+      "lat": 39.9342471,
+      "lng": 32.8157981,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Gençlerbirliği İlhan Cavcav Tesisleri",
+        "sport": "multi"
+      }
+    },
+    {
+      "id": "overpass-236211501",
+      "osmType": "way",
+      "name": "Kapalı Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8628188,
+      "lng": 32.7442305,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Kapalı Tenis Kortu",
+        "name:en": "Indoor Tennis Court",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-255290802",
+      "osmType": "way",
+      "name": "Ceyhun Atuf Kansu Spor Alanı",
+      "leisure": "pitch",
+      "sport": null,
+      "lat": 39.8791366,
+      "lng": 32.6842341,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Ceyhun Atuf Kansu Spor Alanı"
+      }
+    },
+    {
+      "id": "overpass-262353240",
+      "osmType": "way",
+      "name": "Plaj Voleybolu Sahası",
+      "leisure": "pitch",
+      "sport": "beachvolleyball",
+      "lat": 39.8887055,
+      "lng": 32.785942,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "no",
+        "name": "Plaj Voleybolu Sahası",
+        "sport": "beachvolleyball",
+        "surface": "sand"
+      }
+    },
+    {
+      "id": "overpass-302447666",
+      "osmType": "way",
+      "name": "Osmanlı Stadyumu",
+      "leisure": "stadium",
+      "sport": null,
+      "lat": 40.0115873,
+      "lng": 32.5023936,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "stadium",
+        "name": "Osmanlı Stadyumu"
+      }
+    },
+    {
+      "id": "overpass-316524226",
+      "osmType": "way",
+      "name": "Aries Arena Karting",
+      "leisure": "sports_centre",
+      "sport": "karting",
+      "lat": 39.9657574,
+      "lng": 32.6772567,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "landuse": "commercial",
+        "leisure": "sports_centre",
+        "name": "Aries Arena Karting",
+        "source": "mapbox",
+        "sport": "karting"
+      }
+    },
+    {
+      "id": "overpass-316524227",
+      "osmType": "way",
+      "name": "Ankara 75. Yıl Hipodromu",
+      "leisure": "sports_centre",
+      "sport": "horse_racing",
+      "lat": 39.970037,
+      "lng": 32.6831097,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Ankara 75. Yıl Hipodromu",
+        "sport": "horse_racing"
+      }
+    },
+    {
+      "id": "overpass-316528221",
+      "osmType": "way",
+      "name": "Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": "swimming",
+      "lat": 39.9365847,
+      "lng": 32.723363,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "swimming_pool",
+        "name": "Yüzme Havuzu",
+        "source": "mapbox",
+        "sport": "swimming"
+      }
+    },
+    {
+      "id": "overpass-332264673",
+      "osmType": "way",
+      "name": "Osmanlıspor Batıkent Tesisleri",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9519598,
+      "lng": 32.7323364,
+      "addr": null,
+      "website": "http://www.osmanlispor.com.tr/en#",
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Osmanlıspor Batıkent Tesisleri",
+        "source": "mapbox",
+        "sport": "soccer",
+        "surface": "grass",
+        "website": "http://www.osmanlispor.com.tr/en#"
+      }
+    },
+    {
+      "id": "overpass-340829582",
+      "osmType": "way",
+      "name": "Doğakent Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9699352,
+      "lng": 32.6295981,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Doğakent Futbol Sahası",
+        "sport": "soccer",
+        "surface": "halı"
+      }
+    },
+    {
+      "id": "overpass-340829583",
+      "osmType": "way",
+      "name": "Doğakent Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.969656,
+      "lng": 32.6295602,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Doğakent Basketbol Sahası",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-340829584",
+      "osmType": "way",
+      "name": "Doğakent Koşu Parkuru",
+      "leisure": "pitch",
+      "sport": null,
+      "lat": 39.9696547,
+      "lng": 32.6299926,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Doğakent Koşu Parkuru"
+      }
+    },
+    {
+      "id": "overpass-340836646",
+      "osmType": "way",
+      "name": "Eryaman Evleri Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9759656,
+      "lng": 32.6229034,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Eryaman Evleri Halı Saha",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-355400921",
+      "osmType": "way",
+      "name": "Aktepe Stadium",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9991792,
+      "lng": 32.8807179,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Aktepe Stadium",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-366942834",
+      "osmType": "way",
+      "name": "Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 40.0197245,
+      "lng": 32.5589203,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Futbol Sahası",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-367421566",
+      "osmType": "way",
+      "name": "Olimpik Kapalı Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.9453427,
+      "lng": 32.6655145,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Etimesgut/Ankara",
+        "building": "yes",
+        "leisure": "swimming_pool",
+        "name": "Olimpik Kapalı Yüzme Havuzu"
+      }
+    },
+    {
+      "id": "overpass-367552166",
+      "osmType": "way",
+      "name": "TEİAŞ sosyal tesisleri",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.8085356,
+      "lng": 32.8204829,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "swimming_pool",
+        "name": "TEİAŞ sosyal tesisleri"
+      }
+    },
+    {
+      "id": "overpass-367555063",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8240781,
+      "lng": 32.7767975,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-381178939",
+      "osmType": "way",
+      "name": "Basketbol Alanı",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8451644,
+      "lng": 32.5513484,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "hoops": "3",
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Basketbol Alanı",
+        "sport": "basketball",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-381441164",
+      "osmType": "way",
+      "name": "Ankara Üniversitesi Ziraat Fakültesi Sks Kapalı Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": "voleybol,basketbol",
+      "lat": 39.960842,
+      "lng": 32.8659271,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Ankara Üniversitesi Ziraat Fakültesi Sks Kapalı Spor Salonu",
+        "sport": "voleybol,basketbol"
+      }
+    },
+    {
+      "id": "overpass-382832256",
+      "osmType": "way",
+      "name": "Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8404236,
+      "lng": 32.5424857,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Futbol Sahası",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-383763540",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.976348,
+      "lng": 32.8969974,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halı Saha",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-385166922",
+      "osmType": "way",
+      "name": "Mevlana Kültür Kongre Ve Spor Merkezi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 40.0023027,
+      "lng": 32.837805,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Mevlana Kültür Kongre Ve Spor Merkezi"
+      }
+    },
+    {
+      "id": "overpass-389656030",
+      "osmType": "way",
+      "name": "Basketbol Alanı",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8454323,
+      "lng": 32.5338619,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "hoops": "3",
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Basketbol Alanı",
+        "sport": "basketball",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-389656031",
+      "osmType": "way",
+      "name": "Basketbol Alanı",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8355646,
+      "lng": 32.5584185,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "hoops": "3",
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Basketbol Alanı",
+        "sport": "basketball",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-389656033",
+      "osmType": "way",
+      "name": "Basketbol Alanı",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8447745,
+      "lng": 32.5348108,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Basketbol Alanı",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-389659497",
+      "osmType": "way",
+      "name": "Basketbol Alanı",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8276123,
+      "lng": 32.5569408,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Basketbol Alanı",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-392713656",
+      "osmType": "way",
+      "name": "Atılım Üniversitesi Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8162272,
+      "lng": 32.7226259,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "pitch",
+        "name": "Atılım Üniversitesi Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-398730473",
+      "osmType": "way",
+      "name": "Turgut Özakman Spor Tesisleri ve Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.9823494,
+      "lng": 32.7083398,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "yes",
+        "leisure": "swimming_pool",
+        "length": "25",
+        "lit": "yes",
+        "location": "indoor",
+        "name": "Turgut Özakman Spor Tesisleri ve Yüzme Havuzu",
+        "swimming_pool": "swimming_pool"
+      }
+    },
+    {
+      "id": "overpass-404107248",
+      "osmType": "way",
+      "name": "Meclis Spor Kompleksi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9058251,
+      "lng": 32.8475692,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Meclis Spor Kompleksi"
+      }
+    },
+    {
+      "id": "overpass-405162002",
+      "osmType": "way",
+      "name": "Anıttepe Spor Tesisleri",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9208144,
+      "lng": 32.8378678,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Anıttepe Spor Tesisleri"
+      }
+    },
+    {
+      "id": "overpass-406047013",
+      "osmType": "way",
+      "name": "Keçiören Belediyesi Spor Tesisleri",
+      "leisure": "pitch",
+      "sport": null,
+      "lat": 40.0005089,
+      "lng": 32.8843981,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Keçiören Belediyesi Spor Tesisleri"
+      }
+    },
+    {
+      "id": "overpass-414806840",
+      "osmType": "way",
+      "name": "Altındağ Belediyesi Yüzme Havuzu ve Sosyal Tesisleri",
+      "leisure": "sports_centre",
+      "sport": "swimming",
+      "lat": 39.9680174,
+      "lng": 32.8993069,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "customers",
+        "building": "yes",
+        "fee": "yes",
+        "gender_segregated": "yes",
+        "leisure": "sports_centre",
+        "name": "Altındağ Belediyesi Yüzme Havuzu ve Sosyal Tesisleri",
+        "operator": "Altındağ Belediyesi",
+        "sport": "swimming"
+      }
+    },
+    {
+      "id": "overpass-417857121",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9717325,
+      "lng": 32.9739999,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Halı Saha",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-417888052",
+      "osmType": "way",
+      "name": "Karapürçek Semt Stadı",
+      "leisure": "stadium",
+      "sport": null,
+      "lat": 39.9678306,
+      "lng": 32.9807343,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "stadium",
+        "name": "Karapürçek Semt Stadı"
+      }
+    },
+    {
+      "id": "overpass-418371823",
+      "osmType": "way",
+      "name": "Gazi Üniversitesi Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.9430308,
+      "lng": 32.8204231,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "swimming_pool",
+        "location": "indoor",
+        "name": "Gazi Üniversitesi Yüzme Havuzu",
+        "source": "Bing"
+      }
+    },
+    {
+      "id": "overpass-418645333",
+      "osmType": "way",
+      "name": "Türkiye Voleybol Federasyonu",
+      "leisure": "pitch",
+      "sport": "volleyball",
+      "lat": 39.9359121,
+      "lng": 32.8202709,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "pitch",
+        "name": "Türkiye Voleybol Federasyonu",
+        "source": "mapbox",
+        "sport": "volleyball"
+      }
+    },
+    {
+      "id": "overpass-419061730",
+      "osmType": "way",
+      "name": "Demirspor Stadyumu",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9419276,
+      "lng": 32.7721551,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Demirspor Stadyumu",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-419275960",
+      "osmType": "way",
+      "name": "Ankara Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": "basketball;volleyball",
+      "lat": 39.937922,
+      "lng": 32.8439119,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "alt_name": "Ankara Arena",
+        "building": "yes",
+        "fee": "yes",
+        "image": "https://photos.app.goo.gl/BuELZoaNEmYjnzzEA",
+        "leisure": "sports_centre",
+        "name": "Ankara Spor Salonu",
+        "source": "mapbox",
+        "sport": "basketball;volleyball",
+        "wikidata": "Q2413840",
+        "wikimedia_commons": "Category:Ankara Arena",
+        "wikipedia": "tr:Ankara Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-419462192",
+      "osmType": "way",
+      "name": "ASKI Kapalı Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 40.0072921,
+      "lng": 32.7701471,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "ASKI Kapalı Spor Salonu",
+        "source": "mapbox"
+      }
+    },
+    {
+      "id": "overpass-419623971",
+      "osmType": "way",
+      "name": "Başak Mahallesi Kapalı Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9680087,
+      "lng": 32.9563996,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Mamak/Ankara",
+        "addr:country": "TR",
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Başak Mahallesi Kapalı Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-419918238",
+      "osmType": "way",
+      "name": "Bülent Ecevit Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.9623619,
+      "lng": 32.7652384,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "yes",
+        "leisure": "swimming_pool",
+        "length": "25",
+        "lit": "yes",
+        "location": "indoor",
+        "name": "Bülent Ecevit Yüzme Havuzu",
+        "source": "mapbox",
+        "swimming_pool": "swimming_pool"
+      }
+    },
+    {
+      "id": "overpass-421614375",
+      "osmType": "way",
+      "name": "Yenimahalle Hasan Doğan Stadyumu",
+      "leisure": "pitch",
+      "sport": "soccer;american_football",
+      "lat": 39.9598974,
+      "lng": 32.8130287,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Yenimahalle Hasan Doğan Stadyumu",
+        "source": "mapbox",
+        "sport": "soccer;american_football"
+      }
+    },
+    {
+      "id": "overpass-422148586",
+      "osmType": "way",
+      "name": "Kılıçaslan Halısaha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8952266,
+      "lng": 32.7956549,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Kılıçaslan Halısaha",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-422148587",
+      "osmType": "way",
+      "name": "Kılıçaslan Halısaha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8953305,
+      "lng": 32.7959148,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Kılıçaslan Halısaha",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-422595682",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.9055236,
+      "lng": 32.8477819,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-422639645",
+      "osmType": "way",
+      "name": "Atılım Üniversitesi Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8162127,
+      "lng": 32.7224181,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "pitch",
+        "name": "Atılım Üniversitesi Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-422639648",
+      "osmType": "way",
+      "name": "Atılım Üniversitesi Spor Salonu",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8160484,
+      "lng": 32.7219561,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "fitness_centre",
+        "name": "Atılım Üniversitesi Spor Salonu",
+        "source": "mapbox"
+      }
+    },
+    {
+      "id": "overpass-422644609",
+      "osmType": "way",
+      "name": "Mamak Belediyesi Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9005586,
+      "lng": 32.934693,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Mamak/Ankara",
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Mamak Belediyesi Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-422677082",
+      "osmType": "way",
+      "name": "Ankara Üniversitesi Geliştirme Vakfı Özel Anaokulu Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": "basketball",
+      "lat": 39.8435547,
+      "lng": 32.779167,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Ankara Üniversitesi Geliştirme Vakfı Özel Anaokulu Spor Salonu",
+        "operator": "Ankara Üniversitesi Geliştirme Vakfı Özel Anaokulu",
+        "source": "mapbox",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-422684388",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.824075,
+      "lng": 32.7765792,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-422805236",
+      "osmType": "way",
+      "name": "Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8876498,
+      "lng": 32.6549123,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "university",
+        "leisure": "sports_centre",
+        "name": "Spor Salonu",
+        "source": "mapbox"
+      }
+    },
+    {
+      "id": "overpass-422952789",
+      "osmType": "way",
+      "name": "Sports International",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8831675,
+      "lng": 32.7632819,
+      "addr": null,
+      "website": "http://www.sportsinternational.com.tr/",
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "contact:phone": "+903124902115",
+        "leisure": "sports_centre",
+        "name": "Sports International",
+        "source": "mapbox",
+        "website": "http://www.sportsinternational.com.tr/"
+      }
+    },
+    {
+      "id": "overpass-422958984",
+      "osmType": "way",
+      "name": "Doğu Kampus Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": "multi",
+      "lat": 39.8700522,
+      "lng": 32.7649481,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:postcode": "06800",
+        "building": "yes",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "leisure": "sports_centre",
+        "name": "Doğu Kampus Spor Salonu",
+        "name:en": "East Campus Sports Center",
+        "source": "mapbox",
+        "sport": "multi"
+      }
+    },
+    {
+      "id": "overpass-423422477",
+      "osmType": "way",
+      "name": "Açık Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8748791,
+      "lng": 32.7508993,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Açık Tenis Kortu",
+        "name:en": "Outdoor Tennis Court",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423602712",
+      "osmType": "way",
+      "name": "Go-Kart",
+      "leisure": "pitch",
+      "sport": "karting",
+      "lat": 39.9825062,
+      "lng": 32.5886478,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Go-Kart",
+        "source": "mapbox",
+        "sport": "karting"
+      }
+    },
+    {
+      "id": "overpass-423640027",
+      "osmType": "way",
+      "name": "Halısaha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8890563,
+      "lng": 32.7857884,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halısaha",
+        "source": "mapbox",
+        "sport": "soccer",
+        "surface": "artificial_turf"
+      }
+    },
+    {
+      "id": "overpass-423640028",
+      "osmType": "way",
+      "name": "Halısaha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8891177,
+      "lng": 32.786101,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halısaha",
+        "source": "mapbox",
+        "sport": "soccer",
+        "surface": "artificial_turf"
+      }
+    },
+    {
+      "id": "overpass-423640030",
+      "osmType": "way",
+      "name": "Kapalı Olimpik Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": "swimming",
+      "lat": 39.8891072,
+      "lng": 32.7871059,
+      "addr": null,
+      "website": "http://hm.metu.edu.tr",
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "private",
+        "addr:postcode": "06800",
+        "building": "yes",
+        "covered": "yes",
+        "fee": "yes",
+        "leisure": "swimming_pool",
+        "name": "Kapalı Olimpik Yüzme Havuzu",
+        "name:en": "Indoor Olympic Swimming Pool",
+        "opening_hours": "Tu-Su 07:00-22:30",
+        "sport": "swimming",
+        "website": "http://hm.metu.edu.tr"
+      }
+    },
+    {
+      "id": "overpass-423640032",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8917278,
+      "lng": 32.7866314,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423640033",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8918101,
+      "lng": 32.7868133,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423640034",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8920337,
+      "lng": 32.7862954,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423640035",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8921007,
+      "lng": 32.7864438,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423686054",
+      "osmType": "way",
+      "name": "ODTÜ Spor Merkezi",
+      "leisure": "sports_centre",
+      "sport": "basketball;fitness;squash",
+      "lat": 39.8926734,
+      "lng": 32.7765873,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "ODTÜ Spor Merkezi",
+        "sport": "basketball;fitness;squash"
+      }
+    },
+    {
+      "id": "overpass-423686064",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8932678,
+      "lng": 32.7884148,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423686065",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8932331,
+      "lng": 32.7886224,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423686066",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8936579,
+      "lng": 32.7880905,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423686073",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8933373,
+      "lng": 32.7879994,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423686074",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8935537,
+      "lng": 32.7887135,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423686075",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8933025,
+      "lng": 32.7882071,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423686126",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8936058,
+      "lng": 32.788402,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423686182",
+      "osmType": "way",
+      "name": "Kapalı Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8941192,
+      "lng": 32.7878585,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "pitch",
+        "name": "Kapalı Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423686183",
+      "osmType": "way",
+      "name": "Kapalı Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8940248,
+      "lng": 32.7880725,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "pitch",
+        "name": "Kapalı Tenis Kortu",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-423804262",
+      "osmType": "way",
+      "name": "Batıkent Stadı",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9662371,
+      "lng": 32.7252898,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Batıkent Stadı",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-423804292",
+      "osmType": "way",
+      "name": "Batıkent Spor Salonu",
+      "leisure": "pitch",
+      "sport": "volleyball",
+      "lat": 39.9661869,
+      "lng": 32.7260504,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "pitch",
+        "name": "Batıkent Spor Salonu",
+        "source": "mapbox",
+        "sport": "volleyball"
+      }
+    },
+    {
+      "id": "overpass-423804293",
+      "osmType": "way",
+      "name": "Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9541201,
+      "lng": 32.5822859,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Futbol Sahası",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-423804294",
+      "osmType": "way",
+      "name": "Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9531499,
+      "lng": 32.5834545,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Futbol Sahası",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-423804312",
+      "osmType": "way",
+      "name": "Kapalı Spor Salonu",
+      "leisure": "pitch",
+      "sport": null,
+      "lat": 39.9545282,
+      "lng": 32.5818644,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "pitch",
+        "name": "Kapalı Spor Salonu",
+        "source": "mapbox"
+      }
+    },
+    {
+      "id": "overpass-423804314",
+      "osmType": "way",
+      "name": "Voleybol Sahası",
+      "leisure": "pitch",
+      "sport": "volleyball",
+      "lat": 39.9538771,
+      "lng": 32.5825628,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Voleybol Sahası",
+        "source": "mapbox",
+        "sport": "volleyball"
+      }
+    },
+    {
+      "id": "overpass-423901953",
+      "osmType": "way",
+      "name": "Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": "swimming",
+      "lat": 39.9367948,
+      "lng": 32.7248807,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "swimming_pool",
+        "name": "Yüzme Havuzu",
+        "source": "mapbox",
+        "sport": "swimming"
+      }
+    },
+    {
+      "id": "overpass-425533384",
+      "osmType": "way",
+      "name": "Tennis Clinic",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8947544,
+      "lng": 32.6988901,
+      "addr": "2510. Cadde",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "customers",
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "13",
+        "addr:postcode": "06810",
+        "addr:street": "2510. Cadde",
+        "leisure": "pitch",
+        "name": "Tennis Clinic",
+        "source": "mapbox",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-425594283",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 40.0195822,
+      "lng": 32.5606162,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halı Saha",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-425594284",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 40.0222014,
+      "lng": 32.5626776,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halı Saha",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-425594285",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 40.0181531,
+      "lng": 32.5594849,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halı Saha",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-425594286",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 40.0207722,
+      "lng": 32.5615462,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halı Saha",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-425597971",
+      "osmType": "way",
+      "name": "Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 40.023591,
+      "lng": 32.5596153,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Futbol Sahası",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-427833639",
+      "osmType": "way",
+      "name": "Enes Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9636574,
+      "lng": 32.702214,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Enes Halı Saha",
+        "source": "mapbox",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-427994621",
+      "osmType": "way",
+      "name": "Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.903008,
+      "lng": 32.9706061,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Basketbol Sahası",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-428192828",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.903175,
+      "lng": 32.9377233,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halı Saha",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-429870603",
+      "osmType": "way",
+      "name": "Mamak Yüzme Havuzu ve Spor Kompleksi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9099871,
+      "lng": 32.893064,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Mamak Yüzme Havuzu ve Spor Kompleksi"
+      }
+    },
+    {
+      "id": "overpass-430296541",
+      "osmType": "way",
+      "name": "Keçiören Spor Merkezi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9753294,
+      "lng": 32.8730863,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Keçiören/Ankara",
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Keçiören Spor Merkezi"
+      }
+    },
+    {
+      "id": "overpass-430982885",
+      "osmType": "way",
+      "name": "Devrim Stadyumu",
+      "leisure": "stadium",
+      "sport": null,
+      "lat": 39.891443,
+      "lng": 32.7853887,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "barrier": "fence",
+        "check_date": "2025-07-13",
+        "leisure": "stadium",
+        "lit": "yes",
+        "name": "Devrim Stadyumu",
+        "wikidata": "Q6047111",
+        "wikimedia_commons": "Category:Devrim Stadium",
+        "wikipedia": "tr:Devrim Stadyumu"
+      }
+    },
+    {
+      "id": "overpass-434685299",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8708102,
+      "lng": 32.7630465,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Halı Saha",
+        "name:en": "Football Field",
+        "source": "University",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-436347124",
+      "osmType": "way",
+      "name": "Türkiye Tenis Federasyonu Tenis Eğitim Merkezi",
+      "leisure": "sports_centre",
+      "sport": "tennis",
+      "lat": 39.9421651,
+      "lng": 32.7926415,
+      "addr": "Ankara Bulvarı",
+      "website": "https://www.ttf.org.tr/",
+      "phone": "+90 312 309 77 70",
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Yenimahalle",
+        "addr:housenumber": "12/6",
+        "addr:neighbourhood": "Gazi",
+        "addr:postcode": "06560",
+        "addr:street": "Ankara Bulvarı",
+        "leisure": "sports_centre",
+        "name": "Türkiye Tenis Federasyonu Tenis Eğitim Merkezi",
+        "name:en": "Turkish Tennis Federation Tennis Training Center",
+        "phone": "+90 312 309 77 70",
+        "sport": "tennis",
+        "website": "https://www.ttf.org.tr/"
+      }
+    },
+    {
+      "id": "overpass-439656407",
+      "osmType": "way",
+      "name": "Inhale Yoga Studio",
+      "leisure": "fitness_centre",
+      "sport": "yoga;pilates",
+      "lat": 39.8693904,
+      "lng": 32.8592599,
+      "addr": "701. Sokak",
+      "website": "https://inhaleyoga.studio/",
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "23/A",
+        "addr:neighbourhood": "Hilal",
+        "addr:postcode": "06550",
+        "addr:street": "701. Sokak",
+        "building": "yes",
+        "leisure": "fitness_centre",
+        "name": "Inhale Yoga Studio",
+        "opening_hours": "Mo-Su 08:00-22:00",
+        "sport": "yoga;pilates",
+        "website": "https://inhaleyoga.studio/"
+      }
+    },
+    {
+      "id": "overpass-443546212",
+      "osmType": "way",
+      "name": "Türkiye Hentbol Federasyonu Spor Salonu Kompleksi",
+      "leisure": "pitch",
+      "sport": "handball",
+      "lat": 39.8736872,
+      "lng": 32.854268,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Çankaya/Ankara",
+        "barrier": "wall",
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Türkiye Hentbol Federasyonu Spor Salonu Kompleksi",
+        "sport": "handball"
+      }
+    },
+    {
+      "id": "overpass-444597112",
+      "osmType": "way",
+      "name": "Şehit Erhan Dural Anadolu Lisesi Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8802536,
+      "lng": 32.8371453,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Şehit Erhan Dural Anadolu Lisesi Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-447014279",
+      "osmType": "way",
+      "name": "Aile Yaşam Merkezi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.940087,
+      "lng": 32.6303707,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Aile Yaşam Merkezi",
+        "operator": "Etimesgut Belediyesi"
+      }
+    },
+    {
+      "id": "overpass-459737065",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 40.046461,
+      "lng": 32.8960045,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Halı Saha",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-461328177",
+      "osmType": "way",
+      "name": "basketbol sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.898949,
+      "lng": 32.6342638,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "basketbol sahası",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-467642081",
+      "osmType": "way",
+      "name": "Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8878787,
+      "lng": 32.7858978,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "no",
+        "leisure": "pitch",
+        "name": "Futbol Sahası",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-471117642",
+      "osmType": "way",
+      "name": "Vamos! Sports Complex",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.893555,
+      "lng": 32.811421,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "fitness_centre",
+        "name": "Vamos! Sports Complex"
+      }
+    },
+    {
+      "id": "overpass-474128676",
+      "osmType": "way",
+      "name": "Etimesgut Atatürk Stadyumu",
+      "leisure": "stadium",
+      "sport": null,
+      "lat": 39.9391595,
+      "lng": 32.6569835,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Etimesgut/Ankara",
+        "leisure": "stadium",
+        "name": "Etimesgut Atatürk Stadyumu"
+      }
+    },
+    {
+      "id": "overpass-476140189",
+      "osmType": "way",
+      "name": "Göktürk Aile Yaşam Merkezi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9815057,
+      "lng": 32.6426916,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Göktürk Aile Yaşam Merkezi"
+      }
+    },
+    {
+      "id": "overpass-483080396",
+      "osmType": "way",
+      "name": "Cumhuriyet Spor Merkezi",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8027903,
+      "lng": 32.8076332,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Cumhuriyet Spor Merkezi",
+        "operator": "Gölbaşı Belediyesi",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-497971748",
+      "osmType": "way",
+      "name": "Vip Sports Eryaman",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9812807,
+      "lng": 32.6467071,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Vip Sports Eryaman"
+      }
+    },
+    {
+      "id": "overpass-525709643",
+      "osmType": "way",
+      "name": "Cemre Spor Merkezi",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.9598138,
+      "lng": 32.7843596,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": "no",
+      "tags": {
+        "building": "yes",
+        "leisure": "fitness_centre",
+        "name": "Cemre Spor Merkezi",
+        "wheelchair": "no"
+      }
+    },
+    {
+      "id": "overpass-553139303",
+      "osmType": "way",
+      "name": "Nazım Canca Spor Salonu",
+      "leisure": "fitness_centre",
+      "sport": null,
+      "lat": 39.8031912,
+      "lng": 32.8397427,
+      "addr": "Polis Akademisi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Gölbaşı",
+        "addr:neighbourhood": "Eymir",
+        "addr:postcode": "06830",
+        "addr:street": "Polis Akademisi",
+        "building": "yes",
+        "leisure": "fitness_centre",
+        "name": "Nazım Canca Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-553305045",
+      "osmType": "way",
+      "name": "Yüzme Havuzu",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.8026031,
+      "lng": 32.8407851,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "swimming_pool",
+        "name": "Yüzme Havuzu"
+      }
+    },
+    {
+      "id": "overpass-553313616",
+      "osmType": "way",
+      "name": "Polis Akademisi Stadyumu",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8048228,
+      "lng": 32.8419691,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "landuse": "grass",
+        "leisure": "pitch",
+        "name": "Polis Akademisi Stadyumu",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-606322745",
+      "osmType": "way",
+      "name": "Halı Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9677882,
+      "lng": 32.7735638,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Halı Saha",
+        "sport": "soccer",
+        "surface": "carpet"
+      }
+    },
+    {
+      "id": "overpass-606322746",
+      "osmType": "way",
+      "name": "Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.9681027,
+      "lng": 32.7735475,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "yes",
+        "hoops": "0",
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Basketbol Sahası",
+        "sport": "basketball",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-606322747",
+      "osmType": "way",
+      "name": "Voleybol Sahası",
+      "leisure": "pitch",
+      "sport": "volleyball",
+      "lat": 39.9679525,
+      "lng": 32.773567,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Voleybol Sahası",
+        "sport": "volleyball",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-606323018",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.9680046,
+      "lng": 32.7732801,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "yes",
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Tenis Kortu",
+        "sport": "tennis",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-617184209",
+      "osmType": "way",
+      "name": "Bağlıca Aile Yaşam Merkezi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8946727,
+      "lng": 32.6341734,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Bağlıca Mahallesi",
+        "addr:district": "Etimesgut",
+        "addr:housenumber": "77",
+        "addr:neighbourhood": "Bağlıca",
+        "addr:postcode": "06790",
+        "fee": "no",
+        "leisure": "sports_centre",
+        "name": "Bağlıca Aile Yaşam Merkezi",
+        "opening_hours": "09.00-22.00",
+        "operator": "Etimesgut Belediyesi Devlet Bahçeli Eğitim Spor ve Yaşam Merkezi",
+        "operator:type": "government_facility-public"
+      }
+    },
+    {
+      "id": "overpass-623352993",
+      "osmType": "way",
+      "name": "Atabey Spor Merkezi",
+      "leisure": "sports_centre",
+      "sport": "fitness",
+      "lat": 39.8418863,
+      "lng": 32.5410961,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Atabey Spor Merkezi",
+        "opening_hours": "Mo-Su 09:00-21:45",
+        "sport": "fitness"
+      }
+    },
+    {
+      "id": "overpass-656580529",
+      "osmType": "way",
+      "name": "Ümitköy Spor Kompleksi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8822626,
+      "lng": 32.6816981,
+      "addr": "2647. Sokak",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "1",
+        "addr:neighbourhood": "Koru Mahallesi",
+        "addr:postcode": "06810",
+        "addr:street": "2647. Sokak",
+        "leisure": "sports_centre",
+        "name": "Ümitköy Spor Kompleksi",
+        "opening_hours": "09:00-22:00",
+        "operator": "Spor Toto",
+        "owner": "Türkiye Cumhuriyeti Gençlik ve Spor Bakanlığı"
+      }
+    },
+    {
+      "id": "overpass-664765098",
+      "osmType": "way",
+      "name": "Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.9358131,
+      "lng": 32.8975187,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Basketbol Sahası",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-682346923",
+      "osmType": "way",
+      "name": "Erdal İnönü Kapalı Yüzme Havuzu",
+      "leisure": "sports_centre",
+      "sport": "swimming",
+      "lat": 39.8730023,
+      "lng": 32.8667927,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "fee": "yes",
+        "leisure": "sports_centre",
+        "name": "Erdal İnönü Kapalı Yüzme Havuzu",
+        "sport": "swimming"
+      }
+    },
+    {
+      "id": "overpass-690325068",
+      "osmType": "way",
+      "name": "Çağlayan Basketball Court",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.9015542,
+      "lng": 32.8028992,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "permissive",
+        "hoops": "2",
+        "leisure": "pitch",
+        "name": "Çağlayan Basketball Court",
+        "sport": "basketball",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-698096508",
+      "osmType": "way",
+      "name": "Hali Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8995437,
+      "lng": 32.8198611,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Hali Saha",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-699132861",
+      "osmType": "way",
+      "name": "Toprak Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8803283,
+      "lng": 32.7962184,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "yes",
+        "leisure": "pitch",
+        "name": "Toprak Saha",
+        "sport": "soccer",
+        "surface": "sand"
+      }
+    },
+    {
+      "id": "overpass-709870139",
+      "osmType": "way",
+      "name": "Bosphorus Rezidans Havuz",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.9731163,
+      "lng": 32.6579685,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "private",
+        "leisure": "swimming_pool",
+        "length": "25",
+        "lit": "yes",
+        "location": "outdoor",
+        "name": "Bosphorus Rezidans Havuz"
+      }
+    },
+    {
+      "id": "overpass-738235205",
+      "osmType": "way",
+      "name": "12.Etap Kaparlı Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": "baseball;volleyball",
+      "lat": 39.8489713,
+      "lng": 32.560434,
+      "addr": "Evliya Çelebi Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:neighbourhood": "Yapracık Mahallesi",
+        "addr:street": "Evliya Çelebi Caddesi",
+        "building": "yes",
+        "fee": "no",
+        "leisure": "sports_centre",
+        "name": "12.Etap Kaparlı Spor Salonu",
+        "sport": "baseball;volleyball"
+      }
+    },
+    {
+      "id": "overpass-739541941",
+      "osmType": "way",
+      "name": "Ülkü Spor Tesisleri",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9736444,
+      "lng": 32.6553557,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Ülkü Spor Tesisleri"
+      }
+    },
+    {
+      "id": "overpass-783232938",
+      "osmType": "way",
+      "name": "Marmara Havuzu",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.9321803,
+      "lng": 32.7972748,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "swimming_pool",
+        "name": "Marmara Havuzu"
+      }
+    },
+    {
+      "id": "overpass-836910611",
+      "osmType": "way",
+      "name": "Mamak Belediyesi Spor Kompleksi Ve Dinlenme Alanı",
+      "leisure": "sports_centre",
+      "sport": "soccer;basketball;multi",
+      "lat": 39.9031583,
+      "lng": 32.9717765,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "fee": "no",
+        "leisure": "sports_centre",
+        "name": "Mamak Belediyesi Spor Kompleksi Ve Dinlenme Alanı",
+        "sport": "soccer;basketball;multi"
+      }
+    },
+    {
+      "id": "overpass-862954395",
+      "osmType": "way",
+      "name": "Gençlik ve Spor Bakanlığı Taha Akgül Spor Tesisi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 40.0018446,
+      "lng": 32.8346204,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Gençlik ve Spor Bakanlığı Taha Akgül Spor Tesisi"
+      }
+    },
+    {
+      "id": "overpass-881259303",
+      "osmType": "way",
+      "name": "Tanju Çolak Spor Tesisleri",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 40.0008684,
+      "lng": 32.8150511,
+      "addr": "1819. Cadde",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:neighbourhood": "Yükseltepe Mahallesi",
+        "addr:street": "1819. Cadde",
+        "leisure": "sports_centre",
+        "name": "Tanju Çolak Spor Tesisleri"
+      }
+    },
+    {
+      "id": "overpass-1001758615",
+      "osmType": "way",
+      "name": "İncek Icon Sitesi Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8315592,
+      "lng": 32.6921622,
+      "addr": "4835. Cadde",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:neighbourhood": "Alacaatlı Mahallesi",
+        "addr:postcode": "06810",
+        "addr:street": "4835. Cadde",
+        "building": "residential",
+        "building:levels": "2",
+        "leisure": "sports_centre",
+        "name": "İncek Icon Sitesi Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-1019659298",
+      "osmType": "way",
+      "name": "ASKİ Spor Kulübü Güreş Salonu",
+      "leisure": "sports_centre",
+      "sport": "wrestle",
+      "lat": 39.9763752,
+      "lng": 32.704014,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "ASKİ Spor Kulübü Güreş Salonu",
+        "sport": "wrestle"
+      }
+    },
+    {
+      "id": "overpass-1021844022",
+      "osmType": "way",
+      "name": "Beytepe Ortaokulu Halısahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8635515,
+      "lng": 32.7367452,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "permissive",
+        "leisure": "pitch",
+        "lit": "no",
+        "name": "Beytepe Ortaokulu Halısahası",
+        "sport": "soccer",
+        "surface": "artificial_turf"
+      }
+    },
+    {
+      "id": "overpass-1025808010",
+      "osmType": "way",
+      "name": "İncek Prestij Havuz",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.8367443,
+      "lng": 32.7028203,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "private",
+        "leisure": "swimming_pool",
+        "location": "outdoor",
+        "name": "İncek Prestij Havuz",
+        "salt": "no",
+        "swimming_pool": "outdoor"
+      }
+    },
+    {
+      "id": "overpass-1025814692",
+      "osmType": "way",
+      "name": "Tenis Kortu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8370266,
+      "lng": 32.7022578,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "permit",
+        "leisure": "pitch",
+        "name": "Tenis Kortu",
+        "sport": "tennis",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-1025814693",
+      "osmType": "way",
+      "name": "‎",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8368975,
+      "lng": 32.7023734,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "private",
+        "leisure": "pitch",
+        "name": "‎",
+        "sport": "basketball",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-1064566671",
+      "osmType": "way",
+      "name": "Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8691617,
+      "lng": 32.7335545,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "yes",
+        "hoops": "2",
+        "leisure": "pitch",
+        "lit": "no",
+        "name": "Basketbol Sahası",
+        "sport": "basketball",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "id": "overpass-1064566672",
+      "osmType": "way",
+      "name": "Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8689471,
+      "lng": 32.7335687,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "yes",
+        "hoops": "2",
+        "leisure": "pitch",
+        "lit": "no",
+        "name": "Basketbol Sahası",
+        "sport": "basketball",
+        "surface": "asphalt"
+      }
+    },
+    {
+      "id": "overpass-1073322083",
+      "osmType": "way",
+      "name": "Dikmen Merkez Halısaha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8788653,
+      "lng": 32.8406984,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Dikmen Merkez Halısaha",
+        "sport": "soccer",
+        "surface": "grass"
+      }
+    },
+    {
+      "id": "overpass-1085426519",
+      "osmType": "way",
+      "name": "Yeni Ankara 19 Mayıs Stadyumu",
+      "leisure": "stadium",
+      "sport": null,
+      "lat": 39.9404064,
+      "lng": 32.846487,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "construction": "yes",
+        "leisure": "stadium",
+        "name": "Yeni Ankara 19 Mayıs Stadyumu",
+        "name:ar": "ملعب أنقرة الجديد 19 مايو",
+        "name:en": "New Ankara 19 May Stadium",
+        "wikidata": "Q114098948",
+        "wikipedia": "tr:Yeni Ankara 19 Mayıs Stadyumu"
+      }
+    },
+    {
+      "id": "overpass-1093428047",
+      "osmType": "way",
+      "name": "Ayvalı Spor Halı Saha Kompleksi",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 40.0047686,
+      "lng": 32.8385847,
+      "addr": "1385. Sokak",
+      "website": null,
+      "phone": "+90 501 267 19 10",
+      "wheelchair": null,
+      "tags": {
+        "addr:postcode": "06280",
+        "addr:street": "1385. Sokak",
+        "contact:instagram": "ayvali_spor_06",
+        "leisure": "pitch",
+        "name": "Ayvalı Spor Halı Saha Kompleksi",
+        "opening_hours": "Mo-Su 09:00-00:00",
+        "phone": "+90 501 267 19 10",
+        "sport": "soccer",
+        "surface": "artificial_turf"
+      }
+    },
+    {
+      "id": "overpass-1120759061",
+      "osmType": "way",
+      "name": "Tennis Clinic - Club",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8741838,
+      "lng": 32.6738365,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Tennis Clinic - Club",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-1120847949",
+      "osmType": "way",
+      "name": "Konutkent II Sitesi Halı Saha",
+      "leisure": "pitch",
+      "sport": null,
+      "lat": 39.8763147,
+      "lng": 32.6743563,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Konutkent II Sitesi Halı Saha"
+      }
+    },
+    {
+      "id": "overpass-1120945880",
+      "osmType": "way",
+      "name": "FitLab Life Club",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8817973,
+      "lng": 32.6825458,
+      "addr": "Ahmet Taner Kışlalı Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "4-N",
+        "addr:neighbourhood": "Koru Mahallesi",
+        "addr:postcode": "06810",
+        "addr:street": "Ahmet Taner Kışlalı Caddesi",
+        "layer": "1",
+        "leisure": "sports_centre",
+        "name": "FitLab Life Club"
+      }
+    },
+    {
+      "id": "overpass-1124300862",
+      "osmType": "way",
+      "name": "Sait Ulusoy Spor Salonu",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8503848,
+      "lng": 32.6455952,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Sait Ulusoy Spor Salonu"
+      }
+    },
+    {
+      "id": "overpass-1124514408",
+      "osmType": "way",
+      "name": "Çankaya Üniversitesi Spor Merkezi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.8196793,
+      "lng": 32.560348,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Çankaya Üniversitesi Spor Merkezi"
+      }
+    },
+    {
+      "id": "overpass-1124678725",
+      "osmType": "way",
+      "name": "Vamos Akademi",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.871393,
+      "lng": 32.6647923,
+      "addr": "3061. Cd.",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "4",
+        "addr:neighbourhood": "Yaşamkent Mahallesi",
+        "addr:postcode": "06810",
+        "addr:street": "3061. Cd.",
+        "building": "yes",
+        "leisure": "sports_centre",
+        "name": "Vamos Akademi"
+      }
+    },
+    {
+      "id": "overpass-1162986061",
+      "osmType": "way",
+      "name": "Ankaragücü Tandoğan Tesisleri",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9350237,
+      "lng": 32.8406008,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Ankaragücü Tandoğan Tesisleri"
+      }
+    },
+    {
+      "id": "overpass-1162986062",
+      "osmType": "way",
+      "name": "Ankaragücü Beştepe Tesisleri",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9379036,
+      "lng": 32.8145904,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Ankaragücü Beştepe Tesisleri"
+      }
+    },
+    {
+      "id": "overpass-1186286514",
+      "osmType": "way",
+      "name": "Ankara Gençlik Hizmetleri ve Spor İl Müdürlüğü Karşıyaka Spor Tesisleri",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 40.0068621,
+      "lng": 32.7703811,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Ankara Gençlik Hizmetleri ve Spor İl Müdürlüğü Karşıyaka Spor Tesisleri"
+      }
+    },
+    {
+      "id": "overpass-1191478774",
+      "osmType": "way",
+      "name": "Yeni Ankara 19 Mayıs Stadyumu",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.9404271,
+      "lng": 32.8464898,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Yeni Ankara 19 Mayıs Stadyumu",
+        "sport": "soccer",
+        "wikidata": "Q114098948",
+        "wikipedia": "tr:Yeni Ankara 19 Mayıs Stadyumu"
+      }
+    },
+    {
+      "id": "overpass-1202535771",
+      "osmType": "way",
+      "name": "19 FIT Pilates & Gym XL",
+      "leisure": "fitness_centre",
+      "sport": "pilates;yoga;kickboxing;fitness",
+      "lat": 39.8493594,
+      "lng": 32.6509967,
+      "addr": "Şehit Eren Bülbül Caddesi",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Çankaya",
+        "addr:housenumber": "59/1",
+        "addr:neighbourhood": "Alacaatlı",
+        "addr:postcode": "06810",
+        "addr:street": "Şehit Eren Bülbül Caddesi",
+        "building": "yes",
+        "leisure": "fitness_centre",
+        "name": "19 FIT Pilates & Gym XL",
+        "sport": "pilates;yoga;kickboxing;fitness"
+      }
+    },
+    {
+      "id": "overpass-1212820816",
+      "osmType": "way",
+      "name": "Prof. Dr. Mehmet Haberal Yüzme Havuzu Ve Sosyal Tesisi",
+      "leisure": "sports_centre",
+      "sport": "swimming;fitness",
+      "lat": 39.9820495,
+      "lng": 32.8018905,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "fee": "yes",
+        "leisure": "sports_centre",
+        "name": "Prof. Dr. Mehmet Haberal Yüzme Havuzu Ve Sosyal Tesisi",
+        "sport": "swimming;fitness"
+      }
+    },
+    {
+      "id": "overpass-1221599357",
+      "osmType": "way",
+      "name": "Badminton Kortu",
+      "leisure": "pitch",
+      "sport": "badminton",
+      "lat": 39.9382387,
+      "lng": 32.7930598,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Badminton Kortu",
+        "sport": "badminton",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-1222966080",
+      "osmType": "way",
+      "name": "Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.9382723,
+      "lng": 32.7935287,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Basketbol Sahası",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-1222966081",
+      "osmType": "way",
+      "name": "Sahil Voleybolu Sahası",
+      "leisure": "pitch",
+      "sport": "beachvolleyball",
+      "lat": 39.9382104,
+      "lng": 32.7932795,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "yes",
+        "fee": "no",
+        "leisure": "pitch",
+        "lit": "yes",
+        "name": "Sahil Voleybolu Sahası",
+        "sport": "beachvolleyball",
+        "surface": "sand"
+      }
+    },
+    {
+      "id": "overpass-1222966083",
+      "osmType": "way",
+      "name": "Çocuk Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.9380828,
+      "lng": 32.7931192,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "kids_area": "yes",
+        "leisure": "pitch",
+        "name": "Çocuk Basketbol Sahası",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-1248801991",
+      "osmType": "way",
+      "name": "Anadoluspor Futbol Kulübü Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.790781,
+      "lng": 32.8507913,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "customers",
+        "covered": "no",
+        "leisure": "pitch",
+        "lit": "yes",
+        "loc_name": "Halı Saha",
+        "name": "Anadoluspor Futbol Kulübü Futbol Sahası",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-1303299038",
+      "osmType": "way",
+      "name": "MUSTAFA KEMAL ATATÜRK SPOR MERKEZİ",
+      "leisure": "swimming_pool",
+      "sport": null,
+      "lat": 39.8830409,
+      "lng": 32.8091132,
+      "addr": "1549. Cd.",
+      "website": "https://www.cankaya.bel.tr/pages/7599/CIGDEM-YARI-OLIMPIK-YUZME-HAVUZU/",
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Çiğdem Mahallesi",
+        "addr:district": "çankaya",
+        "addr:postcode": "06530",
+        "addr:street": "1549. Cd.",
+        "building:levels": "3",
+        "leisure": "swimming_pool",
+        "name": "MUSTAFA KEMAL ATATÜRK SPOR MERKEZİ",
+        "smoking": "outside",
+        "source": "local knowledge",
+        "website": "https://www.cankaya.bel.tr/pages/7599/CIGDEM-YARI-OLIMPIK-YUZME-HAVUZU/"
+      }
+    },
+    {
+      "id": "overpass-1341088153",
+      "osmType": "way",
+      "name": "Açık Tenis Kortları",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8461527,
+      "lng": 32.8525518,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Açık Tenis Kortları",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-1353677825",
+      "osmType": "way",
+      "name": "Adem Bilhan Uysal İlkokulu Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "futsal",
+      "lat": 39.7948666,
+      "lng": 32.8557921,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "private",
+        "leisure": "pitch",
+        "name": "Adem Bilhan Uysal İlkokulu Futbol Sahası",
+        "sport": "futsal",
+        "surface": "concrete"
+      }
+    },
+    {
+      "id": "overpass-1389835460",
+      "osmType": "way",
+      "name": "Türkiye Olimpiyat Hazırlık Merkezi Ankara",
+      "leisure": "sports_centre",
+      "sport": null,
+      "lat": 39.9694654,
+      "lng": 32.6503759,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Türkiye Olimpiyat Hazırlık Merkezi Ankara",
+        "short_name": "TOHM Ankara"
+      }
+    },
+    {
+      "id": "overpass-1417946352",
+      "osmType": "way",
+      "name": "Duvar",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.7823455,
+      "lng": 32.7581013,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "covered": "yes",
+        "leisure": "pitch",
+        "name": "Duvar",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-1425308104",
+      "osmType": "way",
+      "name": "Conker Cd. Spor Kompleksi",
+      "leisure": "pitch",
+      "sport": null,
+      "lat": 39.9915243,
+      "lng": 32.8570074,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Conker Cd. Spor Kompleksi"
+      }
+    },
+    {
+      "id": "overpass-1477853403",
+      "osmType": "way",
+      "name": "Ankara Üniversitesi Geliştirme Vakfı Özel İlköğretim Okulu Tenis Çadır Salonu",
+      "leisure": "pitch",
+      "sport": "tennis",
+      "lat": 39.8440962,
+      "lng": 32.779147,
+      "addr": "İncek Şehit Savcı Mehmet Selim Kiraz Bulvarı",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Gölbaşı",
+        "addr:street": "İncek Şehit Savcı Mehmet Selim Kiraz Bulvarı",
+        "building:levels": "1",
+        "leisure": "pitch",
+        "name": "Ankara Üniversitesi Geliştirme Vakfı Özel İlköğretim Okulu Tenis Çadır Salonu",
+        "note": "Only enter with clean sports shoes.",
+        "sport": "tennis"
+      }
+    },
+    {
+      "id": "overpass-1477853404",
+      "osmType": "way",
+      "name": "Ankara Üniversitesi Geliştirme Vakfı Özel İlköğretim Okulu Basketbol Çadır Salonu",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8441168,
+      "lng": 32.7788944,
+      "addr": "İncek Şehit Savcı Mehmet Selim Kiraz Bulvarı",
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "addr:city": "Ankara",
+        "addr:district": "Gölbaşı",
+        "addr:street": "İncek Şehit Savcı Mehmet Selim Kiraz Bulvarı",
+        "building:levels": "1",
+        "leisure": "pitch",
+        "name": "Ankara Üniversitesi Geliştirme Vakfı Özel İlköğretim Okulu Basketbol Çadır Salonu",
+        "note": "Only enter with clean sports shoes.\nFootball lesson is done here when it's raining or snowing.",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-1477853405",
+      "osmType": "way",
+      "name": "Ankara Üniversitesi Geliştirme Vakfı Özel İlköğretim Okulu Futbol Halı Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8441939,
+      "lng": 32.7794726,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "alt_name": "Halı",
+        "leisure": "pitch",
+        "name": "Ankara Üniversitesi Geliştirme Vakfı Özel İlköğretim Okulu Futbol Halı Sahası",
+        "note": "Usage for lunch breaks:\nMonday: 8th grade\nTuesday: 7th grade\nThursday: 6th grade\nWednesday: 5th grade\nFriday: 4th Grade\nOther Breaks: Everyone",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-1489820247",
+      "osmType": "way",
+      "name": "Ankara Üniversitesi Geliştirme Vakfı Özel Lisesi Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8430632,
+      "lng": 32.7786549,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "hoops": "4",
+        "leisure": "pitch",
+        "name": "Ankara Üniversitesi Geliştirme Vakfı Özel Lisesi Basketbol Sahası",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-1489820248",
+      "osmType": "way",
+      "name": "Ankara Üniversitesi Geliştirme Vakfı Özel Lisesi Futbol Sahası",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8431752,
+      "lng": 32.7781521,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Ankara Üniversitesi Geliştirme Vakfı Özel Lisesi Futbol Sahası",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-1491268498",
+      "osmType": "way",
+      "name": "Çim Saha",
+      "leisure": "pitch",
+      "sport": "soccer",
+      "lat": 39.8739482,
+      "lng": 32.7172362,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "access": "yes",
+        "leisure": "pitch",
+        "name": "Çim Saha",
+        "sport": "soccer"
+      }
+    },
+    {
+      "id": "overpass-1492334202",
+      "osmType": "way",
+      "name": "Yaşamkent Kaykay Parkı",
+      "leisure": "pitch",
+      "sport": "skateboard",
+      "lat": 39.8545333,
+      "lng": 32.6333863,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Yaşamkent Kaykay Parkı",
+        "sport": "skateboard"
+      }
+    },
+    {
+      "id": "overpass-1493875432",
+      "osmType": "way",
+      "name": "Ankara Üniversitesi Geliştirme Vakfı Özel İlköğretim Okulu Basketbol Sahası",
+      "leisure": "pitch",
+      "sport": "basketball",
+      "lat": 39.8441903,
+      "lng": 32.7799064,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "pitch",
+        "name": "Ankara Üniversitesi Geliştirme Vakfı Özel İlköğretim Okulu Basketbol Sahası",
+        "sport": "basketball"
+      }
+    },
+    {
+      "id": "overpass-1507718855",
+      "osmType": "way",
+      "name": "Altınpark Go Kart",
+      "leisure": "sports_centre",
+      "sport": "karting",
+      "lat": 39.9651042,
+      "lng": 32.8764757,
+      "addr": null,
+      "website": null,
+      "phone": null,
+      "wheelchair": null,
+      "tags": {
+        "leisure": "sports_centre",
+        "name": "Altınpark Go Kart",
+        "sport": "karting"
+      }
+    }
+  ]
+}
