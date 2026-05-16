@@ -36,6 +36,27 @@
 
 ## Kayıtlar
 
+### 2026-05-16 — `[TECH]` Faz 8 dashboard: facility sıralama saf fn, hook duplikasyonu kabul
+
+- **Karar:** Dashboard'da "Sana Yakında" için tesisleri puana göre sıralayan `lib/facility-rank.ts` saf fonksiyonu eklendi. `useFacilityScore` hook'unun puanlama kuralı (overall = red/green/yellow/gray) bu dosyada yeniden yazıldı (~15 satır).
+- **Niye:** Hook React'a bağlı, çoklu tesis için listede çağrılamaz. Ortak `lib/facility-score.ts` çıkarmak Faz 8 kapsamını ve diğer faz bağımlılıklarını kırardı; hackathon önceliği: küçük tekrar > erken abstraksiyon (DISCIPLINE.md §2/6).
+- **Etki:** `src/lib/facility-rank.ts` (yeni), `src/pages/Dashboard.tsx` consume eder.
+- **Geri al kuralı:** Puanlama kuralı değişirse iki yer güncellenir; ortak fn'e refactor Faz 10 polish için açık.
+
+### 2026-05-16 — `[UX]` Faz 8 mini radar: AccessibilityRadar compact varyant
+
+- **Karar:** `AccessibilityRadar` component'ine `height` ve `compact` props eklendi (default 300/false; dashboard kartında 120/true). Compact modda dimension etiketleri gizleniyor, dot ve animation süresi küçültülüyor.
+- **Niye:** Build plan Faz 8 "küçük radar mini-preview" istiyor. Dashboard'da etiketli radar 160px alana sığmaz; ayrı bir mini component yazmak yerine mevcut Recharts kodunu props ile esnetmek daha az kod ve aynı a11y davranışı.
+- **Etki:** `src/components/facility/AccessibilityRadar.tsx`, `src/components/feature/MiniFacilityCard.tsx`.
+- **Geri al kuralı:** Mini radar çok soluk kalırsa kartta dot+sayı kombosuyla değiştir; component'in compact branch'i kaldırılır.
+
+### 2026-05-16 — `[SCOPE]` Faz 8 dashboard runtime n8n çağrısı yok
+
+- **Karar:** Dashboard tüm verisini local kaynaktan çeker (mock JSON + `uyum:testimonies` localStorage). Build plan §8.6'da bahsi geçen "Hızlı rehber CTA" Faz 7'nin facility detay akışına bırakıldı; Dashboard'dan tetiklenmiyor.
+- **Niye:** Spec: "feature kapsam dışıdır — varsa polish'te, yoksa Faz 7 akışına bırakılır". 1 saatlik faz penceresinde scope'u dar tutmak ara kontrol listesinin geçmesini garantiler.
+- **Etki:** `src/pages/Dashboard.tsx`, `src/components/feature/CommunityFeed.tsx` — fetch yok, sadece import.
+- **Geri al kuralı:** Polish saatinde Dashboard hero'sına "Hızlı rehber al" CTA eklenebilir; `f3-service.ts` aynı şekilde çağrılır.
+
 ### 2026-05-16 — `[TECH]` Faz 6 F1 radar: Recharts native animasyon, framer-motion kullanılmadı
 
 - **Karar:** AccessibilityRadar component'i Recharts `RadarChart` + `animationDuration={1500}` ile inşa edildi. framer-motion paketi yüklü ama bu component için kullanılmadı.
