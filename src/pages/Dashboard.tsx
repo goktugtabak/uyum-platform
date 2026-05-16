@@ -107,6 +107,7 @@ export function Dashboard() {
   const { profile } = useProfile()
   const [facilities, setFacilities] = useState<Facility[]>([])
   const [loading, setLoading] = useState(true)
+  const [now] = useState<number>(() => Date.now())
 
   useEffect(() => {
     loadFacilities()
@@ -125,11 +126,10 @@ export function Dashboard() {
   }, [profile])
 
   const upcomingEvent = useMemo<SportEvent | null>(() => {
-    const now = Date.now()
     return ((eventsData as SportEvent[]).slice()
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
       .find(e => new Date(e.date).getTime() > now)) ?? null
-  }, [])
+  }, [now])
 
   if (!profile) return null
 
@@ -141,10 +141,11 @@ export function Dashboard() {
       <section className="grid gap-8 md:grid-cols-12">
         <div className="md:col-span-7">
           <h1 className="flex flex-wrap items-center gap-3 font-display text-[clamp(2rem,4vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
-            Merhaba {DISABILITY_LABELS[profile.disabilityType]} kullanıcısı! <span aria-hidden>👋</span>
+            Hoş geldin! <span aria-hidden>👋</span>
           </h1>
           <p className="mt-3 max-w-md text-base text-muted-foreground">
-            Bugün hareket etmek için harika bir gün. Sana en uygun seçenekleri keşfet.
+            <span className="font-semibold text-foreground">{DISABILITY_LABELS[profile.disabilityType]}</span> profiline göre,
+            sana en uygun seçenekleri buraya derledik.
           </p>
 
           <div className="mt-8 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-3">

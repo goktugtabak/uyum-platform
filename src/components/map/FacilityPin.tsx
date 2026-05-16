@@ -44,7 +44,6 @@ function buildDivIcon(
 ): L.DivIcon {
   const size = 40
   const opacity = isDimmed ? 0.45 : 1
-  const highlightShadow = `0 0 0 3px #4C2A85, 0 0 0 5px rgba(76,42,133,0.4)`
 
   // Teardrop pin (matches design/2026_uyum/tesisler.tsx style) — sport icon centered, status glyph as badge.
   const html = `
