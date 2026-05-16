@@ -23,7 +23,7 @@ function formatDate(iso: string): string {
   return `${month} · ${time}`
 }
 
-function relativeDays(iso: string, now: number = Date.now()): string {
+function relativeDays(iso: string, now: number): string {
   const diffMs = new Date(iso).getTime() - now
   const diffDays = Math.ceil(diffMs / 86_400_000)
   if (diffDays === 0) return 'Bugün'
@@ -37,6 +37,7 @@ interface EventCardProps {
   event:         SportEvent
   facilityName:  string
   facilityExists: boolean
+  now:           number
   dimmed?:       boolean
   profileMatch?: boolean
 }
@@ -45,6 +46,7 @@ export function EventCard({
   event,
   facilityName,
   facilityExists,
+  now,
   dimmed = false,
   profileMatch = false,
 }: EventCardProps) {
@@ -102,7 +104,7 @@ export function EventCard({
           📅 {formatDate(event.date)}
         </span>
         <span className="px-2 py-0.5 rounded-md bg-white/10 text-white/60">
-          {relativeDays(event.date)}
+          {relativeDays(event.date, now)}
         </span>
       </div>
 

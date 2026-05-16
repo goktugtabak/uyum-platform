@@ -43,7 +43,7 @@ function findFacility(id: string): Facility | undefined {
 
 export function EventList() {
   const { profile } = useProfile()
-  const now = useMemo(() => Date.now(), [])
+  const [now] = useState<number>(() => Date.now())
 
   const [filters, setFilters] = useState<EventFilters>({
     dateRange:      'all',
@@ -182,6 +182,7 @@ export function EventList() {
                   event={event}
                   facilityName={facility?.name ?? 'Bilinmeyen tesis'}
                   facilityExists={!!facility}
+                  now={now}
                   profileMatch={isMatch}
                 />
               )
@@ -226,6 +227,7 @@ export function EventList() {
                   event={event}
                   facilityName={facility?.name ?? 'Bilinmeyen tesis'}
                   facilityExists={!!facility}
+                  now={now}
                   dimmed
                 />
               )
