@@ -54,7 +54,14 @@ function AppRoutes() {
             </RequireProfile>
           }
         />
-        <Route path="/map"           element={<NotImplemented phase="Faz 5" />} />
+        <Route
+          path="/map"
+          element={
+            <RequireProfile>
+              <FacilityMapPage />
+            </RequireProfile>
+          }
+        />
         <Route path="/facility/:id"  element={<NotImplemented phase="Faz 6" />} />
         <Route path="/exercises"     element={<NotImplemented phase="Faz 9" />} />
         <Route path="/events"        element={<NotImplemented phase="Faz 9" />} />
@@ -67,9 +74,10 @@ function AppRoutes() {
 
 // Lazy page imports — filled in M6/M7
 import { lazy, Suspense } from 'react'
-const OnboardingPage = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
-const DashboardPage  = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))
-const MatchSportPage = lazy(() => import('./pages/MatchSport').then(m => ({ default: m.MatchSport })))
+const OnboardingPage   = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
+const DashboardPage    = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))
+const MatchSportPage   = lazy(() => import('./pages/MatchSport').then(m => ({ default: m.MatchSport })))
+const FacilityMapPage  = lazy(() => import('./pages/FacilityMap').then(m => ({ default: m.FacilityMap })))
 
 export default function App() {
   return (
