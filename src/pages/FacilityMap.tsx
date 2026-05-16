@@ -6,6 +6,7 @@ import { MapView } from '../components/map/MapView'
 import { FacilityList } from '../components/map/FacilityList'
 import { MapFilterBar } from '../components/map/MapFilterBar'
 import { DemoBadge } from '../components/ui/DemoBadge'
+import { Spinner } from '../components/ui/Spinner'
 import type { Facility, DisabilityType } from '../types'
 
 export function FacilityMap() {
@@ -41,9 +42,7 @@ export function FacilityMap() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-white/60 font-body text-sm" role="status" aria-live="polite">
-          Tesisler yükleniyor…
-        </p>
+        <Spinner label="Tesisler yükleniyor" />
       </div>
     )
   }

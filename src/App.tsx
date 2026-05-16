@@ -4,6 +4,7 @@ import { ProfileProvider } from './contexts/ProfileContext'
 import { useProfile } from './contexts/ProfileContext'
 import { AppShell } from './components/layout/AppShell'
 import { ErrorBoundary } from './components/layout/ErrorBoundary'
+import { Spinner } from './components/ui/Spinner'
 
 function RequireProfile({ children }: { children: React.ReactNode }) {
   const { hasProfile } = useProfile()
@@ -105,7 +106,13 @@ export default function App() {
       <BrowserRouter>
         <AccessibilityProvider>
           <ProfileProvider>
-            <Suspense fallback={<div className="p-8 text-center">Yükleniyor...</div>}>
+            <Suspense
+              fallback={
+                <div className="min-h-[40vh] flex items-center justify-center p-8">
+                  <Spinner label="Sayfa yükleniyor" />
+                </div>
+              }
+            >
               <AppRoutes />
             </Suspense>
           </ProfileProvider>

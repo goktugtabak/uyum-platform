@@ -12,6 +12,7 @@ import { AccessibilityLabelList } from '../components/facility/AccessibilityLabe
 import { LiveStatus } from '../components/facility/LiveStatus'
 import { Testimonies } from '../components/feature/Testimonies'
 import { F3Guide } from '../components/feature/F3Guide'
+import { Spinner } from '../components/ui/Spinner'
 
 function FacilityDetailInner({ facility, disabilityType, onDisabilityChange, profile }: {
   facility: Facility
@@ -159,7 +160,11 @@ export function FacilityDetail() {
   }, [])
 
   if (loading) {
-    return <div className="p-8 text-center text-gray-500">Yükleniyor...</div>
+    return (
+      <div className="min-h-[40vh] flex items-center justify-center p-8">
+        <Spinner label="Tesis yükleniyor" />
+      </div>
+    )
   }
 
   const facility = facilities.find(f => f.id === id)
