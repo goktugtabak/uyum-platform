@@ -6,17 +6,21 @@ import {
   Accessibility, ParkingCircle, DoorOpen, MoveVertical, Star, CalendarDays,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import type { Facility, DisabilityType, UserProfile, SportEvent, Testimony } from '../types'
+import type { Facility, DisabilityType, UserProfile, SportEvent, Testimony, VerificationEntry, AccessibilityDimension } from '../types'
+import type { DimensionKey } from '../lib/a11y-dimensions'
 import { useProfile } from '../contexts/ProfileContext'
 import { loadFacilities } from '../lib/overpass-loader'
 import { getSportLabel } from '../lib/sport-icons'
 import { useFacilityScore } from '../hooks/useFacilityScore'
 import { loadTestimonies } from '../lib/testimony-store'
+import { loadVerifications, saveVerification, generateVerificationId, getOrCreateAnonId } from '../lib/verification-store'
+import { aggregateVerifications } from '../lib/verification-aggregate'
 import { formatRelative } from '../lib/live-status'
 import { DisabilityTypeSelect } from '../components/facility/DisabilityTypeSelect'
 import { AccessibilityRadar } from '../components/facility/AccessibilityRadar'
 import { AccessibilityLabelList } from '../components/facility/AccessibilityLabelList'
 import { LiveStatus } from '../components/facility/LiveStatus'
+import { SegmentedControl } from '../components/a11y/SegmentedControl'
 import { Testimonies } from '../components/feature/Testimonies'
 import { F3Guide } from '../components/feature/F3Guide'
 import { FacilityTrustPanel } from '../components/feature/FacilityTrust'
@@ -82,6 +86,66 @@ function FacilityDetailInner({
   const distanceKm = estimatedDistance(facility)
   const heroPhoto = facility.photos?.[0]
   const hero = heroPhoto?.url ?? getFacilityFallbackImage(facility.id, facility.type)
+
+  // F10 — community verification state
+  const [radarMode, setRadarMode] = useState<'claimed' | 'verified'>('claimed')
+  const [verifications, setVerifications] = useState<VerificationEntry[]>(
+    () => loadVerifications(facility.id),
+  )
+  const anonId = useMemo(() => getOrCreateAnonId(), [])
+
+  const aggregated = useMemo(
+    () => aggregateVerifications(verifications, facility.id, disabilityType),
+    [verifications, facility.id, disabilityType],
+  )
+
+  const verifiedDimensions = useMemo(
+    () => {
+      const result = {} as Record<DimensionKey, AccessibilityDimension>
+      for (const key of Object.keys(aggregated) as DimensionKey[]) {
+        result[key] = aggregated[key].value
+      }
+      return result
+    },
+    [aggregated],
+  )
+
+  const userVotes = useMemo(() => {
+    const result = {} as Record<DimensionKey, VerificationEntry['vote'] | null>
+    for (const key of Object.keys(aggregated) as DimensionKey[]) {
+      const match = verifications.find(
+        v =>
+          v.facilityId === facility.id &&
+          v.dimension === key &&
+          v.disabilityType === disabilityType &&
+          v.userId === anonId,
+      )
+      result[key] = match?.vote ?? null
+    }
+    return result
+  }, [verifications, facility.id, disabilityType, anonId, aggregated])
+
+  function handleVote(dimension: DimensionKey, vote: VerificationEntry['vote']) {
+    const entry: VerificationEntry = {
+      id: generateVerificationId(),
+      facilityId: facility.id,
+      dimension,
+      disabilityType,
+      vote,
+      userId: anonId,
+      timestamp: new Date().toISOString(),
+    }
+    saveVerification(entry)
+    setVerifications(loadVerifications(facility.id))
+
+    const liveRegion = document.getElementById('aria-live-region')
+    if (liveRegion) liveRegion.textContent = 'Doğrulamanız kaydedildi.'
+  }
+
+  const totalVotes = useMemo(
+    () => Object.values(aggregated).reduce((sum, a) => sum + a.confirms + a.denies, 0),
+    [aggregated],
+  )
 
   // Real testimonies preview (Faz 7+) — filtered to this facility
   const testimonies: Testimony[] = useMemo(
@@ -234,12 +298,32 @@ function FacilityDetailInner({
       <div className="grid gap-x-12 gap-y-16 lg:grid-cols-3">
         {/* Score + Radar */}
         <section id="overview" aria-labelledby="f1-heading" className="lg:col-span-2">
-          <h2 id="f1-heading" className="text-2xl font-extrabold text-primary-deep">
-            Erişilebilirlik Puanı
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Tesisin erişilebilirlik kriterlerine göre değerlendirilmesi
-          </p>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h2 id="f1-heading" className="text-2xl font-extrabold text-primary-deep">
+                Erişilebilirlik Puanı
+              </h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Tesisin erişilebilirlik kriterlerine göre değerlendirilmesi
+              </p>
+            </div>
+            <div className="w-52 shrink-0">
+              <SegmentedControl
+                value={radarMode}
+                options={[
+                  { value: 'claimed',  label: 'İddia Edilen',       ariaLabel: 'Tesis tarafından iddia edilen erişilebilirlik' },
+                  { value: 'verified', label: 'Topluluk Doğrulaması', ariaLabel: 'Topluluk tarafından doğrulanan erişilebilirlik' },
+                ]}
+                onChange={setRadarMode}
+                groupLabel="Radar görüntüleme modu"
+              />
+              {totalVotes > 0 && (
+                <p className="mt-1.5 text-center text-[10px] text-muted-foreground">
+                  {totalVotes} topluluk değerlendirmesi
+                </p>
+              )}
+            </div>
+          </div>
 
           <div className="mt-5">
             <DisabilityTypeSelect value={disabilityType} onChange={onDisabilityChange} />
@@ -254,10 +338,22 @@ function FacilityDetailInner({
                 </div>
               </div>
             </div>
-            <AccessibilityRadar facility={facility} disabilityType={disabilityType} />
+            <AccessibilityRadar
+              facility={facility}
+              disabilityType={disabilityType}
+              mode={radarMode}
+              verifiedDimensions={verifiedDimensions}
+            />
           </div>
 
-          <AccessibilityLabelList dimensions={dimensions} />
+          <AccessibilityLabelList
+            dimensions={radarMode === 'verified' ? verifiedDimensions : dimensions}
+            facilityId={facility.id}
+            disabilityType={disabilityType}
+            aggregated={aggregated}
+            userVotes={userVotes}
+            onVote={handleVote}
+          />
         </section>
 
         {/* Live status (real Faz 6 component) */}

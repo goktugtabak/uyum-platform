@@ -36,6 +36,19 @@
 
 ## Kayıtlar
 
+### 2026-05-17 — `[UX]` F10 Verification aggregation eşikleri
+
+- **Karar:** Bir dimension için topluluk oylaması şu eşiklerle `AccessibilityDimension` üretiyor: `< 3 oy → 'unknown'` (yetersiz sinyal); `confirmRate ≥ 0.75 → 'verified'`; `≥ 0.40 → 'partial'`; `< 0.40 → 'none'`. Eşikler `src/lib/verification-aggregate.ts` tepesinde `const` — runtime'da değişmez.
+- **Niye:** 3'ten az oy "istatistiksel gürültü" olarak kabul edilir, "bilgi yok" tercih edilir. 0.75 eşiği %25 itiraz toleransı tanır (kullanıcı yorumu + yanlış hafıza). 0.40 alt eşiği "azınlık doğruladı" = kısmi erişim sinyali verir.
+- **Etki:** `src/lib/verification-aggregate.ts`, `src/data/verifications.seed.json`, `src/components/facility/AccessibilityRadar.tsx`, `src/pages/FacilityDetail.tsx`.
+
+### 2026-05-17 — `[SCOPE]` F10 Topluluk Doğrulama Zinciri (post-Faz12 add-on)
+
+- **Karar:** Faz 12 sonrasında F10 "Vay Be" feature'ı eklendi: AccessibilityRadar claimed ↔ verified (topluluk oylama) modları arası Framer Motion SVG morph, her dimension satırına inline confirm/deny oy butonları, `uyum:verifications` localStorage, asimetrik demo seed verisi.
+- **Niye:** Jüri sorusu "erişilebilirlik verisini kim güncel tutuyor?" sorusuna platform düzeyinde cevap verir. 30 saniyede radar morph + oy sayaçlarıyla gösterilebilir.
+- **Etki:** `src/types/index.ts` (+2 tip), `src/lib/verification-store.ts` + `verification-aggregate.ts` (yeni), `src/data/verifications.seed.json` (yeni), `src/components/facility/VerificationVoteRow.tsx` (yeni), `AccessibilityRadar.tsx` (Recharts → SVG), `AccessibilityLabelList.tsx`, `FacilityDetail.tsx`.
+- **Geri al kuralı:** Presentation sadece claimed modda kalsın istenirse `radarMode` state'ini `'claimed'` sabit bırakıp toggle'ı kaldır; store ve aggregate koduna dokunma gerekmez.
+
 ### 2026-05-17 — `[TECH]` Tesis veri kaynağı: Google Places API (build-time)
 
 - **Karar:** Mevcut 10 manuel tesis 20-25 Google Places'tan çekilen gerçek Ankara spor tesisiyle replace edildi. `scripts/fetch-places-cache.mjs` build-time çalışır, çıktısını `public/data/facilities-places-cache.json` ve `public/places-photos/*.jpg` olarak commit'ler. `scripts/merge-places-into-facilities.mjs` bu cache'i `src/data/facilities.json` formatına dönüştürür. Runtime'da Places API çağrısı yok. `GOOGLE_PLACES_API_KEY` sadece local `.env.local` + Vercel build env (`VITE_` prefix YOK — bundle'a sızmaz).
