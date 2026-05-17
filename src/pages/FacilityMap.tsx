@@ -68,7 +68,7 @@ function MapBridge({ onReady }: { onReady: (map: LeafletMap) => void }) {
 
 /* -------------------- Photo thumbnail marker + hover popup -------------------- */
 
-function buildPhotoIcon(imageUrl: string, color: string, isDimmed: boolean, isHighlighted: boolean): L.DivIcon {
+function buildPhotoIcon(imageUrl: string, color: string, glyph: string, isDimmed: boolean, isHighlighted: boolean): L.DivIcon {
   const ring = isHighlighted ? '#4C2A85' : color
   const opacity = isDimmed ? 0.4 : 1
   const shadow = isHighlighted
@@ -87,12 +87,7 @@ function buildPhotoIcon(imageUrl: string, color: string, isDimmed: boolean, isHi
       ">
         <img src="${imageUrl}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" />
       </div>
-      <span style="
-        position:absolute;bottom:-4px;right:-4px;
-        width:18px;height:18px;border-radius:50%;
-        background:${color};border:2px solid #fff;
-        box-shadow:0 1px 3px rgba(0,0,0,0.2);
-      "></span>
+      <span style="position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:${color};color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid #fff;">${glyph}</span>
     </div>`
   return L.divIcon({ html, className: '', iconSize: [52, 56], iconAnchor: [26, 56] })
 }
@@ -108,8 +103,9 @@ function LiveFacilityMarker({
 }) {
   const { overall } = useFacilityScore(facility, disabilityType)
   const color = COLOR_HEX[overall]
+  const glyph = SCORE_GLYPH[overall]
   const distanceKm = estimatedDistance(facility)
-  const divIcon = buildPhotoIcon(imageUrl, color, isDimmed, isHighlighted)
+  const divIcon = buildPhotoIcon(imageUrl, color, glyph, isDimmed, isHighlighted)
   const ariaLabel = `${facility.name} — erişilebilirlik: ${SCORE_LABEL[overall]}`
 
   return (

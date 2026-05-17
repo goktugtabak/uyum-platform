@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { Marker } from 'react-leaflet'
 import L from 'leaflet'
 import { useFacilityScore, type ScoreColor } from '../../hooks/useFacilityScore'
+import { SCORE_GLYPH, SCORE_LABEL } from '../../lib/a11y-labels'
 import { getSportIcon, getSportLabel } from '../../lib/sport-icons'
 import type { Facility, DisabilityType } from '../../types'
 
@@ -19,20 +20,6 @@ const COLOR_HEX: Record<ScoreColor, string> = {
   gray:   '#6b7280',
 }
 
-const COLOR_LABELS: Record<ScoreColor, string> = {
-  green:  'iyi erişilebilir',
-  yellow: 'kısmen erişilebilir',
-  red:    'erişim engeli var',
-  gray:   'bilgi yetersiz',
-}
-
-// Status glyph as a small badge on each pin so color is never the only signal.
-const STATUS_GLYPH: Record<ScoreColor, string> = {
-  green:  '✓',
-  yellow: '~',
-  red:    '✕',
-  gray:   '?',
-}
 
 function buildDivIcon(
   color: string,
@@ -114,11 +101,11 @@ export function FacilityPin({ facility, disabilityType, isHighlighted, isDimmed 
   const navigate = useNavigate()
   const { overall } = useFacilityScore(facility, disabilityType)
   const color    = COLOR_HEX[overall]
-  const glyph    = STATUS_GLYPH[overall]
+  const glyph    = SCORE_GLYPH[overall]
   const sportId  = facility.sports[0] ?? ''
   const icon     = getSportIcon(sportId)
   const sportLabel = getSportLabel(sportId)
-  const ariaLabel  = `${facility.name} — erişilebilirlik: ${COLOR_LABELS[overall]}, ana spor: ${sportLabel}`
+  const ariaLabel  = `${facility.name} — erişilebilirlik: ${SCORE_LABEL[overall]}, ana spor: ${sportLabel}`
 
   const divIcon = buildDivIcon(color, glyph, icon, isHighlighted, isDimmed, ariaLabel)
 
