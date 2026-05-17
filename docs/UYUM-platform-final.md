@@ -102,7 +102,7 @@ Adaptif spor konusunda deneyimli koçlara ulaşmak sistematik olarak mümkün de
 | **Deploy** | Vercel | Git push → canlı URL, 2 dakika |
 
 ### Veri Stratejisi
-Overpass API gerçek tesis koordinatlarını verir. Erişilebilirlik detayları mock JSON'da tutulur. Demo'da açıkça belirtilir: *"Konumlar OpenStreetMap'ten gerçek, erişilebilirlik verileri topluluk tarafından dolduruluyor."* Her mock veriye UI'da görünür `DEMO VERİSİ` rozeti eklenir.
+Google Places API build-time'da çalışır (`scripts/fetch-places-cache.mjs`), tesis ismi, koordinat, adres, telefon, website, fotoğraf ve rating verir; çıktı `public/data/` ve `public/places-photos/` olarak commit'lenir. Erişilebilirlik detayları mock JSON'da tutulur. Demo'da açıkça belirtilir: *"Konumlar Google Places'tan gerçek, erişilebilirlik verileri topluluk tarafından doldurulacak (post-MVP crowdsource)."* Fotoğraf attribution Places ToS gereği UI'da görünür ("Photo: <yazar>"). Her mock veriye UI'da görünür `DEMO VERİSİ` rozeti eklenir.
 
 ### F1 Radar Kararı
 Görsel olarak güçlü duruyorsa radar kalır. Zamanımız kalırsa gerçek Overpass/community verisiyle beslenebilir. Mock veri kullanıldığı sürece `DEMO VERİSİ` etiketi görünür. Radar için gerekli tüm SVG elementleri `aria-label` ile işaretlenir — ekran okuyucu uyumu zorunlu.

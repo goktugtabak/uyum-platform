@@ -1,0 +1,329 @@
+{
+  "places": [
+    {
+      "placeId": "manual-ank-001",
+      "name": "Çankaya Belediyesi Spor Kompleksi",
+      "formattedAddress": "Dikmen Cad. No:5, Dikmen, Çankaya, Ankara",
+      "location": { "latitude": 39.9037, "longitude": 32.8597 },
+      "phone": "+90 312 458 89 00",
+      "website": "https://cankaya.bel.tr",
+      "types": ["sports_complex", "gym", "swimming_pool"],
+      "rating": 4.3,
+      "userRatingsTotal": 218,
+      "wheelchairAccessible": true,
+      "description": "Çankaya Belediyesi'ne ait kapalı yüzme havuzu, fitness salonu ve çok amaçlı spor alanlarını bünyesinde barındıran kapsamlı spor tesisi. Tekerlekli sandalye erişimi ve engelli soyunma kabinleri mevcuttur.",
+      "openingHours": ["Pazartesi: 07:00–22:00", "Salı: 07:00–22:00", "Çarşamba: 07:00–22:00", "Perşembe: 07:00–22:00", "Cuma: 07:00–22:00", "Cumartesi: 08:00–20:00", "Pazar: 09:00–18:00"],
+      "photos": [
+        { "url": "/facility-pool.jpg", "alt": "Çankaya Spor Kompleksi yüzme havuzu", "attribution": "Fotoğraf: Çankaya Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-002",
+      "name": "Yenimahalle Olimpik Yüzme Havuzu",
+      "formattedAddress": "Batıkent Mah. 1219. Sok. No:2, Yenimahalle, Ankara",
+      "location": { "latitude": 39.9663, "longitude": 32.7481 },
+      "phone": "+90 312 397 00 00",
+      "types": ["swimming_pool", "sports_complex"],
+      "rating": 4.5,
+      "userRatingsTotal": 312,
+      "wheelchairAccessible": true,
+      "description": "Olimpik ölçülerde 50 metre uzunluğunda açık ve kapalı havuzları bulunan Yenimahalle Belediyesi tesisi. Para-yüzme antrenmanları için uygun altyapıya sahiptir; asansör ve tekerlekli sandalye rampaları mevcuttur.",
+      "openingHours": ["Pazartesi: 06:30–22:00", "Salı: 06:30–22:00", "Çarşamba: 06:30–22:00", "Perşembe: 06:30–22:00", "Cuma: 06:30–22:00", "Cumartesi: 07:00–21:00", "Pazar: 08:00–20:00"],
+      "photos": [
+        { "url": "/facility-pool.jpg", "alt": "Yenimahalle Olimpik Yüzme Havuzu", "attribution": "Fotoğraf: Yenimahalle Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-003",
+      "name": "Keçiören Belediyesi Spor Merkezi",
+      "formattedAddress": "Subayevleri Mah. Fatih Sultan Mehmet Bulv. No:140, Keçiören, Ankara",
+      "location": { "latitude": 40.0211, "longitude": 32.8642 },
+      "phone": "+90 312 380 07 07",
+      "website": "https://kecioren.bel.tr",
+      "types": ["sports_complex", "gym", "swimming_pool"],
+      "rating": 4.1,
+      "userRatingsTotal": 176,
+      "wheelchairAccessible": true,
+      "description": "Keçiören Belediyesi bünyesindeki spor merkezi; yüzme havuzu, fitness salonu ve kapalı spor alanlarını kapsamaktadır. Engelli bireylere yönelik özel programlar düzenlenmektedir.",
+      "openingHours": ["Pazartesi: 07:00–22:00", "Salı: 07:00–22:00", "Çarşamba: 07:00–22:00", "Perşembe: 07:00–22:00", "Cuma: 07:00–22:00", "Cumartesi: 08:00–20:00", "Pazar: 09:00–18:00"],
+      "photos": [
+        { "url": "/facility-pool.jpg", "alt": "Keçiören Spor Merkezi", "attribution": "Fotoğraf: Keçiören Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-004",
+      "name": "Mamak Belediyesi Spor Salonu",
+      "formattedAddress": "Şahintepe Mah. İnönü Cad. No:12, Mamak, Ankara",
+      "location": { "latitude": 39.9266, "longitude": 32.9344 },
+      "phone": "+90 312 371 00 00",
+      "types": ["sports_complex", "gym"],
+      "rating": 4.0,
+      "userRatingsTotal": 143,
+      "wheelchairAccessible": true,
+      "description": "Mamak Belediyesi spor salonu, tekerlekli sandalye basketbol ve oturarak voleybol takımlarına ev sahipliği yapmaktadır. Geniş saha alanı ve erişilebilir soyunma odaları ile engelli sporcular için donatılmıştır.",
+      "openingHours": ["Pazartesi: 08:00–21:00", "Salı: 08:00–21:00", "Çarşamba: 08:00–21:00", "Perşembe: 08:00–21:00", "Cuma: 08:00–21:00", "Cumartesi: 09:00–18:00", "Pazar: Kapalı"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Mamak Belediyesi Spor Salonu", "attribution": "Fotoğraf: Mamak Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-005",
+      "name": "Etimesgut Engelli Spor ve Yaşam Merkezi",
+      "formattedAddress": "71 Evler Mah. 1671. Sok. No:4, Etimesgut, Ankara",
+      "location": { "latitude": 39.9496, "longitude": 32.6815 },
+      "phone": "+90 312 244 50 00",
+      "website": "https://etimesgut.bel.tr",
+      "types": ["sports_complex", "gym"],
+      "rating": 4.8,
+      "userRatingsTotal": 394,
+      "wheelchairAccessible": true,
+      "description": "Etimesgut Belediyesi'nin engelli bireylere özel olarak tasarladığı spor ve yaşam merkezi. Bocce, tekerlekli sandalye basketbol, yoga ve güç antrenmanı alanları; işaret dili bilen eğitmen kadrosu ve tam erişilebilir tesis altyapısı ile öne çıkmaktadır.",
+      "openingHours": ["Pazartesi: 07:00–22:00", "Salı: 07:00–22:00", "Çarşamba: 07:00–22:00", "Perşembe: 07:00–22:00", "Cuma: 07:00–22:00", "Cumartesi: 08:00–20:00", "Pazar: 09:00–17:00"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Etimesgut Engelli Spor Merkezi", "attribution": "Fotoğraf: Etimesgut Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-006",
+      "name": "Sincan Belediyesi Atletizm Pisti ve Spor Alanı",
+      "formattedAddress": "Atatürk Mah. Spor Cad. No:1, Sincan, Ankara",
+      "location": { "latitude": 39.9697, "longitude": 32.5842 },
+      "phone": "+90 312 269 10 00",
+      "types": ["stadium", "athletics"],
+      "rating": 3.8,
+      "userRatingsTotal": 89,
+      "wheelchairAccessible": false,
+      "description": "Sincan ilçesinde sentetik yüzeyli atletizm pisti ve çim futbol sahasını barındıran açık hava spor tesisi. Para-atletizm antrenmanları için pist uygun olmakla birlikte soyunma odaları erişilebilirlik açısından sınırlıdır.",
+      "openingHours": ["Pazartesi: 08:00–20:00", "Salı: 08:00–20:00", "Çarşamba: 08:00–20:00", "Perşembe: 08:00–20:00", "Cuma: 08:00–20:00", "Cumartesi: 09:00–18:00", "Pazar: 09:00–17:00"],
+      "photos": [
+        { "url": "/facility-eryaman.jpg", "alt": "Sincan Atletizm Pisti", "attribution": "Fotoğraf: Sincan Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-007",
+      "name": "Ankara Büyükşehir Oran Spor Tesisi",
+      "formattedAddress": "Oran Sitesi Spor Alanı, Çankaya, Ankara",
+      "location": { "latitude": 39.8742, "longitude": 32.8143 },
+      "phone": "+90 312 491 00 00",
+      "types": ["sports_complex", "tennis", "basketball"],
+      "rating": 4.2,
+      "userRatingsTotal": 201,
+      "wheelchairAccessible": true,
+      "description": "Ankara Büyükşehir Belediyesi'ne bağlı Oran bölgesindeki spor tesisi; tekerlekli sandalye tenisi ve basketbol sahaları ile donatılmıştır. Kapalı spor salonu ve dış mekan kortlar hem bireysel hem kulüp antrenmanlarına uygundur.",
+      "openingHours": ["Pazartesi: 07:00–22:00", "Salı: 07:00–22:00", "Çarşamba: 07:00–22:00", "Perşembe: 07:00–22:00", "Cuma: 07:00–22:00", "Cumartesi: 08:00–21:00", "Pazar: 09:00–18:00"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Oran Spor Tesisi", "attribution": "Fotoğraf: Ankara Büyükşehir Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-008",
+      "name": "Yenimahalle Gençlik ve Spor Salonu",
+      "formattedAddress": "Karşıyaka Mah. 1516. Cad. No:8, Yenimahalle, Ankara",
+      "location": { "latitude": 40.0012, "longitude": 32.7821 },
+      "phone": "+90 312 397 30 00",
+      "types": ["sports_complex", "gym"],
+      "rating": 4.0,
+      "userRatingsTotal": 155,
+      "wheelchairAccessible": false,
+      "description": "Yenimahalle Gençlik ve Spor Salonu, judo ve güreş salonları ile para-judo antrenmanlarına ev sahipliği yapmaktadır. Goalball takımı haftalık bu sahada antrenman yapmaktadır.",
+      "openingHours": ["Pazartesi: 09:00–21:00", "Salı: 09:00–21:00", "Çarşamba: 09:00–21:00", "Perşembe: 09:00–21:00", "Cuma: 09:00–21:00", "Cumartesi: 10:00–18:00", "Pazar: Kapalı"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Yenimahalle Gençlik Spor Salonu", "attribution": "Fotoğraf: Yenimahalle Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-009",
+      "name": "Çankaya Kültür Merkezi Yoga Stüdyosu",
+      "formattedAddress": "Tunalı Hilmi Cad. No:88/3, Kavaklıdere, Çankaya, Ankara",
+      "location": { "latitude": 39.9108, "longitude": 32.8624 },
+      "phone": "+90 312 467 33 00",
+      "types": ["yoga", "gym"],
+      "rating": 4.6,
+      "userRatingsTotal": 267,
+      "wheelchairAccessible": true,
+      "description": "Kavaklıdere'deki butik yoga ve pilates stüdyosu; engelli bireyler için uyarlanmış koltuk yogası, zemin pilates ve nefes çalışması programları sunmaktadır. Asansörlü giriş ve engelli WC mevcuttur.",
+      "openingHours": ["Pazartesi: 07:00–21:00", "Salı: 07:00–21:00", "Çarşamba: 07:00–21:00", "Perşembe: 07:00–21:00", "Cuma: 07:00–20:00", "Cumartesi: 08:00–18:00", "Pazar: 09:00–14:00"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Çankaya Yoga Stüdyosu", "attribution": "Fotoğraf: Çankaya Kültür Merkezi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-010",
+      "name": "Gölbaşı Belediyesi Para Okçuluk Tesisi",
+      "formattedAddress": "Gölbaşı Spor Vadisi, Tulumtaş Mah., Gölbaşı, Ankara",
+      "location": { "latitude": 39.7953, "longitude": 32.8067 },
+      "phone": "+90 312 484 00 00",
+      "website": "https://golbasi.bel.tr",
+      "types": ["sports_complex", "archery"],
+      "rating": 4.7,
+      "userRatingsTotal": 183,
+      "wheelchairAccessible": true,
+      "description": "Gölbaşı Spor Vadisi içinde yer alan para okçuluk ve bocce tesisi. 18 ve 25 metre mesafe çizgili açık alan atış pistleri tekerlekli sandalye kullanıcılarına göre ayarlanmıştır. Antrenör eşliğinde haftalık program uygulanmaktadır.",
+      "openingHours": ["Pazartesi: 09:00–19:00", "Salı: 09:00–19:00", "Çarşamba: 09:00–19:00", "Perşembe: 09:00–19:00", "Cuma: 09:00–19:00", "Cumartesi: 09:00–18:00", "Pazar: 10:00–16:00"],
+      "photos": [
+        { "url": "/facility-eryaman.jpg", "alt": "Gölbaşı Para Okçuluk Tesisi", "attribution": "Fotoğraf: Gölbaşı Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-011",
+      "name": "Altındağ Belediyesi Spor Kompleksi",
+      "formattedAddress": "Hacettepe Mah. Ankara Cad. No:63, Altındağ, Ankara",
+      "location": { "latitude": 39.9452, "longitude": 32.8812 },
+      "phone": "+90 312 310 60 00",
+      "types": ["sports_complex", "gym"],
+      "rating": 3.9,
+      "userRatingsTotal": 121,
+      "wheelchairAccessible": false,
+      "description": "Altındağ ilçesinde belediye tarafından işletilen kapalı spor kompleksi. Fitness salonu, halı saha ve çok amaçlı salon barındırmaktadır. Kısmi erişilebilirlik iyileştirmeleri devam etmektedir.",
+      "openingHours": ["Pazartesi: 08:00–21:00", "Salı: 08:00–21:00", "Çarşamba: 08:00–21:00", "Perşembe: 08:00–21:00", "Cuma: 08:00–21:00", "Cumartesi: 09:00–18:00", "Pazar: Kapalı"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Altındağ Spor Kompleksi", "attribution": "Fotoğraf: Altındağ Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-012",
+      "name": "Pursaklar Belediyesi Yüzme Havuzu",
+      "formattedAddress": "Fatih Mah. 2113. Sok. No:5, Pursaklar, Ankara",
+      "location": { "latitude": 40.0332, "longitude": 32.9021 },
+      "phone": "+90 312 328 00 00",
+      "types": ["swimming_pool"],
+      "rating": 4.2,
+      "userRatingsTotal": 198,
+      "wheelchairAccessible": true,
+      "description": "Pursaklar Belediyesi kapalı yüzme havuzu; 25 metre uzunluğunda yarı olimpik havuz ile çocuk havuzunu kapsamaktadır. Engelli giriş rampası ve yardımcı asansör lift sistemi ile donatılmıştır.",
+      "openingHours": ["Pazartesi: 07:00–22:00", "Salı: 07:00–22:00", "Çarşamba: 07:00–22:00", "Perşembe: 07:00–22:00", "Cuma: 07:00–22:00", "Cumartesi: 08:00–20:00", "Pazar: 09:00–17:00"],
+      "photos": [
+        { "url": "/facility-pool.jpg", "alt": "Pursaklar Yüzme Havuzu", "attribution": "Fotoğraf: Pursaklar Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-013",
+      "name": "Eryaman Spor Kompleksi",
+      "formattedAddress": "Eryaman 5. Etap Mah. Spor Sitesi, Etimesgut, Ankara",
+      "location": { "latitude": 39.9801, "longitude": 32.6423 },
+      "phone": "+90 312 279 00 00",
+      "types": ["sports_complex", "gym", "swimming_pool"],
+      "rating": 4.4,
+      "userRatingsTotal": 445,
+      "wheelchairAccessible": true,
+      "description": "Eryaman bölgesinin en büyük spor kompleksi; olimpik havuz, kapalı spor salonu ve fitness merkezi ile hizmet vermektedir. Tekerlekli sandalye kullanıcıları için giriş asansörü ve özel soyunma kabinleri bulunmaktadır.",
+      "openingHours": ["Pazartesi: 06:30–23:00", "Salı: 06:30–23:00", "Çarşamba: 06:30–23:00", "Perşembe: 06:30–23:00", "Cuma: 06:30–23:00", "Cumartesi: 07:00–22:00", "Pazar: 08:00–21:00"],
+      "photos": [
+        { "url": "/facility-eryaman.jpg", "alt": "Eryaman Spor Kompleksi", "attribution": "Fotoğraf: Etimesgut Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-014",
+      "name": "ASKİ Spor AŞ Kartaltepe Tesisi",
+      "formattedAddress": "Kartaltepe Mah. Gazi Üniversitesi Karşısı, Yenimahalle, Ankara",
+      "location": { "latitude": 39.9551, "longitude": 32.7319 },
+      "phone": "+90 312 222 50 00",
+      "website": "https://askispor.com.tr",
+      "types": ["sports_complex", "gym", "swimming_pool"],
+      "rating": 4.3,
+      "userRatingsTotal": 532,
+      "wheelchairAccessible": true,
+      "description": "Ankara Büyükşehir Belediyesi'ne bağlı Kartaltepe spor tesisi; olimpik havuz, fitness merkezi, kapalı halı saha ve çok amaçlı spor alanlarından oluşmaktadır. Engelli bireylere yönelik aylık üyelik kampanyaları düzenlenmektedir.",
+      "openingHours": ["Pazartesi: 06:00–23:00", "Salı: 06:00–23:00", "Çarşamba: 06:00–23:00", "Perşembe: 06:00–23:00", "Cuma: 06:00–23:00", "Cumartesi: 07:00–22:00", "Pazar: 08:00–21:00"],
+      "photos": [
+        { "url": "/facility-pool.jpg", "alt": "ASKİ Spor Kartaltepe Tesisi", "attribution": "Fotoğraf: Ankara Büyükşehir Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-015",
+      "name": "Gazi Üniversitesi Engelli Spor Merkezi",
+      "formattedAddress": "Gazi Üniversitesi Kampüsü, Beşevler, Yenimahalle, Ankara",
+      "location": { "latitude": 39.9489, "longitude": 32.7271 },
+      "phone": "+90 312 202 30 00",
+      "website": "https://gazi.edu.tr",
+      "types": ["sports_complex", "gym"],
+      "rating": 4.5,
+      "userRatingsTotal": 287,
+      "wheelchairAccessible": true,
+      "description": "Gazi Üniversitesi kampüsü içindeki engelli spor merkezi; güç antrenmanı, para atletizm ve bilinçli hareket programları sunmaktadır. Kampüs dışı bireyler randevu ile yararlanabilir.",
+      "openingHours": ["Pazartesi: 08:00–20:00", "Salı: 08:00–20:00", "Çarşamba: 08:00–20:00", "Perşembe: 08:00–20:00", "Cuma: 08:00–18:00", "Cumartesi: 09:00–16:00", "Pazar: Kapalı"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Gazi Üniversitesi Engelli Spor Merkezi", "attribution": "Fotoğraf: Gazi Üniversitesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-016",
+      "name": "Çubuk Belediyesi Çok Amaçlı Spor Tesisi",
+      "formattedAddress": "Cumhuriyet Mah. Spor Cad. No:3, Çubuk, Ankara",
+      "location": { "latitude": 40.2337, "longitude": 33.0348 },
+      "phone": "+90 312 832 00 00",
+      "types": ["sports_complex", "gym"],
+      "rating": 3.7,
+      "userRatingsTotal": 74,
+      "wheelchairAccessible": false,
+      "description": "Çubuk ilçesi merkezinde belediye tarafından işletilen çok amaçlı spor tesisi. Kapalı spor salonu, fitness alanı ve açık hava spor parkından oluşmaktadır. İlçe genelindeki engelli spor aktivitelerine koordinasyon merkezi olarak işlev görmektedir.",
+      "openingHours": ["Pazartesi: 09:00–20:00", "Salı: 09:00–20:00", "Çarşamba: 09:00–20:00", "Perşembe: 09:00–20:00", "Cuma: 09:00–20:00", "Cumartesi: 10:00–17:00", "Pazar: Kapalı"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Çubuk Spor Tesisi", "attribution": "Fotoğraf: Çubuk Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-017",
+      "name": "Ankara Büyükşehir Belediyesi Sıhhiye Gençlik Merkezi Havuzu",
+      "formattedAddress": "Sıhhiye Mah. Necatibey Cad. No:59, Çankaya, Ankara",
+      "location": { "latitude": 39.9334, "longitude": 32.8506 },
+      "phone": "+90 312 507 30 00",
+      "types": ["swimming_pool", "sports_complex"],
+      "rating": 4.1,
+      "userRatingsTotal": 309,
+      "wheelchairAccessible": true,
+      "description": "Sıhhiye'deki Ankara Büyükşehir Belediyesi Gençlik Merkezi bünyesinde hizmet veren kapalı yüzme havuzu. Engelli bireylere yönelik özel yüzme eğitimi saatleri ve asansör lift sistemi mevcuttur.",
+      "openingHours": ["Pazartesi: 07:00–22:00", "Salı: 07:00–22:00", "Çarşamba: 07:00–22:00", "Perşembe: 07:00–22:00", "Cuma: 07:00–22:00", "Cumartesi: 08:00–20:00", "Pazar: 09:00–18:00"],
+      "photos": [
+        { "url": "/facility-pool.jpg", "alt": "Sıhhiye Gençlik Merkezi Havuzu", "attribution": "Fotoğraf: Ankara Büyükşehir Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-018",
+      "name": "Polatlı Belediyesi Spor Merkezi",
+      "formattedAddress": "Atatürk Mah. İstasyon Cad. No:22, Polatlı, Ankara",
+      "location": { "latitude": 39.5834, "longitude": 32.1453 },
+      "phone": "+90 312 623 00 00",
+      "types": ["sports_complex", "gym"],
+      "rating": 3.9,
+      "userRatingsTotal": 58,
+      "wheelchairAccessible": false,
+      "description": "Polatlı ilçe merkezinde bulunan belediye spor merkezi; fitness salonu ve çok amaçlı spor alanlarını kapsamaktadır. İlçedeki engelli sporcuların temel antrenman ihtiyaçlarını karşılamaya yönelik programlar uygulanmaktadır.",
+      "openingHours": ["Pazartesi: 08:00–20:00", "Salı: 08:00–20:00", "Çarşamba: 08:00–20:00", "Perşembe: 08:00–20:00", "Cuma: 08:00–20:00", "Cumartesi: 09:00–17:00", "Pazar: Kapalı"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Polatlı Spor Merkezi", "attribution": "Fotoğraf: Polatlı Belediyesi" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-019",
+      "name": "Ankara Gençlik ve Spor Kulübü Siteler Tesisi",
+      "formattedAddress": "Siteler Mah. İvedik Cad. No:20, Altındağ, Ankara",
+      "location": { "latitude": 39.9701, "longitude": 32.8934 },
+      "phone": "+90 312 385 10 00",
+      "types": ["sports_complex", "gym", "basketball"],
+      "rating": 4.2,
+      "userRatingsTotal": 236,
+      "wheelchairAccessible": true,
+      "description": "Siteler bölgesindeki kapalı spor tesisi; tekerlekli sandalye basketbol liginin düzenli kullandığı büyük spor salonu ve fitness alanlarından oluşmaktadır. Giriş katta engelli ulaşım koridorları ve asansör mevcuttur.",
+      "openingHours": ["Pazartesi: 08:00–22:00", "Salı: 08:00–22:00", "Çarşamba: 08:00–22:00", "Perşembe: 08:00–22:00", "Cuma: 08:00–22:00", "Cumartesi: 09:00–20:00", "Pazar: 10:00–18:00"],
+      "photos": [
+        { "url": "/facility-gym.jpg", "alt": "Ankara Gençlik ve Spor Kulübü Siteler Tesisi", "attribution": "Fotoğraf: Ankara GSGM" }
+      ]
+    },
+    {
+      "placeId": "manual-ank-020",
+      "name": "Çankaya Mimar Sinan Parkı Açık Spor Alanı",
+      "formattedAddress": "Mimar Sinan Mah. Hüseyin Rahmi Gürpınar Sok., Çankaya, Ankara",
+      "location": { "latitude": 39.8963, "longitude": 32.8217 },
+      "types": ["park", "outdoor", "sports_complex"],
+      "rating": 4.0,
+      "userRatingsTotal": 312,
+      "wheelchairAccessible": true,
+      "description": "Çankaya'nın güney kesiminde yer alan Mimar Sinan Parkı'ndaki açık hava spor alanı; tekerlekli sandalye ile ulaşılabilir yürüyüş parkuru, açık hava fitness istasyonları ve bocce sahası içermektedir. Zemin düz ve sert yüzeyli olup tekerlekli sandalye kullanımına uygundur.",
+      "openingHours": ["Her gün: 07:00–22:00"],
+      "photos": [
+        { "url": "/facility-eryaman.jpg", "alt": "Mimar Sinan Parkı Açık Spor Alanı", "attribution": "Fotoğraf: Çankaya Belediyesi" }
+      ]
+    }
+  ]
+}

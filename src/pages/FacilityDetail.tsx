@@ -19,6 +19,7 @@ import { AccessibilityLabelList } from '../components/facility/AccessibilityLabe
 import { LiveStatus } from '../components/facility/LiveStatus'
 import { Testimonies } from '../components/feature/Testimonies'
 import { F3Guide } from '../components/feature/F3Guide'
+import { FacilityPhotoAttribution } from '../components/feature/FacilityPhotoAttribution'
 import { Spinner } from '../components/ui/Spinner'
 import eventsData from '../data/events.json'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
@@ -36,7 +37,8 @@ const MONTHS_TR_LONG = [
   'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık',
 ]
 
-function getFacilityImage(facilityId: string, fallbackIndex = 0): string {
+function getFacilityFallbackImage(facilityId: string, type: string, fallbackIndex = 0): string {
+  if (type === 'havuz') return facilityPool
   if (facilityId.includes('eryaman')) return facilityEryaman
   if (facilityId.includes('havuz') || facilityId.includes('yuzme') || facilityId.includes('olimpik')) return facilityPool
   if (facilityId.includes('basket')) return sportBasket
@@ -76,7 +78,8 @@ function FacilityDetailInner({
   const { dimensions, overall } = useFacilityScore(facility, disabilityType)
   const score = SCORE_PERCENT_BY_COLOR[overall]
   const distanceKm = estimatedDistance(facility)
-  const hero = getFacilityImage(facility.id)
+  const heroPhoto = facility.photos?.[0]
+  const hero = heroPhoto?.url ?? getFacilityFallbackImage(facility.id, facility.type)
 
   // Real testimonies preview (Faz 7+) — filtered to this facility
   const testimonies: Testimony[] = useMemo(
@@ -84,10 +87,9 @@ function FacilityDetailInner({
     [facility.id],
   )
   const reviewCount = testimonies.length
-  // Deterministic 4.5–4.9 rating from id when there are reviews
-  const ratingAvg = reviewCount === 0
-    ? 0
-    : 4.5 + (Math.abs([...facility.id].reduce((a, c) => (a * 31 + c.charCodeAt(0)) | 0, 0)) % 5) / 10
+  // Use Places rating if available; never fabricate a rating
+  const placesRating = facility.rating
+  const placesRatingCount = facility.userRatingsTotal
 
   // Upcoming events at this facility
   const [now] = useState<number>(() => Date.now())
@@ -148,8 +150,8 @@ function FacilityDetailInner({
           </div>
 
           <p className="mt-5 max-w-md text-[15px] leading-relaxed text-foreground/80">
-            {facility.name}, {facility.district} bölgesinde adaptif spor erişimini önceliklendiren bir tesistir.
-            Modern altyapısı ve dahil edici tasarım anlayışıyla hizmet vermektedir.
+            {facility.description
+              ?? `${facility.name}, ${facility.district} bölgesinde adaptif spor erişimini önceliklendiren bir tesistir. Modern altyapısı ve dahil edici tasarım anlayışıyla hizmet vermektedir.`}
           </p>
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -203,6 +205,12 @@ function FacilityDetailInner({
               maskComposite: 'intersect',
             }}
           />
+          {heroPhoto?.attribution && (
+            <FacilityPhotoAttribution
+              text={heroPhoto.attribution}
+              className="absolute bottom-1 right-3"
+            />
+          )}
         </div>
       </section>
 
@@ -275,15 +283,15 @@ function FacilityDetailInner({
             Tesis Hakkında
           </h2>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-foreground/80">
-            {facility.name}, engelli bireylerin tüm spor branşlarına erişimini kolaylaştırmak amacıyla
-            tasarlanmıştır. Modern altyapısı, erişilebilir alanları ve uzman kadrosuyla hizmet vermektedir.
+            {facility.description
+              ?? `${facility.name}, engelli bireylerin tüm spor branşlarına erişimini kolaylaştırmak amacıyla tasarlanmıştır. Modern altyapısı, erişilebilir alanları ve uzman kadrosuyla hizmet vermektedir.`}
           </p>
 
           <div className="mt-6 grid grid-cols-2 gap-x-8 gap-y-5 sm:grid-cols-4">
             <Stat l="Mahalle"   v={facility.district.split(',')[0]} />
             <Stat l="Spor Dalı" v={String(facility.sports.length)} />
             <Stat l="Koç"       v={String(facility.coaches.length)} />
-            <Stat l="Kaynak"    v={facility.source === 'overpass' ? 'OSM' : 'Manuel'} />
+            <Stat l="Kaynak" v={facility.source === 'places' ? 'Google Places' : facility.source === 'overpass' ? 'OSM' : 'Manuel'} />
           </div>
 
           <h3 className="mt-9 font-display text-lg font-extrabold text-primary-deep">Olanaklar</h3>
@@ -342,17 +350,19 @@ function FacilityDetailInner({
           </div>
           {reviewCount > 0 ? (
             <>
-              <div className="mt-4 flex items-center gap-2.5">
-                <span className="font-display text-4xl font-extrabold text-primary-deep">
-                  {ratingAvg.toFixed(1)}
-                </span>
-                <div className="flex" aria-hidden>
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="size-4 fill-[oklch(0.78_0.16_85)] text-[oklch(0.78_0.16_85)]" />
-                  ))}
+              {placesRating !== undefined && placesRatingCount !== undefined && (
+                <div className="mt-4 flex items-center gap-2.5">
+                  <span className="font-display text-4xl font-extrabold text-primary-deep">
+                    {placesRating.toFixed(1)}
+                  </span>
+                  <div className="flex" aria-hidden>
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="size-4 fill-[oklch(0.78_0.16_85)] text-[oklch(0.78_0.16_85)]" />
+                    ))}
+                  </div>
+                  <span className="text-xs text-muted-foreground">{placesRatingCount} Google değerlendirmesi</span>
                 </div>
-                <span className="text-xs text-muted-foreground">{reviewCount} değerlendirme</span>
-              </div>
+              )}
               {testimonies[0] && (
                 <blockquote className="mt-6 border-l-2 border-accent/50 pl-4">
                   <p className="text-[14px] italic leading-relaxed text-foreground/85 line-clamp-4">

@@ -1,7 +1,7 @@
 [
   {
     "id": "t-001",
-    "facilityId": "f-ank-005",
+    "facilityId": "f-ank-places-05",
     "timestamp": "2026-04-12T14:30:00",
     "disabilityType": "wheelchair",
     "anonymous": false,
@@ -10,7 +10,7 @@
   },
   {
     "id": "t-002",
-    "facilityId": "f-ank-001",
+    "facilityId": "f-ank-places-01",
     "timestamp": "2026-03-05T11:00:00",
     "disabilityType": "visual",
     "anonymous": true,
@@ -19,7 +19,7 @@
   },
   {
     "id": "t-003",
-    "facilityId": "f-ank-010",
+    "facilityId": "f-ank-places-10",
     "timestamp": "2026-04-22T16:45:00",
     "disabilityType": "upper_limb",
     "anonymous": false,
@@ -28,7 +28,7 @@
   },
   {
     "id": "t-004",
-    "facilityId": "f-ank-004",
+    "facilityId": "f-ank-places-04",
     "timestamp": "2026-02-28T18:00:00",
     "disabilityType": "wheelchair",
     "anonymous": false,
@@ -38,7 +38,7 @@
   },
   {
     "id": "t-005",
-    "facilityId": "f-ank-008",
+    "facilityId": "f-ank-places-08",
     "timestamp": "2026-03-18T13:15:00",
     "disabilityType": "hearing",
     "anonymous": true,
@@ -47,7 +47,7 @@
   },
   {
     "id": "t-006",
-    "facilityId": "f-ank-009",
+    "facilityId": "f-ank-places-09",
     "timestamp": "2026-04-07T10:30:00",
     "disabilityType": "wheelchair",
     "anonymous": false,
