@@ -196,6 +196,7 @@ export function FacilityMap() {
   const [disabilityType, setDisabilityType] = useState<DisabilityType>(profileDisabilityLens)
   const [openDD, setOpenDD] = useState<string | null>(null)
   const [listMode, setListMode] = useState(false)
+  const [sortMode, setSortMode] = useState<'recommended' | 'nearest'>('recommended')
   const mapRef = useRef<LeafletMap | null>(null)
 
   useEffect(() => { loadFacilities().then(setFacilities).finally(() => setLoading(false)) }, [])
@@ -204,6 +205,15 @@ export function FacilityMap() {
     if (!profile || facilities.length === 0) return []
     return pickTopFacilities(facilities, profile, facilities.length)
   }, [profile, facilities])
+
+  const displayedRanked = useMemo(() => {
+    if (sortMode !== 'nearest') return ranked
+    return [...ranked].sort((a, b) => {
+      const distanceDiff = estimatedDistance(a.facility) - estimatedDistance(b.facility)
+      if (distanceDiff !== 0) return distanceDiff
+      return a.facility.name.localeCompare(b.facility.name, 'tr')
+    })
+  }, [ranked, sortMode])
 
   const handleMapReady = useCallback((m: LeafletMap) => { mapRef.current = m }, [])
   const handleZoomIn  = () => mapRef.current?.zoomIn()
@@ -332,10 +342,10 @@ export function FacilityMap() {
         /* ---- LIST MODE: full-width grid ---- */
         <div>
           <p className="mb-5 text-sm text-muted-foreground">
-            {ranked.length} tesis listeleniyor
+            {displayedRanked.length} tesis listeleniyor
           </p>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {ranked.map(({ facility, overall }, idx) => {
+            {displayedRanked.map(({ facility, overall }, idx) => {
               const distanceKm = estimatedDistance(facility)
               const imageUrl   = getFacilityImage(facility, idx)
               const isMatched  = sportFilter ? facility.sports.includes(sportFilter) : true
@@ -385,7 +395,7 @@ export function FacilityMap() {
                 </li>
               )
             })}
-            {ranked.length === 0 && (
+            {displayedRanked.length === 0 && (
               <li className="col-span-full text-sm text-muted-foreground">
                 Profiline uygun tesis bulunamadı.
               </li>
@@ -497,7 +507,7 @@ export function FacilityMap() {
             <div className="mb-5 flex items-end justify-between">
               <div>
                 <h2 className="text-lg font-extrabold text-primary-deep">
-                  Size en uygun tesisler
+                  {sortMode === 'nearest' ? 'Size en yakın tesisler' : 'Size en uygun tesisler'}
                 </h2>
                 <p className="mt-1 text-xs text-muted-foreground">
                   {facilities.length} tesis bulundu
@@ -505,15 +515,18 @@ export function FacilityMap() {
               </div>
               <button
                 type="button"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary"
+                onClick={() => setSortMode(mode => mode === 'nearest' ? 'recommended' : 'nearest')}
+                aria-pressed={sortMode === 'nearest'}
+                className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs font-semibold text-primary transition hover:bg-primary/5 aria-pressed:bg-primary/10 aria-pressed:text-primary-deep"
               >
-                <Layers className="size-3.5" aria-hidden /> En Yakın{' '}
+                <Layers className="size-3.5" aria-hidden />
+                {sortMode === 'nearest' ? 'En Uygun' : 'En Yakın'}
                 <ChevronDown className="size-3" aria-hidden />
               </button>
             </div>
 
             <ul className="space-y-5 lg:max-h-[calc(100dvh-16rem)] lg:overflow-y-auto lg:pr-1">
-              {ranked.map(({ facility, overall }, idx) => {
+              {displayedRanked.map(({ facility, overall }, idx) => {
                 const distanceKm = estimatedDistance(facility)
                 const isMatched  = sportFilter ? facility.sports.includes(sportFilter) : true
                 return (
@@ -559,7 +572,7 @@ export function FacilityMap() {
                   </li>
                 )
               })}
-              {ranked.length === 0 && (
+              {displayedRanked.length === 0 && (
                 <li className="text-sm text-muted-foreground">
                   Profiline uygun tesis bulunamadı.
                 </li>
