@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+﻿import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   ArrowLeft, ArrowRight, MapPin, GraduationCap, Plus,
   Accessibility, ParkingCircle, DoorOpen, MoveVertical, Star, CalendarDays,
@@ -18,6 +19,7 @@ import { AccessibilityLabelList } from '../components/facility/AccessibilityLabe
 import { LiveStatus } from '../components/facility/LiveStatus'
 import { Testimonies } from '../components/feature/Testimonies'
 import { F3Guide } from '../components/feature/F3Guide'
+import { FacilityTrustPanel } from '../components/feature/FacilityTrust'
 import { FacilityPhotoAttribution } from '../components/feature/FacilityPhotoAttribution'
 import { Spinner } from '../components/ui/Spinner'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
@@ -109,6 +111,7 @@ function FacilityDetailInner({
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
+      <BackButton className="mb-6" />
       <Link
         to="/map"
         className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary"
@@ -267,6 +270,9 @@ function FacilityDetailInner({
             </span>
           </div>
           <LiveStatus facility={facility} />
+          <div className="mt-5">
+            <FacilityTrustPanel facility={facility} />
+          </div>
         </section>
 
         {/* About */}

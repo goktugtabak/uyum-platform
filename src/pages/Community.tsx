@@ -1,7 +1,8 @@
-import { useMemo, useState } from 'react'
+﻿import { useMemo, useState } from 'react'
 import { Heart, Plus, MessageCircle, Sparkles } from 'lucide-react'
 import type { Facility, Testimony, DisabilityType } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
+import { BackButton } from '../components/ui/BackButton'
 import {
   loadTestimonies,
   saveTestimony,
@@ -71,6 +72,7 @@ export function Community() {
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
+      <BackButton className="mb-6" />
       <header className="mb-10">
         <p className="text-sm font-semibold text-primary">
           <Sparkles className="mr-1 inline size-3.5" aria-hidden /> Topluluk

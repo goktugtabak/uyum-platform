@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   PersonStanding, Target, Footprints, Pencil, MapPin, CalendarDays,
   Dumbbell, Trash2, Mail, BadgeCheck, ShieldCheck, Activity,
@@ -80,6 +81,18 @@ export function Profile() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-6">
             <div className="grid size-20 shrink-0 place-items-center rounded-full bg-primary text-3xl font-extrabold text-white shadow-sm">
+    <div className="mx-auto max-w-5xl space-y-10 pt-2">
+      <BackButton className="mb-6" />
+      {/* Hero */}
+      <section className="relative overflow-hidden rounded-3xl ring-1 ring-border/40" style={{ height: 240 }}>
+        <img src={dashHero} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary-deep/85 via-primary-deep/45 to-primary-deep/10" />
+        <div className="relative flex h-full items-end justify-between gap-4 p-6">
+          <div className="flex items-end gap-4">
+            <span
+              aria-hidden
+              className="grid size-16 place-items-center rounded-full bg-primary text-2xl font-extrabold text-primary-foreground ring-4 ring-white/30 shadow-glow"
+            >
               {initial}
             </div>
             <div className="min-w-0">

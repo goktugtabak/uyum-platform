@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   PersonStanding, Target, CheckCircle2, MapPin, RefreshCw, Heart,
   Footprints,
@@ -13,6 +14,7 @@ import { pickTopFacilities } from '../lib/facility-rank'
 import { SpeakButton } from '../components/ui/SpeakButton'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
 import { MatchBadge, type MatchLevel } from '../components/ui/MatchBadge'
+import { FacilityTrustLine } from '../components/feature/FacilityTrust'
 import sportsData from '../data/sports.json'
 import type { Sport, Facility } from '../types'
 import type { MatchResult } from '../lib/sport-match'
@@ -123,6 +125,7 @@ export function MatchSport() {
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
+      <BackButton className="mb-6" />
       {/* Header */}
       <header className="mb-12 flex flex-wrap items-start justify-between gap-8">
         <div>
@@ -213,16 +216,19 @@ export function MatchSport() {
                       <div className="text-[13px] font-bold text-primary-deep">Erişilebilir Tesisler (Ankara)</div>
                       <ul className="mt-3 space-y-2.5">
                         {related.map(({ facility, overall }) => (
-                          <li key={facility.id} className="flex items-center gap-2 text-[13px]">
-                            <MapPin className="size-3.5 text-muted-foreground" aria-hidden />
-                            <Link
-                              to={`/facility/${facility.id}`}
-                              className="flex-1 truncate hover:text-primary"
-                            >
-                              {facility.name}
-                            </Link>
-                            <span className="text-muted-foreground">{facility.district.split(',')[0]}</span>
-                            <ScoreBadge color={overall} size="sm" />
+                          <li key={facility.id} className="text-[13px]">
+                            <div className="flex items-center gap-2">
+                              <MapPin className="size-3.5 text-muted-foreground" aria-hidden />
+                              <Link
+                                to={`/facility/${facility.id}`}
+                                className="flex-1 truncate hover:text-primary"
+                              >
+                                {facility.name}
+                              </Link>
+                              <span className="text-muted-foreground">{facility.district.split(',')[0]}</span>
+                              <ScoreBadge color={overall} size="sm" />
+                            </div>
+                            <FacilityTrustLine facility={facility} className="ml-5 mt-1" />
                           </li>
                         ))}
                       </ul>
