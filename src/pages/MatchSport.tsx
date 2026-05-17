@@ -138,18 +138,10 @@ export function MatchSport() {
         </div>
 
         {/* Profile chip row — clean, no card */}
-        <div className="flex flex-wrap items-center gap-7 rounded-3xl bg-card/70 px-6 py-4 ring-1 ring-border/40 backdrop-blur">
+        <div className="flex flex-wrap items-center gap-5 rounded-2xl bg-card/70 px-5 py-3 ring-1 ring-border/40 backdrop-blur">
           <ProfileChip i={Accessibility} l="Engel Tipi" v={profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')} />
           <ProfileChip i={Footprints}     l="Hareket"    v={MOBILITY_LABELS[profile.mobilityLevel]} />
           <ProfileChip i={Target}         l="Hedefin"    v={profile.goals.map(g => GOAL_LABELS[g]).join(', ')} />
-          <Link
-            to="/onboarding"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-success hover:text-primary"
-          >
-            <Pencil className="size-3.5" aria-hidden />
-            <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Cevaplarını</span>
-            <span>Düzenle</span>
-          </Link>
         </div>
       </header>
 
@@ -298,13 +290,13 @@ export function MatchSport() {
 
 function ProfileChip({ i: I, l, v }: { i: LucideIcon; l: string; v: string }) {
   return (
-    <div className="flex items-center gap-3">
-      <span aria-hidden className="grid size-10 place-items-center rounded-full bg-accent/10 text-accent">
-        <I className="size-4" />
+    <div className="flex items-center gap-2.5">
+      <span aria-hidden className="grid size-8 place-items-center rounded-full bg-accent/10 text-accent">
+        <I className="size-3.5" />
       </span>
       <div>
-        <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{l}</div>
-        <div className="text-[13px] font-bold text-foreground">{v}</div>
+        <div className="text-[9px] uppercase tracking-wider text-muted-foreground">{l}</div>
+        <div className="text-[11.5px] font-bold text-foreground">{v}</div>
       </div>
     </div>
   )
