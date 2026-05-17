@@ -282,7 +282,8 @@ font-display                               // Sora, h1-h4 default
 
 ## 12. Dış Servisler
 
-- **Overpass API:** Build-time'da `scripts/fetch-overpass-cache.mjs` ile çağrılır, demo sırasında çağrılmaz. Çıktı `public/data/facilities-overpass-cache.json`. Cache miss → `src/data/facilities.json` inline fallback.
+- **Google Places API:** Build-time'da `scripts/fetch-places-cache.mjs` ile çağrılır. Çıktı `public/data/facilities-places-cache.json` ve `public/places-photos/*.jpg` commit'lenir. Runtime'da Places çağrısı YOK. Key: `GOOGLE_PLACES_API_KEY` (local `.env.local` + Vercel build env — **`VITE_` prefix YASAK**, bundle'a sızarsa güvenlik açığı). Merge: `scripts/merge-places-into-facilities.mjs` → `src/data/facilities.json`. Photos ToS: `FacilityPhotoAttribution` UI'da her hero foto altında görünür künye.
+- **Overpass API:** Build-time'da `scripts/fetch-overpass-cache.mjs` ile çağrılır, demo sırasında çağrılmaz. Çıktı `public/data/facilities-overpass-cache.json`. Cache miss → `src/data/facilities.json` inline fallback. (Overpass koordinat+isim verir; foto/description/rating Places'tan gelir.)
 - **n8n + OpenAI (F3):** Webhook URL `VITE_N8N_F3_WEBHOOK_URL`. n8n workflow OpenAI'ı çağırır (key n8n side'da). Frontend timeout 5sn. 8 failure trigger → fallback. Detay: `docs/api-contracts.md`, `docs/N8N-RUNBOOK.md`.
 - **YouTube Data API v3:** F6 için. MVP'de **kullanılmaz** — 20 elle küratörlenmiş video referansı `src/data/exercises.json`'da hardcoded, embed `youtube-nocookie.com`.
 - **Web Speech API:** A3 Sesli Okuma için browser native. `lang: 'tr-TR'`, `rate: 0.9`. Tarayıcı desteklemezse no-op.
