@@ -13,6 +13,7 @@ import { useProfile } from '../contexts/ProfileContext'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
 import { useFacilityScore, type ScoreColor } from '../hooks/useFacilityScore'
+import { SCORE_LABEL, SCORE_GLYPH } from '../lib/a11y-labels'
 import { getSportLabel } from '../lib/sport-icons'
 import { Spinner } from '../components/ui/Spinner'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
@@ -152,7 +153,7 @@ function LiveFacilityMarker({
                 fontSize: 10, fontWeight: 700, borderRadius: 99,
                 padding: '2px 8px', letterSpacing: 0.3,
               }}>
-                %{scorePct} uygunluk
+                {SCORE_GLYPH[overall]} {SCORE_LABEL[overall]}
               </span>
             </div>
             <div style={{ padding: '10px 12px 12px' }}>
