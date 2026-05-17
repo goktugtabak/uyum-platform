@@ -154,10 +154,6 @@ function FacilityDetailInner({
               ?? `${facility.name}, ${facility.district} bölgesinde adaptif spor erişimini önceliklendiren bir tesistir. Modern altyapısı ve dahil edici tasarım anlayışıyla hizmet vermektedir.`}
           </p>
 
-          <div className="mt-5 flex flex-wrap items-center gap-3">
-            <DisabilityTypeSelect value={disabilityType} onChange={onDisabilityChange} />
-          </div>
-
           {/* Accessibility chips — pills derived from real accessibility matrix */}
           <div className="mt-6 flex flex-wrap gap-2.5">
             {chipsToShow.map(({ icon: I, label }) => (
@@ -243,6 +239,10 @@ function FacilityDetailInner({
           <p className="mt-2 text-sm text-muted-foreground">
             Tesisin erişilebilirlik kriterlerine göre değerlendirilmesi
           </p>
+
+          <div className="mt-5">
+            <DisabilityTypeSelect value={disabilityType} onChange={onDisabilityChange} />
+          </div>
 
           <div className="mt-7 grid items-center gap-8 md:grid-cols-[auto_1fr]">
             <div className="relative grid size-44 place-items-center">

@@ -1,8 +1,8 @@
-﻿import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { BackButton } from '../components/ui/BackButton'
 import {
-  ArrowLeft, ArrowRight, MessageCircleQuestion,
+  ArrowRight, MessageCircleQuestion,
 } from 'lucide-react'
 import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'
 import { ActiveFilterChip } from '../components/ui/ActiveFilterChip'

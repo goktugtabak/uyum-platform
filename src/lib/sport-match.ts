@@ -77,5 +77,4 @@ export function matchSports(profile: UserProfile, sports: Sport[]): MatchResult[
     }))
     .filter(r => r.score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 3)
 }

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BackButton } from '../components/ui/BackButton'
 import {
-  ArrowLeft, ArrowRight, Flame, Dumbbell, Sparkles, Activity, Wind,
+  ArrowRight, Flame, Dumbbell, Sparkles, Activity, Wind,
   LayoutGrid, List, MessageCircleQuestion, ChevronLeft, ChevronRight, X,
 } from 'lucide-react'
 import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'

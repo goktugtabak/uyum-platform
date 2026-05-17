@@ -19,22 +19,22 @@ import exercisesData from '../data/exercises.json'
 
 const DISABILITY_LABELS: Record<DisabilityType, string> = {
   wheelchair: 'Tekerlekli Sandalye',
-  visual:     'Görme',
-  hearing:    'İşitme',
+  visual: 'Görme',
+  hearing: 'İşitme',
   upper_limb: 'Üst Ekstremite',
 }
 const MOBILITY_LABELS: Record<MobilityLevel, string> = {
-  sitting:     'Oturarak',
-  supported:   'Destekle',
+  sitting: 'Oturarak',
+  supported: 'Destekle',
   independent: 'Bağımsız',
 }
 const GOAL_LABELS: Record<Goal, string> = {
-  strength:    'Güçlenmek',
+  strength: 'Güçlenmek',
   flexibility: 'Esneklik',
-  social:      'Sosyal',
+  social: 'Sosyal',
   performance: 'Performans',
-  healthy:     'Sağlıklı',
-  compete:     'Yarışma',
+  healthy: 'Sağlıklı',
+  compete: 'Yarışma',
 }
 
 const POSITIVE_KINDS: ReadonlySet<ActivityKind> = new Set<ActivityKind>([
@@ -42,8 +42,8 @@ const POSITIVE_KINDS: ReadonlySet<ActivityKind> = new Set<ActivityKind>([
 ])
 
 const FACILITIES = facilitiesData as Facility[]
-const EVENTS     = eventsData as SportEvent[]
-const EXERCISES  = exercisesData as Exercise[]
+const EVENTS = eventsData as SportEvent[]
+const EXERCISES = exercisesData as Exercise[]
 
 export function Profile() {
   const { profile, clearProfile } = useProfile()
