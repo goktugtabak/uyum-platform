@@ -25,20 +25,20 @@ import type { MatchResult } from '../lib/sport-match'
 // Aynı zamanda iki tane su sporu çıkması durumunda çeşitlilik sağlanmış oluyor.
 const SPORT_IMAGES: Record<string, string> = {
   's-swim': 'https://images.unsplash.com/photo-1530549387789-4c1017266635?q=80&w=800&auto=format&fit=crop',
-  's-aqua': 'https://images.unsplash.com/photo-1519315901367-f34f9b5e1d5c?q=80&w=800&auto=format&fit=crop',
-  's-wheelchair-basket': 'https://images.unsplash.com/photo-1519656121404-b9bce2317300?q=80&w=800&auto=format&fit=crop',
+  's-aqua': 'https://images.pexels.com/photos/1263348/pexels-photo-1263348.jpeg?auto=compress&cs=tinysrgb&w=800',
+  's-wheelchair-basket': 'https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=800&auto=format&fit=crop',
   's-wheelchair-tennis': 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=800&auto=format&fit=crop',
-  's-goalball': 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=800&auto=format&fit=crop',
-  's-boccia': 'https://images.unsplash.com/photo-1628102491629-778571d893a3?q=80&w=800&auto=format&fit=crop',
-  's-sitting-volleyball': 'https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?q=80&w=800&auto=format&fit=crop',
+  's-goalball': 'https://images.unsplash.com/photo-1587329310686-91414b8e3cb7?q=80&w=800&auto=format&fit=crop',
+  's-boccia': 'https://images.unsplash.com/photo-1526676037777-05a232554f77?q=80&w=800&auto=format&fit=crop',
+  's-sitting-volleyball': 'https://images.unsplash.com/photo-1505666287802-931dc83948e9?q=80&w=800&auto=format&fit=crop',
   's-athletics': 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800&auto=format&fit=crop',
   's-archery-para': 'https://images.unsplash.com/photo-1511362489816-56f8f480393f?q=80&w=800&auto=format&fit=crop',
   's-yoga': 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?q=80&w=800&auto=format&fit=crop',
   's-pilates': 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop',
   's-strength': 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop',
-  's-judo-para': 'https://images.unsplash.com/photo-1564415315949-270fb3fb4a7b?q=80&w=800&auto=format&fit=crop',
+  's-judo-para': 'https://images.pexels.com/photos/7045558/pexels-photo-7045558.jpeg?auto=compress&cs=tinysrgb&w=800',
   's-football': 'https://images.unsplash.com/photo-1511886929837-354d827aae26?q=80&w=800&auto=format&fit=crop',
-  's-waterpolo': 'https://images.unsplash.com/photo-1555546594-e35b7194f4c9?q=80&w=800&auto=format&fit=crop',
+  's-waterpolo': 'https://images.pexels.com/photos/863988/pexels-photo-863988.jpeg?auto=compress&cs=tinysrgb&w=800',
 }
 
 function getSportImage(sportId: string): string {
@@ -152,7 +152,7 @@ export function MatchSport() {
 
   const slideVariants: Variants = {
     initial: (dir: number) => ({ opacity: 0, x: dir * 50 }),
-    animate: (dir: number) => ({ opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } }),
+    animate: () => ({ opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } }),
     exit: (dir: number) => ({ opacity: 0, x: dir * -50, transition: { duration: 0.3 } })
   }
 
@@ -171,26 +171,6 @@ export function MatchSport() {
             <h1 className="text-[clamp(2rem,3.5vw,3rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
               Sana en uygun <span className="text-accent">{matches.length} spor</span> önerimiz
             </h1>
-            {totalPages > 1 && (
-              <div className="flex items-center gap-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={handlePrev}
-                  className="grid size-11 place-items-center rounded-full bg-muted text-primary-deep transition-colors hover:bg-muted-foreground/20"
-                  aria-label="Önceki sporları gör"
-                >
-                  <ChevronLeft className="size-6" />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className="grid size-11 place-items-center rounded-full bg-muted text-primary-deep transition-colors hover:bg-muted-foreground/20"
-                  aria-label="Sonraki sporları gör"
-                >
-                  <ChevronRight className="size-6" />
-                </button>
-              </div>
-            )}
           </div>
           <p className="mt-4 max-w-xl text-muted-foreground">
             Profiline, hedeflerine ve tercihine en uygun sporları senin için belirledik. Oklara tıklayarak daha fazla öneri görebilirsin.
@@ -222,17 +202,39 @@ export function MatchSport() {
           </Link>
         </div>
       ) : (
-        <div className="relative overflow-hidden min-h-[500px]">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={page}
-              custom={direction}
-              variants={slideVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="w-full"
+        <div className="relative group">
+          {totalPages > 1 && (
+            <button
+              type="button"
+              onClick={handlePrev}
+              className="absolute top-[144px] -translate-y-1/2 -left-4 md:-left-12 z-10 grid size-12 place-items-center rounded-full bg-white text-primary-deep shadow-xl ring-1 ring-black/5 transition hover:bg-muted hover:scale-105"
+              aria-label="Önceki sporları gör"
             >
+              <ChevronLeft className="size-6" />
+            </button>
+          )}
+          {totalPages > 1 && (
+            <button
+              type="button"
+              onClick={handleNext}
+              className="absolute top-[144px] -translate-y-1/2 -right-4 md:-right-12 z-10 grid size-12 place-items-center rounded-full bg-white text-primary-deep shadow-xl ring-1 ring-black/5 transition hover:bg-muted hover:scale-105"
+              aria-label="Sonraki sporları gör"
+            >
+              <ChevronRight className="size-6" />
+            </button>
+          )}
+          
+          <div className="overflow-hidden min-h-[500px]">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={page}
+                custom={direction}
+                variants={slideVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="w-full"
+              >
               {/* 3 hero photos */}
               <div className="grid gap-x-8 gap-y-6 md:grid-cols-3">
                 {currentMatches.map((m, i) => (
@@ -329,12 +331,13 @@ export function MatchSport() {
                           Koç bul →
                         </Link>
                       </div>
-                    </article>
-                  )
-                })}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                </article>
+              )
+            })}
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </div>
           
           {/* Footer feedback row */}
           <section className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] bg-secondary px-8 py-6">
