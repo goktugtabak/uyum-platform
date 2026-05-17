@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  PersonStanding, Activity, AlertTriangle, ArrowRight, ArrowUp,
+  PersonStanding, Activity, ArrowRight, ArrowUp,
   BookOpen, Calendar, Contrast, Dumbbell, HeartHandshake, Keyboard,
   MapPin, MapPinned, Menu, Palette, Play, ShieldCheck, SkipForward,
   Sparkles, Type, User, UserCog, Volume2,
@@ -223,13 +223,7 @@ const a11yPills: A11yPill[] = [
   { label: 'Renk-tek-bilgi yok',     icon: ShieldCheck },
 ]
 
-const demoLimits = [
-  'Tüm tesis, koç ve etkinlik verisi mock — gerçek rezervasyon yok.',
-  'Yalnızca Ankara için 10 örnek tesis yüklü.',
-  "F3 ilk ziyaret rehberi n8n üzerinden gerçek AI çağrısı yapar; offline'da statik şablon.",
-  "Tüm profil bilgileri tarayıcınızın localStorage'ında saklanır, sunucuya gitmez.",
-  'Türkçe UI — şu an çoklu dil desteği yok.',
-]
+
 
 function HowItWorksSection({ onPrimary, hasProfile }: { onPrimary: () => void; hasProfile: boolean }) {
   return (
@@ -317,21 +311,6 @@ function HowItWorksSection({ onPrimary, hasProfile }: { onPrimary: () => void; h
           </div>
         </div>
 
-        {/* Demo sınırları */}
-        <div className="rounded-2xl bg-amber-50 border border-amber-200 p-5 mb-8">
-          <div className="flex items-center gap-2 mb-3">
-            <AlertTriangle className="w-4 h-4 text-amber-600" aria-hidden />
-            <p className="text-sm font-bold text-amber-800">Bu bir demo — bilmeniz gerekenler:</p>
-          </div>
-          <ul className="space-y-1.5" aria-label="Demo sınırları">
-            {demoLimits.map((limit) => (
-              <li key={limit} className="flex items-start gap-2 text-sm text-amber-900/80">
-                <span className="mt-2 w-1 h-1 rounded-full bg-amber-600 flex-shrink-0" aria-hidden />
-                {limit}
-              </li>
-            ))}
-          </ul>
-        </div>
 
         {/* CTA çifti */}
         <div className="flex flex-wrap items-center gap-3">
