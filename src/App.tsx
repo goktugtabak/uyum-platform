@@ -15,7 +15,7 @@ function RequireProfile({ children }: { children: React.ReactNode }) {
 function RootRoute() {
   const { hasProfile } = useProfile()
   if (!hasProfile) return <Navigate to="/onboarding" replace />
-  return <LandingPage />
+  return <Navigate to="/dashboard" replace />
 }
 
 function NotFound() {
@@ -31,7 +31,6 @@ function NotFound() {
   )
 }
 
-const LandingPage         = lazy(() => import('./pages/Landing').then(m => ({ default: m.Landing })))
 const OnboardingPage      = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
 const DashboardPage       = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))
 const MatchSportPage      = lazy(() => import('./pages/MatchSport').then(m => ({ default: m.MatchSport })))
@@ -40,8 +39,9 @@ const FacilityDetailPage  = lazy(() => import('./pages/FacilityDetail').then(m =
 const ExerciseLibraryPage = lazy(() => import('./pages/ExerciseLibrary').then(m => ({ default: m.ExerciseLibrary })))
 const EventListPage       = lazy(() => import('./pages/EventList').then(m => ({ default: m.EventList })))
 const CoachDirectoryPage  = lazy(() => import('./pages/CoachDirectory').then(m => ({ default: m.CoachDirectory })))
-const CommunityPage       = lazy(() => import('./pages/Community').then(m => ({ default: m.Community })))
-const ProfilePage         = lazy(() => import('./pages/Profile').then(m => ({ default: m.Profile })))
+const CommunityPage         = lazy(() => import('./pages/Community').then(m => ({ default: m.Community })))
+const ProfilePage           = lazy(() => import('./pages/Profile').then(m => ({ default: m.Profile })))
+const NotificationsPage     = lazy(() => import('./pages/Notifications').then(m => ({ default: m.Notifications })))
 
 function AppRoutes() {
   return (
@@ -60,8 +60,9 @@ function AppRoutes() {
         <Route path="/exercises"     element={<RequireProfile><ExerciseLibraryPage /></RequireProfile>} />
         <Route path="/events"        element={<RequireProfile><EventListPage /></RequireProfile>} />
         <Route path="/coaches"       element={<RequireProfile><CoachDirectoryPage /></RequireProfile>} />
-        <Route path="/community"     element={<RequireProfile><CommunityPage /></RequireProfile>} />
-        <Route path="/profile"       element={<RequireProfile><ProfilePage /></RequireProfile>} />
+        <Route path="/community"       element={<RequireProfile><CommunityPage /></RequireProfile>} />
+        <Route path="/profile"         element={<RequireProfile><ProfilePage /></RequireProfile>} />
+        <Route path="/notifications"   element={<RequireProfile><NotificationsPage /></RequireProfile>} />
         <Route path="*"              element={<NotFound />} />
       </Route>
     </Routes>

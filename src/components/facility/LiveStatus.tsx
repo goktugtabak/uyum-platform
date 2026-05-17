@@ -6,7 +6,6 @@ import {
   formatRelative,
   type Freshness,
 } from '../../lib/live-status'
-import { DemoBadge } from '../ui/DemoBadge'
 import { SpeakButton } from '../ui/SpeakButton'
 
 const STATUS_ICON: Record<string, string> = {
@@ -94,9 +93,6 @@ export function LiveStatus({ facility }: Props) {
         })}
       </ul>
 
-      <div className="mt-4 border-t border-border/40 pt-3">
-        <DemoBadge label="Canlı durum demo verisidir" />
-      </div>
     </div>
   )
 }

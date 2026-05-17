@@ -5,7 +5,6 @@ import {
 } from 'lucide-react'
 import type { Coach, Facility, DisabilityType } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
-import { DemoBadge } from '../components/ui/DemoBadge'
 import { CoachCard } from '../components/feature/CoachCard'
 import { filterCoaches } from '../lib/coach-filter'
 import { getSportLabel } from '../lib/sport-icons'
@@ -239,9 +238,8 @@ export function CoachDirectory() {
           <h1 className="font-display text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
             Koçlar &amp; Antrenörler
           </h1>
-          <p className="mt-3 flex max-w-xl flex-wrap items-center gap-3 text-base text-muted-foreground">
+          <p className="mt-3 max-w-xl text-base text-muted-foreground">
             Sana en uygun, alanında uzman koçlarla tanış; profil bilgilerine göre öne çıkanları gör.
-            <DemoBadge label="Koç verileri mock" />
           </p>
         </div>
         <div className="relative h-48 md:col-span-5 md:h-64">

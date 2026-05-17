@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Accessibility, Target, Pencil, CheckCircle2, MapPin, RefreshCw, Heart,
-  Sparkles as SparklesIcon, Footprints,
+  Footprints,
   Waves, CircleDot, Trophy,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -10,7 +10,6 @@ import { useProfile } from '../contexts/ProfileContext'
 import { matchSports } from '../lib/sport-match'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
-import { DemoBadge } from '../components/ui/DemoBadge'
 import { SpeakButton } from '../components/ui/SpeakButton'
 import sportsData from '../data/sports.json'
 import type { Sport, Facility } from '../types'
@@ -133,9 +132,8 @@ export function MatchSport() {
           <h1 className="mt-3 font-display text-[clamp(2rem,3.5vw,3rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
             Sana en uygun <span className="text-accent">{matches.length} spor</span> önerimiz
           </h1>
-          <p className="mt-3 flex items-center gap-3 max-w-xl text-muted-foreground">
+          <p className="mt-3 max-w-xl text-muted-foreground">
             Profiline, hedeflerine ve tercihine en uygun sporları senin için belirledik.
-            <DemoBadge />
           </p>
         </div>
 
@@ -158,8 +156,7 @@ export function MatchSport() {
       {/* No-match fallback */}
       {matches.length === 0 ? (
         <div role="status" className="rounded-3xl bg-card p-8 text-center ring-1 ring-border/40">
-          <SparklesIcon aria-hidden className="mx-auto size-8 text-primary" />
-          <p className="mt-3 text-sm text-foreground">
+          <p className="text-sm text-foreground">
             Profiline tam uyan bir spor şu anda veri tabanımızda bulunmuyor.
           </p>
           <p className="mt-1 text-xs text-muted-foreground">

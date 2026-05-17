@@ -12,7 +12,6 @@ import { getSportLabel } from '../lib/sport-icons'
 import { useFacilityScore } from '../hooks/useFacilityScore'
 import { loadTestimonies } from '../lib/testimony-store'
 import { formatRelative } from '../lib/live-status'
-import { DemoBadge } from '../components/ui/DemoBadge'
 import { DisabilityTypeSelect } from '../components/facility/DisabilityTypeSelect'
 import { AccessibilityRadar } from '../components/facility/AccessibilityRadar'
 import { AccessibilityLabelList } from '../components/facility/AccessibilityLabelList'
@@ -154,7 +153,6 @@ function FacilityDetailInner({
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <DisabilityTypeSelect value={disabilityType} onChange={onDisabilityChange} />
-            <DemoBadge label="Erişilebilirlik verileri mock" />
           </div>
 
           {/* Accessibility chips — pills derived from real accessibility matrix */}
@@ -441,7 +439,6 @@ function FacilityDetailInner({
             >
               Topluluk Tanıklıkları
             </h2>
-            <DemoBadge />
           </div>
           <Testimonies facilityId={facility.id} defaultDisabilityType={disabilityType} />
         </section>

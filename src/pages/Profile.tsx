@@ -6,7 +6,6 @@ import {
 import type { DisabilityType, MobilityLevel, Goal } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
 import { AccessibilityToolbar } from '../components/a11y/AccessibilityToolbar'
-import { DemoBadge } from '../components/ui/DemoBadge'
 
 const DISABILITY_LABELS: Record<DisabilityType, string> = {
   wheelchair: 'Tekerlekli Sandalye',
@@ -45,9 +44,8 @@ export function Profile() {
         <h1 className="font-display text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-primary-deep">
           Profilim
         </h1>
-        <p className="mt-3 flex max-w-2xl flex-wrap items-center gap-3 text-base text-muted-foreground">
+        <p className="mt-3 max-w-2xl text-base text-muted-foreground">
           Profilin önerilerinin temelini oluşturur. İstediğin zaman güncelle.
-          <DemoBadge label="localStorage tabanlı" />
         </p>
       </header>
 

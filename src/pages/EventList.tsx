@@ -6,7 +6,6 @@ import {
 } from 'lucide-react'
 import type { SportEvent, DisabilityType, Facility, Sport, EventLevel } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
-import { DemoBadge } from '../components/ui/DemoBadge'
 import { FilterChip, FilterGroup } from '../components/ui/FilterChip'
 import { getSportLabel } from '../lib/sport-icons'
 import {
@@ -509,10 +508,9 @@ export function EventList() {
           <h1 className="font-display text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
             Etkinlikler
           </h1>
-          <p className="mt-3 flex max-w-lg flex-wrap items-center gap-3 text-base text-muted-foreground">
+          <p className="mt-3 max-w-lg text-base text-muted-foreground">
             Profiline ve ilgi alanlarına göre senin için sıralanan etkinlikleri keşfet,
             katıl ve yeni deneyimler kazan.
-            <DemoBadge />
           </p>
         </div>
 

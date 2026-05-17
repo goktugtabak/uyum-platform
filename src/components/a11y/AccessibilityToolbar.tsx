@@ -5,10 +5,10 @@ import { Toggle } from './Toggle'
 import { Eye, Contrast, Type, Volume2 } from 'lucide-react'
 
 const COLORBLIND_OPTIONS: { value: AccessibilityPrefs['colorblindMode']; label: string; ariaLabel: string }[] = [
-  { value: 'none',         label: 'Kapalı', ariaLabel: 'Renk filtresi kapalı' },
-  { value: 'deuteranopia', label: 'Deut.',  ariaLabel: 'Deuteranopia filtresi' },
-  { value: 'protanopia',   label: 'Prot.',  ariaLabel: 'Protanopia filtresi' },
-  { value: 'tritanopia',   label: 'Trit.',  ariaLabel: 'Tritanopia filtresi' },
+  { value: 'none',         label: 'Kapalı',      ariaLabel: 'Renk filtresi kapalı' },
+  { value: 'deuteranopia', label: 'Yeşil Körlüğü', ariaLabel: 'Deuteranopia (yeşil körlüğü) filtresi' },
+  { value: 'protanopia',   label: 'Kırmızı Körlüğü', ariaLabel: 'Protanopia (kırmızı körlüğü) filtresi' },
+  { value: 'tritanopia',   label: 'Mavi Körlüğü', ariaLabel: 'Tritanopia (mavi körlüğü) filtresi' },
 ]
 
 const FONT_OPTIONS: { value: AccessibilityPrefs['fontSize']; label: string; ariaLabel: string }[] = [
