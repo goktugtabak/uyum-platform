@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { UserProfile } from '../types'
+import { logActivity } from '../lib/activity-log'
 
 const STORAGE_KEY = 'uyum:profile'
 
@@ -54,7 +55,12 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   }, [profile])
 
   function setProfile(p: UserProfile) {
-    setProfileState(p)
+    setProfileState(prev => {
+      if (prev === null) {
+        logActivity('profile_created', 'Profil oluşturuldu')
+      }
+      return p
+    })
   }
 
   function updateProfile(patch: Partial<UserProfile>) {
@@ -69,7 +75,9 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     setProfileState(prev => {
       if (!prev) return prev
       const list = prev.favoriteFacilities ?? []
-      const next = list.includes(id) ? list.filter(x => x !== id) : [...list, id]
+      const isCurrentlyFav = list.includes(id)
+      const next = isCurrentlyFav ? list.filter(x => x !== id) : [...list, id]
+      logActivity(isCurrentlyFav ? 'facility_unbookmarked' : 'facility_bookmarked', id)
       return { ...prev, favoriteFacilities: next }
     })
   }
@@ -78,7 +86,9 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     setProfileState(prev => {
       if (!prev) return prev
       const list = prev.favoriteEvents ?? []
-      const next = list.includes(id) ? list.filter(x => x !== id) : [...list, id]
+      const isCurrentlyFav = list.includes(id)
+      const next = isCurrentlyFav ? list.filter(x => x !== id) : [...list, id]
+      logActivity(isCurrentlyFav ? 'event_unbookmarked' : 'event_bookmarked', id)
       return { ...prev, favoriteEvents: next }
     })
   }
@@ -87,7 +97,9 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     setProfileState(prev => {
       if (!prev) return prev
       const list = prev.favoriteExercises ?? []
-      const next = list.includes(id) ? list.filter(x => x !== id) : [...list, id]
+      const isCurrentlyFav = list.includes(id)
+      const next = isCurrentlyFav ? list.filter(x => x !== id) : [...list, id]
+      logActivity(isCurrentlyFav ? 'exercise_unbookmarked' : 'exercise_bookmarked', id)
       return { ...prev, favoriteExercises: next }
     })
   }
