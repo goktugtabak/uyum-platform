@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  Activity, ArrowRight, Calendar, MapPin, Menu, Play, User, Users,
+  Activity, ArrowRight, Calendar, Dumbbell, MapPin, Menu, Play, User,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useProfile } from '../contexts/ProfileContext'
+import { Footer } from '../components/layout/Footer'
 
 function UyumLogo() {
   return (
@@ -147,7 +148,7 @@ const features: Feature[] = [
   { label: 'Sporları keşfet',    desc: 'Sana uygun sporları keşfet',     icon: Activity, iconColor: '#43A047', bgColor: '#E8F5E9', to: '/match'     },
   { label: 'Etkinliklere katıl', desc: 'Yakındaki etkinliklere katıl',   icon: Calendar, iconColor: '#7B2FBE', bgColor: '#F3E5F5', to: '/events'    },
   { label: 'Koçlarla tanış',     desc: 'Uzman koçlarla çalış',           icon: User,     iconColor: '#FF6B35', bgColor: '#FFF3E0', to: '/coaches'   },
-  { label: 'Topluluğa katıl',    desc: 'Spor topluluğuna dahil ol',      icon: Users,    iconColor: '#00897B', bgColor: '#E0F2F1', to: '/community' },
+  { label: 'Egzersiz yap',        desc: 'Adaptif egzersizleri keşfet',    icon: Dumbbell, iconColor: '#00897B', bgColor: '#E0F2F1', to: '/exercises' },
 ]
 
 function FeaturesSection() {
@@ -187,24 +188,6 @@ function FeaturesSection() {
   )
 }
 
-function Footer() {
-  return (
-    <footer className="max-w-7xl mx-auto px-6 py-10">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 pt-8 text-sm text-gray-500">
-        <div className="flex items-center gap-2">
-          <UyumLogo />
-          <span className="font-bold text-[#320E3B]">UYUM</span>
-        </div>
-        <p>© 2026 UYUM — METU Sports Tech Hackathon</p>
-        <div className="flex gap-6">
-          <a href="#" className="hover:text-[#320E3B]">KVKK</a>
-          <a href="#" className="hover:text-[#320E3B]">Erişilebilirlik</a>
-          <a href="#" className="hover:text-[#320E3B]">İletişim</a>
-        </div>
-      </div>
-    </footer>
-  )
-}
 
 export function Landing() {
   const navigate = useNavigate()

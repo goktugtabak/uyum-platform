@@ -184,7 +184,7 @@ export function Dashboard() {
                   <li key={facility.id}>
                     <Link to={`/facility/${facility.id}`} className="flex items-center gap-3 hover:opacity-90">
                       <img
-                        src={getFacilityImage(facility.id, idx)}
+                        src={getFacilityImage(facility, idx)}
                         alt=""
                         className="size-14 rounded-2xl object-cover"
                       />

@@ -279,34 +279,44 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
 
 function MiniCalendar({ events, now }: { events: SportEvent[]; now: Date }) {
   const [cursor, setCursor] = useState(() => new Date(now.getFullYear(), now.getMonth(), 1))
+  const [selectedDay, setSelectedDay] = useState<number | null>(null)
   const year  = cursor.getFullYear()
   const month = cursor.getMonth()
-  const firstWeekday = new Date(year, month, 1).getDay() // 0 = Sunday
-  // Pazartesi başlat (0..6, Pzt=0)
+  const firstWeekday = new Date(year, month, 1).getDay()
   const offset = (firstWeekday + 6) % 7
   const daysInMonth = new Date(year, month + 1, 0).getDate()
   const today = now.getDate()
   const isCurrentMonth = year === now.getFullYear() && month === now.getMonth()
 
-  const highlight = useMemo(() => {
-    const set = new Set<number>()
+  const eventsByDay = useMemo(() => {
+    const map = new Map<number, SportEvent[]>()
     const y = cursor.getFullYear()
     const m = cursor.getMonth()
     for (const e of events) {
       const d = new Date(e.date)
-      if (d.getFullYear() === y && d.getMonth() === m) set.add(d.getDate())
+      if (d.getFullYear() === y && d.getMonth() === m) {
+        const day = d.getDate()
+        if (!map.has(day)) map.set(day, [])
+        map.get(day)!.push(e)
+      }
     }
-    return set
+    return map
   }, [events, cursor])
 
+  function prevMonth() { setCursor(new Date(year, month - 1, 1)); setSelectedDay(null) }
+  function nextMonth() { setCursor(new Date(year, month + 1, 1)); setSelectedDay(null) }
+
+  const selectedEvents = selectedDay != null ? (eventsByDay.get(selectedDay) ?? []) : []
+
   return (
-    <div>
-      <div className="mb-4 flex items-center justify-between">
+    <div className="rounded-2xl bg-card p-5 ring-1 ring-border/40">
+      {/* Nav */}
+      <div className="mb-5 flex items-center justify-between">
         <button
           type="button"
-          onClick={() => setCursor(new Date(year, month - 1, 1))}
+          onClick={prevMonth}
           aria-label="Önceki ay"
-          className="grid size-8 place-items-center rounded-full text-foreground/70 ring-1 ring-border/60 hover:bg-card"
+          className="grid size-8 place-items-center rounded-full text-foreground/70 ring-1 ring-border/60 hover:bg-background"
         >
           <ChevronLeft className="size-4" aria-hidden />
         </button>
@@ -315,37 +325,88 @@ function MiniCalendar({ events, now }: { events: SportEvent[]; now: Date }) {
         </span>
         <button
           type="button"
-          onClick={() => setCursor(new Date(year, month + 1, 1))}
+          onClick={nextMonth}
           aria-label="Sonraki ay"
-          className="grid size-8 place-items-center rounded-full text-foreground/70 ring-1 ring-border/60 hover:bg-card"
+          className="grid size-8 place-items-center rounded-full text-foreground/70 ring-1 ring-border/60 hover:bg-background"
         >
           <ChevronRight className="size-4" aria-hidden />
         </button>
       </div>
-      <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-bold text-muted-foreground">
-        {['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'].map(d => <span key={d}>{d}</span>)}
+
+      {/* Day headers */}
+      <div className="grid grid-cols-7 text-center text-[11px] font-bold text-muted-foreground">
+        {['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'].map(d => (
+          <span key={d} className="py-1">{d}</span>
+        ))}
       </div>
-      <div className="mt-2 grid grid-cols-7 gap-1 text-center text-xs">
+
+      {/* Day grid */}
+      <div className="mt-1 grid grid-cols-7 text-center">
         {Array.from({ length: offset }).map((_, i) => <span key={`pad-${i}`} />)}
         {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(d => {
-          const isToday = isCurrentMonth && d === today
-          const isHl   = highlight.has(d)
+          const isToday    = isCurrentMonth && d === today
+          const hasEvents  = eventsByDay.has(d)
+          const isSelected = selectedDay === d
           return (
-            <span
+            <button
               key={d}
-              className={`relative grid h-9 place-items-center rounded-xl ${
+              type="button"
+              onClick={() => hasEvents ? setSelectedDay(prev => prev === d ? null : d) : undefined}
+              disabled={!hasEvents && !isToday}
+              aria-pressed={isSelected}
+              className={`relative mx-auto grid h-11 w-11 place-items-center rounded-xl text-[13px] transition ${
                 isToday
                   ? 'bg-primary font-bold text-primary-foreground shadow-glow'
-                  : isHl
-                  ? 'font-semibold text-primary-deep before:absolute before:bottom-1 before:size-1 before:rounded-full before:bg-accent'
-                  : 'text-foreground/70 hover:bg-card'
+                  : isSelected
+                  ? 'bg-primary/15 font-bold text-primary ring-1 ring-primary/30'
+                  : hasEvents
+                  ? 'cursor-pointer font-semibold text-primary-deep hover:bg-primary/10'
+                  : 'cursor-default text-foreground/50'
               }`}
             >
               {d}
-            </span>
+              {hasEvents && !isToday && (
+                <span
+                  className={`absolute bottom-1.5 left-1/2 -translate-x-1/2 size-1 rounded-full ${isSelected ? 'bg-primary' : 'bg-accent'}`}
+                  aria-hidden
+                />
+              )}
+            </button>
           )
         })}
       </div>
+
+      {/* Selected day popup */}
+      {selectedDay != null && selectedEvents.length > 0 && (
+        <div className="mt-5 border-t border-border/40 pt-4 space-y-2.5">
+          <div className="text-[10.5px] font-bold uppercase tracking-wider text-muted-foreground">
+            {selectedDay} {MONTHS_TR_LONG[month]}
+          </div>
+          {selectedEvents.map(e => {
+            const d = new Date(e.date)
+            const time = d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+            const facility = findFacility(e.facilityId)
+            return (
+              <div key={e.id} className="flex gap-3 rounded-xl bg-background p-2.5 ring-1 ring-border/30">
+                <img
+                  src={getEventImage(e.sport)}
+                  alt=""
+                  className="size-12 shrink-0 rounded-lg object-cover"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-[12.5px] font-bold text-foreground">{e.title}</div>
+                  <div className="mt-0.5 flex items-center gap-1 text-[11px] text-muted-foreground">
+                    <Clock className="size-3 shrink-0" aria-hidden /> {time}
+                  </div>
+                  <div className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-muted-foreground">
+                    <MapPin className="size-3 shrink-0" aria-hidden /> {facility?.name ?? 'Tesis'}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
     </div>
   )
 }
