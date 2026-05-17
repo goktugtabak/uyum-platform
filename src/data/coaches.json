@@ -31,8 +31,7 @@
   {
     "id": "c-003",
     "name": "Fatma Demir",
-    "photo": null,
-    "bio": "Hareket kısıtlılığı, kronik ağrı ve fiziksel engeli olan bireylerle çalışan sertifikalı yoga terapisti. Nefes ve bilinçli hareket tekniklerini ön planda tutar.",
+    "photo": "/coaches/fatma-demir.png",, kronik ağrı ve fiziksel engeli olan bireylerle çalışan sertifikalı yoga terapisti. Nefes ve bilinçli hareket tekniklerini ön planda tutar.",
     "sports": ["s-yoga", "s-pilates"],
     "disabilityExpertise": ["wheelchair", "upper_limb"],
     "facilityIds": ["f-ank-places-09"],
@@ -46,8 +45,7 @@
   {
     "id": "c-004",
     "name": "Serdar Özkan",
-    "photo": null,
-    "bio": "Ampute ve tekerlekli sporculara özel güç-hız programları geliştiren para atletizm ve kuvvet antrenmanı uzmanı. Ankara Üniversitesi Spor Bilimleri mezunu.",
+    "photo": "/coaches/serdar-özkan.png", ve tekerlekli sporculara özel güç-hız programları geliştiren para atletizm ve kuvvet antrenmanı uzmanı. Ankara Üniversitesi Spor Bilimleri mezunu.",
     "sports": ["s-athletics", "s-strength"],
     "disabilityExpertise": ["wheelchair", "upper_limb"],
     "facilityIds": ["f-ank-places-05", "f-ank-places-06"],
