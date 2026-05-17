@@ -164,7 +164,7 @@ export function Dashboard() {
         <section className="group">
           <SectionHeader icon={<MapPin className="size-4 text-primary" aria-hidden />} title="Yakındaki Tesisler" to="/map" />
 
-          <div className="max-h-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:max-h-[600px]">
+          <div className="max-h-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:max-h-[600px] focus-within:max-h-[600px]">
             {/* Soft mini map (no border) */}
             <div className="relative mt-5 h-44 overflow-hidden rounded-3xl">
               <MiniMap />
