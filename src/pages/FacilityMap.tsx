@@ -1,19 +1,19 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import {
   SlidersHorizontal, ChevronDown, Navigation, Layers, Plus, Minus,
-  Accessibility, Waves, ArrowRight, MapPin, ParkingCircle, Dumbbell,
-  PersonStanding, Footprints, X,
+  Accessibility, Waves, MapPin, ParkingCircle, Dumbbell,
+  PersonStanding, Footprints, X, LayoutList, Map as MapIcon,
 } from 'lucide-react'
 import type { Map as LeafletMap } from 'leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import { useProfile } from '../contexts/ProfileContext'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
 import { useFacilityScore, type ScoreColor } from '../hooks/useFacilityScore'
-import { getSportIcon, getSportLabel } from '../lib/sport-icons'
+import { getSportLabel } from '../lib/sport-icons'
 import { Spinner } from '../components/ui/Spinner'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
@@ -36,7 +36,6 @@ const COLOR_LABELS: Record<ScoreColor, string> = {
   red:    'erişim engeli var',
   gray:   'bilgi yetersiz',
 }
-const STATUS_GLYPH: Record<ScoreColor, string> = { green: '✓', yellow: '~', red: '✕', gray: '?' }
 
 const FACILITY_THUMBS: string[] = [facilityEryaman, facilityPool, sportBasket, sportTT, sportSwim]
 
@@ -63,7 +62,7 @@ function estimatedDistance(facility: Facility): number {
   return Math.round(km * 10) / 10
 }
 
-/* -------------------- Leaflet bridge: exposes map instance to overlay buttons -------------------- */
+/* -------------------- Leaflet bridge -------------------- */
 
 function MapBridge({ onReady }: { onReady: (map: LeafletMap) => void }) {
   const map = useMap()
@@ -71,47 +70,116 @@ function MapBridge({ onReady }: { onReady: (map: LeafletMap) => void }) {
   return null
 }
 
-/* -------------------- Leaflet teardrop pin (preserves FacilityPin behavior) -------------------- */
+/* -------------------- Photo thumbnail marker + hover popup -------------------- */
 
-function buildDivIcon(color: string, glyph: string, icon: string, isHighlighted: boolean, isDimmed: boolean, ariaLabel: string): L.DivIcon {
-  const size = 40
-  const opacity = isDimmed ? 0.45 : 1
+function buildPhotoIcon(imageUrl: string, color: string, isDimmed: boolean, isHighlighted: boolean): L.DivIcon {
+  const ring = isHighlighted ? '#4C2A85' : color
+  const opacity = isDimmed ? 0.4 : 1
+  const shadow = isHighlighted
+    ? '0 0 0 3px #4C2A85, 0 4px 12px rgba(76,42,133,0.35)'
+    : '0 3px 10px rgba(0,0,0,0.22)'
   const html = `
-    <div role="img" aria-label="${ariaLabel.replace(/"/g, '&quot;')}"
-      style="position:relative;width:${size}px;height:${size + 12}px;opacity:${opacity};cursor:pointer;
-      filter:${isHighlighted ? 'drop-shadow(0 0 0 #4C2A85)' : 'drop-shadow(0 3px 6px rgba(0,0,0,0.18))'};">
-      <svg width="${size}" height="${size + 12}" viewBox="0 0 40 52" style="position:absolute;inset:0;">
-        <path d="M20 2 C 10 2, 2.5 9.5, 2.5 19 C 2.5 31, 20 50, 20 50 C 20 50, 37.5 31, 37.5 19 C 37.5 9.5, 30 2, 20 2 Z"
-          fill="${color}" stroke="${isHighlighted ? '#4C2A85' : 'rgba(255,255,255,0.6)'}" stroke-width="${isHighlighted ? 3 : 2}" />
-      </svg>
-      <span aria-hidden="true" style="position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:16px;line-height:1;color:#fff;">${icon}</span>
-      <span aria-hidden="true" style="position:absolute;top:-4px;right:-2px;min-width:18px;height:18px;padding:0 4px;border-radius:999px;background:#fff;color:${color};font-size:11px;line-height:18px;text-align:center;font-weight:800;border:2px solid ${color};box-shadow:0 1px 2px rgba(0,0,0,0.15);">${glyph}</span>
+    <div style="width:52px;height:52px;position:relative;opacity:${opacity};">
+      <div style="
+        width:52px;height:52px;border-radius:50%;
+        border:3px solid ${ring};
+        box-shadow:${shadow};
+        overflow:hidden;
+        background:#e5e7eb;
+        cursor:pointer;
+        transition:transform 0.15s;
+      ">
+        <img src="${imageUrl}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+      <span style="
+        position:absolute;bottom:-4px;right:-4px;
+        width:18px;height:18px;border-radius:50%;
+        background:${color};border:2px solid #fff;
+        box-shadow:0 1px 3px rgba(0,0,0,0.2);
+      "></span>
     </div>`
-  return L.divIcon({ html, className: '', iconSize: [size, size + 12], iconAnchor: [size / 2, size + 12] })
+  return L.divIcon({ html, className: '', iconSize: [52, 56], iconAnchor: [26, 56] })
 }
 
 function LiveFacilityMarker({
-  facility, disabilityType, isHighlighted, isDimmed, onSelect,
+  facility, imageUrl, disabilityType, isHighlighted, isDimmed,
 }: {
   facility: Facility
+  imageUrl: string
   disabilityType: DisabilityType
   isHighlighted: boolean
   isDimmed: boolean
-  onSelect: (id: string) => void
 }) {
   const { overall } = useFacilityScore(facility, disabilityType)
   const color = COLOR_HEX[overall]
-  const glyph = STATUS_GLYPH[overall]
-  const sportId = facility.sports[0] ?? ''
-  const icon = getSportIcon(sportId)
-  const ariaLabel = `${facility.name} — erişilebilirlik: ${COLOR_LABELS[overall]}, ana spor: ${getSportLabel(sportId)}`
-  const divIcon = buildDivIcon(color, glyph, icon, isHighlighted, isDimmed, ariaLabel)
+  const colorLabel = COLOR_LABELS[overall]
+  const distanceKm = estimatedDistance(facility)
+  const divIcon = buildPhotoIcon(imageUrl, color, isDimmed, isHighlighted)
+  const ariaLabel = `${facility.name} — erişilebilirlik: ${colorLabel}`
+
   return (
     <Marker
       position={[facility.coordinates.lat, facility.coordinates.lng]}
       icon={divIcon}
-      eventHandlers={{ click: () => onSelect(facility.id) }}
-    />
+      aria-label={ariaLabel}
+    >
+      <Popup
+        offset={[0, -48]}
+        closeButton={false}
+        className="facility-photo-popup"
+      >
+        <Link
+          to={`/facility/${facility.id}`}
+          style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}
+        >
+          <div style={{
+            width: 220,
+            borderRadius: 16,
+            overflow: 'hidden',
+            background: '#fff',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+            fontFamily: 'inherit',
+          }}>
+            <div style={{ position: 'relative', height: 110 }}>
+              <img
+                src={imageUrl}
+                alt=""
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+              <span style={{
+                position: 'absolute', bottom: 8, left: 8,
+                background: color, color: '#fff',
+                fontSize: 10, fontWeight: 700, borderRadius: 99,
+                padding: '2px 8px', letterSpacing: 0.3,
+              }}>
+                %{scorePct} uygunluk
+              </span>
+            </div>
+            <div style={{ padding: '10px 12px 12px' }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#320E3B', lineHeight: 1.25, marginBottom: 4 }}>
+                {facility.name}
+              </div>
+              <div style={{ fontSize: 11, color: '#6b7280', display: 'flex', alignItems: 'center', gap: 4, marginBottom: 6 }}>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+                {facility.district} · {distanceKm} km
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+                {facility.sports.slice(0, 3).map(id => (
+                  <span key={id} style={{
+                    fontSize: 10, background: '#f3f4f6', color: '#374151',
+                    borderRadius: 99, padding: '2px 7px', fontWeight: 500,
+                  }}>
+                    {getSportLabel(id)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Link>
+      </Popup>
+    </Marker>
   )
 }
 
@@ -126,6 +194,7 @@ export function FacilityMap() {
   const [loading, setLoading] = useState(true)
   const [disabilityType, setDisabilityType] = useState<DisabilityType>(profile?.disabilityType ?? 'wheelchair')
   const [showSecondary, setShowSecondary] = useState(false)
+  const [listMode, setListMode] = useState(false)
   const mapRef = useRef<LeafletMap | null>(null)
 
   useEffect(() => { loadFacilities().then(setFacilities).finally(() => setLoading(false)) }, [])
@@ -135,7 +204,7 @@ export function FacilityMap() {
     return pickTopFacilities(facilities, profile, facilities.length)
   }, [profile, facilities])
 
-  const handleMapReady = (m: LeafletMap) => { mapRef.current = m }
+  const handleMapReady = useCallback((m: LeafletMap) => { mapRef.current = m }, [])
   const handleZoomIn  = () => mapRef.current?.zoomIn()
   const handleZoomOut = () => mapRef.current?.zoomOut()
   const handleLocate  = () => {
@@ -146,24 +215,31 @@ export function FacilityMap() {
       { enableHighAccuracy: false, timeout: 5000 },
     )
   }
-  const handleSelectFacility = (id: string) => {
-    // Soft scroll the list entry into view; click on the list card itself navigates.
-    const el = document.getElementById(`facility-row-${id}`)
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-  }
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
-      <header className="mb-6">
-        <h1 className="font-display text-[clamp(2rem,3.4vw,2.8rem)] font-extrabold tracking-tight text-primary-deep">
-          Tesisleri Keşfet
-        </h1>
-        <p className="mt-1.5 text-sm text-muted-foreground">
-          Konumuna en uygun, erişilebilir tesisleri haritada keşfet.
-        </p>
+      <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="font-display text-[clamp(2rem,3.4vw,2.8rem)] font-extrabold tracking-tight text-primary-deep">
+            Tesisleri Keşfet
+          </h1>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Konumuna en uygun, erişilebilir tesisleri haritada keşfet.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setListMode(v => !v)}
+          className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card px-4 py-2 text-sm font-semibold text-foreground/80 shadow-sm hover:border-primary/40 hover:text-primary"
+        >
+          {listMode
+            ? <><MapIcon className="size-4" aria-hidden /> Haritaya dön</>
+            : <><LayoutList className="size-4" aria-hidden /> Tüm tesisleri listele</>
+          }
+        </button>
       </header>
 
-      {/* Filter pills — design row */}
+      {/* Filter pills */}
       <div className="mb-3 flex flex-wrap items-center gap-3">
         <button
           type="button"
@@ -194,7 +270,6 @@ export function FacilityMap() {
         )}
       </div>
 
-      {/* Working secondary filter strip (real disability dropdown) */}
       {showSecondary && (
         <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl bg-card px-4 py-3 ring-1 ring-border/40">
           <label className="inline-flex items-center gap-2 text-xs font-semibold text-foreground/75">
@@ -226,9 +301,74 @@ export function FacilityMap() {
         <div className="flex h-64 items-center justify-center">
           <Spinner label="Tesisler yükleniyor" />
         </div>
+      ) : listMode ? (
+        /* ---- LIST MODE: full-width grid ---- */
+        <div>
+          <p className="mb-5 text-sm text-muted-foreground">
+            {ranked.length} tesis listeleniyor
+          </p>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {ranked.map(({ facility, verifiedCount }, idx) => {
+              const scorePct   = Math.round((verifiedCount / 6) * 100)
+              const distanceKm = estimatedDistance(facility)
+              const imageUrl   = getFacilityImage(facility.id, idx)
+              const isMatched  = sportFilter ? facility.sports.includes(sportFilter) : true
+              return (
+                <li key={facility.id} className={isMatched ? '' : 'opacity-40'}>
+                  <Link
+                    to={`/facility/${facility.id}`}
+                    className="group block overflow-hidden rounded-2xl bg-card ring-1 ring-border/40 transition hover:ring-primary/40 hover:shadow-md"
+                  >
+                    <div className="relative h-44 overflow-hidden">
+                      <img
+                        src={imageUrl}
+                        alt=""
+                        className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                      />
+                      <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-primary-deep backdrop-blur-sm">
+                        %{scorePct} Uygunluk
+                      </span>
+                      <span className="absolute bottom-3 right-3 rounded-full bg-mint/80 px-2.5 py-1 text-[11px] font-bold text-mint-foreground backdrop-blur-sm">
+                        {distanceKm} km
+                      </span>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-[14px] font-bold leading-tight text-foreground group-hover:text-primary">
+                        {facility.name}
+                      </h3>
+                      <div className="mt-1.5 flex items-center gap-1 text-[11.5px] text-muted-foreground">
+                        <MapPin className="size-3" aria-hidden /> {facility.district}
+                      </div>
+                      <div className="mt-2.5 flex flex-wrap gap-1.5">
+                        {facility.sports.slice(0, 3).map(id => (
+                          <span key={id} className="rounded-full bg-muted px-2 py-0.5 text-[10.5px] text-muted-foreground">
+                            {getSportLabel(id)}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="mt-3 flex items-center gap-2 text-foreground/35">
+                        <PersonStanding className="size-3.5" aria-hidden />
+                        <ParkingCircle  className="size-3.5" aria-hidden />
+                        <Dumbbell       className="size-3.5" aria-hidden />
+                        <Footprints     className="size-3.5" aria-hidden />
+                        <Accessibility  className="size-3.5" aria-hidden />
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              )
+            })}
+            {ranked.length === 0 && (
+              <li className="col-span-full text-sm text-muted-foreground">
+                Profiline uygun tesis bulunamadı.
+              </li>
+            )}
+          </ul>
+        </div>
       ) : (
+        /* ---- MAP MODE: harita + sağ liste ---- */
         <div className="grid gap-6 xl:grid-cols-[1fr_22rem]">
-          {/* Map column — real Leaflet inside design's frame */}
+          {/* Map column */}
           <div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[1.5rem] ring-1 ring-border/30">
               <MapContainer
@@ -243,25 +383,24 @@ export function FacilityMap() {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <MapBridge onReady={handleMapReady} />
-                {facilities.map(facility => {
+                {facilities.map((facility, idx) => {
                   const isHighlighted = sportFilter ? facility.sports.includes(sportFilter) : false
                   const isDimmed      = sportFilter ? !facility.sports.includes(sportFilter) : false
                   return (
                     <LiveFacilityMarker
                       key={facility.id}
                       facility={facility}
+                      imageUrl={getFacilityImage(facility.id, idx)}
                       disabilityType={disabilityType}
                       isHighlighted={isHighlighted}
                       isDimmed={isDimmed}
-                      onSelect={handleSelectFacility}
                     />
                   )
                 })}
               </MapContainer>
 
-              {/* Design overlays — sit above tiles, ignore Leaflet drag */}
+              {/* Map overlays */}
               <div className="pointer-events-none absolute inset-0 z-[400]">
-                {/* Zoom controls */}
                 <div className="pointer-events-auto absolute right-4 bottom-20 flex flex-col overflow-hidden rounded-xl bg-white shadow-card ring-1 ring-border/40">
                   <button
                     type="button"
@@ -281,7 +420,6 @@ export function FacilityMap() {
                   </button>
                 </div>
 
-                {/* Layers button (visual placeholder, matches design) */}
                 <button
                   type="button"
                   aria-label="Katmanlar"
@@ -290,7 +428,6 @@ export function FacilityMap() {
                   <Layers className="size-4" aria-hidden />
                 </button>
 
-                {/* Konumu Kullan — real geolocation */}
                 <button
                   type="button"
                   onClick={handleLocate}
@@ -301,7 +438,7 @@ export function FacilityMap() {
               </div>
             </div>
 
-            {/* Legend + help strip */}
+            {/* Legend */}
             <div className="mt-5 grid gap-4 md:grid-cols-[1fr_auto]">
               <div className="flex flex-col gap-3">
                 <span className="text-[12px] font-semibold text-foreground/70">Erişilebilirlik durumu</span>
@@ -328,7 +465,7 @@ export function FacilityMap() {
             </div>
           </div>
 
-          {/* Right list — real data + design layout */}
+          {/* Right list panel */}
           <aside>
             <div className="mb-5 flex items-end justify-between">
               <div>
@@ -350,9 +487,9 @@ export function FacilityMap() {
 
             <ul className="space-y-5 lg:max-h-[calc(100dvh-16rem)] lg:overflow-y-auto lg:pr-1">
               {ranked.map(({ facility, verifiedCount }, idx) => {
-                const scorePct  = Math.round((verifiedCount / 6) * 100)
+                const scorePct   = Math.round((verifiedCount / 6) * 100)
                 const distanceKm = estimatedDistance(facility)
-                const isMatched = sportFilter ? facility.sports.includes(sportFilter) : true
+                const isMatched  = sportFilter ? facility.sports.includes(sportFilter) : true
                 return (
                   <li key={facility.id} id={`facility-row-${facility.id}`} className={isMatched ? '' : 'opacity-40'}>
                     <Link to={`/facility/${facility.id}`} className="group flex gap-3.5">
@@ -385,10 +522,10 @@ export function FacilityMap() {
                         </div>
                         <div className="mt-2 flex items-center gap-2.5 text-foreground/40">
                           <PersonStanding className="size-3.5" aria-hidden />
-                          <ParkingCircle className="size-3.5" aria-hidden />
-                          <Dumbbell className="size-3.5" aria-hidden />
-                          <Footprints className="size-3.5" aria-hidden />
-                          <Accessibility className="size-3.5" aria-hidden />
+                          <ParkingCircle  className="size-3.5" aria-hidden />
+                          <Dumbbell       className="size-3.5" aria-hidden />
+                          <Footprints     className="size-3.5" aria-hidden />
+                          <Accessibility  className="size-3.5" aria-hidden />
                         </div>
                       </div>
                     </Link>
@@ -402,12 +539,14 @@ export function FacilityMap() {
               )}
             </ul>
 
-            <Link
-              to="/map"
-              className="mt-6 inline-flex w-full items-center justify-center gap-2 text-sm font-bold text-primary"
+            <button
+              type="button"
+              onClick={() => setListMode(true)}
+              className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-border/60 py-2.5 text-sm font-bold text-primary transition hover:bg-primary/5"
             >
-              Tüm tesisleri listele <ArrowRight className="size-4" aria-hidden />
-            </Link>
+              <LayoutList className="size-4" aria-hidden />
+              Tüm tesisleri listele
+            </button>
           </aside>
         </div>
       )}
