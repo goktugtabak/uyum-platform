@@ -12,6 +12,12 @@ function RequireProfile({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
+function RootRoute() {
+  const { hasProfile } = useProfile()
+  if (!hasProfile) return <Navigate to="/onboarding" replace />
+  return <LandingPage />
+}
+
 function NotFound() {
   return (
     <div className="mx-auto max-w-2xl p-8 text-center">
@@ -41,7 +47,7 @@ function AppRoutes() {
   return (
     <Routes>
       {/* Public routes — no shell */}
-      <Route path="/"                     element={<LandingPage />} />
+      <Route path="/"                     element={<RootRoute />} />
       <Route path="/onboarding"           element={<OnboardingPage />} />
       <Route path="/onboarding/:step"     element={<OnboardingPage />} />
 
