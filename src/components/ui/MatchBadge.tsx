@@ -1,4 +1,4 @@
-type MatchLevel = 'high' | 'medium' | 'low'
+export type MatchLevel = 'high' | 'medium' | 'low'
 
 const MATCH_LABEL: Record<MatchLevel, string> = {
   high:   'Sana Uygun',

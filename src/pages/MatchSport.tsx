@@ -12,7 +12,7 @@ import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
 import { SpeakButton } from '../components/ui/SpeakButton'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
-import { MatchBadge } from '../components/ui/MatchBadge'
+import { MatchBadge, type MatchLevel } from '../components/ui/MatchBadge'
 import sportsData from '../data/sports.json'
 import type { Sport, Facility } from '../types'
 import type { MatchResult } from '../lib/sport-match'
@@ -75,14 +75,14 @@ function getSportImage(sportId: string): string {
   return facilityEryaman
 }
 
-function calcMatchLevel(score: number): 'high' | 'medium' | 'low' {
+function calcMatchLevel(score: number): MatchLevel {
   if (score >= 5) return 'high'
   if (score >= 3) return 'medium'
   return 'low'
 }
 
 
-function SportPhoto({ idx, matchLevel, sport }: { idx: number; matchLevel: 'high' | 'medium' | 'low'; sport: Sport }) {
+function SportPhoto({ idx, matchLevel, sport }: { idx: number; matchLevel: MatchLevel; sport: Sport }) {
   const t = TINTS[idx]
   return (
     <div className="relative h-72 overflow-hidden rounded-[1.5rem]">

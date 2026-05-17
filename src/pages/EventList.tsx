@@ -6,7 +6,7 @@ import {
 } from 'lucide-react'
 import type { SportEvent, DisabilityType, Facility, Sport, EventLevel, UserProfile } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
-import { MatchBadge } from '../components/ui/MatchBadge'
+import { MatchBadge, type MatchLevel } from '../components/ui/MatchBadge'
 import { FilterChip, FilterGroup } from '../components/ui/FilterChip'
 import { getSportLabel } from '../lib/sport-icons'
 import {
@@ -89,7 +89,7 @@ function spotsLeftFor(event: SportEvent): number {
   return 2 + (hashId(event.id + 'spots') % 14) // 2..15
 }
 
-function profileMatchLevel(event: SportEvent, profile: UserProfile): 'high' | 'medium' | 'low' {
+function profileMatchLevel(event: SportEvent, profile: UserProfile): MatchLevel {
   let score = 0
   const sport = ALL_SPORTS.find(s => s.id === event.sport)
   if (sport?.suitableFor.includes(profile.disabilityType)) score += 2
