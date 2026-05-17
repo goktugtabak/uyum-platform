@@ -1,27 +1,22 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  MapPin, Sparkles, ArrowRight, Heart, ChevronRight,
-  Waves, CircleDot, Activity, Target, CalendarDays, FileSpreadsheet,
-  Footprints,
+  MapPin, Heart, ChevronRight,
+  Waves, CircleDot, Activity, CalendarDays, FileSpreadsheet,
 } from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
 import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useProfile } from '../contexts/ProfileContext'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
-import { matchSports } from '../lib/sport-match'
-import { getSportLabel } from '../lib/sport-icons'
 import { loadTestimonies } from '../lib/testimony-store'
 import { formatRelative } from '../lib/live-status'
-import sportsData from '../data/sports.json'
 import eventsData from '../data/events.json'
-import type { Facility, Sport, SportEvent, Testimony, DisabilityType } from '../types'
+import type { Facility, SportEvent, Testimony, DisabilityType } from '../types'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
 import { FacilityTrustLine } from '../components/feature/FacilityTrust'
-import dashHero from '../assets/dashboard-hero.jpg'
+import heroAthletes from '../assets/hero-athletes.png'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
 import sportSwim from '../assets/sport-swimming.jpg'
@@ -45,13 +40,6 @@ const EVENT_THUMBS: Record<string, string> = {
   's-yoga':              facilityPool,
   's-pilates':           facilityPool,
 }
-
-const SPORT_DISCOVERY_ICONS: Array<{ icon: LucideIcon; c: 'sky' | 'mint' | 'lavender' | 'peach' }> = [
-  { icon: Waves,     c: 'sky'      },
-  { icon: CircleDot, c: 'mint'     },
-  { icon: Activity,  c: 'lavender' },
-  { icon: Target,    c: 'peach'    },
-]
 
 const MONTHS_TR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık']
 const WEEKDAYS_TR = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi']
@@ -96,23 +84,19 @@ export function Dashboard() {
     return pickTopFacilities(facilities, profile, NEARBY_LIMIT)
   }, [facilities, profile])
 
-  const sportSuggestions = useMemo<Sport[]>(() => {
-    if (!profile) return []
-    return matchSports(profile, sportsData as Sport[]).slice(0, 4).map(m => m.sport)
-  }, [profile])
-
   const upcomingEvent = useMemo<SportEvent | null>(() => {
     return ((eventsData as SportEvent[]).slice()
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
       .find(e => new Date(e.date).getTime() > now)) ?? null
   }, [now])
+  const communityImage = facilityPool
 
   if (!profile) return null
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
       {/* Hero — open, no card; image fades into canvas */}
-      <section className="relative mb-16 grid grid-cols-1 items-center gap-8 md:grid-cols-12">
+      <section className="relative mb-6 grid grid-cols-1 items-center gap-6 md:grid-cols-12">
         <div className="md:col-span-7">
           <h1 className="text-[clamp(2.2rem,4vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
             Merhaba!
@@ -125,42 +109,27 @@ export function Dashboard() {
             profiline göre sana en uygun seçenekleri keşfet.
           </p>
 
-          <div className="mt-9 grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-3">
-            {[
-              { i: MapPin,       t: 'Tesisleri Keşfet',        d: 'Sana uygun tesisleri bul',   c: 'mint'     as const, to: '/map'    as const },
-              { i: Footprints,   t: 'Sporları Keşfet',         d: 'Sana uygun sporları öğren', c: 'lavender' as const, to: '/match'  as const },
-              { i: CalendarDays, t: 'Yakındaki Etkinlikler',   d: 'Etkinlikleri incele',       c: 'peach'    as const, to: '/events' as const },
-            ].map(({ i: I, t, d, c, to }) => (
-              <Link key={t} to={to} className="group flex items-center gap-2.5">
-                <span className={`grid size-11 shrink-0 place-items-center rounded-full ${
-                  c === 'mint' ? 'bg-mint/70 text-mint-foreground' :
-                  c === 'lavender' ? 'bg-accent/15 text-accent' :
-                  'bg-accent/15 text-accent'
-                }`}>
-                  <I className="size-[18px]" strokeWidth={1.8} aria-hidden />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[13px] font-bold leading-tight text-foreground">{t}</div>
-                  <div className="text-[11px] leading-tight text-muted-foreground">{d}</div>
-                </div>
-                <ArrowRight className="size-3.5 shrink-0 text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-primary" aria-hidden />
-              </Link>
-            ))}
-          </div>
         </div>
 
         {/* Photo fades into background — no card, no border */}
         <div className="relative h-72 md:col-span-5 md:h-80">
+          <div
+            className="pointer-events-none absolute -inset-10 blur-3xl"
+            style={{
+              background: 'radial-gradient(ellipse at 42% 52%, rgba(124, 92, 190, 0.3), rgba(124, 92, 190, 0.14) 42%, transparent 74%)',
+            }}
+            aria-hidden
+          />
           <img
-            src={dashHero}
-            alt="Spor yapan kullanıcı"
-            className="absolute inset-0 h-full w-full object-cover"
+            src={heroAthletes}
+            alt="Farklı spor dallarından sporcular"
+            className="absolute inset-0 h-full w-full scale-[1.32] object-contain object-center"
             style={{
               WebkitMaskImage:
-                'linear-gradient(to left, black 60%, transparent), linear-gradient(to bottom, black 70%, transparent)',
+                'linear-gradient(to left, black 62%, transparent), linear-gradient(to right, black 76%, transparent), linear-gradient(to bottom, black 78%, transparent)',
               WebkitMaskComposite: 'source-in',
               maskImage:
-                'linear-gradient(to left, black 60%, transparent), linear-gradient(to bottom, black 70%, transparent)',
+                'linear-gradient(to left, black 62%, transparent), linear-gradient(to right, black 76%, transparent), linear-gradient(to bottom, black 78%, transparent)',
               maskComposite: 'intersect',
             }}
           />
@@ -168,7 +137,7 @@ export function Dashboard() {
       </section>
 
       {/* 3 flowing columns — no containers */}
-      <div className="grid gap-12 xl:grid-cols-3">
+      <div className="grid gap-10 xl:grid-cols-3">
         {/* Nearby facilities */}
         <section>
           <SectionHeader icon={<MapPin className="size-4 text-primary" aria-hidden />} title="Yakındaki Tesisler" to="/map" />
@@ -247,7 +216,7 @@ export function Dashboard() {
                   </header>
                   <p className="mt-3 text-[14px] leading-relaxed text-foreground/90">{t.text}</p>
                   {i === 0 && (
-                    <img src={sportBasket} alt="" className="mt-3 h-44 w-full rounded-3xl object-cover" />
+                    <img src={communityImage} alt="" className="mt-3 h-44 w-full rounded-3xl object-cover" />
                   )}
                   <footer className="mt-3 flex items-center gap-5 text-[12.5px] text-muted-foreground">
                     <span className="inline-flex items-center gap-1.5">
@@ -278,52 +247,12 @@ export function Dashboard() {
 
         </section>
 
-        {/* Personalised discovery */}
+        {/* Events and visit guide */}
         <section>
-          <SectionHeader icon={<Sparkles className="size-4 text-primary" aria-hidden />} title="Sana Özel Keşif" sub="Profiline göre öneriler" to="/match" />
-
-          <div className="mt-5">
-            <div className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
-              <Target className="size-4" aria-hidden /> Sana Önerilen Sporlar
-            </div>
-            <div className="mt-5 grid grid-cols-4 gap-2">
-              {sportSuggestions.map((s, i) => {
-                const meta = SPORT_DISCOVERY_ICONS[i % SPORT_DISCOVERY_ICONS.length]
-                const Icon = meta.icon
-                return (
-                  <Link key={s.id} to="/match" className="group flex flex-col items-center gap-2">
-                    <div className={`grid size-14 place-items-center rounded-full ${
-                      meta.c === 'sky' ? 'bg-sky/70 text-sky-foreground' :
-                      meta.c === 'mint' ? 'bg-mint/70 text-mint-foreground' :
-                      meta.c === 'lavender' ? 'bg-accent/15 text-accent' :
-                      'bg-accent/15 text-accent'
-                    }`}>
-                      <Icon className="size-6" strokeWidth={1.7} aria-hidden />
-                    </div>
-                    <span className="text-[11px] font-semibold text-foreground text-center">
-                      {getSportLabel(s.id) || s.name}
-                    </span>
-                  </Link>
-                )
-              })}
-              {sportSuggestions.length === 0 &&
-                SPORT_DISCOVERY_ICONS.map(({ icon: Icon, c }, i) => (
-                  <div key={i} className={`grid size-14 place-items-center rounded-full ${
-                    c === 'sky' ? 'bg-sky/70 text-sky-foreground' :
-                    c === 'mint' ? 'bg-mint/70 text-mint-foreground' :
-                    c === 'lavender' ? 'bg-accent/15 text-accent' :
-                    'bg-accent/15 text-accent'
-                  }`}>
-                    <Icon className="size-6" strokeWidth={1.7} aria-hidden />
-                  </div>
-                ))}
-            </div>
-          </div>
-
           {upcomingEvent && (
-            <div className="mt-9">
-              <div className="mb-4 flex items-center justify-between">
-                <h3 className="inline-flex items-center gap-2 text-sm font-bold text-primary-deep">
+            <div>
+              <div className="flex items-end justify-between">
+                <h3 className="inline-flex items-center gap-2 text-[19px] font-extrabold text-primary-deep">
                   <CalendarDays className="size-4 text-primary" aria-hidden /> Yaklaşan Etkinlikler
                 </h3>
                 <Link to="/events" className="text-xs font-semibold text-primary">Tümünü gör →</Link>
@@ -332,7 +261,7 @@ export function Dashboard() {
                 const d = new Date(upcomingEvent.date)
                 const facilityName = facilities.find(f => f.id === upcomingEvent.facilityId)?.name ?? 'Tesis'
                 return (
-                  <Link to="/events" className="flex items-center gap-4">
+                  <Link to="/events" className="mt-5 flex items-center gap-4">
                     <div className="flex flex-col items-center rounded-2xl bg-primary/10 px-3 py-2 text-primary-deep">
                       <span className="text-xl font-extrabold leading-none">{d.getDate()}</span>
                       <span className="text-[10px] uppercase tracking-wider">{MONTHS_TR[d.getMonth()].slice(0, 5)}</span>
@@ -358,7 +287,7 @@ export function Dashboard() {
           {/* Soft CTA — not a box, just gradient surface with content */}
           <Link
             to="/match"
-            className="relative mt-9 block overflow-hidden rounded-[2rem] bg-primary-deep px-6 py-7 text-primary-foreground"
+            className="relative mt-6 block overflow-hidden rounded-[2rem] bg-primary-deep px-6 py-7 text-primary-foreground"
           >
             <div className="absolute -right-8 -top-8 size-40 rounded-full bg-mint/20 blur-2xl" aria-hidden />
             <FileSpreadsheet className="size-7 opacity-90" aria-hidden />
