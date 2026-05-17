@@ -41,6 +41,7 @@ const DISABILITY_OPTIONS: { value: DisabilityType; label: string }[] = [
 
 
 function getFacilityImage(facility: Facility, fallbackIndex: number): string {
+  // HMR trigger
   if (facility.photos?.[0]?.url) return facility.photos[0].url
   const id = facility.id
   if (id.includes('eryaman')) return facilityEryaman

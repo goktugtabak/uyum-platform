@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { BackButton } from '../components/ui/BackButton'
 import {
@@ -41,6 +41,7 @@ const MONTHS_TR_LONG = [
 ]
 
 function getFacilityFallbackImage(facilityId: string, type: string, fallbackIndex = 0): string {
+  // HMR trigger
   if (type === 'havuz') return facilityPool
   if (facilityId.includes('eryaman')) return facilityEryaman
   if (facilityId.includes('havuz') || facilityId.includes('yuzme') || facilityId.includes('olimpik')) return facilityPool
