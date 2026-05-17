@@ -38,8 +38,16 @@ export function getSportIcon(sportId: string): string {
   return SPORT_ICONS[sportId] ?? ''
 }
 
+function toTitleCaseTr(value: string): string {
+  return value
+    .split(' ')
+    .map(word => word ? word.charAt(0).toLocaleUpperCase('tr-TR') + word.slice(1) : word)
+    .join(' ')
+}
+
 export function getSportLabel(sportId: string): string {
-  return SPORT_LABELS[sportId] ?? sportId
+  const label = SPORT_LABELS[sportId] ?? sportId.replace(/^s-/, '').replace(/-/g, ' ')
+  return toTitleCaseTr(label)
 }
 
 export const LEGEND_SPORTS = [

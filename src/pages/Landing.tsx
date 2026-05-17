@@ -9,14 +9,7 @@ import type { LucideIcon } from 'lucide-react'
 import { useProfile } from '../contexts/ProfileContext'
 import { Footer } from '../components/layout/Footer'
 
-function UyumLogo() {
-  return (
-    <svg width={40} height={44} viewBox="0 0 40 44" fill="none" aria-hidden>
-      <ellipse cx={16} cy={22} rx={10} ry={18} fill="#DDFBD2" transform="rotate(-15 16 22)" />
-      <ellipse cx={24} cy={22} rx={10} ry={18} fill="#4C2A85" opacity={0.9} transform="rotate(15 24 22)" />
-    </svg>
-  )
-}
+import { UyumLogo } from '../components/ui/UyumLogo'
 
 function ArcUnderline({ color = '#4C2A85', width = 200 }: { color?: string; width?: number }) {
   return (
@@ -43,9 +36,8 @@ function Navbar({ onPrimary }: { onPrimary: () => void }) {
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2" aria-label="UYUM Ana sayfa">
-          <UyumLogo />
-          <span className="text-xl font-bold text-primary-deep">UYUM</span>
+        <Link to="/" className="flex items-center" aria-label="UYUM Ana sayfa">
+          <UyumLogo size={36} />
         </Link>
         <div className="hidden md:flex items-center gap-8">
           {links.map(({ label, to }) =>
