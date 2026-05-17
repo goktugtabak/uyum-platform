@@ -55,7 +55,9 @@ function getEventImage(sportId: string): string {
   return EVENT_THUMBS[sportId] ?? sportSwim
 }
 
-function getFacilityImage(facilityId: string, fallbackIndex: number): string {
+function getFacilityImage(facility: Facility, fallbackIndex: number): string {
+  if (facility.photos?.[0]?.url) return facility.photos[0].url
+  const facilityId = facility.id
   if (facilityId.includes('eryaman')) return facilityEryaman
   if (facilityId.includes('havuz') || facilityId.includes('yuzme') || facilityId.includes('olimpik')) return facilityPool
   if (facilityId.includes('basket')) return sportBasket
@@ -176,7 +178,7 @@ export function Dashboard() {
                 <li key={facility.id}>
                   <Link to={`/facility/${facility.id}`} className="flex items-center gap-3 hover:opacity-90">
                     <img
-                      src={getFacilityImage(facility.id, idx)}
+                      src={getFacilityImage(facility, idx)}
                       alt=""
                       className="size-14 rounded-2xl object-cover"
                     />

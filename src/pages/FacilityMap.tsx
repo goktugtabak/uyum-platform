@@ -47,11 +47,14 @@ const DISABILITY_OPTIONS: { value: DisabilityType; label: string }[] = [
   { value: 'upper_limb', label: 'Üst Ekstremite' },
 ]
 
-function getFacilityImage(facilityId: string, fallbackIndex: number): string {
-  if (facilityId.includes('eryaman')) return facilityEryaman
-  if (facilityId.includes('havuz') || facilityId.includes('yuzme') || facilityId.includes('olimpik')) return facilityPool
-  if (facilityId.includes('basket')) return sportBasket
-  if (facilityId.includes('ted') || facilityId.includes('tenis')) return sportTT
+function getFacilityImage(facility: Facility, fallbackIndex: number): string {
+  if (facility.photos?.[0]?.url) return facility.photos[0].url
+  if (facility.type === 'havuz') return facilityPool
+  const id = facility.id
+  if (id.includes('eryaman')) return facilityEryaman
+  if (id.includes('havuz') || id.includes('yuzme') || id.includes('olimpik')) return facilityPool
+  if (id.includes('basket')) return sportBasket
+  if (id.includes('ted') || id.includes('tenis')) return sportTT
   return FACILITY_THUMBS[fallbackIndex % FACILITY_THUMBS.length]
 }
 
@@ -357,7 +360,7 @@ export function FacilityMap() {
                   <li key={facility.id} id={`facility-row-${facility.id}`} className={isMatched ? '' : 'opacity-40'}>
                     <Link to={`/facility/${facility.id}`} className="group flex gap-3.5">
                       <img
-                        src={getFacilityImage(facility.id, idx)}
+                        src={getFacilityImage(facility, idx)}
                         alt=""
                         className="size-[88px] shrink-0 rounded-2xl object-cover"
                       />
