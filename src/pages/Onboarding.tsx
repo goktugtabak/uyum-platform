@@ -164,7 +164,7 @@ export function Onboarding() {
       })
       clearDraft()
       announce('Profilin oluşturuldu. Ana sayfaya yönlendiriliyorsun.')
-      navigate('/dashboard')
+      navigate('/')
     }
   }
 
