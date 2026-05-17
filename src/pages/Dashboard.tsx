@@ -19,7 +19,6 @@ import { formatRelative } from '../lib/live-status'
 import sportsData from '../data/sports.json'
 import eventsData from '../data/events.json'
 import type { Facility, Sport, SportEvent, Testimony, DisabilityType } from '../types'
-import { scoreColorFromCount } from '../lib/a11y-labels'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
 import dashHero from '../assets/dashboard-hero.jpg'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
@@ -119,7 +118,7 @@ export function Dashboard() {
           <p className="mt-3 max-w-md text-base text-muted-foreground">
             Bugün hareket etmek için harika bir gün. <br />
             <span className="font-semibold text-foreground">
-              {DISABILITY_LABELS[profile.disabilityType]}
+              {profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(' · ')}
             </span>{' '}
             profiline göre sana en uygun seçenekleri keşfet.
           </p>
@@ -179,7 +178,7 @@ export function Dashboard() {
             </div>
 
             <ul className="mt-6 space-y-5">
-              {ranked.map(({ facility, verifiedCount }, idx) => {
+              {ranked.map(({ facility, overall }, idx) => {
                 return (
                   <li key={facility.id}>
                     <Link to={`/facility/${facility.id}`} className="flex items-center gap-3 hover:opacity-90">
@@ -199,7 +198,7 @@ export function Dashboard() {
                           ))}
                         </div>
                       </div>
-                      <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
+                      <ScoreBadge color={overall} size="sm" />
                     </Link>
                   </li>
                 )

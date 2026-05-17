@@ -66,11 +66,13 @@ export async function fetchF3Guide(
       signal: controller.signal,
       body: JSON.stringify({
         profile: {
-          disabilityType: profile.disabilityType,
-          mobilityLevel:  profile.mobilityLevel,
-          goals:          [profile.goal],
-          city:           profile.city,
-          language:       'tr',
+          disabilityTypes: profile.disabilityTypes,
+          disabilityType:  profile.disabilityTypes[0],
+          mobilityLevel:   profile.mobilityLevel,
+          goals:           profile.goals,
+          goal:            profile.goals[0],
+          city:            profile.city,
+          language:        'tr',
         },
         facility: {
           id:            facility.id,

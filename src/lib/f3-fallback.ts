@@ -20,7 +20,7 @@ export interface FallbackGuide {
 }
 
 export function fallbackGuide(profile: UserProfile, facility: Facility): FallbackGuide {
-  const dt = profile.disabilityType
+  const dt = profile.disabilityTypes[0] ?? 'wheelchair'
   const acc = facility.accessibility
 
   const lines: string[] = []

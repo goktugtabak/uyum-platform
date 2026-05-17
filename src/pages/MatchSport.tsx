@@ -16,7 +16,6 @@ import { MatchBadge, type MatchLevel } from '../components/ui/MatchBadge'
 import sportsData from '../data/sports.json'
 import type { Sport, Facility } from '../types'
 import type { MatchResult } from '../lib/sport-match'
-import { scoreColorFromCount } from '../lib/a11y-labels'
 import sportSwim from '../assets/sport-swimming.jpg'
 import sportBasket from '../assets/sport-basketball.jpg'
 import sportTT from '../assets/sport-tabletennis.jpg'
@@ -38,6 +37,8 @@ const GOAL_LABELS: Record<string, string> = {
   strength:    'Güçlenmek',
   flexibility: 'Esneklik',
   social:      'Sosyal',
+  performance: 'Performans',
+  healthy:     'Sağlıklı',
   compete:     'Yarışma',
 }
 
@@ -138,9 +139,9 @@ export function MatchSport() {
 
         {/* Profile chip row — clean, no card */}
         <div className="flex flex-wrap items-center gap-7 rounded-3xl bg-card/70 px-6 py-4 ring-1 ring-border/40 backdrop-blur">
-          <ProfileChip i={Accessibility} l="Engel Tipi" v={DISABILITY_LABELS[profile.disabilityType]} />
+          <ProfileChip i={Accessibility} l="Engel Tipi" v={profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')} />
           <ProfileChip i={Footprints}     l="Hareket"    v={MOBILITY_LABELS[profile.mobilityLevel]} />
-          <ProfileChip i={Target}         l="Hedefin"    v={GOAL_LABELS[profile.goal]} />
+          <ProfileChip i={Target}         l="Hedefin"    v={profile.goals.map(g => GOAL_LABELS[g]).join(', ')} />
           <Link
             to="/onboarding"
             className="inline-flex items-center gap-1.5 text-xs font-bold text-success hover:text-primary"
@@ -219,7 +220,7 @@ export function MatchSport() {
                     <div className="mt-7">
                       <div className="text-[13px] font-bold text-primary-deep">Erişilebilir Tesisler (Ankara)</div>
                       <ul className="mt-3 space-y-2.5">
-                        {related.map(({ facility, verifiedCount }) => (
+                        {related.map(({ facility, overall }) => (
                           <li key={facility.id} className="flex items-center gap-2 text-[13px]">
                             <MapPin className="size-3.5 text-muted-foreground" aria-hidden />
                             <Link
@@ -229,7 +230,7 @@ export function MatchSport() {
                               {facility.name}
                             </Link>
                             <span className="text-muted-foreground">{facility.district.split(',')[0]}</span>
-                            <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
+                            <ScoreBadge color={overall} size="sm" />
                           </li>
                         ))}
                       </ul>

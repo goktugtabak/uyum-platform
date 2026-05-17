@@ -56,11 +56,11 @@ export function filterEvents(
     }
   }
 
-  const profileType = profile?.disabilityType
+  const profileTypes = profile?.disabilityTypes ?? []
   upcoming.sort((a, b) => {
-    if (profileType) {
-      const aMatch = a.disabilityTypes.includes(profileType) ? 0 : 1
-      const bMatch = b.disabilityTypes.includes(profileType) ? 0 : 1
+    if (profileTypes.length > 0) {
+      const aMatch = a.disabilityTypes.some(d => profileTypes.includes(d)) ? 0 : 1
+      const bMatch = b.disabilityTypes.some(d => profileTypes.includes(d)) ? 0 : 1
       if (aMatch !== bMatch) return aMatch - bMatch
     }
     return new Date(a.date).getTime() - new Date(b.date).getTime()

@@ -21,11 +21,11 @@ export function filterCoaches(
     return true
   })
 
-  const profileType = profile?.disabilityType
+  const profileTypes = profile?.disabilityTypes ?? []
   return result.sort((a, b) => {
-    if (profileType) {
-      const aMatch = a.disabilityExpertise.includes(profileType) ? 0 : 1
-      const bMatch = b.disabilityExpertise.includes(profileType) ? 0 : 1
+    if (profileTypes.length > 0) {
+      const aMatch = a.disabilityExpertise.some(d => profileTypes.includes(d)) ? 0 : 1
+      const bMatch = b.disabilityExpertise.some(d => profileTypes.includes(d)) ? 0 : 1
       if (aMatch !== bMatch) return aMatch - bMatch
     }
     if (a.yearsExperience !== b.yearsExperience) return b.yearsExperience - a.yearsExperience

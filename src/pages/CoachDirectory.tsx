@@ -286,7 +286,7 @@ export function CoachDirectory() {
               key={coach.id}
               coach={coach}
               facilities={ALL_FACILITIES}
-              profileMatch={coach.disabilityExpertise.includes(profile.disabilityType)}
+              profileMatch={coach.disabilityExpertise.some(d => profile.disabilityTypes.includes(d))}
             />
           ))}
         </section>

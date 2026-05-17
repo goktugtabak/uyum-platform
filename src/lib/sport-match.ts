@@ -23,18 +23,20 @@ const GOAL_LABELS: Record<Goal, string> = {
   strength:    'güç geliştirme',
   flexibility: 'esneklik',
   social:      'sosyal bağ kurma',
+  performance: 'performans geliştirme',
+  healthy:     'sağlıklı kalma',
   compete:     'yarışma',
 }
 
 function scoreSport(sport: Sport, profile: UserProfile): number {
   let score = 0
-  if (sport.suitableFor.includes(profile.disabilityType)) {
+  if (profile.disabilityTypes.some(d => sport.suitableFor.includes(d))) {
     score += 3
   }
   if (sport.mobilityLevel.includes(profile.mobilityLevel)) {
     score += 2
   }
-  if (sport.goals.includes(profile.goal)) {
+  if (profile.goals.some(g => sport.goals.includes(g))) {
     score += 2
   }
   return score
@@ -42,10 +44,13 @@ function scoreSport(sport: Sport, profile: UserProfile): number {
 
 function buildReason(sport: Sport, profile: UserProfile): string {
   const parts: string[] = []
-  const disabilityLabel = DISABILITY_LABELS[profile.disabilityType]
-  const mobilityVerb    = MOBILITY_VERBS[profile.mobilityLevel]
+  const disabilityLabel =
+    profile.disabilityTypes.length === 1
+      ? DISABILITY_LABELS[profile.disabilityTypes[0]]
+      : profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(' ve ')
+  const mobilityVerb = MOBILITY_VERBS[profile.mobilityLevel]
 
-  if (sport.suitableFor.includes(profile.disabilityType)) {
+  if (profile.disabilityTypes.some(d => sport.suitableFor.includes(d))) {
     parts.push(`${sport.name}, ${disabilityLabel} için uygun bir adaptif spor`)
   } else {
     parts.push(`${sport.name} senin profilinle kısmen örtüşüyor`)
@@ -55,8 +60,9 @@ function buildReason(sport: Sport, profile: UserProfile): string {
     parts.push(`${mobilityVerb} yapılabilir`)
   }
 
-  if (sport.goals.includes(profile.goal)) {
-    parts.push(`${GOAL_LABELS[profile.goal]} hedefini destekler`)
+  const matchingGoal = profile.goals.find(g => sport.goals.includes(g))
+  if (matchingGoal) {
+    parts.push(`${GOAL_LABELS[matchingGoal]} hedefini destekler`)
   }
 
   return parts.join(', ') + '.'

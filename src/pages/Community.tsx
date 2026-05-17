@@ -53,7 +53,7 @@ export function Community() {
       id: generateTestimonyId(),
       facilityId,
       timestamp: new Date().toISOString(),
-      disabilityType: profile?.disabilityType ?? 'wheelchair',
+      disabilityType: profile?.disabilityTypes[0] ?? 'wheelchair',
       anonymous,
       displayName: anonymous ? undefined : displayName.trim() || undefined,
       text: text.trim(),

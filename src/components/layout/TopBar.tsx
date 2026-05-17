@@ -151,6 +151,11 @@ export function TopBar() {
 
   const unreadCount = MOCK_NOTIFICATIONS.filter(n => !n.read).length
   const previewNotifs = MOCK_NOTIFICATIONS.slice(0, 4)
+  const profileDisabilityLabels = profile?.disabilityTypes
+    .map(d => DISABILITY_LABELS[d])
+    .filter(Boolean) ?? []
+  const profileBadgeInitial = profileDisabilityLabels[0]?.[0] ?? 'U'
+  const profileBadgeText = profileDisabilityLabels.join(' · ') || 'Profilim'
 
   function handleSearchSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -329,10 +334,10 @@ export function TopBar() {
               aria-hidden
               className="grid size-9 place-items-center rounded-full bg-[#320E3B] text-sm font-bold text-white"
             >
-              {DISABILITY_LABELS[profile.disabilityType]?.[0] ?? 'U'}
+              {profileBadgeInitial}
             </span>
             <span className="text-sm font-semibold text-[#320E3B]">
-              {DISABILITY_LABELS[profile.disabilityType]}
+              {profileBadgeText}
             </span>
           </Link>
         )}

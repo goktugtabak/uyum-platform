@@ -9,13 +9,24 @@ function loadProfile(): UserProfile | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return null
-    const parsed = JSON.parse(raw) as UserProfile
-    // Backward compatibility: ensure array fields exist for profiles saved before they were added
+    const parsed = JSON.parse(raw) as Record<string, unknown>
+    // Migrate legacy single-value disability / goal fields
+    if ('disabilityType' in parsed && !Array.isArray(parsed.disabilityTypes)) {
+      parsed.disabilityTypes = [parsed.disabilityType]
+      delete parsed.disabilityType
+    }
+    if ('goal' in parsed && !Array.isArray(parsed.goals)) {
+      parsed.goals = [parsed.goal]
+      delete parsed.goal
+    }
+    const profile = parsed as unknown as UserProfile
     return {
-      ...parsed,
-      favoriteFacilities: parsed.favoriteFacilities ?? [],
-      favoriteEvents:     parsed.favoriteEvents     ?? [],
-      favoriteExercises:  parsed.favoriteExercises  ?? [],
+      ...profile,
+      disabilityTypes:    profile.disabilityTypes    ?? [],
+      goals:              profile.goals              ?? [],
+      favoriteFacilities: profile.favoriteFacilities ?? [],
+      favoriteEvents:     profile.favoriteEvents     ?? [],
+      favoriteExercises:  profile.favoriteExercises  ?? [],
     }
   } catch {
     return null

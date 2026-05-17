@@ -95,8 +95,8 @@ function spotsLeftFor(event: SportEvent): number {
 function profileMatchLevel(event: SportEvent, profile: UserProfile): MatchLevel {
   let score = 0
   const sport = ALL_SPORTS.find(s => s.id === event.sport)
-  if (sport?.suitableFor.includes(profile.disabilityType)) score += 2
-  if (event.disabilityTypes.includes(profile.disabilityType)) score += 2
+  if (sport?.suitableFor.some(d => profile.disabilityTypes.includes(d))) score += 2
+  if (event.disabilityTypes.some(d => profile.disabilityTypes.includes(d))) score += 2
   if (sport?.mobilityLevel.includes(profile.mobilityLevel)) score += 1
   if (score >= 4) return 'high'
   if (score >= 2) return 'medium'
@@ -557,7 +557,7 @@ export function EventList() {
 
   const profileMatchCount = useMemo(() => {
     if (!profile) return 0
-    return upcoming.filter(e => e.disabilityTypes.includes(profile.disabilityType)).length
+    return upcoming.filter(e => e.disabilityTypes.some(d => profile.disabilityTypes.includes(d))).length
   }, [upcoming, profile])
 
   function clearFilters() {

@@ -1,7 +1,7 @@
 export type AccessibilityDimension = 'verified' | 'partial' | 'none' | 'unknown'
 export type DisabilityType = 'wheelchair' | 'visual' | 'hearing' | 'upper_limb'
 export type MobilityLevel = 'sitting' | 'supported' | 'independent'
-export type Goal = 'strength' | 'flexibility' | 'social' | 'compete'
+export type Goal = 'strength' | 'flexibility' | 'social' | 'performance' | 'healthy' | 'compete'
 export type EventLevel = 'başlangıç' | 'orta' | 'ileri' | 'yarışma'
 export type FacilityType = 'havuz' | 'spor_salonu' | 'açık_alan' | 'atletizm'
 
@@ -74,9 +74,9 @@ export interface AccessibilityPrefs {
 }
 
 export interface UserProfile {
-  disabilityType: DisabilityType
+  disabilityTypes: DisabilityType[]
   mobilityLevel: MobilityLevel
-  goal: Goal
+  goals: Goal[]
   city: string
   favoriteFacilities: string[]
   favoriteEvents: string[]

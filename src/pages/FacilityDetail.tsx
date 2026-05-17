@@ -466,7 +466,7 @@ export function FacilityDetail() {
   const [facilities, setFacilities] = useState<Facility[]>([])
   const [loading, setLoading] = useState(true)
   const [disabilityType, setDisabilityType] = useState<DisabilityType>(
-    profile?.disabilityType ?? 'wheelchair',
+    profile?.disabilityTypes[0] ?? 'wheelchair',
   )
 
   useEffect(() => {

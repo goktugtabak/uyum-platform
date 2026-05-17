@@ -32,6 +32,8 @@ const GOAL_LABELS: Record<Goal, string> = {
   strength:    'Güçlenmek',
   flexibility: 'Esneklik',
   social:      'Sosyal',
+  performance: 'Performans',
+  healthy:     'Sağlıklı',
   compete:     'Yarışma',
 }
 
@@ -70,7 +72,7 @@ export function Profile() {
     .map(id => EXERCISES.find(e => e.id === id))
     .filter((e): e is Exercise => Boolean(e))
 
-  const initial = DISABILITY_LABELS[profile.disabilityType].charAt(0).toUpperCase()
+  const initial = DISABILITY_LABELS[profile.disabilityTypes[0]]?.charAt(0).toUpperCase() ?? 'U'
 
   return (
     <div className="mx-auto max-w-5xl space-y-10 pt-2">
@@ -89,7 +91,7 @@ export function Profile() {
             <div className="min-w-0">
               <div className="font-display text-xl font-extrabold text-white sm:text-2xl">UYUM Kullanıcısı</div>
               <div className="mt-0.5 truncate text-sm text-white/80">
-                {DISABILITY_LABELS[profile.disabilityType]} · {profile.city} sporcusu
+                {profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(' · ')} · {profile.city} sporcusu
               </div>
               <div className="mt-2 flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-bold text-white backdrop-blur-sm">
@@ -113,9 +115,9 @@ export function Profile() {
       {/* Profile facts */}
       <section className="space-y-3">
         <div className="grid gap-4 sm:grid-cols-3">
-          <Fact icon={<Accessibility className="size-5" aria-hidden />} label="Engel Tipi" value={DISABILITY_LABELS[profile.disabilityType]} />
+          <Fact icon={<Accessibility className="size-5" aria-hidden />} label="Engel Tipi" value={profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')} />
           <Fact icon={<Footprints className="size-5" aria-hidden />} label="Hareket" value={MOBILITY_LABELS[profile.mobilityLevel]} />
-          <Fact icon={<Target className="size-5" aria-hidden />} label="Hedef" value={GOAL_LABELS[profile.goal]} />
+          <Fact icon={<Target className="size-5" aria-hidden />} label="Hedef" value={profile.goals.map(g => GOAL_LABELS[g]).join(', ')} />
         </div>
         <div className="flex flex-wrap items-center justify-between gap-2 px-1">
           <p className="text-xs text-muted-foreground">Profilin önerilerinin temelini oluşturur.</p>

@@ -15,7 +15,7 @@ import { useProfile } from '../contexts/ProfileContext'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
 import { useFacilityScore } from '../hooks/useFacilityScore'
-import { SCORE_LABEL, SCORE_GLYPH, SCORE_HEX, scoreColorFromCount } from '../lib/a11y-labels'
+import { SCORE_LABEL, SCORE_GLYPH, SCORE_HEX } from '../lib/a11y-labels'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
 import { getSportLabel } from '../lib/sport-icons'
 import { Spinner } from '../components/ui/Spinner'
@@ -178,10 +178,11 @@ export function FacilityMap() {
   const { profile } = useProfile()
   const [searchParams, setSearchParams] = useSearchParams()
   const sportFilter = searchParams.get('sport')
+  const profileDisabilityLens = profile?.disabilityTypes[0] ?? 'wheelchair'
 
   const [facilities, setFacilities] = useState<Facility[]>([])
   const [loading, setLoading] = useState(true)
-  const [disabilityType, setDisabilityType] = useState<DisabilityType>(profile?.disabilityType ?? 'wheelchair')
+  const [disabilityType, setDisabilityType] = useState<DisabilityType>(profileDisabilityLens)
   const [openDD, setOpenDD] = useState<string | null>(null)
   const [listMode, setListMode] = useState(false)
   const mapRef = useRef<LeafletMap | null>(null)
@@ -243,9 +244,9 @@ export function FacilityMap() {
             label: getSportLabel(id),
           })),
         ]
-        const isFiltered = !!sportFilter || disabilityType !== (profile?.disabilityType ?? 'wheelchair')
+        const isFiltered = !!sportFilter || disabilityType !== profileDisabilityLens
         function clearFilters() {
-          setDisabilityType(profile?.disabilityType ?? 'wheelchair')
+          setDisabilityType(profileDisabilityLens)
           const sp = new URLSearchParams(searchParams)
           sp.delete('sport')
           setSearchParams(sp)
@@ -297,10 +298,10 @@ export function FacilityMap() {
                     }}
                   />
                 )}
-                {disabilityType !== (profile?.disabilityType ?? 'wheelchair') && (
+                {disabilityType !== profileDisabilityLens && (
                   <ActiveFilterChip
                     label={`Engel: ${DISABILITY_OPTIONS.find(o => o.value === disabilityType)?.label ?? disabilityType}`}
-                    onRemove={() => setDisabilityType(profile?.disabilityType ?? 'wheelchair')}
+                    onRemove={() => setDisabilityType(profileDisabilityLens)}
                   />
                 )}
               </div>
@@ -320,7 +321,7 @@ export function FacilityMap() {
             {ranked.length} tesis listeleniyor
           </p>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {ranked.map(({ facility, verifiedCount }, idx) => {
+            {ranked.map(({ facility, overall }, idx) => {
               const distanceKm = estimatedDistance(facility)
               const imageUrl   = getFacilityImage(facility, idx)
               const isMatched  = sportFilter ? facility.sports.includes(sportFilter) : true
@@ -337,7 +338,7 @@ export function FacilityMap() {
                         className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                       />
                       <span className="absolute bottom-3 left-3 backdrop-blur-sm">
-                        <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
+                        <ScoreBadge color={overall} size="sm" />
                       </span>
                       <span className="absolute bottom-3 right-3 rounded-full bg-mint/80 px-2.5 py-1 text-[11px] font-bold text-mint-foreground backdrop-blur-sm">
                         {distanceKm} km
@@ -497,7 +498,7 @@ export function FacilityMap() {
             </div>
 
             <ul className="space-y-5 lg:max-h-[calc(100dvh-16rem)] lg:overflow-y-auto lg:pr-1">
-              {ranked.map(({ facility, verifiedCount }, idx) => {
+              {ranked.map(({ facility, overall }, idx) => {
                 const distanceKm = estimatedDistance(facility)
                 const isMatched  = sportFilter ? facility.sports.includes(sportFilter) : true
                 return (
@@ -518,7 +519,7 @@ export function FacilityMap() {
                           </span>
                         </div>
                         <span className="mt-1.5 inline-block">
-                          <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
+                          <ScoreBadge color={overall} size="sm" />
                         </span>
                         <div className="mt-1.5 flex items-center gap-1 text-[11px] text-muted-foreground">
                           <MapPin className="size-3" aria-hidden /> {facility.district}
