@@ -1,0 +1,83 @@
+[
+  { "id": "v-s01", "facilityId": "f-ank-places-01", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-01", "timestamp": "2026-05-10T09:00:00" },
+  { "id": "v-s02", "facilityId": "f-ank-places-01", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-02", "timestamp": "2026-05-09T14:00:00" },
+  { "id": "v-s03", "facilityId": "f-ank-places-01", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-03", "timestamp": "2026-05-08T11:00:00" },
+  { "id": "v-s04", "facilityId": "f-ank-places-01", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-04", "timestamp": "2026-05-07T10:00:00" },
+  { "id": "v-s05", "facilityId": "f-ank-places-01", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-05", "timestamp": "2026-05-06T16:00:00" },
+  { "id": "v-s06", "facilityId": "f-ank-places-01", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-06", "timestamp": "2026-05-05T09:30:00" },
+  { "id": "v-s07", "facilityId": "f-ank-places-01", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-07", "timestamp": "2026-05-04T13:00:00" },
+  { "id": "v-s08", "facilityId": "f-ank-places-01", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-08", "timestamp": "2026-05-03T11:00:00" },
+
+  { "id": "v-s09", "facilityId": "f-ank-places-01", "dimension": "internal",      "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-01", "timestamp": "2026-05-10T09:05:00" },
+  { "id": "v-s10", "facilityId": "f-ank-places-01", "dimension": "internal",      "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-02", "timestamp": "2026-05-09T14:05:00" },
+  { "id": "v-s11", "facilityId": "f-ank-places-01", "dimension": "internal",      "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-03", "timestamp": "2026-05-08T11:05:00" },
+  { "id": "v-s12", "facilityId": "f-ank-places-01", "dimension": "internal",      "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-04", "timestamp": "2026-05-07T10:05:00" },
+  { "id": "v-s13", "facilityId": "f-ank-places-01", "dimension": "internal",      "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-05", "timestamp": "2026-05-06T16:05:00" },
+
+  { "id": "v-s14", "facilityId": "f-ank-places-01", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-01", "timestamp": "2026-05-10T09:10:00" },
+  { "id": "v-s15", "facilityId": "f-ank-places-01", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-02", "timestamp": "2026-05-09T14:10:00" },
+  { "id": "v-s16", "facilityId": "f-ank-places-01", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-03", "timestamp": "2026-05-08T11:10:00" },
+  { "id": "v-s17", "facilityId": "f-ank-places-01", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-06", "timestamp": "2026-05-05T09:40:00" },
+  { "id": "v-s18", "facilityId": "f-ank-places-01", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-07", "timestamp": "2026-05-04T13:10:00" },
+
+  { "id": "v-s19", "facilityId": "f-ank-places-01", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-01", "timestamp": "2026-05-10T09:15:00" },
+  { "id": "v-s20", "facilityId": "f-ank-places-01", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-02", "timestamp": "2026-05-09T14:15:00" },
+  { "id": "v-s21", "facilityId": "f-ank-places-01", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-03", "timestamp": "2026-05-08T11:15:00" },
+  { "id": "v-s22", "facilityId": "f-ank-places-01", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-04", "timestamp": "2026-05-07T10:15:00" },
+  { "id": "v-s23", "facilityId": "f-ank-places-01", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-05", "timestamp": "2026-05-06T16:15:00" },
+
+  { "id": "v-s24", "facilityId": "f-ank-places-01", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-01", "timestamp": "2026-05-10T09:20:00" },
+  { "id": "v-s25", "facilityId": "f-ank-places-01", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-02", "timestamp": "2026-05-09T14:20:00" },
+  { "id": "v-s26", "facilityId": "f-ank-places-01", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-03", "timestamp": "2026-05-08T11:20:00" },
+  { "id": "v-s27", "facilityId": "f-ank-places-01", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-04", "timestamp": "2026-05-07T10:20:00" },
+  { "id": "v-s28", "facilityId": "f-ank-places-01", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-06", "timestamp": "2026-05-05T09:50:00" },
+  { "id": "v-s29", "facilityId": "f-ank-places-01", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-07", "timestamp": "2026-05-04T13:20:00" },
+  { "id": "v-s30", "facilityId": "f-ank-places-01", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-08", "timestamp": "2026-05-03T11:20:00" },
+
+  { "id": "v-s31", "facilityId": "f-ank-places-01", "dimension": "communication", "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-01", "timestamp": "2026-05-10T09:25:00" },
+  { "id": "v-s32", "facilityId": "f-ank-places-01", "dimension": "communication", "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-02", "timestamp": "2026-05-09T14:25:00" },
+  { "id": "v-s33", "facilityId": "f-ank-places-01", "dimension": "communication", "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-03", "timestamp": "2026-05-08T11:25:00" },
+  { "id": "v-s34", "facilityId": "f-ank-places-01", "dimension": "communication", "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-04", "timestamp": "2026-05-07T10:25:00" },
+  { "id": "v-s35", "facilityId": "f-ank-places-01", "dimension": "communication", "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-05", "timestamp": "2026-05-06T16:25:00" },
+  { "id": "v-s36", "facilityId": "f-ank-places-01", "dimension": "communication", "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-06", "timestamp": "2026-05-05T09:55:00" },
+
+  { "id": "v-s37", "facilityId": "f-ank-places-02", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-01", "timestamp": "2026-05-11T10:00:00" },
+  { "id": "v-s38", "facilityId": "f-ank-places-02", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-02", "timestamp": "2026-05-10T15:00:00" },
+  { "id": "v-s39", "facilityId": "f-ank-places-02", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-03", "timestamp": "2026-05-09T12:00:00" },
+  { "id": "v-s40", "facilityId": "f-ank-places-02", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-04", "timestamp": "2026-05-08T09:00:00" },
+
+  { "id": "v-s41", "facilityId": "f-ank-places-02", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-01", "timestamp": "2026-05-11T10:10:00" },
+  { "id": "v-s42", "facilityId": "f-ank-places-02", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-02", "timestamp": "2026-05-10T15:10:00" },
+  { "id": "v-s43", "facilityId": "f-ank-places-02", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-03", "timestamp": "2026-05-09T12:10:00" },
+  { "id": "v-s44", "facilityId": "f-ank-places-02", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-05", "timestamp": "2026-05-07T11:10:00" },
+
+  { "id": "v-s45", "facilityId": "f-ank-places-03", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-01", "timestamp": "2026-05-12T08:00:00" },
+  { "id": "v-s46", "facilityId": "f-ank-places-03", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-02", "timestamp": "2026-05-11T09:00:00" },
+  { "id": "v-s47", "facilityId": "f-ank-places-03", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-03", "timestamp": "2026-05-10T10:00:00" },
+  { "id": "v-s48", "facilityId": "f-ank-places-03", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-04", "timestamp": "2026-05-09T11:00:00" },
+  { "id": "v-s49", "facilityId": "f-ank-places-03", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-05", "timestamp": "2026-05-08T12:00:00" },
+
+  { "id": "v-s50", "facilityId": "f-ank-places-03", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-01", "timestamp": "2026-05-12T08:05:00" },
+  { "id": "v-s51", "facilityId": "f-ank-places-03", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-02", "timestamp": "2026-05-11T09:05:00" },
+  { "id": "v-s52", "facilityId": "f-ank-places-03", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-03", "timestamp": "2026-05-10T10:05:00" },
+  { "id": "v-s53", "facilityId": "f-ank-places-03", "dimension": "staff",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-04", "timestamp": "2026-05-09T11:05:00" },
+
+  { "id": "v-s54", "facilityId": "f-ank-places-05", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-01", "timestamp": "2026-05-13T08:00:00" },
+  { "id": "v-s55", "facilityId": "f-ank-places-05", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-02", "timestamp": "2026-05-12T09:00:00" },
+  { "id": "v-s56", "facilityId": "f-ank-places-05", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-03", "timestamp": "2026-05-11T10:00:00" },
+  { "id": "v-s57", "facilityId": "f-ank-places-05", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-04", "timestamp": "2026-05-10T11:00:00" },
+  { "id": "v-s58", "facilityId": "f-ank-places-05", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-05", "timestamp": "2026-05-09T12:00:00" },
+  { "id": "v-s59", "facilityId": "f-ank-places-05", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-06", "timestamp": "2026-05-08T13:00:00" },
+  { "id": "v-s60", "facilityId": "f-ank-places-05", "dimension": "entry",         "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-07", "timestamp": "2026-05-07T14:00:00" },
+
+  { "id": "v-s61", "facilityId": "f-ank-places-05", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-01", "timestamp": "2026-05-13T08:10:00" },
+  { "id": "v-s62", "facilityId": "f-ank-places-05", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-02", "timestamp": "2026-05-12T09:10:00" },
+  { "id": "v-s63", "facilityId": "f-ank-places-05", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-03", "timestamp": "2026-05-11T10:10:00" },
+  { "id": "v-s64", "facilityId": "f-ank-places-05", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-04", "timestamp": "2026-05-10T11:10:00" },
+  { "id": "v-s65", "facilityId": "f-ank-places-05", "dimension": "changing",      "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-05", "timestamp": "2026-05-09T12:10:00" },
+
+  { "id": "v-s66", "facilityId": "f-ank-places-05", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-01", "timestamp": "2026-05-13T08:20:00" },
+  { "id": "v-s67", "facilityId": "f-ank-places-05", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-02", "timestamp": "2026-05-12T09:20:00" },
+  { "id": "v-s68", "facilityId": "f-ank-places-05", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "deny",    "userId": "anon-seed-03", "timestamp": "2026-05-11T10:20:00" },
+  { "id": "v-s69", "facilityId": "f-ank-places-05", "dimension": "equipment",     "disabilityType": "wheelchair", "vote": "confirm", "userId": "anon-seed-04", "timestamp": "2026-05-10T11:20:00" }
+]
