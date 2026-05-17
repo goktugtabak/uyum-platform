@@ -82,7 +82,7 @@
     "placeId": "manual-ank-001",
     "photos": [
       {
-        "url": "/facility-pool.jpg",
+        "url": "/facilities/facility-pool.jpg",
         "alt": "Çankaya Spor Kompleksi yüzme havuzu",
         "attribution": "Fotoğraf: Çankaya Belediyesi"
       }
@@ -181,7 +181,7 @@
     "placeId": "manual-ank-002",
     "photos": [
       {
-        "url": "/yenimahalle-spor-kompleksi.png",
+        "url": "/facilities/yenimahalle-spor-kompleksi.png",
         "alt": "Yenimahalle Olimpik Yüzme Havuzu",
         "attribution": "Fotoğraf: Yenimahalle Belediyesi"
       }
@@ -282,7 +282,7 @@
     "placeId": "manual-ank-003",
     "photos": [
       {
-        "url": "/facility-pool.jpg",
+        "url": "/facilities/facility-pool.jpg",
         "alt": "Keçiören Spor Merkezi",
         "attribution": "Fotoğraf: Keçiören Belediyesi"
       }
@@ -381,7 +381,7 @@
     "placeId": "manual-ank-004",
     "photos": [
       {
-        "url": "/facility-gym.jpg",
+        "url": "/facilities/facility-gym.jpg",
         "alt": "Mamak Belediyesi Spor Salonu",
         "attribution": "Fotoğraf: Mamak Belediyesi"
       }
@@ -481,7 +481,7 @@
     "placeId": "manual-ank-005",
     "photos": [
       {
-        "url": "/etimesgut-engelsiz-aileyasammerkezi.png",
+        "url": "/facilities/etimesgut-engelsiz-aileyasammerkezi.png",
         "alt": "Etimesgut Engelli Spor Merkezi",
         "attribution": "Fotoğraf: Etimesgut Belediyesi"
       }
@@ -580,7 +580,7 @@
     "placeId": "manual-ank-006",
     "photos": [
       {
-        "url": "/facility-eryaman.jpg",
+        "url": "/facilities/facility-eryaman.jpg",
         "alt": "Sincan Atletizm Pisti",
         "attribution": "Fotoğraf: Sincan Belediyesi"
       }
@@ -680,7 +680,7 @@
     "placeId": "manual-ank-007",
     "photos": [
       {
-        "url": "/facility-gym.jpg",
+        "url": "/facilities/facility-gym.jpg",
         "alt": "Oran Spor Tesisi",
         "attribution": "Fotoğraf: Ankara Büyükşehir Belediyesi"
       }
@@ -779,7 +779,7 @@
     "placeId": "manual-ank-008",
     "photos": [
       {
-        "url": "/yenimahalle-spor-kompleksi.png",
+        "url": "/facilities/yenimahalle-spor-kompleksi.png",
         "alt": "Yenimahalle Gençlik Spor Salonu",
         "attribution": "Fotoğraf: Yenimahalle Belediyesi"
       }
@@ -879,7 +879,7 @@
     "placeId": "manual-ank-009",
     "photos": [
       {
-        "url": "/facility-gym.jpg",
+        "url": "/facilities/facility-gym.jpg",
         "alt": "Çankaya Yoga Stüdyosu",
         "attribution": "Fotoğraf: Çankaya Kültür Merkezi"
       }
@@ -979,7 +979,7 @@
     "placeId": "manual-ank-010",
     "photos": [
       {
-        "url": "/facility-eryaman.jpg",
+        "url": "/facilities/facility-eryaman.jpg",
         "alt": "Gölbaşı Para Okçuluk Tesisi",
         "attribution": "Fotoğraf: Gölbaşı Belediyesi"
       }
@@ -1078,7 +1078,7 @@
     "placeId": "manual-ank-011",
     "photos": [
       {
-        "url": "/altındag-sosyal-tesisler.png",
+        "url": "/facilities/altindag-sosyal-tesisler.png",
         "alt": "Altındağ Spor Kompleksi",
         "attribution": "Fotoğraf: Altındağ Belediyesi"
       }
@@ -1177,7 +1177,7 @@
     "placeId": "manual-ank-012",
     "photos": [
       {
-        "url": "/yüzme-havuzu-pursaklar.png",
+        "url": "/facilities/yuzme-havuzu-pursaklar.png",
         "alt": "Pursaklar Yüzme Havuzu",
         "attribution": "Fotoğraf: Pursaklar Belediyesi"
       }
@@ -1277,7 +1277,7 @@
     "placeId": "manual-ank-013",
     "photos": [
       {
-        "url": "/facility-eryaman.jpg",
+        "url": "/facilities/facility-eryaman.jpg",
         "alt": "Eryaman Spor Kompleksi",
         "attribution": "Fotoğraf: Etimesgut Belediyesi"
       }
@@ -1378,7 +1378,7 @@
     "placeId": "manual-ank-014",
     "photos": [
       {
-        "url": "/yenimahalle-spor-kompleksi.png",
+        "url": "/facilities/yenimahalle-spor-kompleksi.png",
         "alt": "ASKİ Spor Kartaltepe Tesisi",
         "attribution": "Fotoğraf: Ankara Büyükşehir Belediyesi"
       }
@@ -1478,7 +1478,7 @@
     "placeId": "manual-ank-015",
     "photos": [
       {
-        "url": "/facility-gym.jpg",
+        "url": "/facilities/facility-gym.jpg",
         "alt": "Gazi Üniversitesi Engelli Spor Merkezi",
         "attribution": "Fotoğraf: Gazi Üniversitesi"
       }
@@ -1577,7 +1577,7 @@
     "placeId": "manual-ank-016",
     "photos": [
       {
-        "url": "/cubuk-spor-salonu.png",
+        "url": "/facilities/cubuk-spor-salonu.png",
         "alt": "Çubuk Spor Tesisi",
         "attribution": "Fotoğraf: Çubuk Belediyesi"
       }
@@ -1676,7 +1676,7 @@
     "placeId": "manual-ank-017",
     "photos": [
       {
-        "url": "/abb-genclik-merkezi.png",
+        "url": "/facilities/abb-genclik-merkezi.png",
         "alt": "Sıhhiye Gençlik Merkezi Havuzu",
         "attribution": "Fotoğraf: Ankara Büyükşehir Belediyesi"
       }
@@ -1775,7 +1775,7 @@
     "placeId": "manual-ank-018",
     "photos": [
       {
-        "url": "/polatlı-spor-salonu.png",
+        "url": "/facilities/polatlı-spor-salonu.png",
         "alt": "Polatlı Spor Merkezi",
         "attribution": "Fotoğraf: Polatlı Belediyesi"
       }
@@ -1875,7 +1875,7 @@
     "placeId": "manual-ank-019",
     "photos": [
       {
-        "url": "/altındag-sosyal-tesisler.png",
+        "url": "/facilities/altindag-sosyal-tesisler.png",
         "alt": "Ankara Gençlik ve Spor Kulübü Siteler Tesisi",
         "attribution": "Fotoğraf: Ankara GSGM"
       }
@@ -1973,7 +1973,7 @@
     "placeId": "manual-ank-020",
     "photos": [
       {
-        "url": "/facility-eryaman.jpg",
+        "url": "/facilities/facility-eryaman.jpg",
         "alt": "Mimar Sinan Parkı Açık Spor Alanı",
         "attribution": "Fotoğraf: Çankaya Belediyesi"
       }
