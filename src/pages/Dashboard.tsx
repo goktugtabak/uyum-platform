@@ -61,6 +61,7 @@ function getEventImage(sportId: string): string {
 }
 
 function getFacilityImage(facility: Facility, fallbackIndex: number): string {
+  // HMR trigger
   if (facility.photos?.[0]?.url) return facility.photos[0].url
   const facilityId = facility.id
   if (facilityId.includes('eryaman')) return facilityEryaman
