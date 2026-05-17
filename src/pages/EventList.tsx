@@ -2,11 +2,12 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ChevronDown, ChevronLeft, ChevronRight, MapPin, Clock,
-  Accessibility, Bookmark, Bell, Plus, CalendarDays, ArrowRight, Sparkles,
+  Accessibility, Bell, Plus, CalendarDays, ArrowRight, Sparkles,
 } from 'lucide-react'
 import type { SportEvent, DisabilityType, Facility, Sport, EventLevel, UserProfile } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
 import { MatchBadge, type MatchLevel } from '../components/ui/MatchBadge'
+import { BookmarkButton } from '../components/ui/BookmarkButton'
 import { FilterChip, FilterGroup } from '../components/ui/FilterChip'
 import { getSportLabel } from '../lib/sport-icons'
 import {
@@ -155,10 +156,11 @@ interface EventRowProps {
   event: SportEvent
   now: number
   profile: UserProfile
+  toggleFavoriteEvent: (id: string) => void
   dimmed?: boolean
 }
 
-function EventRow({ event, now, profile, dimmed = false }: EventRowProps) {
+function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: EventRowProps) {
   const facility = findFacility(event.facilityId)
   const d = new Date(event.date)
   const day = String(d.getDate())
@@ -261,13 +263,11 @@ function EventRow({ event, now, profile, dimmed = false }: EventRowProps) {
                 {spotsLeft > 0 ? 'Katılacağım' : 'Detayları Gör'} <ArrowRight className="size-3.5" aria-hidden />
               </Link>
             )}
-            <button
-              type="button"
-              aria-label="Kaydet"
-              className="grid size-9 place-items-center rounded-full text-foreground/70 hover:bg-card"
-            >
-              <Bookmark className="size-4" aria-hidden />
-            </button>
+            <BookmarkButton
+              isBookmarked={profile.favoriteEvents.includes(event.id)}
+              onToggle={() => toggleFavoriteEvent(event.id)}
+              label={event.title}
+            />
           </div>
         </div>
       </div>
@@ -473,7 +473,7 @@ function NotifyBlock() {
 }
 
 export function EventList() {
-  const { profile } = useProfile()
+  const { profile, toggleFavoriteEvent } = useProfile()
   const [now] = useState<number>(() => Date.now())
   const [filters, setFilters] = useState<EventFilters>({
     dateRange:      'all',
@@ -631,7 +631,7 @@ export function EventList() {
           {upcoming.length > 0 ? (
             <div className="space-y-10">
               {upcoming.map(event => (
-                <EventRow key={event.id} event={event} now={now} profile={profile} />
+                <EventRow key={event.id} event={event} now={now} profile={profile} toggleFavoriteEvent={toggleFavoriteEvent} />
               ))}
             </div>
           ) : (
@@ -661,7 +661,7 @@ export function EventList() {
               </h2>
               <div className="space-y-10">
                 {past.map(event => (
-                  <EventRow key={event.id} event={event} now={now} profile={profile} dimmed />
+                  <EventRow key={event.id} event={event} now={now} profile={profile} toggleFavoriteEvent={toggleFavoriteEvent} dimmed />
                 ))}
               </div>
             </section>

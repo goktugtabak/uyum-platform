@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import {
-  ArrowLeft, ArrowRight, MapPin, Bookmark, GraduationCap, Plus,
+  ArrowLeft, ArrowRight, MapPin, GraduationCap, Plus,
   Accessibility, ParkingCircle, DoorOpen, MoveVertical, Star, CalendarDays,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -20,6 +20,7 @@ import { Testimonies } from '../components/feature/Testimonies'
 import { F3Guide } from '../components/feature/F3Guide'
 import { Spinner } from '../components/ui/Spinner'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
+import { BookmarkButton } from '../components/ui/BookmarkButton'
 import eventsData from '../data/events.json'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
@@ -71,6 +72,7 @@ function FacilityDetailInner({
   onDisabilityChange: (v: DisabilityType) => void
   profile: UserProfile
 }) {
+  const { toggleFavoriteFacility } = useProfile()
   const { dimensions, overall } = useFacilityScore(facility, disabilityType)
   const distanceKm = estimatedDistance(facility)
   const hero = getFacilityImage(facility.id)
@@ -172,13 +174,12 @@ function FacilityDetailInner({
             >
               Rota oluştur <ArrowRight className="size-4" aria-hidden />
             </a>
-            <button
-              type="button"
-              aria-label="Kaydet"
-              className="grid size-12 place-items-center rounded-full text-foreground/70 ring-1 ring-border/60 hover:bg-card"
-            >
-              <Bookmark className="size-4" aria-hidden />
-            </button>
+            <BookmarkButton
+              isBookmarked={profile.favoriteFacilities.includes(facility.id)}
+              onToggle={() => toggleFavoriteFacility(facility.id)}
+              label={facility.name}
+              className="size-12 ring-1 ring-border/60"
+            />
           </div>
         </div>
 
