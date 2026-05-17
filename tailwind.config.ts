@@ -81,12 +81,10 @@ export default {
         },
       },
       fontFamily: {
-        // Armin Grotesk yalnız başlıklarda (kullanıcı talebi).
-        // Gövde metni Inter; Armin Grotesk yerel lisans gerektirir, yoksa Inter'a düşer.
-        sans:    ['Inter', 'system-ui', 'sans-serif'],
-        body:    ['Inter', 'system-ui', 'sans-serif'],
-        display: ['"Armin Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
-        heading: ['"Armin Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
+        sans:    ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
+        body:    ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
+        display: ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
+        heading: ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         sm:   '0.5rem',

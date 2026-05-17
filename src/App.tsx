@@ -12,12 +12,6 @@ function RequireProfile({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
-function RootRoute() {
-  const { hasProfile } = useProfile()
-  if (!hasProfile) return <Navigate to="/onboarding" replace />
-  return <Navigate to="/dashboard" replace />
-}
-
 function NotFound() {
   return (
     <div className="mx-auto max-w-2xl p-8 text-center">
@@ -32,6 +26,7 @@ function NotFound() {
 }
 
 const OnboardingPage      = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
+const LandingPage         = lazy(() => import('./pages/Landing').then(m => ({ default: m.Landing })))
 const DashboardPage       = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))
 const MatchSportPage      = lazy(() => import('./pages/MatchSport').then(m => ({ default: m.MatchSport })))
 const FacilityMapPage     = lazy(() => import('./pages/FacilityMap').then(m => ({ default: m.FacilityMap })))
@@ -47,7 +42,8 @@ function AppRoutes() {
   return (
     <Routes>
       {/* Public routes — no shell */}
-      <Route path="/"                     element={<RootRoute />} />
+      <Route path="/"                     element={<LandingPage />} />
+      <Route path="/landing"              element={<LandingPage />} />
       <Route path="/onboarding"           element={<OnboardingPage />} />
       <Route path="/onboarding/:step"     element={<OnboardingPage />} />
 

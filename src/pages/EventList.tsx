@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ChevronLeft, ChevronRight, MapPin, Clock,
-  Accessibility, Bell, Plus, CalendarDays, ArrowRight, Sparkles,
+  Accessibility, Bell, Plus, CalendarDays, ArrowRight, Sparkles, ChevronDown,
 } from 'lucide-react'
 import type { SportEvent, DisabilityType, Facility, Sport, EventLevel, UserProfile } from '../types'
 import { useProfile } from '../contexts/ProfileContext'

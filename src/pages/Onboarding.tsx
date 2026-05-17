@@ -160,6 +160,7 @@ export function Onboarding() {
         city:               'Ankara',
         favoriteFacilities: [],
         favoriteEvents:     [],
+        favoriteExercises:  [],
         accessibility:      DEFAULT_ACCESSIBILITY,
       })
       clearDraft()

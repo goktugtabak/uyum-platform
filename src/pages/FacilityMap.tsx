@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import {
-  Navigation, Layers, Plus, Minus,
+  Navigation, Layers, Plus, Minus, ChevronDown,
   Accessibility, Waves, MapPin, ParkingCircle, Dumbbell,
   PersonStanding, Footprints, LayoutList, Map as MapIcon,
 } from 'lucide-react'
@@ -379,13 +379,13 @@ export function FacilityMap() {
         <div className="grid gap-6 xl:grid-cols-[1fr_22rem]">
           {/* Map column */}
           <div>
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[1.5rem] ring-1 ring-border/30">
+            <div className="relative z-0 aspect-[4/3] w-full overflow-hidden rounded-[1.5rem] ring-1 ring-border/30">
               <MapContainer
                 center={ANKARA_CENTER}
                 zoom={12}
                 zoomControl={false}
                 scrollWheelZoom
-                className="absolute inset-0 h-full w-full"
+                className="absolute inset-0 z-0 h-full w-full"
               >
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   Accessibility, Target, Footprints, Pencil, MapPin, CalendarDays,
@@ -47,10 +47,7 @@ export function Profile() {
   const { profile, clearProfile } = useProfile()
   const navigate = useNavigate()
 
-  const [activity, setActivity] = useState<ActivityEntry[]>([])
-  useEffect(() => {
-    setActivity(loadActivityLog().slice(0, 8))
-  }, [])
+  const [activity] = useState<ActivityEntry[]>(() => loadActivityLog().slice(0, 8))
 
   if (!profile) return null
 

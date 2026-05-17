@@ -5,7 +5,7 @@ import {
   Home, Sparkles, CalendarDays, Dumbbell, GraduationCap, UserCircle2,
   Heart, Accessibility, Eye, Contrast, Type, Volume2, ChevronDown,
   AlignJustify, Link2, Focus, MousePointer2,
-  Move, RotateCcw,
+  Move, RotateCcw, Keyboard, Zap,
 } from 'lucide-react'
 import { UyumLogo } from '../ui/UyumLogo'
 import { useProfile } from '../../contexts/ProfileContext'
@@ -192,7 +192,6 @@ export function TopBar() {
 
         <Link to="/" className="flex items-center gap-2 lg:hidden" aria-label="UYUM Ana Sayfa">
           <UyumLogo size={28} />
-          <span className="text-lg font-bold text-[#320E3B]">UYUM</span>
         </Link>
 
         {/* Search */}
@@ -410,11 +409,11 @@ export function TopBar() {
             <h3 className="mb-3 text-[11px] font-bold uppercase tracking-wider text-gray-400">Hızlı Profil</h3>
             <div className="grid grid-cols-2 gap-2">
               {([
-                { label: 'Az görüyorum',    icon: '👁️', preset: { highContrast: true, fontSize: 'xlarge', highlightLinks: true, bigCursor: true } },
-                { label: 'Disleksim var',   icon: '🧠', preset: { dyslexicFont: true, lineHeight: 'loose', highlightLinks: true } },
-                { label: 'Klavye kullanıyorum', icon: '⌨️', preset: { bigFocus: true, highlightLinks: true, fontSize: 'large' } },
-                { label: 'Hareketi azalt',  icon: '🎯', preset: { reducedMotion: true } },
-              ] as const).map(({ label, icon, preset }) => (
+                { label: 'Az görüyorum',       Icon: Eye,      preset: { highContrast: true, fontSize: 'xlarge', highlightLinks: true, bigCursor: true } },
+                { label: 'Disleksim var',       Icon: Type,     preset: { dyslexicFont: true, lineHeight: 'loose', highlightLinks: true } },
+                { label: 'Klavye kullanıyorum', Icon: Keyboard, preset: { bigFocus: true, highlightLinks: true, fontSize: 'large' } },
+                { label: 'Hareketi azalt',      Icon: Zap,      preset: { reducedMotion: true } },
+              ] as const).map(({ label, Icon, preset }) => (
                 <button
                   key={label}
                   type="button"
@@ -437,7 +436,7 @@ export function TopBar() {
                   }}
                   className="flex items-center gap-2.5 rounded-2xl border border-gray-100 bg-gray-50 px-3 py-3 text-left text-[12.5px] font-semibold text-[#320E3B] transition hover:border-[#320E3B]/30 hover:bg-[#320E3B]/5"
                 >
-                  <span aria-hidden className="text-lg">{icon}</span>
+                  <Icon aria-hidden className="size-4 shrink-0 text-[#320E3B]/60" />
                   <span className="leading-tight">{label}</span>
                 </button>
               ))}
