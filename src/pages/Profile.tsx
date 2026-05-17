@@ -3,13 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { BackButton } from '../components/ui/BackButton'
 import {
   PersonStanding, Target, Footprints, Pencil, MapPin, CalendarDays,
-  Dumbbell, Trash2, Mail, BadgeCheck, ShieldCheck, Activity,
-  Bookmark, BookmarkX, ArrowRight,
+  Dumbbell, Trash2, Mail, BadgeCheck, ShieldCheck,
+  Bookmark, BookmarkX, ArrowRight, ChevronRight,
 } from 'lucide-react'
 
 import type { DisabilityType, MobilityLevel, Goal, Facility, SportEvent, Exercise } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
-import { AccessibilityToolbar } from '../components/a11y/AccessibilityToolbar'
 import { MiniFavCard } from '../components/feature/MiniFavCard'
 import { loadActivityLog, type ActivityEntry, type ActivityKind } from '../lib/activity-log'
 
@@ -46,7 +45,7 @@ const EVENTS = eventsData as SportEvent[]
 const EXERCISES = exercisesData as Exercise[]
 
 export function Profile() {
-  const { profile, clearProfile } = useProfile()
+  const { profile, clearProfile, toggleFavoriteFacility, toggleFavoriteEvent, toggleFavoriteExercise } = useProfile()
   const navigate = useNavigate()
 
   const [activity] = useState<ActivityEntry[]>(() => loadActivityLog().slice(0, 8))
@@ -75,199 +74,217 @@ export function Profile() {
   const initial = DISABILITY_LABELS[profile.disabilityTypes[0]]?.charAt(0).toUpperCase() ?? 'U'
 
   return (
-    <div className="mx-auto max-w-5xl space-y-10 pt-2">
+    <div className="mx-auto max-w-5xl pt-2 pb-16">
       <BackButton className="mb-6" />
-      {/* Hero */}
-      <section className="relative overflow-hidden rounded-3xl ring-1 ring-border/40" style={{ height: 240 }}>
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-deep via-primary to-[#6B7FD7]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary-deep/85 via-primary-deep/45 to-primary-deep/10" />
-        <div className="relative flex h-full items-end justify-between gap-4 p-6">
-          <div className="flex items-end gap-4">
-            <span
-              aria-hidden
-              className="grid size-16 place-items-center rounded-full bg-primary text-2xl font-extrabold text-primary-foreground ring-4 ring-white/30 shadow-glow"
-            >
-              {initial}
-            </span>
-            <div className="min-w-0">
-              <h1 className="text-2xl font-extrabold text-white sm:text-3xl">UYUM Kullanıcısı</h1>
-              <p className="mt-1 text-base text-white/80">
-                {profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(' · ')} · {profile.city}
-              </p>
-              <div className="mt-3 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white">
-                  <BadgeCheck aria-hidden className="size-4" /> Tamamlanmış Profil
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white">
-                  <ShieldCheck aria-hidden className="size-4" /> Anonim
-                </span>
-              </div>
+
+      {/* Hero — düz, kartsız */}
+      <section className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-4">
+          <span
+            aria-hidden
+            className="grid size-14 shrink-0 place-items-center rounded-full bg-primary/10 text-2xl font-extrabold text-primary"
+          >
+            {initial}
+          </span>
+          <div>
+            <h1 className="text-xl font-extrabold text-primary-deep">UYUM Kullanıcısı</h1>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              {profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(' · ')} · {profile.city}
+            </p>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground">
+                <BadgeCheck aria-hidden className="size-3 text-primary" /> Tamamlanmış Profil
+              </span>
+              <span className="text-muted-foreground/40">·</span>
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-foreground">
+                <ShieldCheck aria-hidden className="size-3 text-primary" /> Anonim
+              </span>
             </div>
           </div>
+        </div>
+
+        <div className="flex items-center gap-2">
           <Link
             to="/onboarding"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-primary-deep transition-colors hover:bg-muted"
+            className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-semibold text-foreground transition hover:border-primary/40 hover:text-primary"
           >
-            <Pencil aria-hidden className="size-4" /> Profili Düzenle
+            <Pencil aria-hidden className="size-3.5" /> Düzenle
           </Link>
         </div>
       </section>
 
-      {/* Profile facts */}
-      <section className="space-y-4">
-        <div className="flex items-center justify-between px-2">
-          <h2 className="text-xl font-extrabold text-primary-deep">Temel Bilgiler</h2>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <Fact icon={<PersonStanding className="size-5" aria-hidden />} label="Engel Tipi" value={profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')} />
-          <Fact icon={<Footprints className="size-5" aria-hidden />} label="Hareket" value={MOBILITY_LABELS[profile.mobilityLevel]} />
-          <Fact icon={<Target className="size-5" aria-hidden />} label="Hedef" value={profile.goals.map(g => GOAL_LABELS[g]).join(', ')} />
-        </div>
-      </section>
+      <div className="grid gap-10 lg:grid-cols-[1fr_22rem]">
+        <div className="min-w-0 space-y-10">
 
-      {/* Favorites */}
-      <section className="space-y-10 border-t border-border/60 pt-10">
-        <FavGroup
-          title="Kaydedilen Tesisler" icon={<MapPin className="size-5" aria-hidden />}
-          count={favFacilities.length} emptyLabel="Henüz tesis eklenmedi."
-          emptyCta={{ to: '/map', label: 'Tesisleri keşfet' }}
-        >
-          {favFacilities.map(f => (
-            <MiniFavCard key={f.id} to={`/facility/${f.id}`} title={f.name} subtitle={f.district} tone="bg-sky/20 text-sky-foreground" />
-          ))}
-        </FavGroup>
+          {/* Temel bilgiler — çizgi ayraçlı liste */}
+          <section aria-labelledby="basics-heading">
+            <h2 id="basics-heading" className="mb-1 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+              Temel Bilgiler
+            </h2>
+            <div className="divide-y divide-border/50">
+              <InfoRow icon={<PersonStanding className="size-4" aria-hidden />} label="Engel Tipi">
+                {profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')}
+              </InfoRow>
+              <InfoRow icon={<Footprints className="size-4" aria-hidden />} label="Hareket">
+                {MOBILITY_LABELS[profile.mobilityLevel]}
+              </InfoRow>
+              <InfoRow icon={<Target className="size-4" aria-hidden />} label="Hedefler">
+                {profile.goals.map(g => GOAL_LABELS[g]).join(', ')}
+              </InfoRow>
+            </div>
+          </section>
 
-        <FavGroup
-          title="Kaydedilen Etkinlikler" icon={<CalendarDays className="size-5" aria-hidden />}
-          count={favEvents.length} emptyLabel="Henüz etkinlik eklenmedi."
-          emptyCta={{ to: '/events', label: 'Etkinliklere bak' }}
-        >
-          {favEvents.map(e => (
-            <MiniFavCard key={e.id} to="/events" title={e.title} subtitle={formatDate(e.date)} tone="bg-primary/10 text-primary" />
-          ))}
-        </FavGroup>
+          {/* Kaydedilenler */}
+          <section aria-labelledby="saved-heading">
+            <h2 id="saved-heading" className="mb-1 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+              Kaydedilenler
+            </h2>
+            <div className="divide-y divide-border/50">
+              <SavedGroup
+                icon={<MapPin className="size-4" aria-hidden />}
+                label="Tesisler"
+                count={favFacilities.length}
+                to="/map"
+                ctaLabel="Tesisleri keşfet"
+              >
+                {favFacilities.map(f => (
+                  <MiniFavCard key={f.id} to={`/facility/${f.id}`} title={f.name} subtitle={f.district} tone="bg-sky/20 text-sky-foreground" onRemove={() => toggleFavoriteFacility(f.id)} />
+                ))}
+              </SavedGroup>
 
-        <FavGroup
-          title="Kaydedilen Egzersizler" icon={<Dumbbell className="size-5" aria-hidden />}
-          count={favExercises.length} emptyLabel="Henüz egzersiz eklenmedi."
-          emptyCta={{ to: '/exercises', label: 'Egzersizleri gör' }}
-        >
-          {favExercises.map(e => (
-            <MiniFavCard key={e.id} to="/exercises" title={e.title} tone="bg-accent/15 text-accent" />
-          ))}
-        </FavGroup>
-      </section>
+              <SavedGroup
+                icon={<CalendarDays className="size-4" aria-hidden />}
+                label="Etkinlikler"
+                count={favEvents.length}
+                to="/events"
+                ctaLabel="Etkinliklere bak"
+              >
+                {favEvents.map(e => (
+                  <MiniFavCard key={e.id} to="/events" title={e.title} subtitle={formatDate(e.date)} tone="bg-primary/10 text-primary" onRemove={() => toggleFavoriteEvent(e.id)} />
+                ))}
+              </SavedGroup>
 
-      {/* Activity & Tools Split */}
-      <section className="grid gap-8 border-t border-border/60 pt-10 lg:grid-cols-[1fr_24rem]">
-        {/* Activity timeline */}
-        <div className="rounded-[2rem] bg-secondary p-8">
-          <div className="mb-6 flex items-center gap-3">
-            <span aria-hidden className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
-              <Activity className="size-5" />
-            </span>
-            <h2 className="text-xl font-extrabold text-primary-deep hc:text-black">Son Aktiviteler</h2>
-          </div>
+              <SavedGroup
+                icon={<Dumbbell className="size-4" aria-hidden />}
+                label="Egzersizler"
+                count={favExercises.length}
+                to="/exercises"
+                ctaLabel="Egzersizleri gör"
+              >
+                {favExercises.map(e => (
+                  <MiniFavCard key={e.id} to="/exercises" title={e.title} tone="bg-accent/15 text-accent" onRemove={() => toggleFavoriteExercise(e.id)} />
+                ))}
+              </SavedGroup>
+            </div>
+          </section>
 
-          {activity.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              Henüz aktivite yok. Favori eklediğinde burada görünür.
-            </p>
-          ) : (
-            <ol className="relative ml-2 space-y-6 border-l-2 border-primary/20 pl-6">
-              {activity.map(entry => {
-                const positive = POSITIVE_KINDS.has(entry.kind)
-                const isUnbookmark = entry.kind.endsWith('_unbookmarked')
-                return (
-                  <li key={entry.id} className="relative">
-                    <span
-                      aria-hidden
-                      className={`absolute -left-[31px] top-1.5 size-4 rounded-full ring-4 ring-secondary ${positive ? 'bg-primary' : 'bg-muted-foreground/40'}`}
-                    />
-                    <div className="flex flex-col gap-1">
-                      <span className="text-sm font-medium text-foreground hc:text-black">
+          {/* Aktivite */}
+          <section aria-labelledby="activity-heading">
+            <h2 id="activity-heading" className="mb-1 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+              Son Aktiviteler
+            </h2>
+            {activity.length === 0 ? (
+              <p className="py-6 text-sm text-muted-foreground">
+                Henüz aktivite yok. Favori eklediğinde burada görünür.
+              </p>
+            ) : (
+              <ol className="divide-y divide-border/50">
+                {activity.map(entry => {
+                  const positive = POSITIVE_KINDS.has(entry.kind)
+                  const isUnbookmark = entry.kind.endsWith('_unbookmarked')
+                  return (
+                    <li key={entry.id} className="flex items-center gap-3 py-3.5">
+                      <span aria-hidden className={`size-1.5 shrink-0 rounded-full ${positive ? 'bg-primary' : 'bg-muted-foreground/30'}`} />
+                      <span className="flex-1 text-sm text-foreground">
                         {isUnbookmark
-                          ? <BookmarkX aria-hidden className="-mt-0.5 mr-1.5 inline-block size-4 text-muted-foreground" />
-                          : <Bookmark aria-hidden className={`-mt-0.5 mr-1.5 inline-block size-4 ${positive ? 'text-primary' : 'text-muted-foreground'}`} />
+                          ? <BookmarkX aria-hidden className="-mt-0.5 mr-1 inline-block size-3.5 text-muted-foreground" />
+                          : <Bookmark aria-hidden className={`-mt-0.5 mr-1 inline-block size-3.5 ${positive ? 'text-primary' : 'text-muted-foreground'}`} />
                         }
                         {entry.label}
                       </span>
-                      <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{relTime(entry.isoDate)}</span>
-                    </div>
-                  </li>
-                )
-              })}
-            </ol>
-          )}
+                      <span className="shrink-0 text-xs text-muted-foreground">{relTime(entry.isoDate)}</span>
+                    </li>
+                  )
+                })}
+              </ol>
+            )}
+          </section>
         </div>
 
-        {/* Sidebar Tools */}
-        <aside className="space-y-6">
-          <AccessibilityToolbar />
-
-          <div className="rounded-[2rem] bg-muted p-8">
-            <h3 className="text-xl font-extrabold text-primary-deep hc:text-black">Veri Kontrolü</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Profil bilgilerin hiçbir sunucuya gönderilmez. Tamamen tarayıcında saklanır. Ayarları sıfırlayarak lokal verilerini temizleyebilirsin.
-            </p>
-            <div className="mt-6 flex flex-col gap-3">
+        {/* Sağ kolon: veri kontrolü */}
+        <aside className="space-y-8">
+          <section aria-labelledby="data-heading">
+            <h2 id="data-heading" className="mb-1 text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+              Veri &amp; Gizlilik
+            </h2>
+            <div className="divide-y divide-border/50">
+              <div className="py-4 text-sm leading-relaxed text-muted-foreground">
+                Profil bilgilerin hiçbir sunucuya gönderilmez. Tamamen tarayıcında saklanır.
+              </div>
               <a
                 href="mailto:hello@uyum.app"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-primary transition-colors hover:bg-gray-50"
+                className="flex w-full items-center justify-between py-3.5 text-sm font-medium text-foreground transition hover:text-primary"
               >
-                <Mail aria-hidden className="size-4" /> Bize ulaş
+                <span className="flex items-center gap-2">
+                  <Mail aria-hidden className="size-4 text-muted-foreground" /> Bize ulaş
+                </span>
+                <ChevronRight className="size-4 text-muted-foreground" aria-hidden />
               </a>
               <button
                 type="button"
                 onClick={handleReset}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-destructive/20 bg-destructive/10 px-5 py-3 text-sm font-bold text-destructive transition-colors hover:bg-destructive/20"
+                className="flex w-full items-center justify-between py-3.5 text-sm font-medium text-destructive transition hover:text-destructive/70"
               >
-                <Trash2 aria-hidden className="size-4" /> Verilerimi Sıfırla
+                <span className="flex items-center gap-2">
+                  <Trash2 aria-hidden className="size-4" /> Verilerimi Sıfırla
+                </span>
+                <ChevronRight className="size-4" aria-hidden />
               </button>
             </div>
-          </div>
+          </section>
         </aside>
-      </section>
-    </div>
-  )
-}
-
-function Fact({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return (
-    <div className="rounded-[1.5rem] bg-secondary p-5 transition-colors hover:bg-muted">
-      <div className="flex items-center gap-4">
-        <span aria-hidden className="grid size-12 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">{icon}</span>
-        <div className="min-w-0">
-          <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{label}</div>
-          <div className="mt-1 truncate text-lg font-extrabold text-primary-deep hc:text-black">{value}</div>
-        </div>
       </div>
     </div>
   )
 }
 
-function FavGroup({
-  title, icon, count, emptyLabel, emptyCta, children,
+function InfoRow({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-3 py-3.5">
+      <span aria-hidden className="shrink-0 text-muted-foreground">{icon}</span>
+      <span className="w-28 shrink-0 text-xs font-semibold text-muted-foreground">{label}</span>
+      <span className="text-sm font-medium text-foreground">{children}</span>
+    </div>
+  )
+}
+
+function SavedGroup({
+  icon, label, count, to, ctaLabel, children,
 }: {
-  title: string; icon: React.ReactNode; count: number
-  emptyLabel: string; emptyCta: { to: string; label: string }; children: React.ReactNode
+  icon: React.ReactNode
+  label: string
+  count: number
+  to: string
+  ctaLabel: string
+  children: React.ReactNode
 }) {
   return (
-    <div>
-      <div className="mb-5 flex items-center gap-3 px-2">
-        <span aria-hidden className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">{icon}</span>
-        <h2 className="text-xl font-extrabold text-primary-deep hc:text-black">{title}</h2>
-        <span className="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">{count}</span>
+    <div className="py-4">
+      <div className="mb-3 flex items-center justify-between">
+        <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
+          <span aria-hidden className="text-muted-foreground">{icon}</span>
+          {label}
+          <span className="text-xs text-muted-foreground">({count})</span>
+        </span>
+        <Link
+          to={to}
+          className="flex items-center gap-1 text-xs font-semibold text-primary transition hover:text-primary-deep"
+        >
+          {count === 0 ? ctaLabel : 'Tümünü gör'} <ArrowRight aria-hidden className="size-3" />
+        </Link>
       </div>
-      {count === 0 ? (
-        <div className="flex flex-col items-center justify-center gap-4 rounded-[2rem] bg-secondary py-12 text-center">
-          <p className="text-base font-medium text-muted-foreground">{emptyLabel}</p>
-          <Link to={emptyCta.to} className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-primary-foreground hover:opacity-90">
-            {emptyCta.label} <ArrowRight aria-hidden className="size-4" />
-          </Link>
-        </div>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
+      {count > 0 && (
+        <div className="grid gap-2 sm:grid-cols-2">{children}</div>
       )}
     </div>
   )

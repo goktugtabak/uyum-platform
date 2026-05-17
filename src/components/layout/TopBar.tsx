@@ -414,37 +414,62 @@ export function TopBar() {
             <h3 className="mb-3 text-[11px] font-bold uppercase tracking-wider text-gray-400">Hızlı Profil</h3>
             <div className="grid grid-cols-2 gap-2">
               {([
-                { label: 'Az görüyorum',       Icon: Eye,      preset: { highContrast: true, fontSize: 'xlarge', highlightLinks: true, bigCursor: true } },
-                { label: 'Disleksim var',       Icon: Type,     preset: { dyslexicFont: true, lineHeight: 'loose', highlightLinks: true } },
-                { label: 'Klavye kullanıyorum', Icon: Keyboard, preset: { bigFocus: true, highlightLinks: true, fontSize: 'large' } },
-                { label: 'Hareketi azalt',      Icon: Zap,      preset: { reducedMotion: true } },
-              ] as const).map(({ label, Icon, preset }) => (
-                <button
-                  key={label}
-                  type="button"
-                  onClick={() => {
-                    const extraPatch: Partial<ExtraPrefs> = {}
-                    const corePreset: { highContrast?: boolean; fontSize?: 'normal' | 'large' | 'xlarge' } = {}
-                    if ('highContrast'  in preset) corePreset.highContrast  = preset.highContrast as boolean
-                    if ('fontSize'      in preset) corePreset.fontSize      = preset.fontSize as 'normal' | 'large' | 'xlarge'
-                    if ('dyslexicFont'  in preset) extraPatch.dyslexicFont  = preset.dyslexicFont as boolean
-                    if ('lineHeight'    in preset) extraPatch.lineHeight    = preset.lineHeight as ExtraPrefs['lineHeight']
-                    if ('highlightLinks'in preset) extraPatch.highlightLinks = preset.highlightLinks as boolean
-                    if ('bigFocus'      in preset) extraPatch.bigFocus      = preset.bigFocus as boolean
-                    if ('bigCursor'     in preset) extraPatch.bigCursor     = preset.bigCursor as boolean
-                    if ('reducedMotion' in preset) extraPatch.reducedMotion = preset.reducedMotion as boolean
-                    if (Object.keys(corePreset).length) {
-                      if ('highContrast' in corePreset) setHighContrast(corePreset.highContrast!)
-                      if ('fontSize'     in corePreset) setFontSize(corePreset.fontSize!)
-                    }
-                    if (Object.keys(extraPatch).length) patchExtra(extraPatch)
-                  }}
-                  className="flex items-center gap-2.5 rounded-2xl border border-gray-100 bg-gray-50 px-3 py-3 text-left text-[12.5px] font-semibold text-primary-deep transition hover:border-primary-deep/30 hover:bg-primary-deep/5"
-                >
-                  <Icon aria-hidden className="size-4 shrink-0 text-primary-deep/60" />
-                  <span className="leading-tight">{label}</span>
-                </button>
-              ))}
+                { label: 'Az görüyorum',       Icon: Eye,      activeKey: 'highContrast' as const,   preset: { highContrast: true, fontSize: 'xlarge', highlightLinks: true, bigCursor: true } },
+                { label: 'Disleksim var',       Icon: Type,     activeKey: 'dyslexicFont' as const,   preset: { dyslexicFont: true, lineHeight: 'loose', highlightLinks: true } },
+                { label: 'Klavye kullanıyorum', Icon: Keyboard, activeKey: 'bigFocus' as const,       preset: { bigFocus: true, highlightLinks: true, fontSize: 'large' } },
+                { label: 'Hareketi azalt',      Icon: Zap,      activeKey: 'reducedMotion' as const,  preset: { reducedMotion: true } },
+              ] as const).map(({ label, Icon, activeKey, preset }) => {
+                const isActive = activeKey === 'highContrast'
+                  ? prefs.highContrast
+                  : extra[activeKey as keyof ExtraPrefs] === true
+                return (
+                  <button
+                    key={label}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => {
+                      if (isActive) {
+                        // Deaktif et — preset'teki tüm değerleri sıfırla
+                        const extraOff: Partial<ExtraPrefs> = {}
+                        if ('dyslexicFont'   in preset) extraOff.dyslexicFont   = false
+                        if ('lineHeight'     in preset) extraOff.lineHeight     = 'normal'
+                        if ('highlightLinks' in preset) extraOff.highlightLinks = false
+                        if ('bigFocus'       in preset) extraOff.bigFocus       = false
+                        if ('bigCursor'      in preset) extraOff.bigCursor      = false
+                        if ('reducedMotion'  in preset) extraOff.reducedMotion  = false
+                        if (Object.keys(extraOff).length) patchExtra(extraOff)
+                        if ('highContrast' in preset) setHighContrast(false)
+                        if ('fontSize'     in preset) setFontSize('normal')
+                      } else {
+                        // Aktif et
+                        const extraPatch: Partial<ExtraPrefs> = {}
+                        const corePreset: { highContrast?: boolean; fontSize?: 'normal' | 'large' | 'xlarge' } = {}
+                        if ('highContrast'  in preset) corePreset.highContrast  = preset.highContrast as boolean
+                        if ('fontSize'      in preset) corePreset.fontSize      = preset.fontSize as 'normal' | 'large' | 'xlarge'
+                        if ('dyslexicFont'  in preset) extraPatch.dyslexicFont  = preset.dyslexicFont as boolean
+                        if ('lineHeight'    in preset) extraPatch.lineHeight    = preset.lineHeight as ExtraPrefs['lineHeight']
+                        if ('highlightLinks'in preset) extraPatch.highlightLinks = preset.highlightLinks as boolean
+                        if ('bigFocus'      in preset) extraPatch.bigFocus      = preset.bigFocus as boolean
+                        if ('bigCursor'     in preset) extraPatch.bigCursor     = preset.bigCursor as boolean
+                        if ('reducedMotion' in preset) extraPatch.reducedMotion = preset.reducedMotion as boolean
+                        if (Object.keys(corePreset).length) {
+                          if ('highContrast' in corePreset) setHighContrast(corePreset.highContrast!)
+                          if ('fontSize'     in corePreset) setFontSize(corePreset.fontSize!)
+                        }
+                        if (Object.keys(extraPatch).length) patchExtra(extraPatch)
+                      }
+                    }}
+                    className={`flex items-center gap-2.5 rounded-2xl border px-3 py-3 text-left text-[12.5px] font-semibold transition ${
+                      isActive
+                        ? 'border-primary-deep/40 bg-primary-deep/10 text-primary-deep'
+                        : 'border-gray-100 bg-gray-50 text-primary-deep hover:border-primary-deep/30 hover:bg-primary-deep/5'
+                    }`}
+                  >
+                    <Icon aria-hidden className={`size-4 shrink-0 transition ${isActive ? 'text-primary-deep' : 'text-primary-deep/60'}`} />
+                    <span className="leading-tight">{label}</span>
+                  </button>
+                )
+              })}
             </div>
           </section>
 
