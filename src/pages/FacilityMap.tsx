@@ -19,6 +19,7 @@ import { SCORE_LABEL, SCORE_GLYPH, SCORE_HEX } from '../lib/a11y-labels'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
 import { getSportLabel } from '../lib/sport-icons'
 import { Spinner } from '../components/ui/Spinner'
+import { FacilityTrustLine } from '../components/feature/FacilityTrust'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
 import sportSwim from '../assets/sport-swimming.jpg'
@@ -358,6 +359,7 @@ export function FacilityMap() {
                           </span>
                         ))}
                       </div>
+                      <FacilityTrustLine facility={facility} className="mt-3" />
                       <div className="mt-3 flex items-center gap-2 text-foreground/35">
                         <PersonStanding className="size-3.5" aria-hidden />
                         <ParkingCircle  className="size-3.5" aria-hidden />
@@ -524,6 +526,7 @@ export function FacilityMap() {
                         <div className="mt-1.5 flex items-center gap-1 text-[11px] text-muted-foreground">
                           <MapPin className="size-3" aria-hidden /> {facility.district}
                         </div>
+                        <FacilityTrustLine facility={facility} className="mt-1" />
                         <div className="mt-1.5 flex flex-wrap items-center gap-1 text-[10.5px] text-muted-foreground">
                           {facility.sports.slice(0, 3).map(id => (
                             <span key={id} className="rounded-full bg-muted px-1.5 py-0.5">

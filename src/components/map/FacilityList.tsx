@@ -3,6 +3,7 @@ import { MapPin } from 'lucide-react'
 import { useFacilityScore } from '../../hooks/useFacilityScore'
 import { SCORE_LABEL } from '../../lib/a11y-labels'
 import { ScoreBadge } from '../ui/ScoreBadge'
+import { FacilityTrustLine } from '../feature/FacilityTrust'
 import { getSportIcon, getSportLabel } from '../../lib/sport-icons'
 import type { Facility, DisabilityType } from '../../types'
 
@@ -47,6 +48,7 @@ function FacilityItem({
           <div className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
             <MapPin aria-hidden className="size-3" /> {facility.district}
           </div>
+          <FacilityTrustLine facility={facility} className="mt-1" />
           <div className="mt-1.5 flex flex-wrap items-center gap-1 text-[11px] text-muted-foreground">
             {facility.sports.slice(0, 4).map(id => (
               <span

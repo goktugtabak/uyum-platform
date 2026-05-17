@@ -18,6 +18,7 @@ import { AccessibilityLabelList } from '../components/facility/AccessibilityLabe
 import { LiveStatus } from '../components/facility/LiveStatus'
 import { Testimonies } from '../components/feature/Testimonies'
 import { F3Guide } from '../components/feature/F3Guide'
+import { FacilityTrustPanel } from '../components/feature/FacilityTrust'
 import { FacilityPhotoAttribution } from '../components/feature/FacilityPhotoAttribution'
 import { Spinner } from '../components/ui/Spinner'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
@@ -267,6 +268,9 @@ function FacilityDetailInner({
             </span>
           </div>
           <LiveStatus facility={facility} />
+          <div className="mt-5">
+            <FacilityTrustPanel facility={facility} />
+          </div>
         </section>
 
         {/* About */}
