@@ -128,7 +128,7 @@ function HeroSection({ onPrimary, onSecondary }: { onPrimary: () => void; onSeco
 
         <div className="flex-1 flex flex-col justify-end">
           <img
-            src="/hero-image.png"
+            src="/images/hero-image.png"
             alt="UYUM ile spor yapan adaptif sporcular"
             className="w-full block"
           />
