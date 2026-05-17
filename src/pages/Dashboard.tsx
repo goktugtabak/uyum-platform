@@ -60,7 +60,9 @@ function getEventImage(sportId: string): string {
   return EVENT_THUMBS[sportId] ?? sportSwim
 }
 
-function getFacilityImage(facilityId: string, fallbackIndex: number): string {
+function getFacilityImage(facility: Facility, fallbackIndex: number): string {
+  if (facility.photos?.[0]?.url) return facility.photos[0].url
+  const facilityId = facility.id
   if (facilityId.includes('eryaman')) return facilityEryaman
   if (facilityId.includes('havuz') || facilityId.includes('yuzme') || facilityId.includes('olimpik')) return facilityPool
   if (facilityId.includes('basket')) return sportBasket

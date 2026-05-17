@@ -36,6 +36,13 @@
 
 ## Kayıtlar
 
+### 2026-05-17 — `[TECH]` Tesis veri kaynağı: Google Places API (build-time)
+
+- **Karar:** Mevcut 10 manuel tesis 20-25 Google Places'tan çekilen gerçek Ankara spor tesisiyle replace edildi. `scripts/fetch-places-cache.mjs` build-time çalışır, çıktısını `public/data/facilities-places-cache.json` ve `public/places-photos/*.jpg` olarak commit'ler. `scripts/merge-places-into-facilities.mjs` bu cache'i `src/data/facilities.json` formatına dönüştürür. Runtime'da Places API çağrısı yok. `GOOGLE_PLACES_API_KEY` sadece local `.env.local` + Vercel build env (`VITE_` prefix YOK — bundle'a sızmaz).
+- **Niye:** Mevcut 10 tesis tamamen manuel ve demo'da "Tesis Hakkında" paragrafı statik şablon, fotoğraflar 5 sabit asset arasında rotation, rating hash'le uydurma — jüri "nasıl topluyorsunuz?" sorduğunda cevap zayıf. Overpass API koordinat+isim veriyor ama foto/description/rating yok. Places `Overpass deseninin aynısı` (build-time once, commit, no runtime) prensibine uyuyor, CLAUDE.md §3 frontend-only kuralını kırmıyor.
+- **Etki:** `src/types/index.ts` (`FacilityPhoto` interface + yeni `Facility` alanları: `photos`, `description`, `placeId`, `rating`, `userRatingsTotal`, `openingHours`), `src/data/facilities.json` (tam replace), `scripts/fetch-places-cache.mjs` (yeni), `scripts/merge-places-into-facilities.mjs` (yeni), `src/pages/FacilityDetail.tsx` + `FacilityMap.tsx` + `Dashboard.tsx` (foto render güncellendi), `src/components/feature/FacilityPhotoAttribution.tsx` (yeni). Erişilebilirlik matrisi elle dolduruldu, `DemoBadge="Erişilebilirlik verileri mock"` korundu.
+- **Geri al kuralı:** Places API key deaktif olursa `fetch-places-cache.mjs` exit 0 (no-key guard) + commitled cache dosyaları var → demo kırılmaz. Rating hash uydurması silindiği için rating Places'tan gelmezse tesis kartında rating bloğu hiç görünmez (uydurma yok).
+
 ### 2026-05-17 — `[UX]` Faz 12: light-theme + sidebar shell + lucide-react entegrasyonu
 
 - **Karar:** `design/2026_uyum/frontend-skeleton/` referans alınarak tüm `src/` UI light tema + sol sidebar + topbar paterne migrate edildi. Tailwind v3 korundu; design'in oklch CSS değişkenleri Tailwind v3 syntax'ına `var(--color-*)` bridge'i ile aktarıldı. `lucide-react@^0.575` stack listesine eklendi. `react-router-dom v7` tutuldu (TanStack Router'a geçilmedi). Yeni `/` (Landing public), `/dashboard`, `/community`, `/profile` route'ları açıldı. Onboarding 4 adıma çıkarıldı (1=welcome, 2=disability, 3=goal, 4=mobility+confirmation).

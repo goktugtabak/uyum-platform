@@ -38,6 +38,13 @@ export interface FacilityContact {
   address?: string
 }
 
+export interface FacilityPhoto {
+  url: string
+  alt: string
+  attribution: string  // Places ToS: "Photo: <author>" — must be visible to end user
+  sourceRef?: string   // Places photo_reference for future refresh
+}
+
 export interface Facility {
   id: string
   name: string
@@ -49,8 +56,14 @@ export interface Facility {
   liveStatus: LiveStatus
   coaches: string[]
   contact: FacilityContact
-  source?: 'manual' | 'overpass'
+  source?: 'manual' | 'overpass' | 'places'
   website?: string
+  placeId?: string
+  photos?: FacilityPhoto[]
+  description?: string
+  rating?: number
+  userRatingsTotal?: number
+  openingHours?: string[]
 }
 
 export interface AccessibilityPrefs {

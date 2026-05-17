@@ -5,7 +5,7 @@
     "bio": "Türkiye Milli Para Yüzme Takımı ile çalışmış, 3 Paralimpik madalyalı sporcu yetiştirmiş deneyimli antrenör. Fiziksel ve görme engeli olan sporcularla uzmanlaşmıştır.",
     "sports": ["s-swim", "s-aqua"],
     "disabilityExpertise": ["wheelchair", "visual"],
-    "facilityIds": ["f-ank-001", "f-ank-002"],
+    "facilityIds": ["f-ank-places-01", "f-ank-places-02"],
     "yearsExperience": 15,
     "city": "Ankara",
     "contact": {
@@ -19,7 +19,7 @@
     "bio": "Ankara'nın lider para spor kulübünde baş antrenman koordinatörü. Genç sporcuların gelişimine odaklanmakta; tekerlekli basketbol ve oturarak voleybolda uzman.",
     "sports": ["s-wheelchair-basket", "s-sitting-volleyball"],
     "disabilityExpertise": ["wheelchair"],
-    "facilityIds": ["f-ank-004", "f-ank-005", "f-ank-007"],
+    "facilityIds": ["f-ank-places-04", "f-ank-places-05", "f-ank-places-07"],
     "yearsExperience": 10,
     "city": "Ankara",
     "contact": {
@@ -32,7 +32,7 @@
     "bio": "Hareket kısıtlılığı, kronik ağrı ve fiziksel engeli olan bireylerle çalışan sertifikalı yoga terapisti. Nefes ve bilinçli hareket tekniklerini ön planda tutar.",
     "sports": ["s-yoga", "s-pilates"],
     "disabilityExpertise": ["wheelchair", "upper_limb"],
-    "facilityIds": ["f-ank-009"],
+    "facilityIds": ["f-ank-places-09"],
     "yearsExperience": 8,
     "city": "Ankara",
     "contact": {
@@ -46,7 +46,7 @@
     "bio": "Ampute ve tekerlekli sporculara özel güç-hız programları geliştiren para atletizm ve kuvvet antrenmanı uzmanı. Ankara Üniversitesi Spor Bilimleri mezunu.",
     "sports": ["s-athletics", "s-strength"],
     "disabilityExpertise": ["wheelchair", "upper_limb"],
-    "facilityIds": ["f-ank-005", "f-ank-006"],
+    "facilityIds": ["f-ank-places-05", "f-ank-places-06"],
     "yearsExperience": 9,
     "city": "Ankara",
     "contact": {
@@ -60,7 +60,7 @@
     "bio": "İşaret dili bilen goalball ve para judo antrenörü. Hem işitme hem görme engeli olan sporcularla etkili iletişim kurabilmektedir.",
     "sports": ["s-goalball", "s-judo-para"],
     "disabilityExpertise": ["visual", "hearing"],
-    "facilityIds": ["f-ank-008"],
+    "facilityIds": ["f-ank-places-08"],
     "yearsExperience": 7,
     "city": "Ankara",
     "contact": {
@@ -73,7 +73,7 @@
     "bio": "Gölbaşı Para Okçuluk Tesisi'nin kurucu antrenörü. Özellikle üst ekstremite engeli olan sporcuların teknik gelişimini takip etmektedir.",
     "sports": ["s-archery-para", "s-boccia"],
     "disabilityExpertise": ["wheelchair", "upper_limb"],
-    "facilityIds": ["f-ank-010"],
+    "facilityIds": ["f-ank-places-10"],
     "yearsExperience": 12,
     "city": "Ankara",
     "contact": {
@@ -87,7 +87,7 @@
     "bio": "Tekerlekli sandalye tenisi ve su topu alanında deneyimli antrenör. Görsel iletişim tekniklerini antrenmanlarına entegre etmiştir.",
     "sports": ["s-wheelchair-tennis", "s-waterpolo"],
     "disabilityExpertise": ["wheelchair", "hearing"],
-    "facilityIds": ["f-ank-001", "f-ank-002", "f-ank-007"],
+    "facilityIds": ["f-ank-places-01", "f-ank-places-02", "f-ank-places-07"],
     "yearsExperience": 6,
     "city": "Ankara",
     "contact": {
@@ -100,7 +100,7 @@
     "bio": "Görme ve işitme engelli sporculara yönelik güvenli kuvvet antrenmanı protokolleri geliştirmiş adaptif kondisyon antrenörü.",
     "sports": ["s-strength", "s-pilates"],
     "disabilityExpertise": ["visual", "hearing"],
-    "facilityIds": ["f-ank-005", "f-ank-009"],
+    "facilityIds": ["f-ank-places-05", "f-ank-places-09"],
     "yearsExperience": 5,
     "city": "Ankara",
     "contact": {

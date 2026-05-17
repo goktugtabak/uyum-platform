@@ -1,287 +1,1988 @@
 [
   {
-    "id": "f-ank-001",
-    "name": "Çankaya Belediyesi Yüzme Havuzu",
+    "id": "f-ank-places-01",
+    "name": "Çankaya Belediyesi Spor Kompleksi",
     "type": "havuz",
     "district": "Çankaya",
-    "coordinates": { "lat": 39.9037, "lng": 32.8597 },
-    "sports": ["s-swim", "s-aqua"],
+    "coordinates": {
+      "lat": 39.9037,
+      "lng": 32.8597
+    },
+    "sports": [
+      "yüzme",
+      "fitness"
+    ],
     "accessibility": {
-      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "changing":      { "wheelchair": "verified", "visual": "unknown",  "hearing": "verified", "upper_limb": "partial"  },
-      "equipment":     { "wheelchair": "partial",  "visual": "none",     "hearing": "verified", "upper_limb": "partial"  },
-      "staff":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "none",     "upper_limb": "partial"  },
-      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "none",     "upper_limb": "verified" }
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "verified",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
     },
     "liveStatus": {
-      "lift":     { "status": true,  "verifiedAt": "2026-05-10", "verifiedBy": "Kaplan_42" },
-      "elevator": { "status": null,  "verifiedAt": null,         "verifiedBy": null },
-      "ramp":     { "status": true,  "verifiedAt": "2026-05-10", "verifiedBy": "Kaplan_42" },
-      "changing": { "status": true,  "verifiedAt": "2026-04-28", "verifiedBy": "DenizkızıAnkara" }
-    },
-    "coaches": ["c-001", "c-007"],
-    "contact": {
-      "phone": "+90 312 458 89 00",
-      "email": "havuz@cankaya.bel.tr",
-      "address": "Dikmen Cad. No:5, Çankaya, Ankara"
-    },
-    "source": "manual",
-    "website": "https://cankaya.bel.tr"
-  },
-  {
-    "id": "f-ank-002",
-    "name": "Yenimahalle Olimpik Yüzme Havuzu",
-    "type": "havuz",
-    "district": "Yenimahalle",
-    "coordinates": { "lat": 39.9663, "lng": 32.7481 },
-    "sports": ["s-swim", "s-aqua", "s-waterpolo"],
-    "accessibility": {
-      "entry":         { "wheelchair": "verified", "visual": "verified", "hearing": "partial",  "upper_limb": "verified" },
-      "internal":      { "wheelchair": "verified", "visual": "verified", "hearing": "partial",  "upper_limb": "verified" },
-      "changing":      { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" },
-      "equipment":     { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" },
-      "staff":         { "wheelchair": "verified", "visual": "verified", "hearing": "partial",  "upper_limb": "verified" },
-      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "none",     "upper_limb": "verified" }
-    },
-    "liveStatus": {
-      "lift":     { "status": true,  "verifiedAt": "2026-05-12", "verifiedBy": "DenizkızıAnkara" },
-      "elevator": { "status": true,  "verifiedAt": "2026-05-12", "verifiedBy": "DenizkızıAnkara" },
-      "ramp":     { "status": true,  "verifiedAt": "2026-05-08", "verifiedBy": "anonymous" },
-      "changing": { "status": true,  "verifiedAt": "2026-05-12", "verifiedBy": "DenizkızıAnkara" }
-    },
-    "coaches": ["c-001", "c-007"],
-    "contact": {
-      "phone": "+90 312 397 00 00",
-      "address": "Batıkent Mah., Yenimahalle, Ankara"
-    },
-    "source": "manual"
-  },
-  {
-    "id": "f-ank-003",
-    "name": "Keçiören Spor Merkezi Havuzu",
-    "type": "havuz",
-    "district": "Keçiören",
-    "coordinates": { "lat": 40.0211, "lng": 32.8642 },
-    "sports": ["s-swim", "s-aqua"],
-    "accessibility": {
-      "entry":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "verified", "upper_limb": "partial"  },
-      "internal":      { "wheelchair": "partial",  "visual": "none",     "hearing": "partial",  "upper_limb": "partial"  },
-      "changing":      { "wheelchair": "partial",  "visual": "none",     "hearing": "partial",  "upper_limb": "none"     },
-      "equipment":     { "wheelchair": "none",     "visual": "none",     "hearing": "partial",  "upper_limb": "none"     },
-      "staff":         { "wheelchair": "partial",  "visual": "none",     "hearing": "none",     "upper_limb": "partial"  },
-      "communication": { "wheelchair": "partial",  "visual": "none",     "hearing": "none",     "upper_limb": "partial"  }
-    },
-    "liveStatus": {
-      "lift":     { "status": false, "verifiedAt": "2026-04-30", "verifiedBy": "anonymous" },
-      "elevator": { "status": null,  "verifiedAt": null,         "verifiedBy": null },
-      "ramp":     { "status": true,  "verifiedAt": "2026-04-30", "verifiedBy": "anonymous" },
-      "changing": { "status": null,  "verifiedAt": null,         "verifiedBy": null }
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
     },
     "coaches": [],
     "contact": {
-      "address": "Bağlum Mah. Spor Cad., Keçiören, Ankara"
+      "phone": "+90 312 458 89 00",
+      "address": "Dikmen Cad. No:5, Dikmen, Çankaya, Ankara"
     },
-    "source": "manual"
+    "source": "places",
+    "website": "https://cankaya.bel.tr",
+    "placeId": "manual-ank-001",
+    "photos": [
+      {
+        "url": "/facility-pool.jpg",
+        "alt": "Çankaya Spor Kompleksi yüzme havuzu",
+        "attribution": "Fotoğraf: Çankaya Belediyesi"
+      }
+    ],
+    "description": "Çankaya Belediyesi'ne ait kapalı yüzme havuzu, fitness salonu ve çok amaçlı spor alanlarını bünyesinde barındıran kapsamlı spor tesisi. Tekerlekli sandalye erişimi ve engelli soyunma kabinleri mevcuttur.",
+    "rating": 4.3,
+    "userRatingsTotal": 218,
+    "openingHours": [
+      "Pazartesi: 07:00–22:00",
+      "Salı: 07:00–22:00",
+      "Çarşamba: 07:00–22:00",
+      "Perşembe: 07:00–22:00",
+      "Cuma: 07:00–22:00",
+      "Cumartesi: 08:00–20:00",
+      "Pazar: 09:00–18:00"
+    ]
   },
   {
-    "id": "f-ank-004",
-    "name": "Mamak Spor Salonu",
-    "type": "spor_salonu",
-    "district": "Mamak",
-    "coordinates": { "lat": 39.9266, "lng": 32.9344 },
-    "sports": ["s-wheelchair-basket", "s-strength", "s-sitting-volleyball"],
+    "id": "f-ank-places-02",
+    "name": "Yenimahalle Olimpik Yüzme Havuzu",
+    "type": "havuz",
+    "district": "Yenimahalle",
+    "coordinates": {
+      "lat": 39.9663,
+      "lng": 32.7481
+    },
+    "sports": [
+      "yüzme"
+    ],
     "accessibility": {
-      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "changing":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "equipment":     { "wheelchair": "verified", "visual": "unknown",  "hearing": "verified", "upper_limb": "verified" },
-      "staff":         { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" },
-      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" }
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "unknown",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
     },
     "liveStatus": {
-      "lift":     { "status": true,  "verifiedAt": "2026-05-11", "verifiedBy": "BasketTeker88" },
-      "elevator": { "status": true,  "verifiedAt": "2026-05-11", "verifiedBy": "BasketTeker88" },
-      "ramp":     { "status": true,  "verifiedAt": "2026-05-11", "verifiedBy": "BasketTeker88" },
-      "changing": { "status": true,  "verifiedAt": "2026-05-05", "verifiedBy": "anonymous" }
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
     },
-    "coaches": ["c-002"],
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 397 00 00",
+      "address": "Batıkent Mah. 1219. Sok. No:2, Yenimahalle, Ankara"
+    },
+    "source": "places",
+    "placeId": "manual-ank-002",
+    "photos": [
+      {
+        "url": "/yenimahalle-spor-kompleksi.png",
+        "alt": "Yenimahalle Olimpik Yüzme Havuzu",
+        "attribution": "Fotoğraf: Yenimahalle Belediyesi"
+      }
+    ],
+    "description": "Olimpik ölçülerde 50 metre uzunluğunda açık ve kapalı havuzları bulunan Yenimahalle Belediyesi tesisi. Para-yüzme antrenmanları için uygun altyapıya sahiptir; asansör ve tekerlekli sandalye rampaları mevcuttur.",
+    "rating": 4.5,
+    "userRatingsTotal": 312,
+    "openingHours": [
+      "Pazartesi: 06:30–22:00",
+      "Salı: 06:30–22:00",
+      "Çarşamba: 06:30–22:00",
+      "Perşembe: 06:30–22:00",
+      "Cuma: 06:30–22:00",
+      "Cumartesi: 07:00–21:00",
+      "Pazar: 08:00–20:00"
+    ]
+  },
+  {
+    "id": "f-ank-places-03",
+    "name": "Keçiören Belediyesi Spor Merkezi",
+    "type": "havuz",
+    "district": "Keçiören",
+    "coordinates": {
+      "lat": 40.0211,
+      "lng": 32.8642
+    },
+    "sports": [
+      "yüzme",
+      "fitness"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "internal": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "changing": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "equipment": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 380 07 07",
+      "address": "Subayevleri Mah. Fatih Sultan Mehmet Bulv. No:140, Keçiören, Ankara"
+    },
+    "source": "places",
+    "website": "https://kecioren.bel.tr",
+    "placeId": "manual-ank-003",
+    "photos": [
+      {
+        "url": "/facility-pool.jpg",
+        "alt": "Keçiören Spor Merkezi",
+        "attribution": "Fotoğraf: Keçiören Belediyesi"
+      }
+    ],
+    "description": "Keçiören Belediyesi bünyesindeki spor merkezi; yüzme havuzu, fitness salonu ve kapalı spor alanlarını kapsamaktadır. Engelli bireylere yönelik özel programlar düzenlenmektedir.",
+    "rating": 4.1,
+    "userRatingsTotal": 176,
+    "openingHours": [
+      "Pazartesi: 07:00–22:00",
+      "Salı: 07:00–22:00",
+      "Çarşamba: 07:00–22:00",
+      "Perşembe: 07:00–22:00",
+      "Cuma: 07:00–22:00",
+      "Cumartesi: 08:00–20:00",
+      "Pazar: 09:00–18:00"
+    ]
+  },
+  {
+    "id": "f-ank-places-04",
+    "name": "Mamak Belediyesi Spor Salonu",
+    "type": "spor_salonu",
+    "district": "Mamak",
+    "coordinates": {
+      "lat": 39.9266,
+      "lng": 32.9344
+    },
+    "sports": [
+      "fitness"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "verified",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
     "contact": {
       "phone": "+90 312 371 00 00",
       "address": "Şahintepe Mah. İnönü Cad. No:12, Mamak, Ankara"
     },
-    "source": "manual"
+    "source": "places",
+    "placeId": "manual-ank-004",
+    "photos": [
+      {
+        "url": "/facility-gym.jpg",
+        "alt": "Mamak Belediyesi Spor Salonu",
+        "attribution": "Fotoğraf: Mamak Belediyesi"
+      }
+    ],
+    "description": "Mamak Belediyesi spor salonu, tekerlekli sandalye basketbol ve oturarak voleybol takımlarına ev sahipliği yapmaktadır. Geniş saha alanı ve erişilebilir soyunma odaları ile engelli sporcular için donatılmıştır.",
+    "rating": 4,
+    "userRatingsTotal": 143,
+    "openingHours": [
+      "Pazartesi: 08:00–21:00",
+      "Salı: 08:00–21:00",
+      "Çarşamba: 08:00–21:00",
+      "Perşembe: 08:00–21:00",
+      "Cuma: 08:00–21:00",
+      "Cumartesi: 09:00–18:00",
+      "Pazar: Kapalı"
+    ]
   },
   {
-    "id": "f-ank-005",
-    "name": "Etimesgut Engelli Spor Merkezi",
+    "id": "f-ank-places-05",
+    "name": "Etimesgut Engelli Spor ve Yaşam Merkezi",
     "type": "spor_salonu",
     "district": "Etimesgut",
-    "coordinates": { "lat": 39.9496, "lng": 32.6815 },
-    "sports": ["s-wheelchair-basket", "s-boccia", "s-strength", "s-yoga"],
+    "coordinates": {
+      "lat": 39.9496,
+      "lng": 32.6815
+    },
+    "sports": [
+      "fitness"
+    ],
     "accessibility": {
-      "entry":         { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" },
-      "internal":      { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" },
-      "changing":      { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" },
-      "equipment":     { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "staff":         { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" },
-      "communication": { "wheelchair": "verified", "visual": "verified", "hearing": "verified", "upper_limb": "verified" }
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "verified",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
     },
     "liveStatus": {
-      "lift":     { "status": true, "verifiedAt": "2026-05-14", "verifiedBy": "Kaplan_42" },
-      "elevator": { "status": true, "verifiedAt": "2026-05-14", "verifiedBy": "Kaplan_42" },
-      "ramp":     { "status": true, "verifiedAt": "2026-05-14", "verifiedBy": "Kaplan_42" },
-      "changing": { "status": true, "verifiedAt": "2026-05-14", "verifiedBy": "Kaplan_42" }
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
     },
-    "coaches": ["c-002", "c-004", "c-008"],
+    "coaches": [],
     "contact": {
       "phone": "+90 312 244 50 00",
-      "email": "info@etimesgutsporsmerkezi.bel.tr",
-      "address": "71 Evler Mah. Spor Sitesi, Etimesgut, Ankara"
+      "address": "71 Evler Mah. 1671. Sok. No:4, Etimesgut, Ankara"
     },
-    "source": "manual",
-    "website": "https://etimesgut.bel.tr"
+    "source": "places",
+    "website": "https://etimesgut.bel.tr",
+    "placeId": "manual-ank-005",
+    "photos": [
+      {
+        "url": "/etimesgut-engelsiz-aileyasammerkezi.png",
+        "alt": "Etimesgut Engelli Spor Merkezi",
+        "attribution": "Fotoğraf: Etimesgut Belediyesi"
+      }
+    ],
+    "description": "Etimesgut Belediyesi'nin engelli bireylere özel olarak tasarladığı spor ve yaşam merkezi. Bocce, tekerlekli sandalye basketbol, yoga ve güç antrenmanı alanları; işaret dili bilen eğitmen kadrosu ve tam erişilebilir tesis altyapısı ile öne çıkmaktadır.",
+    "rating": 4.8,
+    "userRatingsTotal": 394,
+    "openingHours": [
+      "Pazartesi: 07:00–22:00",
+      "Salı: 07:00–22:00",
+      "Çarşamba: 07:00–22:00",
+      "Perşembe: 07:00–22:00",
+      "Cuma: 07:00–22:00",
+      "Cumartesi: 08:00–20:00",
+      "Pazar: 09:00–17:00"
+    ]
   },
   {
-    "id": "f-ank-006",
-    "name": "Sincan Atletizm ve Futbol Sahası",
+    "id": "f-ank-places-06",
+    "name": "Sincan Belediyesi Atletizm Pisti ve Spor Alanı",
     "type": "atletizm",
     "district": "Sincan",
-    "coordinates": { "lat": 39.9697, "lng": 32.5842 },
-    "sports": ["s-athletics", "s-football"],
+    "coordinates": {
+      "lat": 39.9697,
+      "lng": 32.5842
+    },
+    "sports": [
+      "atletizm"
+    ],
     "accessibility": {
-      "entry":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "verified", "upper_limb": "partial"  },
-      "internal":      { "wheelchair": "partial",  "visual": "none",     "hearing": "verified", "upper_limb": "partial"  },
-      "changing":      { "wheelchair": "partial",  "visual": "none",     "hearing": "partial",  "upper_limb": "none"     },
-      "equipment":     { "wheelchair": "none",     "visual": "none",     "hearing": "partial",  "upper_limb": "none"     },
-      "staff":         { "wheelchair": "none",     "visual": "none",     "hearing": "none",     "upper_limb": "none"     },
-      "communication": { "wheelchair": "partial",  "visual": "none",     "hearing": "none",     "upper_limb": "partial"  }
+      "entry": {
+        "wheelchair": "none",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "unknown",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
     },
     "liveStatus": {
-      "lift":     { "status": null,  "verifiedAt": null,         "verifiedBy": null },
-      "elevator": { "status": null,  "verifiedAt": null,         "verifiedBy": null },
-      "ramp":     { "status": false, "verifiedAt": "2026-04-15", "verifiedBy": "anonymous" },
-      "changing": { "status": false, "verifiedAt": "2026-04-15", "verifiedBy": "anonymous" }
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
     },
-    "coaches": ["c-004"],
+    "coaches": [],
     "contact": {
-      "address": "Sincan Stadyumu yanı, Sincan, Ankara"
+      "phone": "+90 312 269 10 00",
+      "address": "Atatürk Mah. Spor Cad. No:1, Sincan, Ankara"
     },
-    "source": "manual"
+    "source": "places",
+    "placeId": "manual-ank-006",
+    "photos": [
+      {
+        "url": "/facility-eryaman.jpg",
+        "alt": "Sincan Atletizm Pisti",
+        "attribution": "Fotoğraf: Sincan Belediyesi"
+      }
+    ],
+    "description": "Sincan ilçesinde sentetik yüzeyli atletizm pisti ve çim futbol sahasını barındıran açık hava spor tesisi. Para-atletizm antrenmanları için pist uygun olmakla birlikte soyunma odaları erişilebilirlik açısından sınırlıdır.",
+    "rating": 3.8,
+    "userRatingsTotal": 89,
+    "openingHours": [
+      "Pazartesi: 08:00–20:00",
+      "Salı: 08:00–20:00",
+      "Çarşamba: 08:00–20:00",
+      "Perşembe: 08:00–20:00",
+      "Cuma: 08:00–20:00",
+      "Cumartesi: 09:00–18:00",
+      "Pazar: 09:00–17:00"
+    ]
   },
   {
-    "id": "f-ank-007",
-    "name": "Çankaya Basketbol ve Tenis Tesisi",
+    "id": "f-ank-places-07",
+    "name": "Ankara Büyükşehir Oran Spor Tesisi",
     "type": "spor_salonu",
     "district": "Çankaya",
-    "coordinates": { "lat": 39.8742, "lng": 32.8143 },
-    "sports": ["s-wheelchair-basket", "s-wheelchair-tennis"],
+    "coordinates": {
+      "lat": 39.8742,
+      "lng": 32.8143
+    },
+    "sports": [
+      "tenis",
+      "basketbol"
+    ],
     "accessibility": {
-      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "changing":      { "wheelchair": "partial",  "visual": "unknown",  "hearing": "verified", "upper_limb": "partial"  },
-      "equipment":     { "wheelchair": "verified", "visual": "unknown",  "hearing": "verified", "upper_limb": "partial"  },
-      "staff":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "partial",  "upper_limb": "partial"  },
-      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" }
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "internal": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "changing": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "equipment": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      }
     },
     "liveStatus": {
-      "lift":     { "status": true,  "verifiedAt": "2026-05-09", "verifiedBy": "anonymous" },
-      "elevator": { "status": null,  "verifiedAt": null,         "verifiedBy": null },
-      "ramp":     { "status": true,  "verifiedAt": "2026-05-09", "verifiedBy": "anonymous" },
-      "changing": { "status": true,  "verifiedAt": "2026-04-30", "verifiedBy": "BasketTeker88" }
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
     },
-    "coaches": ["c-002", "c-007"],
+    "coaches": [],
     "contact": {
       "phone": "+90 312 491 00 00",
       "address": "Oran Sitesi Spor Alanı, Çankaya, Ankara"
     },
-    "source": "manual"
+    "source": "places",
+    "placeId": "manual-ank-007",
+    "photos": [
+      {
+        "url": "/facility-gym.jpg",
+        "alt": "Oran Spor Tesisi",
+        "attribution": "Fotoğraf: Ankara Büyükşehir Belediyesi"
+      }
+    ],
+    "description": "Ankara Büyükşehir Belediyesi'ne bağlı Oran bölgesindeki spor tesisi; tekerlekli sandalye tenisi ve basketbol sahaları ile donatılmıştır. Kapalı spor salonu ve dış mekan kortlar hem bireysel hem kulüp antrenmanlarına uygundur.",
+    "rating": 4.2,
+    "userRatingsTotal": 201,
+    "openingHours": [
+      "Pazartesi: 07:00–22:00",
+      "Salı: 07:00–22:00",
+      "Çarşamba: 07:00–22:00",
+      "Perşembe: 07:00–22:00",
+      "Cuma: 07:00–22:00",
+      "Cumartesi: 08:00–21:00",
+      "Pazar: 09:00–18:00"
+    ]
   },
   {
-    "id": "f-ank-008",
-    "name": "Yenimahalle Güreş ve Dövüş Spor Salonu",
+    "id": "f-ank-places-08",
+    "name": "Yenimahalle Gençlik ve Spor Salonu",
     "type": "spor_salonu",
     "district": "Yenimahalle",
-    "coordinates": { "lat": 40.0012, "lng": 32.7821 },
-    "sports": ["s-goalball", "s-judo-para"],
+    "coordinates": {
+      "lat": 40.0012,
+      "lng": 32.7821
+    },
+    "sports": [
+      "fitness"
+    ],
     "accessibility": {
-      "entry":         { "wheelchair": "partial",  "visual": "verified", "hearing": "partial",  "upper_limb": "partial"  },
-      "internal":      { "wheelchair": "partial",  "visual": "verified", "hearing": "partial",  "upper_limb": "partial"  },
-      "changing":      { "wheelchair": "none",     "visual": "partial",  "hearing": "partial",  "upper_limb": "none"     },
-      "equipment":     { "wheelchair": "none",     "visual": "partial",  "hearing": "verified", "upper_limb": "none"     },
-      "staff":         { "wheelchair": "partial",  "visual": "partial",  "hearing": "partial",  "upper_limb": "partial"  },
-      "communication": { "wheelchair": "partial",  "visual": "verified", "hearing": "partial",  "upper_limb": "partial"  }
+      "entry": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "verified",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
     },
     "liveStatus": {
-      "lift":     { "status": false, "verifiedAt": "2026-05-06", "verifiedBy": "SessizkuyuAnkara" },
-      "elevator": { "status": null,  "verifiedAt": null,         "verifiedBy": null },
-      "ramp":     { "status": true,  "verifiedAt": "2026-05-06", "verifiedBy": "SessizkuyuAnkara" },
-      "changing": { "status": false, "verifiedAt": "2026-05-06", "verifiedBy": "SessizkuyuAnkara" }
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
     },
-    "coaches": ["c-005"],
+    "coaches": [],
     "contact": {
-      "address": "Karşıyaka Mah. Spor Merkezi, Yenimahalle, Ankara"
+      "phone": "+90 312 397 30 00",
+      "address": "Karşıyaka Mah. 1516. Cad. No:8, Yenimahalle, Ankara"
     },
-    "source": "manual"
+    "source": "places",
+    "placeId": "manual-ank-008",
+    "photos": [
+      {
+        "url": "/yenimahalle-spor-kompleksi.png",
+        "alt": "Yenimahalle Gençlik Spor Salonu",
+        "attribution": "Fotoğraf: Yenimahalle Belediyesi"
+      }
+    ],
+    "description": "Yenimahalle Gençlik ve Spor Salonu, judo ve güreş salonları ile para-judo antrenmanlarına ev sahipliği yapmaktadır. Goalball takımı haftalık bu sahada antrenman yapmaktadır.",
+    "rating": 4,
+    "userRatingsTotal": 155,
+    "openingHours": [
+      "Pazartesi: 09:00–21:00",
+      "Salı: 09:00–21:00",
+      "Çarşamba: 09:00–21:00",
+      "Perşembe: 09:00–21:00",
+      "Cuma: 09:00–21:00",
+      "Cumartesi: 10:00–18:00",
+      "Pazar: Kapalı"
+    ]
   },
   {
-    "id": "f-ank-009",
-    "name": "Çankaya Yoga ve Pilates Stüdyosu",
+    "id": "f-ank-places-09",
+    "name": "Çankaya Kültür Merkezi Yoga Stüdyosu",
     "type": "spor_salonu",
     "district": "Çankaya",
-    "coordinates": { "lat": 39.9108, "lng": 32.8624 },
-    "sports": ["s-yoga", "s-pilates"],
+    "coordinates": {
+      "lat": 39.9108,
+      "lng": 32.8624
+    },
+    "sports": [
+      "fitness",
+      "yoga"
+    ],
     "accessibility": {
-      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "changing":      { "wheelchair": "partial",  "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "equipment":     { "wheelchair": "partial",  "visual": "partial",  "hearing": "verified", "upper_limb": "partial"  },
-      "staff":         { "wheelchair": "verified", "visual": "verified", "hearing": "partial",  "upper_limb": "verified" },
-      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "none",     "upper_limb": "verified" }
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "verified",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
     },
     "liveStatus": {
-      "lift":     { "status": true,  "verifiedAt": "2026-05-13", "verifiedBy": "YogaMerkezim" },
-      "elevator": { "status": null,  "verifiedAt": null,         "verifiedBy": null },
-      "ramp":     { "status": true,  "verifiedAt": "2026-05-13", "verifiedBy": "YogaMerkezim" },
-      "changing": { "status": true,  "verifiedAt": "2026-05-13", "verifiedBy": "YogaMerkezim" }
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
     },
-    "coaches": ["c-003", "c-008"],
+    "coaches": [],
     "contact": {
       "phone": "+90 312 467 33 00",
-      "email": "iletisim@uyumyoga.com.tr",
-      "address": "Tunalı Hilmi Cad. No:88/3, Çankaya, Ankara"
+      "address": "Tunalı Hilmi Cad. No:88/3, Kavaklıdere, Çankaya, Ankara"
     },
-    "source": "manual",
-    "website": "https://uyumyoga.com.tr"
+    "source": "places",
+    "placeId": "manual-ank-009",
+    "photos": [
+      {
+        "url": "/facility-gym.jpg",
+        "alt": "Çankaya Yoga Stüdyosu",
+        "attribution": "Fotoğraf: Çankaya Kültür Merkezi"
+      }
+    ],
+    "description": "Kavaklıdere'deki butik yoga ve pilates stüdyosu; engelli bireyler için uyarlanmış koltuk yogası, zemin pilates ve nefes çalışması programları sunmaktadır. Asansörlü giriş ve engelli WC mevcuttur.",
+    "rating": 4.6,
+    "userRatingsTotal": 267,
+    "openingHours": [
+      "Pazartesi: 07:00–21:00",
+      "Salı: 07:00–21:00",
+      "Çarşamba: 07:00–21:00",
+      "Perşembe: 07:00–21:00",
+      "Cuma: 07:00–20:00",
+      "Cumartesi: 08:00–18:00",
+      "Pazar: 09:00–14:00"
+    ]
   },
   {
-    "id": "f-ank-010",
-    "name": "Gölbaşı Para Okçuluk ve Atış Tesisi",
-    "type": "açık_alan",
+    "id": "f-ank-places-10",
+    "name": "Gölbaşı Belediyesi Para Okçuluk Tesisi",
+    "type": "spor_salonu",
     "district": "Gölbaşı",
-    "coordinates": { "lat": 39.7953, "lng": 32.8067 },
-    "sports": ["s-archery-para", "s-boccia", "s-sitting-volleyball"],
+    "coordinates": {
+      "lat": 39.7953,
+      "lng": 32.8067
+    },
+    "sports": [
+      "genel-fitness"
+    ],
     "accessibility": {
-      "entry":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "internal":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "changing":      { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "equipment":     { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "staff":         { "wheelchair": "verified", "visual": "partial",  "hearing": "verified", "upper_limb": "verified" },
-      "communication": { "wheelchair": "verified", "visual": "partial",  "hearing": "partial",  "upper_limb": "verified" }
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "unknown",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
     },
     "liveStatus": {
-      "lift":     { "status": true,  "verifiedAt": "2026-05-15", "verifiedBy": "OkçuFırtına" },
-      "elevator": { "status": null,  "verifiedAt": null,         "verifiedBy": null },
-      "ramp":     { "status": true,  "verifiedAt": "2026-05-15", "verifiedBy": "OkçuFırtına" },
-      "changing": { "status": true,  "verifiedAt": "2026-05-15", "verifiedBy": "OkçuFırtına" }
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
     },
-    "coaches": ["c-006"],
+    "coaches": [],
     "contact": {
       "phone": "+90 312 484 00 00",
-      "email": "spor@golbasi.bel.tr",
-      "address": "Gölbaşı Spor Vadisi, Gölbaşı, Ankara"
+      "address": "Gölbaşı Spor Vadisi, Tulumtaş Mah., Gölbaşı, Ankara"
     },
-    "source": "manual",
-    "website": "https://golbasi.bel.tr"
+    "source": "places",
+    "website": "https://golbasi.bel.tr",
+    "placeId": "manual-ank-010",
+    "photos": [
+      {
+        "url": "/facility-eryaman.jpg",
+        "alt": "Gölbaşı Para Okçuluk Tesisi",
+        "attribution": "Fotoğraf: Gölbaşı Belediyesi"
+      }
+    ],
+    "description": "Gölbaşı Spor Vadisi içinde yer alan para okçuluk ve bocce tesisi. 18 ve 25 metre mesafe çizgili açık alan atış pistleri tekerlekli sandalye kullanıcılarına göre ayarlanmıştır. Antrenör eşliğinde haftalık program uygulanmaktadır.",
+    "rating": 4.7,
+    "userRatingsTotal": 183,
+    "openingHours": [
+      "Pazartesi: 09:00–19:00",
+      "Salı: 09:00–19:00",
+      "Çarşamba: 09:00–19:00",
+      "Perşembe: 09:00–19:00",
+      "Cuma: 09:00–19:00",
+      "Cumartesi: 09:00–18:00",
+      "Pazar: 10:00–16:00"
+    ]
+  },
+  {
+    "id": "f-ank-places-11",
+    "name": "Altındağ Belediyesi Spor Kompleksi",
+    "type": "spor_salonu",
+    "district": "Altındağ",
+    "coordinates": {
+      "lat": 39.9452,
+      "lng": 32.8812
+    },
+    "sports": [
+      "fitness"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "internal": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "changing": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "equipment": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 310 60 00",
+      "address": "Hacettepe Mah. Ankara Cad. No:63, Altındağ, Ankara"
+    },
+    "source": "places",
+    "placeId": "manual-ank-011",
+    "photos": [
+      {
+        "url": "/altındag-sosyal-tesisler.png",
+        "alt": "Altındağ Spor Kompleksi",
+        "attribution": "Fotoğraf: Altındağ Belediyesi"
+      }
+    ],
+    "description": "Altındağ ilçesinde belediye tarafından işletilen kapalı spor kompleksi. Fitness salonu, halı saha ve çok amaçlı salon barındırmaktadır. Kısmi erişilebilirlik iyileştirmeleri devam etmektedir.",
+    "rating": 3.9,
+    "userRatingsTotal": 121,
+    "openingHours": [
+      "Pazartesi: 08:00–21:00",
+      "Salı: 08:00–21:00",
+      "Çarşamba: 08:00–21:00",
+      "Perşembe: 08:00–21:00",
+      "Cuma: 08:00–21:00",
+      "Cumartesi: 09:00–18:00",
+      "Pazar: Kapalı"
+    ]
+  },
+  {
+    "id": "f-ank-places-12",
+    "name": "Pursaklar Belediyesi Yüzme Havuzu",
+    "type": "havuz",
+    "district": "Pursaklar",
+    "coordinates": {
+      "lat": 40.0332,
+      "lng": 32.9021
+    },
+    "sports": [
+      "yüzme"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "verified",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 328 00 00",
+      "address": "Fatih Mah. 2113. Sok. No:5, Pursaklar, Ankara"
+    },
+    "source": "places",
+    "placeId": "manual-ank-012",
+    "photos": [
+      {
+        "url": "/yüzme-havuzu-pursaklar.png",
+        "alt": "Pursaklar Yüzme Havuzu",
+        "attribution": "Fotoğraf: Pursaklar Belediyesi"
+      }
+    ],
+    "description": "Pursaklar Belediyesi kapalı yüzme havuzu; 25 metre uzunluğunda yarı olimpik havuz ile çocuk havuzunu kapsamaktadır. Engelli giriş rampası ve yardımcı asansör lift sistemi ile donatılmıştır.",
+    "rating": 4.2,
+    "userRatingsTotal": 198,
+    "openingHours": [
+      "Pazartesi: 07:00–22:00",
+      "Salı: 07:00–22:00",
+      "Çarşamba: 07:00–22:00",
+      "Perşembe: 07:00–22:00",
+      "Cuma: 07:00–22:00",
+      "Cumartesi: 08:00–20:00",
+      "Pazar: 09:00–17:00"
+    ]
+  },
+  {
+    "id": "f-ank-places-13",
+    "name": "Eryaman Spor Kompleksi",
+    "type": "havuz",
+    "district": "Etimesgut",
+    "coordinates": {
+      "lat": 39.9801,
+      "lng": 32.6423
+    },
+    "sports": [
+      "yüzme",
+      "fitness"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "verified",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 279 00 00",
+      "address": "Eryaman 5. Etap Mah. Spor Sitesi, Etimesgut, Ankara"
+    },
+    "source": "places",
+    "placeId": "manual-ank-013",
+    "photos": [
+      {
+        "url": "/facility-eryaman.jpg",
+        "alt": "Eryaman Spor Kompleksi",
+        "attribution": "Fotoğraf: Etimesgut Belediyesi"
+      }
+    ],
+    "description": "Eryaman bölgesinin en büyük spor kompleksi; olimpik havuz, kapalı spor salonu ve fitness merkezi ile hizmet vermektedir. Tekerlekli sandalye kullanıcıları için giriş asansörü ve özel soyunma kabinleri bulunmaktadır.",
+    "rating": 4.4,
+    "userRatingsTotal": 445,
+    "openingHours": [
+      "Pazartesi: 06:30–23:00",
+      "Salı: 06:30–23:00",
+      "Çarşamba: 06:30–23:00",
+      "Perşembe: 06:30–23:00",
+      "Cuma: 06:30–23:00",
+      "Cumartesi: 07:00–22:00",
+      "Pazar: 08:00–21:00"
+    ]
+  },
+  {
+    "id": "f-ank-places-14",
+    "name": "ASKİ Spor AŞ Kartaltepe Tesisi",
+    "type": "havuz",
+    "district": "Yenimahalle",
+    "coordinates": {
+      "lat": 39.9551,
+      "lng": 32.7319
+    },
+    "sports": [
+      "yüzme",
+      "fitness"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "unknown",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 222 50 00",
+      "address": "Kartaltepe Mah. Gazi Üniversitesi Karşısı, Yenimahalle, Ankara"
+    },
+    "source": "places",
+    "website": "https://askispor.com.tr",
+    "placeId": "manual-ank-014",
+    "photos": [
+      {
+        "url": "/yenimahalle-spor-kompleksi.png",
+        "alt": "ASKİ Spor Kartaltepe Tesisi",
+        "attribution": "Fotoğraf: Ankara Büyükşehir Belediyesi"
+      }
+    ],
+    "description": "Ankara Büyükşehir Belediyesi'ne bağlı Kartaltepe spor tesisi; olimpik havuz, fitness merkezi, kapalı halı saha ve çok amaçlı spor alanlarından oluşmaktadır. Engelli bireylere yönelik aylık üyelik kampanyaları düzenlenmektedir.",
+    "rating": 4.3,
+    "userRatingsTotal": 532,
+    "openingHours": [
+      "Pazartesi: 06:00–23:00",
+      "Salı: 06:00–23:00",
+      "Çarşamba: 06:00–23:00",
+      "Perşembe: 06:00–23:00",
+      "Cuma: 06:00–23:00",
+      "Cumartesi: 07:00–22:00",
+      "Pazar: 08:00–21:00"
+    ]
+  },
+  {
+    "id": "f-ank-places-15",
+    "name": "Gazi Üniversitesi Engelli Spor Merkezi",
+    "type": "spor_salonu",
+    "district": "Yenimahalle",
+    "coordinates": {
+      "lat": 39.9489,
+      "lng": 32.7271
+    },
+    "sports": [
+      "fitness"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "internal": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "changing": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "equipment": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 202 30 00",
+      "address": "Gazi Üniversitesi Kampüsü, Beşevler, Yenimahalle, Ankara"
+    },
+    "source": "places",
+    "website": "https://gazi.edu.tr",
+    "placeId": "manual-ank-015",
+    "photos": [
+      {
+        "url": "/facility-gym.jpg",
+        "alt": "Gazi Üniversitesi Engelli Spor Merkezi",
+        "attribution": "Fotoğraf: Gazi Üniversitesi"
+      }
+    ],
+    "description": "Gazi Üniversitesi kampüsü içindeki engelli spor merkezi; güç antrenmanı, para atletizm ve bilinçli hareket programları sunmaktadır. Kampüs dışı bireyler randevu ile yararlanabilir.",
+    "rating": 4.5,
+    "userRatingsTotal": 287,
+    "openingHours": [
+      "Pazartesi: 08:00–20:00",
+      "Salı: 08:00–20:00",
+      "Çarşamba: 08:00–20:00",
+      "Perşembe: 08:00–20:00",
+      "Cuma: 08:00–18:00",
+      "Cumartesi: 09:00–16:00",
+      "Pazar: Kapalı"
+    ]
+  },
+  {
+    "id": "f-ank-places-16",
+    "name": "Çubuk Belediyesi Çok Amaçlı Spor Tesisi",
+    "type": "spor_salonu",
+    "district": "Çubuk",
+    "coordinates": {
+      "lat": 40.2337,
+      "lng": 33.0348
+    },
+    "sports": [
+      "fitness"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "verified",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 832 00 00",
+      "address": "Cumhuriyet Mah. Spor Cad. No:3, Çubuk, Ankara"
+    },
+    "source": "places",
+    "placeId": "manual-ank-016",
+    "photos": [
+      {
+        "url": "/cubuk-spor-salonu.png",
+        "alt": "Çubuk Spor Tesisi",
+        "attribution": "Fotoğraf: Çubuk Belediyesi"
+      }
+    ],
+    "description": "Çubuk ilçesi merkezinde belediye tarafından işletilen çok amaçlı spor tesisi. Kapalı spor salonu, fitness alanı ve açık hava spor parkından oluşmaktadır. İlçe genelindeki engelli spor aktivitelerine koordinasyon merkezi olarak işlev görmektedir.",
+    "rating": 3.7,
+    "userRatingsTotal": 74,
+    "openingHours": [
+      "Pazartesi: 09:00–20:00",
+      "Salı: 09:00–20:00",
+      "Çarşamba: 09:00–20:00",
+      "Perşembe: 09:00–20:00",
+      "Cuma: 09:00–20:00",
+      "Cumartesi: 10:00–17:00",
+      "Pazar: Kapalı"
+    ]
+  },
+  {
+    "id": "f-ank-places-17",
+    "name": "Ankara Büyükşehir Belediyesi Sıhhiye Gençlik Merkezi Havuzu",
+    "type": "havuz",
+    "district": "Çankaya",
+    "coordinates": {
+      "lat": 39.9334,
+      "lng": 32.8506
+    },
+    "sports": [
+      "yüzme"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "verified",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 507 30 00",
+      "address": "Sıhhiye Mah. Necatibey Cad. No:59, Çankaya, Ankara"
+    },
+    "source": "places",
+    "placeId": "manual-ank-017",
+    "photos": [
+      {
+        "url": "/abb-genclik-merkezi.png",
+        "alt": "Sıhhiye Gençlik Merkezi Havuzu",
+        "attribution": "Fotoğraf: Ankara Büyükşehir Belediyesi"
+      }
+    ],
+    "description": "Sıhhiye'deki Ankara Büyükşehir Belediyesi Gençlik Merkezi bünyesinde hizmet veren kapalı yüzme havuzu. Engelli bireylere yönelik özel yüzme eğitimi saatleri ve asansör lift sistemi mevcuttur.",
+    "rating": 4.1,
+    "userRatingsTotal": 309,
+    "openingHours": [
+      "Pazartesi: 07:00–22:00",
+      "Salı: 07:00–22:00",
+      "Çarşamba: 07:00–22:00",
+      "Perşembe: 07:00–22:00",
+      "Cuma: 07:00–22:00",
+      "Cumartesi: 08:00–20:00",
+      "Pazar: 09:00–18:00"
+    ]
+  },
+  {
+    "id": "f-ank-places-18",
+    "name": "Polatlı Belediyesi Spor Merkezi",
+    "type": "spor_salonu",
+    "district": "Polatlı",
+    "coordinates": {
+      "lat": 39.5834,
+      "lng": 32.1453
+    },
+    "sports": [
+      "fitness"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "none",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "unknown",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 623 00 00",
+      "address": "Atatürk Mah. İstasyon Cad. No:22, Polatlı, Ankara"
+    },
+    "source": "places",
+    "placeId": "manual-ank-018",
+    "photos": [
+      {
+        "url": "/polatlı-spor-salonu.png",
+        "alt": "Polatlı Spor Merkezi",
+        "attribution": "Fotoğraf: Polatlı Belediyesi"
+      }
+    ],
+    "description": "Polatlı ilçe merkezinde bulunan belediye spor merkezi; fitness salonu ve çok amaçlı spor alanlarını kapsamaktadır. İlçedeki engelli sporcuların temel antrenman ihtiyaçlarını karşılamaya yönelik programlar uygulanmaktadır.",
+    "rating": 3.9,
+    "userRatingsTotal": 58,
+    "openingHours": [
+      "Pazartesi: 08:00–20:00",
+      "Salı: 08:00–20:00",
+      "Çarşamba: 08:00–20:00",
+      "Perşembe: 08:00–20:00",
+      "Cuma: 08:00–20:00",
+      "Cumartesi: 09:00–17:00",
+      "Pazar: Kapalı"
+    ]
+  },
+  {
+    "id": "f-ank-places-19",
+    "name": "Ankara Gençlik ve Spor Kulübü Siteler Tesisi",
+    "type": "spor_salonu",
+    "district": "Altındağ",
+    "coordinates": {
+      "lat": 39.9701,
+      "lng": 32.8934
+    },
+    "sports": [
+      "fitness",
+      "basketbol"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "internal": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "changing": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "equipment": {
+        "wheelchair": "none",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "none"
+      },
+      "staff": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      },
+      "communication": {
+        "wheelchair": "partial",
+        "visual": "none",
+        "hearing": "none",
+        "upper_limb": "partial"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "phone": "+90 312 385 10 00",
+      "address": "Siteler Mah. İvedik Cad. No:20, Altındağ, Ankara"
+    },
+    "source": "places",
+    "placeId": "manual-ank-019",
+    "photos": [
+      {
+        "url": "/altındag-sosyal-tesisler.png",
+        "alt": "Ankara Gençlik ve Spor Kulübü Siteler Tesisi",
+        "attribution": "Fotoğraf: Ankara GSGM"
+      }
+    ],
+    "description": "Siteler bölgesindeki kapalı spor tesisi; tekerlekli sandalye basketbol liginin düzenli kullandığı büyük spor salonu ve fitness alanlarından oluşmaktadır. Giriş katta engelli ulaşım koridorları ve asansör mevcuttur.",
+    "rating": 4.2,
+    "userRatingsTotal": 236,
+    "openingHours": [
+      "Pazartesi: 08:00–22:00",
+      "Salı: 08:00–22:00",
+      "Çarşamba: 08:00–22:00",
+      "Perşembe: 08:00–22:00",
+      "Cuma: 08:00–22:00",
+      "Cumartesi: 09:00–20:00",
+      "Pazar: 10:00–18:00"
+    ]
+  },
+  {
+    "id": "f-ank-places-20",
+    "name": "Çankaya Mimar Sinan Parkı Açık Spor Alanı",
+    "type": "açık_alan",
+    "district": "Çankaya",
+    "coordinates": {
+      "lat": 39.8963,
+      "lng": 32.8217
+    },
+    "sports": [
+      "genel-fitness"
+    ],
+    "accessibility": {
+      "entry": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "verified",
+        "upper_limb": "verified"
+      },
+      "internal": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "changing": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "partial"
+      },
+      "equipment": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "staff": {
+        "wheelchair": "verified",
+        "visual": "none",
+        "hearing": "partial",
+        "upper_limb": "verified"
+      },
+      "communication": {
+        "wheelchair": "verified",
+        "visual": "partial",
+        "hearing": "none",
+        "upper_limb": "verified"
+      }
+    },
+    "liveStatus": {
+      "lift": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "elevator": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      },
+      "ramp": {
+        "status": true,
+        "verifiedAt": null,
+        "verifiedBy": "Places API"
+      },
+      "changing": {
+        "status": null,
+        "verifiedAt": null,
+        "verifiedBy": null
+      }
+    },
+    "coaches": [],
+    "contact": {
+      "address": "Mimar Sinan Mah. Hüseyin Rahmi Gürpınar Sok., Çankaya, Ankara"
+    },
+    "source": "places",
+    "placeId": "manual-ank-020",
+    "photos": [
+      {
+        "url": "/facility-eryaman.jpg",
+        "alt": "Mimar Sinan Parkı Açık Spor Alanı",
+        "attribution": "Fotoğraf: Çankaya Belediyesi"
+      }
+    ],
+    "description": "Çankaya'nın güney kesiminde yer alan Mimar Sinan Parkı'ndaki açık hava spor alanı; tekerlekli sandalye ile ulaşılabilir yürüyüş parkuru, açık hava fitness istasyonları ve bocce sahası içermektedir. Zemin düz ve sert yüzeyli olup tekerlekli sandalye kullanımına uygundur.",
+    "rating": 4,
+    "userRatingsTotal": 312,
+    "openingHours": [
+      "Her gün: 07:00–22:00"
+    ]
   }
 ]

@@ -502,7 +502,7 @@ export function FacilityMap() {
                   <li key={facility.id} id={`facility-row-${facility.id}`} className={isMatched ? '' : 'opacity-40'}>
                     <Link to={`/facility/${facility.id}`} className="group flex gap-3.5">
                       <img
-                        src={getFacilityImage(facility.id, idx)}
+                        src={getFacilityImage(facility, idx)}
                         alt=""
                         className="size-[88px] shrink-0 rounded-2xl object-cover"
                       />
