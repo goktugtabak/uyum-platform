@@ -38,3 +38,10 @@ export const SCORE_TONE: Record<ScoreColor, string> = {
   red:    'bg-destructive/15 text-destructive',
   gray:   'bg-muted text-foreground/70',
 }
+
+export function scoreColorFromCount(n: number): ScoreColor {
+  if (n >= 5) return 'green'
+  if (n >= 3) return 'yellow'
+  if (n >= 1) return 'red'
+  return 'gray'
+}

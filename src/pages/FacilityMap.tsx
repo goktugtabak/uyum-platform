@@ -13,7 +13,7 @@ import { useProfile } from '../contexts/ProfileContext'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
 import { useFacilityScore, type ScoreColor } from '../hooks/useFacilityScore'
-import { SCORE_LABEL, SCORE_GLYPH } from '../lib/a11y-labels'
+import { SCORE_LABEL, SCORE_GLYPH, scoreColorFromCount } from '../lib/a11y-labels'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
 import { getSportLabel } from '../lib/sport-icons'
 import { Spinner } from '../components/ui/Spinner'
@@ -41,12 +41,6 @@ const DISABILITY_OPTIONS: { value: DisabilityType; label: string }[] = [
   { value: 'upper_limb', label: 'Üst Ekstremite' },
 ]
 
-function scoreColorFromCount(n: number): ScoreColor {
-  if (n >= 5) return 'green'
-  if (n >= 3) return 'yellow'
-  if (n >= 1) return 'red'
-  return 'gray'
-}
 
 function getFacilityImage(facilityId: string, fallbackIndex: number): string {
   if (facilityId.includes('eryaman')) return facilityEryaman

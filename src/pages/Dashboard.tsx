@@ -19,7 +19,7 @@ import { formatRelative } from '../lib/live-status'
 import sportsData from '../data/sports.json'
 import eventsData from '../data/events.json'
 import type { Facility, Sport, SportEvent, Testimony, DisabilityType } from '../types'
-import type { ScoreColor } from '../hooks/useFacilityScore'
+import { scoreColorFromCount } from '../lib/a11y-labels'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
 import dashHero from '../assets/dashboard-hero.jpg'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
@@ -68,12 +68,6 @@ function getFacilityImage(facilityId: string, fallbackIndex: number): string {
   return FACILITY_THUMBS[fallbackIndex % FACILITY_THUMBS.length]
 }
 
-function scoreColorFromCount(n: number): ScoreColor {
-  if (n >= 5) return 'green'
-  if (n >= 3) return 'yellow'
-  if (n >= 1) return 'red'
-  return 'gray'
-}
 
 function estimatedDistance(facility: Facility): number {
   // Ankara merkez (~Kızılay) referans: 39.9208, 32.8541

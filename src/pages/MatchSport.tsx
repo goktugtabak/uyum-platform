@@ -15,7 +15,7 @@ import { ScoreBadge } from '../components/ui/ScoreBadge'
 import sportsData from '../data/sports.json'
 import type { Sport, Facility } from '../types'
 import type { MatchResult } from '../lib/sport-match'
-import type { ScoreColor } from '../hooks/useFacilityScore'
+import { scoreColorFromCount } from '../lib/a11y-labels'
 import sportSwim from '../assets/sport-swimming.jpg'
 import sportBasket from '../assets/sport-basketball.jpg'
 import sportTT from '../assets/sport-tabletennis.jpg'
@@ -79,12 +79,6 @@ function calcMatchPercent(score: number): number {
   return Math.min(99, Math.round((score / 7) * 100) + 10)
 }
 
-function scoreColorFromCount(n: number): ScoreColor {
-  if (n >= 5) return 'green'
-  if (n >= 3) return 'yellow'
-  if (n >= 1) return 'red'
-  return 'gray'
-}
 
 function SportPhoto({ idx, match, sport }: { idx: number; match: number; sport: Sport }) {
   const t = TINTS[idx]
