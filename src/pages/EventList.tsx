@@ -4,8 +4,9 @@ import {
   ChevronDown, ChevronLeft, ChevronRight, MapPin, Clock,
   Accessibility, Bookmark, Bell, Plus, CalendarDays, ArrowRight, Sparkles,
 } from 'lucide-react'
-import type { SportEvent, DisabilityType, Facility, Sport, EventLevel } from '../types'
+import type { SportEvent, DisabilityType, Facility, Sport, EventLevel, UserProfile } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
+import { MatchBadge } from '../components/ui/MatchBadge'
 import { FilterChip, FilterGroup } from '../components/ui/FilterChip'
 import { getSportLabel } from '../lib/sport-icons'
 import {
@@ -88,11 +89,15 @@ function spotsLeftFor(event: SportEvent): number {
   return 2 + (hashId(event.id + 'spots') % 14) // 2..15
 }
 
-function profileMatchPercent(event: SportEvent, profile: { disabilityType: DisabilityType }): number {
-  const hit = event.disabilityTypes.includes(profile.disabilityType) ? 1 : 0
+function profileMatchLevel(event: SportEvent, profile: UserProfile): 'high' | 'medium' | 'low' {
+  let score = 0
   const sport = ALL_SPORTS.find(s => s.id === event.sport)
-  const sportHit = sport?.suitableFor.includes(profile.disabilityType) ? 1 : 0
-  return 70 + hit * 18 + sportHit * 8 - (event.level === 'yarışma' ? 6 : 0)
+  if (sport?.suitableFor.includes(profile.disabilityType)) score += 2
+  if (event.disabilityTypes.includes(profile.disabilityType)) score += 2
+  if (sport?.mobilityLevel.includes(profile.mobilityLevel)) score += 1
+  if (score >= 4) return 'high'
+  if (score >= 2) return 'medium'
+  return 'low'
 }
 
 function findFacility(id: string): Facility | undefined {
@@ -149,7 +154,7 @@ function ParkScene() {
 interface EventRowProps {
   event: SportEvent
   now: number
-  profile: { disabilityType: DisabilityType }
+  profile: UserProfile
   dimmed?: boolean
 }
 
@@ -162,7 +167,6 @@ function EventRow({ event, now, profile, dimmed = false }: EventRowProps) {
   const time = d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
   const attendees = attendeesFor(event)
   const spotsLeft = spotsLeftFor(event)
-  const matchPct = profileMatchPercent(event, profile)
   const rel = relativeDays(event.date, now)
 
   return (
@@ -189,8 +193,7 @@ function EventRow({ event, now, profile, dimmed = false }: EventRowProps) {
       {/* Content */}
       <div className="relative pr-24">
         <div className="absolute right-0 top-0 text-right">
-          <span className="block text-[11px] font-bold text-success">%{matchPct}</span>
-          <span className="block text-[10px] text-muted-foreground">Uygunluk</span>
+          <MatchBadge level={profileMatchLevel(event, profile)} />
         </div>
         <h3
           id={`event-${event.id}-title`}

@@ -12,6 +12,7 @@ import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
 import { SpeakButton } from '../components/ui/SpeakButton'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
+import { MatchBadge } from '../components/ui/MatchBadge'
 import sportsData from '../data/sports.json'
 import type { Sport, Facility } from '../types'
 import type { MatchResult } from '../lib/sport-match'
@@ -74,13 +75,14 @@ function getSportImage(sportId: string): string {
   return facilityEryaman
 }
 
-function calcMatchPercent(score: number): number {
-  // sport-match.ts max score = 3 + 2 + 2 = 7
-  return Math.min(99, Math.round((score / 7) * 100) + 10)
+function calcMatchLevel(score: number): 'high' | 'medium' | 'low' {
+  if (score >= 5) return 'high'
+  if (score >= 3) return 'medium'
+  return 'low'
 }
 
 
-function SportPhoto({ idx, match, sport }: { idx: number; match: number; sport: Sport }) {
+function SportPhoto({ idx, matchLevel, sport }: { idx: number; matchLevel: 'high' | 'medium' | 'low'; sport: Sport }) {
   const t = TINTS[idx]
   return (
     <div className="relative h-72 overflow-hidden rounded-[1.5rem]">
@@ -97,9 +99,7 @@ function SportPhoto({ idx, match, sport }: { idx: number; match: number; sport: 
         {idx + 1}
       </div>
       <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
-        <span className="rounded-full bg-card/85 px-3 py-1 text-xs font-bold text-primary-deep backdrop-blur">
-          %{match} Uygunluk
-        </span>
+        <MatchBadge level={matchLevel} />
       </div>
     </div>
   )
@@ -173,7 +173,7 @@ export function MatchSport() {
           {/* 3 hero photos that fade into the canvas */}
           <div className="grid gap-x-8 gap-y-6 md:grid-cols-3">
             {matches.map((m, i) => (
-              <SportPhoto key={m.sport.id} idx={i} match={calcMatchPercent(m.score)} sport={m.sport} />
+              <SportPhoto key={m.sport.id} idx={i} matchLevel={calcMatchLevel(m.score)} sport={m.sport} />
             ))}
           </div>
 
@@ -181,7 +181,7 @@ export function MatchSport() {
           <div className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-3">
             {matches.map((m, i) => {
               const t = TINTS[i]
-              const matchPct = calcMatchPercent(m.score)
+              const matchLevel = calcMatchLevel(m.score)
               const Icon = SPORT_DETAIL_ICONS[i] ?? Trophy
               const related = pickTopFacilities(
                 facilities.filter(f => f.sports.includes(m.sport.id)),
@@ -193,9 +193,9 @@ export function MatchSport() {
                   <h3 className="font-display text-2xl font-extrabold leading-tight text-primary-deep">
                     {m.sport.name}
                   </h3>
-                  <span className={`mt-2 inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-bold ${t.pill}`}>
-                    %{matchPct} Eşleşme
-                  </span>
+                  <div className="mt-2">
+                    <MatchBadge level={matchLevel} />
+                  </div>
                   <p className="mt-4 text-sm leading-relaxed text-foreground/80">
                     {m.sport.description}
                   </p>
