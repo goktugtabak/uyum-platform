@@ -11,3 +11,4 @@ Thumbs.db
 .vite
 .claude
 .code-review-graph
+.tmp-edge/

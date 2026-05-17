@@ -34,13 +34,13 @@ export function FilterDropdown({
         onClick={onToggle}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className="flex w-full items-center justify-between rounded-2xl bg-card px-4 py-2.5 text-left ring-1 ring-border/50 hover:ring-primary/30"
+        className="flex w-full items-center justify-between rounded-xl bg-card px-2 py-1.5 text-left ring-1 ring-border/50 hover:ring-primary/30"
       >
         <span>
           <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
             {label}
           </span>
-          <span className="block text-[13px] font-bold text-foreground">{current}</span>
+          <span className="block text-xs font-bold text-foreground">{current}</span>
         </span>
         <ChevronDown
           className={`size-4 text-muted-foreground transition-transform ${open ? 'rotate-180' : ''}`}
@@ -51,7 +51,7 @@ export function FilterDropdown({
         <ul
           role="listbox"
           aria-label={label}
-          className="absolute left-0 right-0 top-full z-30 mt-1 max-h-64 overflow-y-auto rounded-2xl bg-card p-1 shadow-card ring-1 ring-border/40"
+          className="absolute left-0 right-0 top-full z-30 mt-1 max-h-64 overflow-y-auto rounded-xl bg-card p-1 shadow-card ring-1 ring-border/40"
         >
           {options.map(o => {
             const active = o.value === value
@@ -62,7 +62,7 @@ export function FilterDropdown({
                   role="option"
                   aria-selected={active}
                   onClick={() => { onChange(o.value); onToggle() }}
-                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition ${
+                  className={`flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-xs transition ${
                     active ? 'bg-primary text-primary-foreground font-bold' : 'text-foreground hover:bg-muted'
                   }`}
                 >

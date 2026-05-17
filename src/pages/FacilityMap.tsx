@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Activity,  useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import {
   Navigation, Layers, Plus, Minus, ChevronDown,
-  Accessibility, Waves, MapPin, ParkingCircle, Dumbbell,
+  Waves, MapPin, ParkingCircle, Dumbbell,
   PersonStanding, Footprints, LayoutList, Map as MapIcon,
 } from 'lucide-react'
 import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'
@@ -253,7 +253,7 @@ export function FacilityMap() {
         }
         return (
           <>
-            <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-[1fr_1fr_auto]">
+            <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
               <FilterDropdown
                 label="Engel Tipi"
                 value={disabilityType}
@@ -278,7 +278,7 @@ export function FacilityMap() {
                 <button
                   type="button"
                   onClick={clearFilters}
-                  className="self-end rounded-2xl px-4 py-2.5 text-xs font-bold text-primary ring-1 ring-border/50 hover:ring-primary/30"
+                  className="self-end rounded-xl px-2 py-1.5 text-xs font-bold text-primary ring-1 ring-border/50 hover:ring-primary/30"
                 >
                   Filtreleri temizle
                 </button>
@@ -363,7 +363,7 @@ export function FacilityMap() {
                         <ParkingCircle  className="size-3.5" aria-hidden />
                         <Dumbbell       className="size-3.5" aria-hidden />
                         <Footprints     className="size-3.5" aria-hidden />
-                        <Accessibility  className="size-3.5" aria-hidden />
+                        <Activity className="size-3.5" aria-hidden />
                       </div>
                     </div>
                   </Link>
@@ -536,7 +536,7 @@ export function FacilityMap() {
                           <ParkingCircle  className="size-3.5" aria-hidden />
                           <Dumbbell       className="size-3.5" aria-hidden />
                           <Footprints     className="size-3.5" aria-hidden />
-                          <Accessibility  className="size-3.5" aria-hidden />
+                          <Activity className="size-3.5" aria-hidden />
                         </div>
                       </div>
                     </Link>

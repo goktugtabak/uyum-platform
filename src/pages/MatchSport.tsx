@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  Accessibility, Target, Pencil, CheckCircle2, MapPin, RefreshCw, Heart,
+  PersonStanding, Target, CheckCircle2, MapPin, RefreshCw, Heart,
   Footprints,
   Waves, CircleDot, Trophy,
 } from 'lucide-react'
@@ -139,7 +139,7 @@ export function MatchSport() {
 
         {/* Profile chip row — clean, no card */}
         <div className="flex flex-wrap items-center gap-5 rounded-2xl bg-card/70 px-5 py-3 ring-1 ring-border/40 backdrop-blur">
-          <ProfileChip i={Accessibility} l="Engel Tipi" v={profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')} />
+          <ProfileChip i={PersonStanding} l="Engel Tipi" v={profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')} />
           <ProfileChip i={Footprints}     l="Hareket"    v={MOBILITY_LABELS[profile.mobilityLevel]} />
           <ProfileChip i={Target}         l="Hedefin"    v={profile.goals.map(g => GOAL_LABELS[g]).join(', ')} />
         </div>

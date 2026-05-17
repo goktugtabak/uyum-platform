@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  Accessibility, Activity, AlertTriangle, ArrowRight, ArrowUp,
+  PersonStanding, Activity, AlertTriangle, ArrowRight, ArrowUp,
   BookOpen, Calendar, Contrast, Dumbbell, HeartHandshake, Keyboard,
   MapPin, MapPinned, Menu, Palette, Play, ShieldCheck, SkipForward,
   Sparkles, Type, User, UserCog, Volume2,
@@ -206,7 +206,7 @@ const steps: Step[] = [
   { num: '01', icon: UserCog,        iconColor: '#7B2FBE', diskColor: '#F3E5F5', title: 'Profilini oluştur',        desc: 'Engel türünü, mobilite düzeyini ve spor hedefini belirt. Tüm veriler yalnızca tarayıcında saklanır.' },
   { num: '02', icon: Sparkles,       iconColor: '#43A047', diskColor: '#E8F5E9', title: 'Sana uygun sporu bul',     desc: 'Profil tabanlı algoritma 3 adaptif spor önerir — her birini neden önerdiğini de açıklar.' },
   { num: '03', icon: MapPinned,      iconColor: '#00BCD4', diskColor: '#E0F7FA', title: 'Tesisleri haritada gör',   desc: "Ankara'daki erişilebilir tesisleri renk + simge kodlu pin'lerle haritada keşfet, listele, filtrele." },
-  { num: '04', icon: Accessibility,  iconColor: '#FF6B35', diskColor: '#FFF3E0', title: 'Erişilebilirliği incele',  desc: '6 boyutlu radar grafiği, canlı kapasite durumu ve diğer kullanıcıların tanıklıkları.' },
+  { num: '04', icon: PersonStanding,  iconColor: '#FF6B35', diskColor: '#FFF3E0', title: 'Erişilebilirliği incele',  desc: '6 boyutlu radar grafiği, canlı kapasite durumu ve diğer kullanıcıların tanıklıkları.' },
   { num: '05', icon: BookOpen,       iconColor: '#00897B', diskColor: '#E0F2F1', title: 'İlk ziyaret rehberini al', desc: 'AI destekli kişiye özel rehber — sesli dinle veya PDF olarak kaydet.' },
   { num: '06', icon: HeartHandshake, iconColor: '#6B7FD7', diskColor: '#EEEEFB', title: 'Topluluğa katıl',          desc: 'Etkinliklere bak, koçlarla tanış, deneyimlerini paylaş.' },
 ]

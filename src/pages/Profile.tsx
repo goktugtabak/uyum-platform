@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  Accessibility, Target, Footprints, Pencil, MapPin, CalendarDays,
+  PersonStanding, Target, Footprints, Pencil, MapPin, CalendarDays,
   Dumbbell, Trash2, Mail, BadgeCheck, ShieldCheck, Activity,
   Bookmark, BookmarkX, Sparkles, UserCog,
 } from 'lucide-react'
@@ -115,7 +115,7 @@ export function Profile() {
       {/* Profile facts */}
       <section className="space-y-3">
         <div className="grid gap-4 sm:grid-cols-3">
-          <Fact icon={<Accessibility className="size-5" aria-hidden />} label="Engel Tipi" value={profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')} />
+          <Fact icon={<PersonStanding className="size-5" aria-hidden />} label="Engel Tipi" value={profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')} />
           <Fact icon={<Footprints className="size-5" aria-hidden />} label="Hareket" value={MOBILITY_LABELS[profile.mobilityLevel]} />
           <Fact icon={<Target className="size-5" aria-hidden />} label="Hedef" value={profile.goals.map(g => GOAL_LABELS[g]).join(', ')} />
         </div>

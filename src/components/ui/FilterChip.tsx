@@ -26,7 +26,7 @@ export function FilterChip({
       aria-label={ariaLabel}
       {...ariaProps}
       className={
-        'inline-flex items-center px-3 py-1.5 rounded-full text-xs font-body ' +
+        'inline-flex items-center px-2 py-1 rounded-full text-[11px] font-body ' +
         'ring-1 transition-colors ' +
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ' +
         (active

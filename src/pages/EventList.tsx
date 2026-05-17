@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ChevronLeft, ChevronRight, MapPin, Clock,
-  Accessibility, Bell, Plus, CalendarDays, ArrowRight, Sparkles, ChevronDown,
+  PersonStanding, Bell, Plus, CalendarDays, ArrowRight, Sparkles, ChevronDown,
 } from 'lucide-react'
 import type { SportEvent, DisabilityType, Facility, Sport, EventLevel, UserProfile } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
@@ -226,7 +226,7 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
 
         <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
           <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 font-semibold text-accent">
-            <Accessibility className="size-3" aria-hidden /> Erişilebilir
+            <PersonStanding className="size-3" aria-hidden /> Erişilebilir
           </span>
           <span className="rounded-full bg-muted px-2 py-0.5 font-semibold text-foreground/70">
             {LEVEL_LABELS[event.level]}
@@ -598,14 +598,14 @@ export function EventList() {
       </header>
 
       {/* Filter row — hero label + FilterDropdowns + date chips */}
-      <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-[auto_1fr_1fr_auto]">
+      <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
         {/* "Senin için" accent pill — decorative, not a filter toggle */}
         <button
           type="button"
-          className="inline-flex items-center gap-2 self-end rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow"
+          className="inline-flex items-center gap-1.5 self-end rounded-full bg-primary px-2 py-1.5 text-xs font-bold text-primary-foreground shadow-glow"
           aria-label="Profiline göre sıralanmış etkinlikler"
         >
-          <Sparkles className="size-4" aria-hidden /> Senin için
+          <Sparkles className="size-3.5" aria-hidden /> Senin için
         </button>
 
         <FilterDropdown

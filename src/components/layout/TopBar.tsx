@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import {
   Search, MapPin, Bell, Menu, X,
   Home, Sparkles, CalendarDays, Dumbbell, GraduationCap, UserCircle2,
-  Heart, Accessibility, Eye, Contrast, Type, Volume2, ChevronDown,
+  Heart, PersonStanding, Eye, Contrast, Type, Volume2, ChevronDown,
   AlignJustify, Link2, Focus, MousePointer2,
   Move, RotateCcw, Keyboard, Zap,
 } from 'lucide-react'
@@ -232,7 +232,7 @@ export function TopBar() {
           </button>
         )}
 
-        {/* Accessibility button — opens right-side panel */}
+        {/* PersonStanding button — opens right-side panel */}
         <button
           type="button"
           aria-label="Erişilebilirlik araçları"
@@ -243,7 +243,7 @@ export function TopBar() {
             showA11y ? 'bg-[#4C2A85]' : 'bg-[#320E3B] hover:opacity-90'
           }`}
         >
-          <Accessibility className="size-5" aria-hidden />
+          <PersonStanding className="size-5" aria-hidden />
         </button>
 
         {/* Notifications */}
@@ -370,7 +370,7 @@ export function TopBar() {
         )}
       </header>
 
-      {/* Accessibility panel overlay */}
+      {/* PersonStanding panel overlay */}
       {showA11y && (
         <div
           className="fixed inset-0 z-40 bg-black/30"
@@ -379,7 +379,7 @@ export function TopBar() {
         />
       )}
 
-      {/* Accessibility panel — right-side drawer */}
+      {/* PersonStanding panel — right-side drawer */}
       <aside
         role="dialog"
         aria-label="Erişilebilirlik ayarları"
@@ -392,7 +392,7 @@ export function TopBar() {
         <div className="flex items-center justify-between border-b border-gray-100 px-6 py-5">
           <div className="flex items-center gap-2.5">
             <span className="grid size-9 place-items-center rounded-full bg-[#320E3B] text-white">
-              <Accessibility className="size-4" aria-hidden />
+              <PersonStanding className="size-4" aria-hidden />
             </span>
             <h2 className="text-base font-bold text-[#320E3B]">Erişilebilirlik</h2>
           </div>

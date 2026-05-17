@@ -4,9 +4,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
   Accessibility, Eye, Ear, Hand,
   Dumbbell, Sprout, Users, TrendingUp, Heart, Trophy,
-  Target, Sparkles, CheckCircle2, Circle, ShieldCheck,
+  Target, CheckCircle2, Circle, ShieldCheck,
   MapPin, Calendar, Activity, GraduationCap,
-  ArrowLeft, ArrowRight,
+  ArrowLeft, ArrowRight, Info, Pencil,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { UyumLogo } from '../components/ui/UyumLogo'
@@ -14,7 +14,6 @@ import { useProfile } from '../contexts/ProfileContext'
 import { matchSports } from '../lib/sport-match'
 import sportsData from '../data/sports.json'
 import type { DisabilityType, Goal, UserProfile, Sport } from '../types'
-import heroAthletes from '../assets/hero-athletes.png'
 
 /* ---------- Option configs ---------- */
 
@@ -39,23 +38,23 @@ interface GoalOption {
 const DISABILITY_OPTIONS: ReadonlyArray<DisabilityOption> = [
   {
     value: 'wheelchair', label: 'Tekerlekli sandalye kullanıyorum',
-    description: 'Tekerlekli sandalye ile günlük yaşamını sürdürüyorsun.',
-    icon: Accessibility, iconColor: '#7B2FBE', selectedBg: '#F3E5F5',
+    description: 'Tekerlekli sandalye ile günlük yaşamımı sürdürüyorum.',
+    icon: Accessibility, iconColor: '#4C2A85', selectedBg: '#f5f3f7',
   },
   {
     value: 'visual', label: 'Görme engelliyim',
     description: 'Kısmi veya tamamen görme engeliyim.',
-    icon: Eye, iconColor: '#00BCD4', selectedBg: '#E0F7FA',
+    icon: Eye, iconColor: '#6B7FD7', selectedBg: '#f8f7f7',
   },
   {
     value: 'hearing', label: 'İşitme engelliyim',
     description: 'Kısmi veya tamamen işitme engeliyim.',
-    icon: Ear, iconColor: '#43A047', selectedBg: '#E8F5E9',
+    icon: Ear, iconColor: '#4C2A85', selectedBg: '#f5f3f7',
   },
   {
     value: 'upper_limb', label: 'Üst ekstremite kısıtım var',
-    description: 'Kol veya el fonksiyon kaybı yaşıyorum.',
-    icon: Hand, iconColor: '#FF6B35', selectedBg: '#FFF3E0',
+    description: 'Kol veya el kullanımında zorluk yaşıyorum.',
+    icon: Hand, iconColor: '#1f5a36', selectedBg: '#DDFBD2',
   },
 ]
 
@@ -63,32 +62,32 @@ const GOAL_OPTIONS: ReadonlyArray<GoalOption> = [
   {
     value: 'strength', label: 'Güçlenmek',
     description: 'Kas gücümü artırmak istiyorum.',
-    icon: Dumbbell, iconColor: '#7B2FBE', selectedBg: '#F3E5F5',
+    icon: Dumbbell, iconColor: '#4C2A85', selectedBg: '#f5f3f7',
   },
   {
     value: 'flexibility', label: 'Esnekliğimi artırmak',
-    description: 'Daha esnek ve hareket aralığı geniş olmak istiyorum.',
-    icon: Sprout, iconColor: '#43A047', selectedBg: '#E8F5E9',
+    description: 'Daha esnek ve rahat hareket etmek istiyorum.',
+    icon: Sprout, iconColor: '#1f5a36', selectedBg: '#DDFBD2',
   },
   {
     value: 'social', label: 'Sosyal olmak',
-    description: 'Spor aracılığıyla sosyal bağlar kurmak istiyorum.',
-    icon: Users, iconColor: '#00BCD4', selectedBg: '#E0F7FA',
+    description: 'Yeni insanlarla tanışmak ve birlikte etkinliklere katılmak istiyorum.',
+    icon: Users, iconColor: '#4C2A85', selectedBg: '#f5f3f7',
   },
   {
     value: 'performance', label: 'Performans geliştirmek',
-    description: 'Spor performansımı üst seviyeye çıkarmak istiyorum.',
-    icon: TrendingUp, iconColor: '#FF6B35', selectedBg: '#FFF3E0',
+    description: 'Spor performansımı artırmak istiyorum.',
+    icon: TrendingUp, iconColor: '#6B7FD7', selectedBg: '#BCEDF6',
   },
   {
     value: 'healthy', label: 'Sağlıklı kalmak',
-    description: 'Sağlıklı bir yaşam tarzı sürdürmek istiyorum.',
-    icon: Heart, iconColor: '#EC407A', selectedBg: '#FCE4EC',
+    description: 'Genel sağlığımı korumak istiyorum.',
+    icon: Heart, iconColor: '#4C2A85', selectedBg: '#f5f3f7',
   },
   {
     value: 'compete', label: 'Rekabet etmek',
-    description: 'Yarışmalara katılmak istiyorum.',
-    icon: Trophy, iconColor: '#00897B', selectedBg: '#E0F2F1',
+    description: 'Yarışmalara katılmak ve kendimi zorlamak istiyorum.',
+    icon: Trophy, iconColor: '#1f5a36', selectedBg: '#DDFBD2',
   },
 ]
 
@@ -266,94 +265,116 @@ export function Onboarding() {
   const stepAnnouncement = `Adım ${stepIndex(step) + 1}/4. ${STEP_SCREEN_TITLES[step]}`
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen overflow-x-hidden bg-muted px-2 py-3 text-primary-deep sm:px-4 lg:h-screen lg:overflow-hidden lg:px-5">
       <div id="aria-live-region" className="sr-only" aria-live="polite" aria-atomic="true">
         {stepAnnouncement}
       </div>
 
-      {/* Top bar */}
-      <header className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
-        <Link to="/" aria-label="UYUM Ana Sayfa" className="flex items-center gap-2">
-          <UyumLogo />
-          <span className="text-lg font-extrabold text-[#320E3B]">UYUM</span>
-        </Link>
-        <ProgressBar step={step} />
-      </header>
+      <section className="relative mx-auto flex min-h-[calc(100vh-1.5rem)] w-full max-w-[1680px] overflow-hidden rounded-[1.35rem] border border-border/70 bg-card shadow-[0_24px_80px_-52px_rgba(50,14,59,0.55)] sm:min-h-[calc(100vh-2rem)] lg:h-[calc(100vh-1.5rem)] lg:min-h-0 lg:rounded-[1.75rem]">
+        {step === 'welcome' ? (
+          <div className="flex min-h-full w-full flex-col">
+            <header className="relative z-10 flex items-center justify-between px-5 pt-5 sm:px-8 lg:px-14 lg:pt-8">
+              <Link to="/" aria-label="UYUM Ana Sayfa" className="inline-flex items-center">
+                <UyumLogo size={42} />
+              </Link>
+              <ProgressBar step={step} />
+            </header>
 
-      {/* Main split layout */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Left rail */}
-        <aside className="hidden md:flex w-[38%] flex-col justify-center px-10 py-12 bg-white border-r border-gray-100">
-          <LeftRail step={step} />
-        </aside>
-
-        {/* Right content */}
-        <main className="flex-1 overflow-y-auto bg-[#f8f7f7] px-6 py-10 md:px-12 lg:px-16">
-          {step === 'welcome' && (
-            <WelcomeStep headingRef={headingRef} onPrimary={next} />
-          )}
-          {step === 'disability' && (
-            <MultiSelectStep
-              headingRef={headingRef}
-              headingId="disability-heading"
-              title="Engellilik durumunu seç"
-              note="İstediğin zaman profil ayarlarından değiştirebilirsin."
-              options={DISABILITY_OPTIONS}
-              selected={disabilityTypes}
-              onToggle={toggleDisability}
-            />
-          )}
-          {step === 'goal' && (
-            <MultiSelectStep
-              headingRef={headingRef}
-              headingId="goal-heading"
-              title="Hedeflerini seç"
-              note="Birden fazla hedef seçebilirsin. Zamanla hedeflerini güncelleyebilirsin."
-              options={GOAL_OPTIONS}
-              selected={goals}
-              onToggle={toggleGoal}
-              cols={3}
-            />
-          )}
-          {step === 'confirm' && (
-            <ConfirmStep
-              headingRef={headingRef}
-              disabilityTypes={disabilityTypes}
-              goals={goals}
-              onEditDisability={() => gotoStep('disability')}
-              onEditGoal={() => gotoStep('goal')}
-            />
-          )}
-
-          {/* Footer nav */}
-          {step !== 'welcome' && (
-            <div className="mt-8 flex items-center justify-between gap-3">
+            <div className="grid flex-1 items-center gap-6 px-5 pb-6 pt-6 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:px-14 lg:pb-8 lg:pt-3">
+              <WelcomeStep headingRef={headingRef} onPrimary={next} />
+              <WelcomeVisual />
+            </div>
+          </div>
+        ) : (
+          <div className="flex min-h-full w-full min-w-0 flex-col">
+            <header className="relative z-10 flex min-w-0 items-center justify-start gap-4 px-5 py-4 sm:justify-between sm:px-8 lg:px-12 lg:py-5">
               <button
                 type="button"
                 onClick={back}
-                className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-semibold text-[#320E3B] hover:border-gray-300 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4C2A85]"
+                className="inline-flex min-h-10 items-center gap-2 rounded-full px-2 text-sm font-semibold text-primary-deep transition hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
-                <ArrowLeft className="w-4 h-4" aria-hidden /> Geri
+                <ArrowLeft className="size-5" aria-hidden />
+                Geri
               </button>
-              <button
-                type="button"
-                onClick={next}
-                disabled={!canProceed}
-                aria-disabled={!canProceed}
-                className={cn(
-                  'inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4C2A85]',
-                  canProceed
-                    ? 'bg-[#4C2A85] text-white hover:bg-[#320E3B]'
-                    : 'cursor-not-allowed bg-gray-200 text-gray-400',
-                )}
-              >
-                {step === 'confirm' ? 'Keşfetmeye Başla' : 'Devam Et'}
-                <ArrowRight className="w-4 h-4" aria-hidden />
-              </button>
+              <div className="shrink-0">
+                <ProgressBar step={step} />
+              </div>
+            </header>
+
+            <div className="grid min-h-0 flex-1 lg:grid-cols-[33%_67%]">
+              <aside className="hidden min-h-0 items-center px-8 pb-8 pt-2 lg:flex xl:px-12">
+                <LeftRail step={step} />
+              </aside>
+
+              <main className="flex min-h-0 min-w-0 flex-col border-border/80 lg:border-l">
+                <div className="flex-1 overflow-y-auto px-5 pb-0 pt-2 sm:px-8 lg:px-10 xl:px-12">
+                  <div className="mx-auto max-w-[920px] min-w-0">
+                    {step === 'disability' && (
+                      <MultiSelectStep
+                        headingRef={headingRef}
+                        headingId="disability-heading"
+                        title="Engellilik durumunu seç"
+                        note="İstediğin zaman profil ayarlarından değiştirebilirsin."
+                        options={DISABILITY_OPTIONS}
+                        selected={disabilityTypes}
+                        onToggle={toggleDisability}
+                      />
+                    )}
+                    {step === 'goal' && (
+                      <MultiSelectStep
+                        headingRef={headingRef}
+                        headingId="goal-heading"
+                        title="Sana en uygun önerileri yapabilmemiz için hedeflerini seçebilirsin."
+                        note="Birden fazla hedef seçebilirsin. Zamanla hedeflerini güncelleyebilirsin."
+                        options={GOAL_OPTIONS}
+                        selected={goals}
+                        onToggle={toggleGoal}
+                        cols={3}
+                      />
+                    )}
+                    {step === 'confirm' && (
+                      <ConfirmStep
+                        headingRef={headingRef}
+                        disabilityTypes={disabilityTypes}
+                        goals={goals}
+                        onEditDisability={() => gotoStep('disability')}
+                        onEditGoal={() => gotoStep('goal')}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <footer className="border-t border-border/90 bg-card/95 px-5 py-4 sm:px-8 lg:px-10 xl:px-12">
+                  <div className="mx-auto grid max-w-[920px] grid-cols-2 items-center gap-4">
+                    <button
+                      type="button"
+                      onClick={back}
+                      className="inline-flex h-12 w-full max-w-[190px] items-center justify-center rounded-md border border-primary/30 bg-card text-sm font-bold text-primary transition hover:border-primary hover:bg-primary/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                    >
+                      Geri
+                    </button>
+                    <button
+                      type="button"
+                      onClick={next}
+                      disabled={!canProceed}
+                      aria-disabled={!canProceed}
+                      className={cn(
+                        'ml-auto inline-flex h-12 w-full max-w-[380px] items-center justify-center gap-4 rounded-md px-5 text-sm font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
+                        canProceed
+                          ? 'bg-gradient-brand text-primary-foreground shadow-[0_16px_30px_-20px_rgba(76,42,133,0.8)] hover:brightness-105'
+                          : 'cursor-not-allowed bg-muted text-muted-foreground',
+                      )}
+                    >
+                      {step === 'confirm' ? 'Keşfetmeye Başla' : 'Devam Et'}
+                      <ArrowRight className="size-5" aria-hidden />
+                    </button>
+                  </div>
+                </footer>
+              </main>
             </div>
-          )}
-        </main>
-      </div>
+          </div>
+        )}
+      </section>
     </div>
   )
 }
@@ -362,25 +383,56 @@ export function Onboarding() {
 
 function ProgressBar({ step }: { step: StepName }) {
   const idx = stepIndex(step)
+
+  if (step === 'welcome') {
+    return (
+      <div
+        className="flex items-center gap-3 text-sm font-semibold text-primary-deep"
+        aria-label={`Adım ${idx + 1} / 4`}
+      >
+        <span>Adım {idx + 1}/4</span>
+        <span className="block h-1.5 w-32 overflow-hidden rounded-full bg-border shadow-inner sm:w-36" aria-hidden>
+          <span className="block h-full w-1/4 rounded-full bg-gradient-brand" />
+        </span>
+      </div>
+    )
+  }
+
   return (
     <div
-      className="flex items-center gap-3 text-xs text-gray-400"
+      className="flex min-w-0 items-center gap-2 text-sm font-semibold text-primary-deep sm:gap-3"
       aria-label={`Adım ${idx + 1} / 4`}
     >
-      <span className="hidden font-semibold text-gray-500 sm:inline">Adım {idx + 1}/4</span>
-      <div className="flex items-center gap-1.5" aria-hidden>
-        {STEP_PATHS.map((_, i) => (
-          <span
-            key={i}
-            className={cn(
-              'h-2 rounded-full transition-all',
-              i < idx  ? 'w-6 bg-[#4C2A85]' :
-              i === idx ? 'w-8 bg-[#4C2A85]' :
-                          'w-6 bg-gray-200',
-            )}
-          />
-        ))}
-      </div>
+      <span className="sm:hidden">{idx + 1}/4</span>
+      <span className="hidden sm:inline">Adım {idx + 1}/4</span>
+      <ol className="hidden items-center sm:flex" aria-hidden>
+        {STEP_PATHS.map((_, i) => {
+          const done = i < idx
+          const current = i === idx
+          return (
+            <li key={i} className="flex items-center">
+              <span
+                className={cn(
+                  'grid size-4 place-items-center rounded-full text-[9px] transition sm:size-6 sm:text-[10px]',
+                  done && 'bg-primary text-primary-foreground shadow-[0_0_0_1px_rgba(76,42,133,0.18)]',
+                  current && 'border-[3px] border-primary bg-card shadow-[0_0_0_4px_rgba(76,42,133,0.14)]',
+                  !done && !current && 'bg-border',
+                )}
+              >
+                {done ? '✓' : current ? <span className="size-1.5 rounded-full bg-primary sm:size-2" /> : null}
+              </span>
+              {i < STEP_PATHS.length - 1 && (
+                <span
+                  className={cn(
+                    'h-0.5 w-5 transition sm:w-11',
+                    i < idx ? 'bg-primary' : 'bg-border',
+                  )}
+                />
+              )}
+            </li>
+          )
+        })}
+      </ol>
     </div>
   )
 }
@@ -400,20 +452,20 @@ function LeftRail({ step }: { step: StepName }) {
       title:   'Spor herkes içindir. Bizimle uyum içinde harekete geç.',
       body:    'UYUM, engelli bireylerin spor ve fiziksel aktivitelere erişimini kolaylaştıran bir platformdur. Yakındaki tesisleri keşfet, etkinliklere katıl ve topluluğun bir parçası ol.',
       icons: [
-        { icon: MapPin,       bg: '#E0F7FA', color: '#00BCD4' },
-        { icon: Activity,     bg: '#E8F5E9', color: '#43A047' },
-        { icon: Calendar,     bg: '#F3E5F5', color: '#7B2FBE' },
-        { icon: GraduationCap, bg: '#FFF3E0', color: '#FF6B35' },
+        { icon: MapPin,       bg: '#BCEDF6', color: '#0f4858' },
+        { icon: Activity,     bg: '#DDFBD2', color: '#1f5a36' },
+        { icon: Calendar,     bg: '#f5f3f7', color: '#4C2A85' },
+        { icon: GraduationCap, bg: '#f8f7f7', color: '#6B7FD7' },
       ],
     },
     disability: {
       title: 'Seni daha iyi tanımak istiyoruz',
       body:  'Doğru öneriler ve rehberlik sunabilmek için engellilik durumunu seçmemiz önemli.',
       icons: [
-        { icon: Accessibility, bg: '#F3E5F5', color: '#7B2FBE' },
-        { icon: Eye,           bg: '#E0F7FA', color: '#00BCD4' },
-        { icon: Ear,           bg: '#E8F5E9', color: '#43A047' },
-        { icon: Hand,          bg: '#FFF3E0', color: '#FF6B35' },
+        { icon: Accessibility, bg: '#DDFBD2', color: '#1f5a36' },
+        { icon: Eye,           bg: '#f5f3f7', color: '#6B7FD7' },
+        { icon: Ear,           bg: '#f5f3f7', color: '#4C2A85' },
+        { icon: Hand,          bg: '#BCEDF6', color: '#0f4858' },
       ],
       note: 'Bu bilgi sadece sana özel içerik için kullanılır. Gizliliğin bizim için önemli.',
     },
@@ -421,10 +473,10 @@ function LeftRail({ step }: { step: StepName }) {
       title: 'Hedeflerini öğrenelim',
       body:  'Spor ve fiziksel aktiviteyle ilgili hedeflerini seç. Sana en uygun önerileri hazırlayabilelim.',
       icons: [
-        { icon: Dumbbell,    bg: '#F3E5F5', color: '#7B2FBE' },
-        { icon: Target,      bg: '#E0F7FA', color: '#00BCD4' },
-        { icon: Heart,       bg: '#FCE4EC', color: '#EC407A' },
-        { icon: Trophy,      bg: '#E0F2F1', color: '#00897B' },
+        { icon: Dumbbell,    bg: '#f5f3f7', color: '#4C2A85' },
+        { icon: Users,       bg: '#BCEDF6', color: '#6B7FD7' },
+        { icon: Heart,       bg: '#DDFBD2', color: '#1f5a36' },
+        { icon: Trophy,      bg: '#f8f7f7', color: '#0f4858' },
       ],
       note: 'Bu bilgiler sana özel olarak kullanılır. İlgilerini sonra değiştirebilirsin.',
     },
@@ -432,10 +484,10 @@ function LeftRail({ step }: { step: StepName }) {
       title: 'Profilin hazır! Sana özel bir deneyim seni bekliyor.',
       body:  'Bu bilgilerle sana en uygun tesisleri, sporları, etkinlikleri ve uzman koçları öneriyoruz.',
       icons: [
-        { icon: CheckCircle2, bg: '#E8F5E9', color: '#43A047' },
-        { icon: Sparkles,     bg: '#F3E5F5', color: '#7B2FBE' },
-        { icon: MapPin,       bg: '#E0F7FA', color: '#00BCD4' },
-        { icon: GraduationCap, bg: '#FFF3E0', color: '#FF6B35' },
+        { icon: MapPin,       bg: '#DDFBD2', color: '#1f5a36' },
+        { icon: Activity,     bg: '#BCEDF6', color: '#6B7FD7' },
+        { icon: Users,        bg: '#f5f3f7', color: '#4C2A85' },
+        { icon: Calendar,     bg: '#f8f7f7', color: '#0f4858' },
       ],
       note: 'Güvende olabilirsin. Bilgilerin yalnızca sana özel olacak.',
     },
@@ -444,35 +496,74 @@ function LeftRail({ step }: { step: StepName }) {
   const { eyebrow, title, body, icons, note } = map[step]
 
   return (
-    <div className="space-y-6 max-w-xs">
+    <div className="w-full max-w-[440px] space-y-5 xl:max-w-[470px]">
       {eyebrow && (
-        <p className="text-xs font-bold uppercase tracking-widest text-[#4C2A85]">{eyebrow}</p>
+        <p className="text-sm font-bold text-primary">{eyebrow}</p>
       )}
 
-      <h2 className="text-3xl font-extrabold text-[#320E3B] leading-tight">
-        {title}
-      </h2>
+      <div className="space-y-3">
+        <h2 className="max-w-[400px] text-[1.9rem] font-extrabold leading-[1.12] text-primary-deep xl:text-[2.2rem]">
+          {title}
+        </h2>
 
-      <p className="text-sm text-gray-500 leading-relaxed">{body}</p>
-
-      <div aria-hidden className="grid grid-cols-2 gap-3">
-        {icons.map(({ icon: Icon, bg, color }, i) => (
-          <div
-            key={i}
-            className="w-16 h-16 rounded-2xl flex items-center justify-center"
-            style={{ backgroundColor: bg }}
-          >
-            <Icon className="w-7 h-7" style={{ color }} strokeWidth={1.7} />
-          </div>
-        ))}
+        <p className="max-w-[360px] text-sm font-medium leading-6 text-primary-deep/80 xl:text-[15px] xl:leading-7">{body}</p>
       </div>
 
+      <OrbitIllustration step={step} icons={icons} />
+
       {note && (
-        <div className="flex items-start gap-3 rounded-2xl bg-[#F3E5F5] px-4 py-3">
-          <ShieldCheck className="mt-0.5 w-4 h-4 shrink-0 text-[#7B2FBE]" aria-hidden />
-          <p className="text-xs text-[#4C2A85]/80 leading-relaxed">{note}</p>
+        <div className={cn(
+          'flex items-start gap-3 border border-border bg-card/80 px-4 py-3 shadow-soft',
+          step === 'confirm' ? 'rounded-md' : 'rounded-full',
+        )}>
+          <span className="grid size-10 shrink-0 place-items-center rounded-full bg-primary/10">
+            <ShieldCheck className="size-4 text-primary" aria-hidden />
+          </span>
+          <p className="text-xs font-medium leading-5 text-primary-deep/75 xl:text-sm xl:leading-6">{note}</p>
         </div>
       )}
+    </div>
+  )
+}
+
+function OrbitIllustration({
+  step,
+  icons,
+}: {
+  step: StepName
+  icons: Array<{ icon: LucideIcon; bg: string; color: string }>
+}) {
+  const CenterIcon = step === 'goal' ? Target : step === 'confirm' ? CheckCircle2 : Accessibility
+  const positions = [
+    { left: '44%', top: '0%' },
+    { left: '78%', top: '35%' },
+    { left: '44%', top: '72%' },
+    { left: '9%', top: '35%' },
+  ]
+
+  return (
+    <div aria-hidden className="relative h-[265px] w-full xl:h-[300px]">
+      <div className="absolute inset-x-0 top-5 mx-auto h-[215px] w-[90%] rounded-[42%_58%_50%_50%/46%_48%_52%_54%] bg-[radial-gradient(circle_at_28%_24%,rgba(188,237,246,0.42),transparent_38%),radial-gradient(circle_at_78%_32%,rgba(221,251,210,0.55),transparent_40%),radial-gradient(circle_at_52%_70%,rgba(76,42,133,0.12),transparent_48%),#f8f7f7] xl:h-[245px]" />
+      <div className="absolute left-1/2 top-1/2 h-[190px] w-[190px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-primary/20 xl:h-[220px] xl:w-[220px]" />
+      <span className="absolute left-[31%] top-[28%] size-2.5 rounded-full bg-accent/60" />
+      <span className="absolute right-[25%] top-[42%] size-3 rounded-full bg-mint" />
+      <span className="absolute bottom-[23%] left-[43%] size-2.5 rounded-full bg-accent/40" />
+
+      <div className="absolute left-1/2 top-1/2 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gradient-brand text-primary-foreground shadow-[0_20px_34px_-20px_rgba(76,42,133,0.75)] xl:size-[88px]">
+        <CenterIcon className="size-10 xl:size-11" strokeWidth={1.8} />
+      </div>
+
+      {icons.map(({ icon: Icon, bg, color }, i) => (
+        <div
+          key={`${step}-${i}`}
+          className="absolute grid size-[68px] place-items-center rounded-full bg-card shadow-[0_18px_40px_-25px_rgba(50,14,59,0.7)] xl:size-20"
+          style={positions[i]}
+        >
+          <span className="grid size-11 place-items-center rounded-full xl:size-[52px]" style={{ backgroundColor: bg }}>
+            <Icon className="size-6 xl:size-7" style={{ color }} strokeWidth={1.75} />
+          </span>
+        </div>
+      ))}
     </div>
   )
 }
@@ -486,77 +577,120 @@ function WelcomeStep({
   onPrimary: () => void
 }) {
   const featureItems = [
-    { icon: MapPin,       label: 'Uygun Tesisleri Keşfet',  bg: '#E0F7FA', color: '#00BCD4' },
-    { icon: Activity,     label: 'Sporlar ve Egzersizler',  bg: '#E8F5E9', color: '#43A047' },
-    { icon: Calendar,     label: 'Etkinlikleri Takip Et',   bg: '#F3E5F5', color: '#7B2FBE' },
-    { icon: GraduationCap, label: 'Koçlarla Tanış',         bg: '#FFF3E0', color: '#FF6B35' },
+    { icon: MapPin,   label: 'Uygun Tesisleri Keşfet',     bg: '#BCEDF6', color: '#0f4858' },
+    { icon: Activity, label: 'Sporları ve Egzersizleri Öğren', bg: '#DDFBD2', color: '#1f5a36' },
+    { icon: Calendar, label: 'Etkinlikleri Takip Et',      bg: '#f5f3f7', color: '#4C2A85' },
+    { icon: Users,    label: 'Topluluğa Katıl',            bg: '#f5f3f7', color: '#6B7FD7' },
   ]
 
   return (
-    <div className="space-y-8 max-w-lg">
+    <div className="max-w-[560px] self-center lg:pb-2 xl:max-w-[610px]">
       <div>
-        <p className="text-xs font-bold uppercase tracking-widest text-[#4C2A85] mb-4">Adım 1/4</p>
+        <p className="mb-5 text-base font-bold text-primary xl:mb-6">Hoş Geldiniz</p>
         <h1
           ref={headingRef}
           tabIndex={-1}
-          className="text-3xl font-extrabold text-[#320E3B] leading-tight outline-none md:text-4xl"
+          className="text-[2.25rem] font-extrabold leading-[1.14] text-primary-deep outline-none focus-visible:!outline-none sm:text-[2.6rem] xl:text-[3rem]"
         >
-          Başlayalım.
+          Spor herkes içindir.
+          <br />
+          Bizimle uyum içinde
+          <br />
+          <span className="bg-gradient-brand bg-clip-text text-transparent">harekete geç.</span>
         </h1>
-        <p className="mt-3 text-sm text-gray-500 leading-relaxed md:text-base">
-          UYUM ile sana uygun tesisleri, sporları, etkinlikleri ve uzman koçları tanıyacaksın.
-          Birkaç soruyla profilini oluşturalım — sadece 1 dakika.
+        <p className="mt-5 max-w-[520px] text-base font-medium leading-7 text-primary-deep/75 xl:mt-6 xl:text-[17px]">
+          UYUM, engelli bireylerin spor ve fiziksel aktivitelere erişimini kolaylaştıran bir platformdur.
+          Sana uygun tesisleri keşfet, sporları öğren, etkinliklere katıl ve topluluğun bir parçası ol.
         </p>
       </div>
 
-      <div className="overflow-hidden rounded-[1.5rem] border border-gray-100 bg-white shadow-sm">
-        <img
-          src={heroAthletes}
-          alt="Birlikte spor yapan kullanıcılar"
-          className="h-48 w-full object-contain p-5"
-        />
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 xl:mt-7">
         {featureItems.map(({ icon: Icon, label, bg, color }) => (
           <div
             key={label}
-            className="flex flex-col items-center gap-2 rounded-2xl bg-white border border-gray-100 p-4 text-center shadow-sm"
+            className="flex min-h-[96px] flex-col items-center justify-start gap-2 text-center"
           >
             <div
-              className="w-10 h-10 rounded-full flex items-center justify-center"
+              className="grid size-16 place-items-center rounded-full shadow-[0_18px_34px_-26px_rgba(50,14,59,0.8)] xl:size-[72px]"
               style={{ backgroundColor: bg }}
               aria-hidden
             >
-              <Icon className="w-5 h-5" style={{ color }} />
+              <Icon className="size-7 xl:size-8" style={{ color }} strokeWidth={1.8} />
             </div>
-            <span className="text-xs font-bold text-[#320E3B]">{label}</span>
+            <span className="max-w-[120px] text-xs font-bold leading-5 text-primary-deep xl:text-[13px]">{label}</span>
           </div>
         ))}
-      </div>
-
-      <div className="rounded-2xl bg-white border border-gray-100 p-4 shadow-sm flex items-center gap-3">
-        <ShieldCheck className="w-5 h-5 text-[#43A047] shrink-0" aria-hidden />
-        <div>
-          <p className="text-xs font-bold text-[#320E3B]">Güvenli. Erişilebilir. Topluluk Odaklı.</p>
-          <p className="text-xs text-gray-400 mt-0.5">Bilgilerin yalnızca kişisel öneriler için kullanılır.</p>
-        </div>
       </div>
 
       <button
         type="button"
         onClick={onPrimary}
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#4C2A85] px-6 py-3.5 text-sm font-bold text-white hover:bg-[#320E3B] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4C2A85]"
+        className="mt-6 inline-flex h-[52px] w-full max-w-[560px] items-center justify-center gap-6 rounded-md bg-gradient-brand px-6 text-base font-bold text-primary-foreground shadow-[0_18px_38px_-26px_rgba(76,42,133,0.9)] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary xl:mt-7 xl:h-14 xl:text-lg"
       >
-        Başlayalım <ArrowRight className="w-4 h-4" aria-hidden />
+        Başlayalım <ArrowRight className="size-5 xl:size-6" aria-hidden />
       </button>
 
-      <p className="text-center text-xs text-gray-400">
+      <p className="mt-4 max-w-[560px] text-center text-xs text-primary-deep/65 xl:text-sm">
         Zaten hesabın var mı?{' '}
-        <Link to="/" className="font-bold text-[#4C2A85] hover:text-[#320E3B]">
+        <Link to="/" className="font-bold text-primary hover:text-primary-deep">
           Giriş yap
         </Link>
       </p>
+    </div>
+  )
+}
+
+function WelcomeVisual() {
+  const orbitIcons = [
+    { icon: MapPin, bg: '#BCEDF6', color: '#0f4858', className: 'left-[20%] top-[13%]' },
+    { icon: Activity, bg: '#DDFBD2', color: '#1f5a36', className: 'right-[8%] top-[20%]' },
+    { icon: Calendar, bg: '#f5f3f7', color: '#4C2A85', className: 'left-[18%] bottom-[28%]' },
+    { icon: Users, bg: '#f5f3f7', color: '#6B7FD7', className: 'right-[12%] bottom-[24%]' },
+  ]
+
+  return (
+    <div className="relative hidden min-h-[540px] items-center justify-center lg:flex xl:min-h-[600px]">
+      <div className="absolute inset-y-[-90px] left-[-10%] w-px rotate-[-10deg] bg-border/80" />
+      <div className="absolute left-[11%] top-[9%] h-[430px] w-[74%] rounded-[42%_58%_50%_50%/46%_48%_52%_54%] bg-[radial-gradient(circle_at_26%_24%,rgba(188,237,246,0.5),transparent_38%),radial-gradient(circle_at_78%_36%,rgba(221,251,210,0.62),transparent_42%),radial-gradient(circle_at_50%_70%,rgba(76,42,133,0.13),transparent_50%),#f8f7f7] xl:h-[490px]" />
+      <div className="absolute left-1/2 top-[42%] h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-primary/20 xl:h-[380px] xl:w-[380px]" />
+      <span className="absolute left-[32%] top-[32%] size-3 rounded-full bg-accent/70" />
+      <span className="absolute right-[22%] top-[33%] size-3 rounded-full bg-mint" />
+      <span className="absolute bottom-[34%] left-[36%] size-3 rounded-full bg-sky" />
+
+      <div className="absolute left-1/2 top-[42%] h-[176px] w-[176px] -translate-x-1/2 -translate-y-1/2 xl:h-[200px] xl:w-[200px]">
+        <div className="absolute inset-x-7 bottom-3 h-7 rounded-full bg-primary/20 blur-xl" />
+        <div className="relative grid h-full w-full place-items-center rounded-[42%_58%_44%_56%/52%_50%_50%_48%] bg-gradient-brand text-primary-foreground shadow-[0_30px_60px_-35px_rgba(76,42,133,0.9)]">
+          <span className="font-display text-[7.5rem] font-black leading-none xl:text-[8.5rem]">U</span>
+          <Activity className="absolute bottom-10 right-11 size-12 text-primary-foreground xl:bottom-11 xl:right-12 xl:size-14" strokeWidth={2} />
+        </div>
+      </div>
+
+      {orbitIcons.map(({ icon: Icon, bg, color, className }) => (
+        <div
+          key={className}
+          className={cn(
+            'absolute grid size-[88px] place-items-center rounded-full bg-card shadow-[0_20px_44px_-28px_rgba(50,14,59,0.75)] xl:size-24',
+            className,
+          )}
+        >
+          <span className="grid size-[52px] place-items-center rounded-full xl:size-14" style={{ backgroundColor: bg }}>
+            <Icon className="size-7 xl:size-8" style={{ color }} strokeWidth={1.75} />
+          </span>
+        </div>
+      ))}
+
+      <div className="absolute bottom-3 left-[14%] flex w-[76%] items-center gap-4 rounded-md border border-border bg-card/85 px-6 py-4 shadow-card backdrop-blur">
+        <span className="grid size-12 shrink-0 place-items-center rounded-full bg-primary/10">
+          <ShieldCheck className="size-7 text-primary" strokeWidth={1.7} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-extrabold text-primary-deep xl:text-base">Güvenilir. Erişilebilir. Topluluk Odaklı.</p>
+          <p className="mt-1 text-xs font-medium leading-5 text-primary-deep/70 xl:text-sm xl:leading-6">
+            Bilgiler topluluk tarafından güncellenir, seninle daha güçlü hale gelir.
+          </p>
+        </div>
+        <Users className="size-8 shrink-0 text-primary" strokeWidth={1.7} />
+      </div>
     </div>
   )
 }
@@ -590,29 +724,28 @@ function SelectableCard({
       aria-checked={selected}
       onClick={onToggle}
       className={cn(
-        'relative flex flex-col items-start gap-3 rounded-2xl border-2 p-5 text-left transition-all w-full',
-        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4C2A85]',
+        'relative flex min-h-[160px] w-full flex-col items-start gap-4 rounded-md border p-5 text-left transition-all xl:min-h-[176px]',
+        'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
         'motion-reduce:transition-none',
         selected
-          ? 'border-[#4C2A85] shadow-sm'
-          : 'border-gray-200 bg-white hover:border-gray-300',
+          ? 'border-primary bg-primary/5 shadow-[0_22px_45px_-36px_rgba(76,42,133,0.8)]'
+          : 'border-border bg-card hover:border-primary/35 hover:shadow-soft',
       )}
-      style={{ backgroundColor: selected ? selectedBg : undefined }}
     >
-      <div className="absolute top-3 right-3">
+      <div className="absolute right-4 top-4">
         {selected
-          ? <CheckCircle2 className="w-5 h-5 text-[#4C2A85]" aria-hidden />
-          : <Circle className="w-5 h-5 text-gray-300" aria-hidden />}
+          ? <CheckCircle2 className="size-6 text-primary" aria-hidden />
+          : <Circle className="size-6 text-primary-deep/25" aria-hidden />}
       </div>
       <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center transition-colors"
-        style={{ backgroundColor: selected ? 'white' : selectedBg }}
+        className="grid size-14 place-items-center rounded-full transition-colors xl:size-16"
+        style={{ backgroundColor: selectedBg }}
       >
-        <Icon className="w-6 h-6" style={{ color: iconColor }} aria-hidden />
+        <Icon className="size-7 xl:size-8" style={{ color: iconColor }} aria-hidden strokeWidth={1.75} />
       </div>
-      <div className="pr-6">
-        <p className="text-base font-bold text-[#320E3B]">{title}</p>
-        {desc && <p className="text-xs text-gray-500 mt-1 leading-relaxed">{desc}</p>}
+      <div className="max-w-[260px] pr-6">
+        <p className="text-base font-extrabold leading-6 text-primary-deep xl:text-[17px]">{title}</p>
+        {desc && <p className="mt-2 text-xs font-medium leading-5 text-primary-deep/75 xl:text-[13px] xl:leading-6">{desc}</p>}
       </div>
     </button>
   )
@@ -631,12 +764,12 @@ function MultiSelectStep<T extends string>({
   cols?: 2 | 3
 }) {
   return (
-    <div className="max-w-2xl">
+    <div className="w-full">
       <h1
         ref={headingRef}
         tabIndex={-1}
         id={headingId}
-        className="mb-6 text-2xl font-extrabold text-[#320E3B] outline-none md:text-3xl"
+        className="mb-5 max-w-[calc(100vw-3.75rem)] break-words text-base font-extrabold leading-[1.3] text-primary-deep outline-none focus-visible:!outline-none sm:max-w-[650px] sm:text-xl md:text-2xl xl:text-[1.55rem]"
       >
         {title}
       </h1>
@@ -645,7 +778,7 @@ function MultiSelectStep<T extends string>({
         role="group"
         aria-labelledby={headingId}
         className={cn(
-          'grid gap-3',
+          'grid gap-4 xl:gap-5',
           cols === 3 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 sm:grid-cols-2',
         )}
       >
@@ -663,7 +796,10 @@ function MultiSelectStep<T extends string>({
         ))}
       </div>
 
-      <p className="mt-4 text-xs text-gray-400">{note}</p>
+      <div className="mt-5 flex items-center gap-3 rounded-md border border-primary/15 bg-card/80 px-4 py-3 text-primary-deep/75 shadow-soft">
+        <Info className="size-5 shrink-0 text-primary" aria-hidden />
+        <p className="text-xs font-medium leading-5 xl:text-sm">{note}</p>
+      </div>
     </div>
   )
 }
@@ -693,56 +829,70 @@ function ConfirmStep({
     .slice(0, 2)
     .map(r => r.sport.name)
     .join(', ')
+  const disabilityDescription = disabilityTypes
+    .map(d => DISABILITY_OPTIONS.find(opt => opt.value === d)?.description)
+    .filter(Boolean)
+    .join(' ')
+  const goalDescription = goals
+    .map(g => GOAL_OPTIONS.find(opt => opt.value === g)?.description)
+    .filter(Boolean)
+    .join(' ')
 
   return (
-    <div className="max-w-lg">
+    <div className="w-full">
       <h1
         ref={headingRef}
         tabIndex={-1}
-        className="mb-2 text-2xl font-extrabold text-[#320E3B] outline-none md:text-3xl"
+        className="mb-2 text-xl font-extrabold text-primary-deep outline-none focus-visible:!outline-none md:text-2xl"
       >
         Seçimlerini kontrol et
       </h1>
-      <p className="text-sm text-gray-500 mb-6">İstediğin zaman ayarlardan güncelleyebilirsin.</p>
+      <p className="mb-5 text-sm font-medium text-primary-deep/75">Dilediğin zaman ayarlardan güncelleyebilirsin.</p>
 
-      <ul className="space-y-3">
+      <ul className="space-y-4 xl:space-y-5">
         <ConfirmRow
           icon={Accessibility}
-          iconColor="#7B2FBE"
-          iconBg="#F3E5F5"
+          iconColor="#4C2A85"
+          iconBg="#f5f3f7"
           label="Engellilik durumun"
           value={disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')}
+          description={disabilityDescription}
           onEdit={onEditDisability}
         />
         <ConfirmRow
-          icon={Target}
-          iconColor="#00BCD4"
-          iconBg="#E0F7FA"
-          label="Hedeflerin"
+          icon={Dumbbell}
+          iconColor="#1f5a36"
+          iconBg="#DDFBD2"
+          label="Hedefin"
           value={goals.map(g => GOAL_LABELS[g]).join(', ')}
+          description={goalDescription}
           onEdit={onEditGoal}
         />
         {suggestedSports && (
-          <li className="flex items-center gap-3 rounded-2xl bg-white border border-gray-100 p-4 shadow-sm">
+          <li className="flex min-h-[112px] items-center gap-5 rounded-md border border-border bg-card px-5 py-4 shadow-card xl:min-h-[124px] xl:gap-6 xl:px-6 xl:py-5">
             <span
-              className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: '#E8F5E9' }}
+              className="grid size-16 flex-shrink-0 place-items-center rounded-full xl:size-20"
+              style={{ backgroundColor: '#BCEDF6' }}
               aria-hidden
             >
-              <Sparkles className="w-5 h-5" style={{ color: '#43A047' }} />
+              <Target className="size-8 xl:size-10" style={{ color: '#6B7FD7' }} strokeWidth={1.75} />
             </span>
             <div className="flex-1 min-w-0">
-              <div className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Sana önerilen sporlar</div>
-              <div className="text-sm font-bold text-[#320E3B] mt-0.5 truncate">{suggestedSports}</div>
+              <div className="text-sm font-medium text-primary-deep/70">İlgi alanın</div>
+              <div className="mt-1 text-base font-extrabold text-primary-deep xl:text-lg">{suggestedSports}</div>
+              <p className="mt-1 text-sm font-medium leading-6 text-primary-deep/70">Bu sporlarla ilgileniyorsun.</p>
             </div>
           </li>
         )}
       </ul>
 
-      <div className="mt-5 flex items-start gap-3 rounded-2xl bg-[#E8F5E9] border border-[#C8E6C9] px-4 py-3">
-        <CheckCircle2 className="mt-0.5 w-4 h-4 shrink-0 text-[#43A047]" aria-hidden />
-        <p className="text-xs text-[#2E7D32] leading-relaxed">
-          Harika! Profilini oluştur — ana sayfada sana özel öneriler seni bekliyor.
+      <div className="mt-7 flex items-center gap-4 rounded-md border border-mint bg-mint/35 px-5 py-4">
+        <span className="grid size-12 shrink-0 place-items-center rounded-full bg-card/80">
+          <ShieldCheck className="size-7 text-mint-foreground" aria-hidden strokeWidth={1.7} />
+        </span>
+        <p className="text-sm font-medium leading-6 text-primary-deep/75">
+          <strong className="block text-base font-extrabold text-mint-foreground">Harika! Profilin oluşturuldu.</strong>
+          Artık sana özel öneriler ve içerikler görebilirsin.
         </p>
       </div>
     </div>
@@ -750,33 +900,36 @@ function ConfirmStep({
 }
 
 function ConfirmRow({
-  icon: Icon, iconColor, iconBg, label, value, onEdit,
+  icon: Icon, iconColor, iconBg, label, value, description, onEdit,
 }: {
   icon: LucideIcon
   iconColor: string
   iconBg: string
   label: string
   value: string
+  description?: string
   onEdit: () => void
 }) {
   return (
-    <li className="flex items-center gap-3 rounded-2xl bg-white border border-gray-100 p-4 shadow-sm">
+    <li className="flex min-h-[112px] items-center gap-5 rounded-md border border-border bg-card px-5 py-4 shadow-card xl:min-h-[124px] xl:gap-6 xl:px-6 xl:py-5">
       <span
-        className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+        className="grid size-16 flex-shrink-0 place-items-center rounded-full xl:size-20"
         style={{ backgroundColor: iconBg }}
         aria-hidden
       >
-        <Icon className="w-5 h-5" style={{ color: iconColor }} />
+        <Icon className="size-8 xl:size-10" style={{ color: iconColor }} strokeWidth={1.75} />
       </span>
       <div className="flex-1 min-w-0">
-        <div className="text-[10px] font-bold uppercase tracking-widest text-gray-400">{label}</div>
-        <div className="text-sm font-bold text-[#320E3B] mt-0.5 line-clamp-2">{value || '—'}</div>
+        <div className="text-sm font-medium text-primary-deep/70">{label}</div>
+        <div className="mt-1 text-base font-extrabold text-primary-deep xl:text-lg">{value || '—'}</div>
+        {description && <p className="mt-1 line-clamp-2 text-sm font-medium leading-6 text-primary-deep/70">{description}</p>}
       </div>
       <button
         type="button"
         onClick={onEdit}
-        className="text-xs font-bold text-[#4C2A85] hover:text-[#320E3B] shrink-0 flex items-center gap-1"
+        className="inline-flex shrink-0 items-center gap-2 text-sm font-bold text-primary transition hover:text-primary-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
+        <Pencil className="size-4" aria-hidden />
         Değiştir
       </button>
     </li>
