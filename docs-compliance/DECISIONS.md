@@ -36,6 +36,12 @@
 
 ## Kayıtlar
 
+### 2026-05-17 — `[UX]` `[SCOPE]` Etkinlik Detay Sayfası + Kayıt Modal Akışı
+
+- **Karar:** `/events/:id` route + `EventDetail.tsx` sayfası eklendi. EventList'teki "Katılacağım" butonu kaldırılıp "Detayları gör" → detay sayfasına yönlendirme yapıldı. Detay sayfasında mock kayıt formu (Ad Soyad, E-posta, Telefon) ve onay ekranı modal olarak sunuluyor; kayıt `uyum:event-registrations` localStorage'a yazılıyor. `registrationUrl` alanı tipte korundu ancak UI'dan kaldırıldı.
+- **Niye:** HTML mockup'ları (`event-detail.html`, `event-detail-modals.html`) referans alındı. Tasarım light token sistemiyle (`bg-card`, `text-primary-deep`, `bg-primary`) köprülendi. A ve C modal ekranları entegre edildi (B erişilebilirlik ihtiyaçları ekranı kapsam dışı bırakıldı). Mock sistem tutarlılığı için yeni harici link açılmıyor.
+- **Etki:** `src/types/index.ts` (+5 yeni tip/interface), `src/data/events.json` (e-001, e-003 zenginleştirildi), `src/pages/EventDetail.tsx` (yeni), `src/components/feature/EventRegistrationModal.tsx` (yeni), `src/lib/event-registration.ts` (yeni), `src/lib/event-detail.ts` (yeni), `src/pages/EventList.tsx` (CTA değişti), `src/App.tsx` (route eklendi).
+
 ### 2026-05-17 — `[UX]` F10 Verification aggregation eşikleri
 
 - **Karar:** Bir dimension için topluluk oylaması şu eşiklerle `AccessibilityDimension` üretiyor: `< 3 oy → 'unknown'` (yetersiz sinyal); `confirmRate ≥ 0.75 → 'verified'`; `≥ 0.40 → 'partial'`; `< 0.40 → 'none'`. Eşikler `src/lib/verification-aggregate.ts` tepesinde `const` — runtime'da değişmez.

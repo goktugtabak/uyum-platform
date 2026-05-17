@@ -33,6 +33,7 @@ const FacilityMapPage     = lazy(() => import('./pages/FacilityMap').then(m => (
 const FacilityDetailPage  = lazy(() => import('./pages/FacilityDetail').then(m => ({ default: m.FacilityDetail })))
 const ExerciseLibraryPage = lazy(() => import('./pages/ExerciseLibrary').then(m => ({ default: m.ExerciseLibrary })))
 const EventListPage       = lazy(() => import('./pages/EventList').then(m => ({ default: m.EventList })))
+const EventDetailPage     = lazy(() => import('./pages/EventDetail').then(m => ({ default: m.EventDetail })))
 const CoachDirectoryPage  = lazy(() => import('./pages/CoachDirectory').then(m => ({ default: m.CoachDirectory })))
 const CommunityPage         = lazy(() => import('./pages/Community').then(m => ({ default: m.Community })))
 const ProfilePage           = lazy(() => import('./pages/Profile').then(m => ({ default: m.Profile })))
@@ -63,6 +64,7 @@ function AppRoutes() {
         <Route path="/facility/:id"  element={<RequireProfile><FacilityDetailPage /></RequireProfile>} />
         <Route path="/exercises"     element={<RequireProfile><ExerciseLibraryPage /></RequireProfile>} />
         <Route path="/events"        element={<RequireProfile><EventListPage /></RequireProfile>} />
+        <Route path="/events/:id"    element={<RequireProfile><EventDetailPage /></RequireProfile>} />
         <Route path="/coaches"       element={<RequireProfile><CoachDirectoryPage /></RequireProfile>} />
         <Route path="/community"       element={<RequireProfile><CommunityPage /></RequireProfile>} />
         <Route path="/profile"         element={<RequireProfile><ProfilePage /></RequireProfile>} />

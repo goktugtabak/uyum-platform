@@ -18,6 +18,10 @@ import {
   type EventFilters,
   type DateRange,
 } from '../lib/event-filter'
+import {
+  attendeesFor, spotsLeftFor,
+  getEventImage, categoryTone,
+} from '../lib/event-detail'
 import eventsData     from '../data/events.json'
 import sportsData     from '../data/sports.json'
 import facilitiesData from '../data/facilities.json'
@@ -26,6 +30,8 @@ import sportBasket from '../assets/sport-basketball.jpg'
 import sportTT from '../assets/sport-tabletennis.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
+
+const ASSETS = { sportSwim, sportBasket, sportTT, facilityPool, facilityEryaman }
 
 const ALL_EVENTS:     SportEvent[] = eventsData     as SportEvent[]
 const ALL_SPORTS:     Sport[]      = sportsData     as Sport[]
@@ -60,38 +66,6 @@ const MONTHS_TR_LONG = [
   'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık',
 ]
 
-function getEventImage(sportId: string): string {
-  if (sportId.includes('swim') || sportId.includes('aqua') || sportId.includes('waterpolo')) return sportSwim
-  if (sportId.includes('basket') || sportId.includes('volley') || sportId.includes('football')) return sportBasket
-  if (sportId.includes('tennis') || sportId.includes('table') || sportId.includes('boccia') || sportId.includes('archery') || sportId.includes('goalball')) return sportTT
-  if (sportId.includes('yoga') || sportId.includes('pilates')) return facilityPool
-  if (sportId.includes('athletics') || sportId.includes('strength')) return facilityEryaman
-  return facilityEryaman
-}
-
-function categoryTone(sportId: string): string {
-  if (sportId.includes('swim') || sportId.includes('aqua') || sportId.includes('waterpolo'))
-    return 'bg-sky/60 text-sky-foreground'
-  if (sportId.includes('basket') || sportId.includes('volley') || sportId.includes('football'))
-    return 'bg-primary/10 text-primary'
-  if (sportId.includes('yoga') || sportId.includes('pilates') || sportId.includes('strength'))
-    return 'bg-mint/60 text-mint-foreground'
-  return 'bg-accent/15 text-accent'
-}
-
-// Deterministic placeholder for attendees/spotsLeft (no backend yet).
-function hashId(id: string): number {
-  let h = 0
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0
-  return Math.abs(h)
-}
-
-function attendeesFor(event: SportEvent): number {
-  return 8 + (hashId(event.id) % 24) // 8..31
-}
-function spotsLeftFor(event: SportEvent): number {
-  return 2 + (hashId(event.id + 'spots') % 14) // 2..15
-}
 
 function profileMatchLevel(event: SportEvent, profile: UserProfile): MatchLevel {
   let score = 0
@@ -145,7 +119,7 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
       {/* Photo */}
       <div className="relative h-44 overflow-hidden rounded-[1.5rem] sm:h-full">
         <img
-          src={getEventImage(event.sport)}
+          src={getEventImage(event.sport, ASSETS)}
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -154,8 +128,8 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
       {/* Date column */}
       <div className="flex flex-col items-center justify-start pt-2 text-center">
         <span className="text-3xl font-extrabold leading-none text-primary-deep">{day}</span>
-        <span className="mt-1 text-[12px] font-bold text-foreground/70">{month}</span>
-        <span className="mt-0.5 text-[11px] text-muted-foreground capitalize">{weekday}</span>
+        <span className="mt-1 text-xs font-bold text-foreground/70">{month}</span>
+        <span className="mt-0.5 text-xs text-muted-foreground capitalize">{weekday}</span>
       </div>
 
       {/* Content */}
@@ -165,15 +139,15 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
         </div>
         <h3
           id={`event-${event.id}-title`}
-          className="text-[19px] font-extrabold leading-tight text-primary-deep"
+          className="font-display text-xl font-extrabold leading-tight text-primary-deep"
         >
           {event.title}
         </h3>
-        <span className={`mt-2 inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold ${categoryTone(event.sport)}`}>
+        <span className={`mt-2 inline-flex items-center rounded-md px-2 py-0.5 text-xs font-bold ${categoryTone(event.sport)}`}>
           {getSportLabel(event.sport)}
         </span>
 
-        <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12.5px] text-muted-foreground">
+        <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="size-3.5 text-accent" aria-hidden />{' '}
             {facility ? (
@@ -188,7 +162,7 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
           </span>
         </div>
 
-        <div className="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
           <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 font-semibold text-accent">
             <PersonStanding className="size-3" aria-hidden /> Erişilebilir
           </span>
@@ -198,7 +172,7 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
           <span className="text-muted-foreground">Kontenjan: {spotsLeft} kişi kaldı</span>
         </div>
 
-        <p className="mt-2.5 max-w-md text-[13px] leading-relaxed text-foreground/75 line-clamp-3">
+        <p className="mt-2.5 max-w-md text-sm leading-relaxed text-foreground/75 line-clamp-3">
           {event.description}
         </p>
 
@@ -209,26 +183,15 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
                 <span key={i} className="size-7 rounded-full bg-primary ring-2 ring-background" />
               ))}
             </div>
-            <span className="text-[12px] text-muted-foreground">+{Math.max(0, attendees - 4)}</span>
+            <span className="text-xs text-muted-foreground">+{Math.max(0, attendees - 4)}</span>
           </div>
           <div className="flex items-center gap-2">
-            {event.registrationUrl ? (
-              <a
-                href={event.registrationUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 rounded-full bg-card px-5 py-2 text-xs font-bold text-primary ring-1 ring-primary/30 hover:bg-primary hover:text-primary-foreground"
-              >
-                {spotsLeft > 0 ? 'Katılacağım' : 'Detayları Gör'} <ArrowRight className="size-3.5" aria-hidden />
-              </a>
-            ) : (
-              <Link
-                to={facility ? `/facility/${facility.id}` : '/events'}
-                className="inline-flex items-center gap-1.5 rounded-full bg-card px-5 py-2 text-xs font-bold text-primary ring-1 ring-primary/30 hover:bg-primary hover:text-primary-foreground"
-              >
-                {spotsLeft > 0 ? 'Katılacağım' : 'Detayları Gör'} <ArrowRight className="size-3.5" aria-hidden />
-              </Link>
-            )}
+            <Link
+              to={`/events/${event.id}`}
+              className="inline-flex items-center gap-1.5 rounded-full bg-card px-5 py-2 text-xs font-bold text-primary ring-1 ring-primary/30 hover:bg-primary hover:text-primary-foreground"
+            >
+              Detayları gör <ArrowRight className="size-3.5" aria-hidden />
+            </Link>
             <BookmarkButton
               isBookmarked={profile.favoriteEvents.includes(event.id)}
               onToggle={() => toggleFavoriteEvent(event.id)}
@@ -298,7 +261,7 @@ function MiniCalendar({ events, now }: { events: SportEvent[]; now: Date }) {
       </div>
 
       {/* Day headers */}
-      <div className="grid grid-cols-7 text-center text-[11px] font-bold text-muted-foreground">
+      <div className="grid grid-cols-7 text-center text-xs font-bold text-muted-foreground">
         {['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'].map(d => (
           <span key={d} className="py-1">{d}</span>
         ))}
@@ -318,7 +281,7 @@ function MiniCalendar({ events, now }: { events: SportEvent[]; now: Date }) {
               onClick={() => hasEvents ? setSelectedDay(prev => prev === d ? null : d) : undefined}
               disabled={!hasEvents && !isToday}
               aria-pressed={isSelected}
-              className={`relative mx-auto grid h-11 w-11 place-items-center rounded-xl text-[13px] transition ${
+              className={`relative mx-auto grid h-11 w-11 place-items-center rounded-xl text-sm transition ${
                 isToday
                   ? 'bg-primary font-bold text-primary-foreground shadow-glow'
                   : isSelected
@@ -343,7 +306,7 @@ function MiniCalendar({ events, now }: { events: SportEvent[]; now: Date }) {
       {/* Selected day popup */}
       {selectedDay != null && selectedEvents.length > 0 && (
         <div className="mt-5 border-t border-border/40 pt-4 space-y-2.5">
-          <div className="text-[10.5px] font-bold uppercase tracking-wider text-muted-foreground">
+          <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
             {selectedDay} {MONTHS_TR_LONG[month]}
           </div>
           {selectedEvents.map(e => {
@@ -353,16 +316,16 @@ function MiniCalendar({ events, now }: { events: SportEvent[]; now: Date }) {
             return (
               <div key={e.id} className="flex gap-3 rounded-xl bg-background p-2.5 ring-1 ring-border/30">
                 <img
-                  src={getEventImage(e.sport)}
+                  src={getEventImage(e.sport, ASSETS)}
                   alt=""
                   className="size-12 shrink-0 rounded-lg object-cover"
                 />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-[12.5px] font-bold text-foreground">{e.title}</div>
-                  <div className="mt-0.5 flex items-center gap-1 text-[11px] text-muted-foreground">
+                  <div className="truncate text-xs font-bold text-foreground">{e.title}</div>
+                  <div className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
                     <Clock className="size-3 shrink-0" aria-hidden /> {time}
                   </div>
-                  <div className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-muted-foreground">
+                  <div className="mt-0.5 flex items-center gap-1 truncate text-xs text-muted-foreground">
                     <MapPin className="size-3 shrink-0" aria-hidden /> {facility?.name ?? 'Tesis'}
                   </div>
                 </div>
@@ -408,15 +371,15 @@ function InterestList({ events }: { events: SportEvent[] }) {
             </span>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
-                <div className="truncate text-[13px] font-bold text-foreground">{it.title}</div>
-                <span className={`shrink-0 rounded-full px-2 py-0.5 text-[9.5px] font-bold ${
+                <div className="truncate text-sm font-bold text-foreground">{it.title}</div>
+                <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-bold ${
                   it.tone === 'accent' ? 'bg-accent/15 text-accent' :
                   it.tone === 'peach'  ? 'bg-accent/15 text-accent' :
                                          'bg-mint/60 text-mint-foreground'
                 }`}>{it.tag}</span>
               </div>
-              <div className="text-[11px] text-muted-foreground">{it.when}</div>
-              <div className="truncate text-[11px] text-muted-foreground">{it.loc}</div>
+              <div className="text-xs text-muted-foreground">{it.when}</div>
+              <div className="truncate text-xs text-muted-foreground">{it.loc}</div>
             </div>
           </li>
         ))}
@@ -441,17 +404,17 @@ function UpcomingList({ events }: { events: SportEvent[] }) {
           return (
             <li key={e.id} className="flex gap-3">
               <img
-                src={getEventImage(e.sport)}
+                src={getEventImage(e.sport, ASSETS)}
                 alt=""
                 className="size-14 shrink-0 rounded-2xl object-cover"
               />
               <div className="min-w-0 flex-1">
                 <div className="truncate text-sm font-bold text-foreground">{e.title}</div>
-                <div className="text-[11.5px] text-muted-foreground">
+                <div className="text-xs text-muted-foreground">
                   {d.getDate()} {MONTHS_TR_LONG[d.getMonth()]} ·{' '}
                   {d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
                 </div>
-                <div className="truncate text-[11px] text-muted-foreground">
+                <div className="truncate text-xs text-muted-foreground">
                   <span aria-hidden></span> {facility?.name ?? 'Tesis'}
                 </div>
               </div>
@@ -472,7 +435,7 @@ function NotifyBlock() {
       </span>
       <div>
         <div className="text-sm font-bold text-foreground">Uygun etkinliklerden haberdar ol</div>
-        <p className="mt-1 text-[12px] text-muted-foreground">
+        <p className="mt-1 text-xs text-muted-foreground">
           Profiline uygun yeni etkinlikler açıldığında sana bildiririz.
         </p>
         <button type="button" className="mt-3 text-xs font-bold text-primary">Bildirimleri aç →</button>
@@ -553,10 +516,10 @@ export function EventList() {
 
         {/* İçerik */}
         <div className="relative px-8 py-10 md:max-w-lg">
-          <h1 className="text-[clamp(2.2rem,4.2vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
+          <h1 className="font-display text-[clamp(2.2rem,4.2vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
             Etkinlikler
           </h1>
-          <p className="mt-3 max-w-sm text-[15px] text-foreground/70">
+          <p className="mt-3 max-w-sm text-sm text-foreground/70">
             Profiline ve ilgi alanlarına göre senin için sıralanan etkinlikleri keşfet,
             katıl ve yeni deneyimler kazan.
           </p>
@@ -594,7 +557,7 @@ export function EventList() {
 
         {/* Date range chips — compact inline group */}
         <div className="flex flex-col gap-1">
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Tarih</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Tarih</span>
           <div className="flex items-center gap-1">
             {DATE_OPTIONS.map(opt => (
               <FilterChip
@@ -645,11 +608,11 @@ export function EventList() {
         {/* Event flow */}
         <section aria-labelledby="upcoming-heading">
           <div className="mb-7 flex flex-wrap items-end gap-3">
-            <h2 id="upcoming-heading" className="text-xl font-extrabold text-primary-deep">
+            <h2 id="upcoming-heading" className="font-display text-xl font-extrabold text-primary-deep">
               Sana özel önerilen etkinlikler
             </h2>
             {upcoming.length > 0 && (
-              <span className="rounded-full bg-mint/50 px-3 py-1 text-[11px] font-bold text-mint-foreground">
+              <span className="rounded-full bg-mint/50 px-3 py-1 text-xs font-bold text-mint-foreground">
                 Profiline {profileMatchCount > 0 ? `${profileMatchCount} eşleşme` : `${upcoming.length} etkinlik`}
               </span>
             )}
