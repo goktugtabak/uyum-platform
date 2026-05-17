@@ -69,10 +69,10 @@ export function F3Guide({ facility, profile }: Props) {
 
   if (state === 'idle') {
     return (
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-deep p-6 text-primary-foreground">
+      <div className="relative overflow-hidden rounded-3xl bg-primary-deep p-6 text-primary-foreground">
         <div aria-hidden className="absolute -right-8 -top-8 size-40 rounded-full bg-mint/25 blur-2xl" />
         <FileSpreadsheet className="size-7 opacity-90" aria-hidden />
-        <h3 className="mt-3 font-display text-lg font-extrabold">
+        <h3 className="mt-3  text-lg font-extrabold">
           İlk ziyaret rehberini oluştur
         </h3>
         <p className="mt-1 max-w-md text-[12.5px] text-primary-foreground/80">
@@ -141,7 +141,7 @@ export function F3Guide({ facility, profile }: Props) {
         role="alert"
         className="space-y-3 rounded-3xl bg-destructive/8 p-5 ring-1 ring-destructive/30 hc:bg-white hc:ring-black"
       >
-        <p className="flex items-center gap-2 font-display text-base font-bold text-destructive hc:text-black">
+        <p className="flex items-center gap-2  text-base font-bold text-destructive hc:text-black">
           <AlertTriangle className="size-5" aria-hidden />
           Lütfen bir sağlık profesyoneline danışın
         </p>

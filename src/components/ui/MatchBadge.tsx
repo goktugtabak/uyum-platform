@@ -6,7 +6,7 @@ const MATCH_LABEL: Record<MatchLevel, string> = {
   low:    'Az Uygun',
 }
 const MATCH_GLYPH: Record<MatchLevel, string> = {
-  high:   '★',
+  high:   '',
   medium: '◐',
   low:    '○',
 }

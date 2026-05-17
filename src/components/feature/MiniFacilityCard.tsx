@@ -33,7 +33,7 @@ export function MiniFacilityCard({ facility, disabilityType, image }: Props) {
       ) : (
         <div
           aria-hidden
-          className="grid size-14 place-items-center rounded-2xl bg-gradient-brand text-base font-bold text-primary-foreground"
+          className="grid size-14 place-items-center rounded-2xl bg-primary text-base font-bold text-primary-foreground"
         >
           {fallbackInitial}
         </div>

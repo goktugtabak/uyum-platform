@@ -10,25 +10,25 @@ interface Tile {
 const TILES: Tile[] = [
   {
     to:          '/match',
-    icon:        '🏊',
+    icon:        '',
     title:       'Hangi sporları yapabilirim?',
     description: 'Profilinle eşleşen 3 spor önerisi',
   },
   {
     to:          '/exercises',
-    icon:        '🏋️',
+    icon:        '️',
     title:       'Egzersiz içeriği',
     description: 'Evden çalışabileceğin adaptif egzersizler',
   },
   {
     to:          '/events',
-    icon:        '📅',
+    icon:        '',
     title:       'Yakındaki etkinlikler',
     description: 'Ankara\'da yaklaşan engelli sporu etkinlikleri',
   },
   {
     to:          '/coaches',
-    icon:        '🧑‍🏫',
+    icon:        '‍',
     title:       'Koç bul',
     description: 'Engel tipine uygun antrenörler',
   },

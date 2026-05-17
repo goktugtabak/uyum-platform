@@ -51,7 +51,7 @@ export function CoachCard({ coach, facilities, profileMatch = false }: CoachCard
       className="group relative flex flex-col overflow-hidden rounded-3xl bg-card ring-1 ring-border/40 transition hover:-translate-y-0.5 hover:shadow-card"
     >
       {/* Photo / gradient header */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-gradient-brand">
+      <div className="relative aspect-[4/3] overflow-hidden bg-primary">
         <div
           aria-hidden
           className="absolute inset-0 grid place-items-center text-5xl font-extrabold tracking-tight text-primary-foreground"
@@ -85,7 +85,7 @@ export function CoachCard({ coach, facilities, profileMatch = false }: CoachCard
       {/* Body */}
       <div className="flex flex-1 flex-col gap-3 p-4">
         <header>
-          <h3 id={titleId} className="font-display text-base font-extrabold leading-tight text-primary-deep">
+          <h3 id={titleId} className="text-base font-extrabold leading-tight text-primary-deep">
             {coach.name}
           </h3>
           <p className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-muted-foreground">

@@ -125,7 +125,7 @@ function FacilityDetailInner({
           <ScoreBadge color={overall} />
           <h1
             id="facility-heading"
-            className="mt-4 font-display text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep"
+            className="mt-4  text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep"
           >
             {facility.name}
           </h1>
@@ -234,7 +234,7 @@ function FacilityDetailInner({
       <div className="grid gap-x-12 gap-y-16 lg:grid-cols-3">
         {/* Score + Radar */}
         <section id="overview" aria-labelledby="f1-heading" className="lg:col-span-2">
-          <h2 id="f1-heading" className="font-display text-2xl font-extrabold text-primary-deep">
+          <h2 id="f1-heading" className="text-2xl font-extrabold text-primary-deep">
             Erişilebilirlik Puanı
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -259,7 +259,7 @@ function FacilityDetailInner({
         {/* Live status (real Faz 6 component) */}
         <section id="live" aria-labelledby="f4-heading">
           <div className="mb-5 flex items-end justify-between">
-            <h2 id="f4-heading" className="font-display text-xl font-extrabold text-primary-deep">
+            <h2 id="f4-heading" className="text-xl font-extrabold text-primary-deep">
               Canlı Durum
             </h2>
             <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-success">
@@ -271,7 +271,7 @@ function FacilityDetailInner({
 
         {/* About */}
         <section id="about" aria-labelledby="about-heading" className="lg:col-span-2">
-          <h2 id="about-heading" className="font-display text-2xl font-extrabold text-primary-deep">
+          <h2 id="about-heading" className="text-2xl font-extrabold text-primary-deep">
             Tesis Hakkında
           </h2>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-foreground/80">
@@ -286,7 +286,7 @@ function FacilityDetailInner({
             <Stat l="Kaynak" v={facility.source === 'places' ? 'Google Places' : facility.source === 'overpass' ? 'OSM' : 'Manuel'} />
           </div>
 
-          <h3 className="mt-9 font-display text-lg font-extrabold text-primary-deep">Olanaklar</h3>
+          <h3 className="mt-9  text-lg font-extrabold text-primary-deep">Olanaklar</h3>
           <div className="mt-3 flex flex-wrap gap-2.5">
             {facility.sports.map((s, i) => (
               <span
@@ -314,7 +314,7 @@ function FacilityDetailInner({
                   <GraduationCap className="size-5" />
                 </span>
                 <div className="flex-1">
-                  <h3 className="font-display text-base font-bold text-primary-deep">
+                  <h3 className="text-base font-bold text-primary-deep">
                     Bu tesiste çalışan koçlar
                   </h3>
                   <p className="mt-1 text-sm text-muted-foreground">
@@ -335,7 +335,7 @@ function FacilityDetailInner({
         {/* Reviews preview */}
         <section id="reviews-preview" aria-labelledby="reviews-preview-heading">
           <div className="flex items-end justify-between">
-            <h2 id="reviews-preview-heading" className="font-display text-xl font-extrabold text-primary-deep">
+            <h2 id="reviews-preview-heading" className="text-xl font-extrabold text-primary-deep">
               Yorumlar
             </h2>
             <a href="#reviews" className="text-xs font-semibold text-primary">Tümünü gör →</a>
@@ -344,7 +344,7 @@ function FacilityDetailInner({
             <>
               {placesRating !== undefined && placesRatingCount !== undefined && (
                 <div className="mt-4 flex items-center gap-2.5">
-                  <span className="font-display text-4xl font-extrabold text-primary-deep">
+                  <span className="text-4xl font-extrabold text-primary-deep">
                     {placesRating.toFixed(1)}
                   </span>
                   <div className="flex" aria-hidden>
@@ -361,7 +361,7 @@ function FacilityDetailInner({
                     "{testimonies[0].text}"
                   </p>
                   <footer className="mt-3 flex items-center gap-2 text-xs">
-                    <span aria-hidden className="size-6 rounded-full bg-gradient-brand" />
+                    <span aria-hidden className="size-6 rounded-full bg-primary" />
                     <span className="font-bold">
                       {testimonies[0].anonymous || !testimonies[0].displayName
                         ? 'Anonim'
@@ -381,7 +381,7 @@ function FacilityDetailInner({
 
         {/* F3 Guide */}
         <section id="guide" aria-labelledby="f3-heading" className="lg:col-span-2">
-          <h2 id="f3-heading" className="mb-5 font-display text-xl font-extrabold text-primary-deep">
+          <h2 id="f3-heading" className="mb-5  text-xl font-extrabold text-primary-deep">
             İlk Ziyaret Rehberi
           </h2>
           <F3Guide facility={facility} profile={profile} />
@@ -391,7 +391,7 @@ function FacilityDetailInner({
         <section id="events" aria-labelledby="events-heading" className="lg:col-span-3">
           <h2
             id="events-heading"
-            className="mb-6 inline-flex items-center gap-2 font-display text-xl font-extrabold text-primary-deep"
+            className="mb-6 inline-flex items-center gap-2  text-xl font-extrabold text-primary-deep"
           >
             <CalendarDays className="size-5 text-accent" aria-hidden /> Yaklaşan Etkinlikler
           </h2>
@@ -405,7 +405,7 @@ function FacilityDetailInner({
                 return (
                   <article key={e.id} className="group flex gap-4">
                     <div className="flex flex-col items-center justify-center rounded-2xl bg-primary/10 px-3 py-2 text-primary-deep">
-                      <span className="font-display text-2xl font-extrabold leading-none">{d.getDate()}</span>
+                      <span className="text-2xl font-extrabold leading-none">{d.getDate()}</span>
                       <span className="text-[10px] font-bold uppercase tracking-wider">
                         {MONTHS_TR_LONG[d.getMonth()].slice(0, 5)}
                       </span>
@@ -415,7 +415,7 @@ function FacilityDetailInner({
                         {e.title}
                       </Link>
                       <div className="text-[11.5px] text-muted-foreground capitalize">{weekday} · {time}</div>
-                      <div className="truncate text-[11.5px] text-muted-foreground">📍 {facility.name}</div>
+                      <div className="truncate text-[11.5px] text-muted-foreground"> {facility.name}</div>
                       {isFree && (
                         <span className="mt-1.5 inline-block rounded-full bg-mint/60 px-2 py-0.5 text-[10px] font-bold text-mint-foreground">
                           Ücretsiz
@@ -439,7 +439,7 @@ function FacilityDetailInner({
           <div className="mb-5 flex items-center justify-between">
             <h2
               id="testimonies-heading"
-              className="font-display text-xl font-extrabold text-primary-deep"
+              className="text-xl font-extrabold text-primary-deep"
             >
               Topluluk Tanıklıkları
             </h2>
@@ -455,7 +455,7 @@ function Stat({ l, v }: { l: string; v: string }) {
   return (
     <div>
       <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{l}</div>
-      <div className="mt-1 font-display text-2xl font-extrabold text-primary-deep">{v}</div>
+      <div className="mt-1  text-2xl font-extrabold text-primary-deep">{v}</div>
     </div>
   )
 }
@@ -489,7 +489,7 @@ export function FacilityDetail() {
   if (!facility) {
     return (
       <div className="mx-auto max-w-2xl space-y-4 p-8 text-center">
-        <p className="font-display text-lg font-bold text-primary-deep">Tesis bulunamadı.</p>
+        <p className="text-lg font-bold text-primary-deep">Tesis bulunamadı.</p>
         <Link to="/map" className="text-primary underline hover:text-primary-deep">
           Tesislere dön
         </Link>

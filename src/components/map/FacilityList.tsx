@@ -32,7 +32,7 @@ function FacilityItem({
       >
         <div
           aria-hidden
-          className="grid size-[72px] shrink-0 place-items-center rounded-2xl bg-gradient-brand text-3xl text-primary-foreground"
+          className="grid size-[72px] shrink-0 place-items-center rounded-2xl bg-primary text-3xl text-primary-foreground"
         >
           {getSportIcon(facility.sports[0] ?? '')}
         </div>
@@ -78,7 +78,7 @@ export function FacilityList({ facilities, disabilityType, sportFilter }: Facili
       className="flex flex-col gap-3 lg:max-h-[calc(100dvh-12rem)] lg:overflow-y-auto"
     >
       <div>
-        <h2 className="font-display text-lg font-extrabold text-primary-deep">
+        <h2 className="text-lg font-extrabold text-primary-deep">
           Size en uygun tesisler
         </h2>
         <p className="text-xs text-muted-foreground">

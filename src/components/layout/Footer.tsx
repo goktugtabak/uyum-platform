@@ -17,7 +17,7 @@ const NAV_KAYNAKLAR = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#1a0828] text-white" role="contentinfo">
+    <footer className="bg-primary-deep text-white" role="contentinfo">
       <div className="mx-auto max-w-7xl px-4 pb-8 pt-10 md:px-6 lg:px-12">
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
@@ -42,7 +42,7 @@ export function Footer() {
                 <circle cx="28" cy="6" r="3" fill="oklch(0.94 0.08 145)" />
                 <circle cx="8"  cy="6" r="3" fill="oklch(0.93 0.06 215)" />
               </svg>
-              <span className="font-display text-xl font-bold text-white">UYUM</span>
+              <span className="text-xl font-bold text-white">UYUM</span>
             </div>
 
             <p className="mt-3 max-w-[220px] text-[12.5px] leading-relaxed text-white/50">

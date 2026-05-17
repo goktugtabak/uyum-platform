@@ -161,7 +161,7 @@ export function CoachDirectory() {
       {/* Hero — title + open photo fading into canvas (Dashboard style) */}
       <header className="relative mb-10 grid items-center gap-8 md:grid-cols-12">
         <div className="md:col-span-7">
-          <h1 className="font-display text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
+          <h1 className="text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
             Koçlar &amp; Antrenörler
           </h1>
           <p className="mt-3 max-w-xl text-base text-muted-foreground">
@@ -248,7 +248,7 @@ export function CoachDirectory() {
 
       {/* Toolbar */}
       <div className="mb-7 flex flex-wrap items-end justify-between gap-3">
-        <h2 className="font-display text-2xl font-extrabold text-primary-deep">
+        <h2 className="text-2xl font-extrabold text-primary-deep">
           Sonuçlar{' '}
           <span className="ml-2 text-sm font-semibold text-muted-foreground">
             {results.length} koç bulundu

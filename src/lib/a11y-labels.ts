@@ -8,10 +8,10 @@ export interface A11yLabel {
 }
 
 const LABELS: Record<AccessibilityDimension, A11yLabel> = {
-  verified: { label: 'Doğrulanmış',  icon: '✅', value: 1.0 },
-  partial:  { label: 'Kısmi',        icon: '⚠️', value: 0.5 },
-  none:     { label: 'Mevcut Değil', icon: '❌', value: 0.0 },
-  unknown:  { label: 'Bilgi Yok',    icon: '❓', value: null },
+  verified: { label: 'Doğrulanmış',  icon: '', value: 1.0 },
+  partial:  { label: 'Kısmi',        icon: '️', value: 0.5 },
+  none:     { label: 'Mevcut Değil', icon: '', value: 0.0 },
+  unknown:  { label: 'Bilgi Yok',    icon: '', value: null },
 }
 
 export function getAccessibilityLabel(dim: AccessibilityDimension): A11yLabel {
@@ -26,9 +26,9 @@ export const SCORE_LABEL: Record<ScoreColor, string> = {
 }
 
 export const SCORE_GLYPH: Record<ScoreColor, string> = {
-  green:  '✓',
+  green:  '',
   yellow: '~',
-  red:    '✕',
+  red:    '',
   gray:   '?',
 }
 

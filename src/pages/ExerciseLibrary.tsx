@@ -154,7 +154,7 @@ export function ExerciseLibrary() {
       {/* Hero — title only, soft mint glow on right */}
       <header className="relative mb-12">
         <div className="absolute -right-10 -top-6 size-56 rounded-full bg-mint/40 blur-3xl" aria-hidden />
-        <h1 className="font-display text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
+        <h1 className="text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
           Egzersiz Rehberi
         </h1>
         <p className="mt-3 max-w-xl text-base text-muted-foreground">
@@ -181,7 +181,7 @@ export function ExerciseLibrary() {
                 }`}
               >
                 <I aria-hidden className={`size-3.5 ${active ? '' : (
-                  c === 'peach' ? 'text-[oklch(0.55_0.16_50)]' :
+                  c === 'peach' ? 'text-accent' :
                   c === 'mint' ? 'text-mint-foreground' :
                   c === 'lavender' ? 'text-accent' :
                   'text-sky-foreground'
@@ -261,7 +261,7 @@ export function ExerciseLibrary() {
       {/* Toolbar */}
       <div className="mb-7 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 className="font-display text-2xl font-extrabold text-primary-deep">
+          <h2 className="text-2xl font-extrabold text-primary-deep">
             Egzersiz Videoları{' '}
             <span className="ml-2 text-sm font-semibold text-muted-foreground">
               {results.length} sonuç bulundu

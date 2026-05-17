@@ -115,7 +115,7 @@ function LiveFacilityMarker({
       <Popup
         offset={[0, -48]}
         closeButton={false}
-        className="facility-photo-popup"
+        className="facility-pho"
       >
         <Link
           to={`/facility/${facility.id}`}
@@ -210,7 +210,7 @@ export function FacilityMap() {
     <div className="mx-auto max-w-7xl pt-2">
       <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-[clamp(2rem,3.4vw,2.8rem)] font-extrabold tracking-tight text-primary-deep">
+          <h1 className="text-[clamp(2rem,3.4vw,2.8rem)] font-extrabold tracking-tight text-primary-deep">
             Tesisleri Keşfet
           </h1>
           <p className="mt-1.5 text-sm text-muted-foreground">
@@ -481,7 +481,7 @@ export function FacilityMap() {
           <aside>
             <div className="mb-5 flex items-end justify-between">
               <div>
-                <h2 className="font-display text-lg font-extrabold text-primary-deep">
+                <h2 className="text-lg font-extrabold text-primary-deep">
                   Size en uygun tesisler
                 </h2>
                 <p className="mt-1 text-xs text-muted-foreground">

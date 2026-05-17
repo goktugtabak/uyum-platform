@@ -42,13 +42,13 @@ export function Sidebar() {
               className={`group relative flex items-center gap-3 rounded-full px-4 py-2.5 text-sm transition-colors hc:text-black ${
                 active
                   ? 'font-semibold text-white hc:text-white'
-                  : 'font-medium text-gray-500 hover:bg-gray-50 hover:text-[#320E3B]'
+                  : 'font-medium text-gray-500 hover:bg-gray-50 hover:text-primary-deep'
               }`}
             >
               {active && (
                 <motion.span
                   layoutId="sidebar-active-indicator"
-                  className="absolute inset-0 rounded-full bg-[#320E3B] hc:bg-black"
+                  className="absolute inset-0 rounded-full bg-primary-deep hc:bg-black"
                   transition={{ type: 'spring', stiffness: 380, damping: 36 }}
                   aria-hidden
                 />
@@ -61,18 +61,18 @@ export function Sidebar() {
       </nav>
 
       <div className="mt-auto flex flex-col gap-4 pt-4">
-        <div className="flex items-center gap-3 rounded-2xl bg-[#E0F7FA] px-4 py-3 hc:bg-black/10">
+        <div className="flex items-center gap-3 rounded-2xl bg-sky/30 px-4 py-3 hc:bg-black/10">
           <span
             aria-hidden
-            className="grid size-9 shrink-0 place-items-center rounded-full bg-[#00BCD4] text-white"
+            className="grid size-9 shrink-0 place-items-center rounded-full bg-sky-foreground text-white"
           >
             <Headphones className="size-4" />
           </span>
           <div className="text-xs">
-            <div className="font-semibold text-[#320E3B]">Yardıma mı ihtiyacın var?</div>
+            <div className="font-semibold text-primary-deep">Yardıma mı ihtiyacın var?</div>
             <a
               href="mailto:hello@uyum.app"
-              className="text-[#320E3B]/80 underline-offset-2 hover:underline"
+              className="text-primary-deep/80 underline-offset-2 hover:underline"
             >
               Bize ulaş
             </a>

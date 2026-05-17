@@ -57,7 +57,7 @@ export function CommunityFeed({ facilities }: Props) {
                   <header className="flex items-center gap-3">
                     <div
                       aria-hidden
-                      className="grid size-10 shrink-0 place-items-center rounded-full bg-gradient-brand text-xs font-bold text-primary-foreground"
+                      className="grid size-10 shrink-0 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground"
                     >
                       {name[0]}
                     </div>
@@ -98,7 +98,7 @@ export function CommunityFeed({ facilities }: Props) {
             <CalendarDays aria-hidden className="size-3.5" />
             <span>Yakın Etkinlik</span>
           </div>
-          <h4 className="mt-1 font-display text-base font-bold text-primary-deep">
+          <h4 className="mt-1  text-base font-bold text-primary-deep">
             {upcomingEvent.title}
           </h4>
           <p className="text-xs text-foreground/70 hc:text-black">

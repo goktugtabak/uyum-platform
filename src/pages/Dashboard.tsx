@@ -112,7 +112,7 @@ export function Dashboard() {
       {/* Hero — open, no card; image fades into canvas */}
       <section className="relative mb-16 grid grid-cols-1 items-center gap-8 md:grid-cols-12">
         <div className="md:col-span-7">
-          <h1 className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
+          <h1 className="text-[clamp(2.2rem,4vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
             Merhaba!
           </h1>
           <p className="mt-3 max-w-md text-base text-muted-foreground">
@@ -133,7 +133,7 @@ export function Dashboard() {
                 <span className={`grid size-11 shrink-0 place-items-center rounded-full ${
                   c === 'mint' ? 'bg-mint/70 text-mint-foreground' :
                   c === 'lavender' ? 'bg-accent/15 text-accent' :
-                  'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]'
+                  'bg-accent/15 text-accent'
                 }`}>
                   <I className="size-[18px]" strokeWidth={1.8} aria-hidden />
                 </span>
@@ -232,7 +232,7 @@ export function Dashboard() {
               return (
                 <article key={t.id}>
                   <header className="flex items-center gap-3">
-                    <div className="grid size-10 place-items-center rounded-full bg-gradient-brand text-xs font-bold text-primary-foreground">
+                    <div className="grid size-10 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
                       {name[0]}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -293,7 +293,7 @@ export function Dashboard() {
                       meta.c === 'sky' ? 'bg-sky/70 text-sky-foreground' :
                       meta.c === 'mint' ? 'bg-mint/70 text-mint-foreground' :
                       meta.c === 'lavender' ? 'bg-accent/15 text-accent' :
-                      'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]'
+                      'bg-accent/15 text-accent'
                     }`}>
                       <Icon className="size-6" strokeWidth={1.7} aria-hidden />
                     </div>
@@ -309,7 +309,7 @@ export function Dashboard() {
                     c === 'sky' ? 'bg-sky/70 text-sky-foreground' :
                     c === 'mint' ? 'bg-mint/70 text-mint-foreground' :
                     c === 'lavender' ? 'bg-accent/15 text-accent' :
-                    'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]'
+                    'bg-accent/15 text-accent'
                   }`}>
                     <Icon className="size-6" strokeWidth={1.7} aria-hidden />
                   </div>
@@ -331,7 +331,7 @@ export function Dashboard() {
                 return (
                   <Link to="/events" className="flex items-center gap-4">
                     <div className="flex flex-col items-center rounded-2xl bg-primary/10 px-3 py-2 text-primary-deep">
-                      <span className="font-display text-xl font-extrabold leading-none">{d.getDate()}</span>
+                      <span className="text-xl font-extrabold leading-none">{d.getDate()}</span>
                       <span className="text-[10px] uppercase tracking-wider">{MONTHS_TR[d.getMonth()].slice(0, 5)}</span>
                     </div>
                     <div className="min-w-0 flex-1">
@@ -339,7 +339,7 @@ export function Dashboard() {
                       <div className="text-[11.5px] text-muted-foreground">
                         {WEEKDAYS_TR[d.getDay()]} · {d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
                       </div>
-                      <div className="text-[11.5px] text-muted-foreground">📍 {facilityName}</div>
+                      <div className="text-[11.5px] text-muted-foreground"> {facilityName}</div>
                     </div>
                     <span className="rounded-full bg-mint/60 px-2 py-1 text-[10px] font-bold text-mint-foreground">
                       Ücretsiz
@@ -355,11 +355,11 @@ export function Dashboard() {
           {/* Soft CTA — not a box, just gradient surface with content */}
           <Link
             to="/match"
-            className="relative mt-9 block overflow-hidden rounded-[2rem] bg-gradient-deep px-6 py-7 text-primary-foreground"
+            className="relative mt-9 block overflow-hidden rounded-[2rem] bg-primary-deep px-6 py-7 text-primary-foreground"
           >
             <div className="absolute -right-8 -top-8 size-40 rounded-full bg-mint/20 blur-2xl" aria-hidden />
             <FileSpreadsheet className="size-7 opacity-90" aria-hidden />
-            <h3 className="mt-3 font-display text-lg font-extrabold">İlk ziyaret rehberini oluştur</h3>
+            <h3 className="mt-3  text-lg font-extrabold">İlk ziyaret rehberini oluştur</h3>
             <p className="mt-1 text-[12.5px] text-primary-foreground/75">
               Seçtiğin tesis için kişisel rehberini hazırlayalım.
             </p>
@@ -384,7 +384,7 @@ function SectionHeader({
   return (
     <div className="flex items-end justify-between">
       <div>
-        <h2 className="flex items-center gap-2 font-display text-[19px] font-extrabold text-primary-deep">
+        <h2 className="flex items-center gap-2  text-[19px] font-extrabold text-primary-deep">
           {icon} {title}
         </h2>
         {sub && <p className="mt-1 text-xs text-muted-foreground">{sub}</p>}

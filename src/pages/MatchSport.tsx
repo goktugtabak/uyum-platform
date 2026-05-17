@@ -58,11 +58,11 @@ const TINTS = [
     link:  'text-success',
   },
   {
-    num:   'bg-[oklch(0.62_0.18_55)] text-primary-foreground',
-    check: 'text-[oklch(0.62_0.18_55)]',
-    icon:  'text-[oklch(0.55_0.18_50)] bg-[oklch(0.92_0.07_60)]',
-    pill:  'text-[oklch(0.55_0.18_50)] bg-[oklch(0.92_0.07_60)]',
-    link:  'text-[oklch(0.55_0.18_50)]',
+    num:   'bg-primary text-primary-foreground',
+    check: 'text-primary',
+    icon:  'text-accent bg-accent/15',
+    pill:  'text-accent bg-accent/15',
+    link:  'text-accent',
   },
 ] as const
 
@@ -127,9 +127,9 @@ export function MatchSport() {
       <header className="mb-12 flex flex-wrap items-start justify-between gap-8">
         <div>
           <p className="text-sm font-semibold text-primary">
-            Sana özel eşleşme tamamlandı! <span aria-hidden>🎉</span>
+            Sana özel eşleşme tamamlandı! <span aria-hidden></span>
           </p>
-          <h1 className="mt-3 font-display text-[clamp(2rem,3.5vw,3rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
+          <h1 className="mt-3  text-[clamp(2rem,3.5vw,3rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
             Sana en uygun <span className="text-accent">{matches.length} spor</span> önerimiz
           </h1>
           <p className="mt-3 max-w-xl text-muted-foreground">
@@ -183,7 +183,7 @@ export function MatchSport() {
               )
               return (
                 <article key={m.sport.id} className="flex flex-col">
-                  <h3 className="font-display text-2xl font-extrabold leading-tight text-primary-deep">
+                  <h3 className="text-2xl font-extrabold leading-tight text-primary-deep">
                     {m.sport.name}
                   </h3>
                   <div className="mt-2">

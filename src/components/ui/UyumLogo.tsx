@@ -20,7 +20,7 @@ export function UyumLogo({ className = '', size = 36 }: Props) {
         <circle cx="28" cy="6" r="3" fill="oklch(0.94 0.08 145)" />
         <circle cx="8"  cy="6" r="3" fill="oklch(0.93 0.06 215)" />
       </svg>
-      <span className="font-display text-2xl font-bold tracking-tight text-primary-deep">
+      <span className="text-2xl font-bold tracking-tight text-primary-deep">
         UYUM
       </span>
     </div>

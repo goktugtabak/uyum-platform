@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {
   PersonStanding, Target, Footprints, Pencil, MapPin, CalendarDays,
   Dumbbell, Trash2, Mail, BadgeCheck, ShieldCheck, Activity,
-  Bookmark, BookmarkX, Sparkles, UserCog,
+  Bookmark, BookmarkX, ArrowRight,
 } from 'lucide-react'
 
 import type { DisabilityType, MobilityLevel, Goal, Facility, SportEvent, Exercise } from '../types'
@@ -15,7 +15,6 @@ import { loadActivityLog, type ActivityEntry, type ActivityKind } from '../lib/a
 import facilitiesData from '../data/facilities.json'
 import eventsData from '../data/events.json'
 import exercisesData from '../data/exercises.json'
-import dashHero from '../assets/dashboard-hero.jpg'
 
 const DISABILITY_LABELS: Record<DisabilityType, string> = {
   wheelchair: 'Tekerlekli Sandalye',
@@ -75,156 +74,152 @@ export function Profile() {
   const initial = DISABILITY_LABELS[profile.disabilityTypes[0]]?.charAt(0).toUpperCase() ?? 'U'
 
   return (
-    <div className="mx-auto max-w-5xl space-y-10 pt-2">
-      {/* Hero */}
-      <section className="relative overflow-hidden rounded-3xl ring-1 ring-border/40" style={{ height: 240 }}>
-        <img src={dashHero} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary-deep/85 via-primary-deep/45 to-primary-deep/10" />
-        <div className="relative flex h-full items-end justify-between gap-4 p-6">
-          <div className="flex items-end gap-4">
-            <span
-              aria-hidden
-              className="grid size-16 place-items-center rounded-full bg-primary text-2xl font-extrabold text-primary-foreground ring-4 ring-white/30 shadow-glow"
-            >
+    <div className="mx-auto max-w-5xl space-y-12 pt-4">
+      {/* Hero Header - Flat, Modern */}
+      <section className="relative overflow-hidden rounded-[2rem] bg-primary-deep p-8 shadow-sm sm:p-10">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-6">
+            <div className="grid size-20 shrink-0 place-items-center rounded-full bg-primary text-3xl font-extrabold text-white shadow-sm">
               {initial}
-            </span>
+            </div>
             <div className="min-w-0">
-              <div className="font-display text-xl font-extrabold text-white sm:text-2xl">UYUM Kullanıcısı</div>
-              <div className="mt-0.5 truncate text-sm text-white/80">
-                {profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(' · ')} · {profile.city} sporcusu
-              </div>
-              <div className="mt-2 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-bold text-white backdrop-blur-sm">
-                  <BadgeCheck aria-hidden className="size-3" /> Profil tamamlandı
+              <h1 className="text-2xl font-extrabold text-white sm:text-3xl">UYUM Kullanıcısı</h1>
+              <p className="mt-1 text-base text-white/80">
+                {profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(' · ')} · {profile.city}
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white">
+                  <BadgeCheck aria-hidden className="size-4" /> Tamamlanmış Profil
                 </span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-bold text-white backdrop-blur-sm">
-                  <ShieldCheck aria-hidden className="size-3" /> Anonim
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-bold text-white">
+                  <ShieldCheck aria-hidden className="size-4" /> Anonim
                 </span>
               </div>
             </div>
           </div>
           <Link
             to="/onboarding"
-            className="hidden shrink-0 items-center gap-1.5 rounded-full bg-white/95 px-4 py-2 text-sm font-bold text-primary-deep shadow-glow hover:bg-white sm:inline-flex"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-primary-deep transition-colors hover:bg-muted"
           >
-            <Pencil aria-hidden className="size-3.5" /> Düzenle
+            <Pencil aria-hidden className="size-4" /> Profili Düzenle
           </Link>
         </div>
       </section>
 
       {/* Profile facts */}
-      <section className="space-y-3">
+      <section className="space-y-4">
+        <div className="flex items-center justify-between px-2">
+          <h2 className="text-xl font-extrabold text-primary-deep">Temel Bilgiler</h2>
+        </div>
         <div className="grid gap-4 sm:grid-cols-3">
           <Fact icon={<PersonStanding className="size-5" aria-hidden />} label="Engel Tipi" value={profile.disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')} />
           <Fact icon={<Footprints className="size-5" aria-hidden />} label="Hareket" value={MOBILITY_LABELS[profile.mobilityLevel]} />
           <Fact icon={<Target className="size-5" aria-hidden />} label="Hedef" value={profile.goals.map(g => GOAL_LABELS[g]).join(', ')} />
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-2 px-1">
-          <p className="text-xs text-muted-foreground">Profilin önerilerinin temelini oluşturur.</p>
-          <Link to="/onboarding" className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary-deep">
-            <UserCog aria-hidden className="size-3.5" /> Profili düzenle
-          </Link>
-        </div>
       </section>
 
       {/* Favorites */}
-      <section className="space-y-8">
+      <section className="space-y-10 border-t border-border/60 pt-10">
         <FavGroup
-          title="Tesisler" icon={<MapPin className="size-4" aria-hidden />}
+          title="Kaydedilen Tesisler" icon={<MapPin className="size-5" aria-hidden />}
           count={favFacilities.length} emptyLabel="Henüz tesis eklenmedi."
           emptyCta={{ to: '/map', label: 'Tesisleri keşfet' }}
         >
           {favFacilities.map(f => (
-            <MiniFavCard key={f.id} to={`/facility/${f.id}`} title={f.name} subtitle={f.district} tone="bg-mint/60 text-mint-foreground" />
+            <MiniFavCard key={f.id} to={`/facility/${f.id}`} title={f.name} subtitle={f.district} tone="bg-sky/20 text-sky-foreground" />
           ))}
         </FavGroup>
 
         <FavGroup
-          title="Etkinlikler" icon={<CalendarDays className="size-4" aria-hidden />}
+          title="Kaydedilen Etkinlikler" icon={<CalendarDays className="size-5" aria-hidden />}
           count={favEvents.length} emptyLabel="Henüz etkinlik eklenmedi."
           emptyCta={{ to: '/events', label: 'Etkinliklere bak' }}
         >
           {favEvents.map(e => (
-            <MiniFavCard key={e.id} to="/events" title={e.title} subtitle={formatDate(e.date)} tone="bg-accent/15 text-accent" />
+            <MiniFavCard key={e.id} to="/events" title={e.title} subtitle={formatDate(e.date)} tone="bg-primary/10 text-primary" />
           ))}
         </FavGroup>
 
         <FavGroup
-          title="Egzersizler" icon={<Dumbbell className="size-4" aria-hidden />}
+          title="Kaydedilen Egzersizler" icon={<Dumbbell className="size-5" aria-hidden />}
           count={favExercises.length} emptyLabel="Henüz egzersiz eklenmedi."
           emptyCta={{ to: '/exercises', label: 'Egzersizleri gör' }}
         >
           {favExercises.map(e => (
-            <MiniFavCard key={e.id} to="/exercises" title={e.title} tone="bg-sky/70 text-primary-deep" />
+            <MiniFavCard key={e.id} to="/exercises" title={e.title} tone="bg-accent/15 text-accent" />
           ))}
         </FavGroup>
       </section>
 
-      {/* Activity timeline */}
-      <section className="rounded-3xl bg-card p-6 ring-1 ring-border/40 hc:bg-white hc:ring-black">
-        <div className="mb-4 flex items-center gap-2">
-          <span aria-hidden className="grid size-9 place-items-center rounded-full bg-primary/10 text-primary">
-            <Activity className="size-4" />
-          </span>
-          <h2 className="font-display text-base font-extrabold text-primary-deep hc:text-black">Son Aktiviteler</h2>
-        </div>
-
-        {activity.length === 0 ? (
-          <p className="rounded-2xl bg-muted/60 p-4 text-sm text-muted-foreground">
-            Henüz aktivite yok. Favori eklediğinde burada görünür.
-          </p>
-        ) : (
-          <ol className="relative ml-1 space-y-3 border-l border-border/60 pl-5">
-            {activity.map(entry => {
-              const positive = POSITIVE_KINDS.has(entry.kind)
-              const isUnbookmark = entry.kind.endsWith('_unbookmarked')
-              return (
-                <li key={entry.id} className="relative">
-                  <span
-                    aria-hidden
-                    className={`absolute -left-[27px] top-1.5 size-3.5 rounded-full ring-2 ring-card ${positive ? 'bg-success' : 'bg-muted-foreground/60'}`}
-                  />
-                  <div className="flex items-baseline justify-between gap-3">
-                    <span className="text-sm text-foreground hc:text-black">
-                      {isUnbookmark
-                        ? <BookmarkX aria-hidden className="-mt-0.5 mr-1 inline-block size-3.5 text-muted-foreground/80" />
-                        : <Bookmark aria-hidden className={`-mt-0.5 mr-1 inline-block size-3.5 ${positive ? 'text-success' : 'text-muted-foreground/80'}`} />
-                      }
-                      {entry.label}
-                    </span>
-                    <span className="shrink-0 text-[11px] text-muted-foreground">{relTime(entry.isoDate)}</span>
-                  </div>
-                </li>
-              )
-            })}
-          </ol>
-        )}
-      </section>
-
-      {/* Privacy & tools */}
-      <section className="grid gap-6 lg:grid-cols-[1fr_22rem]">
-        <div className="rounded-3xl bg-card p-6 ring-1 ring-border/40 hc:bg-white hc:ring-black">
-          <h3 className="font-display text-base font-extrabold text-primary-deep hc:text-black">Gizlilik &amp; Veri</h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Bilgilerin sadece sana özel öneriler için kullanılır. Profilini sıfırladığında lokal verilerin silinir.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <a
-              href="mailto:hello@uyum.app"
-              className="inline-flex items-center gap-1.5 rounded-full bg-card px-4 py-2 text-xs font-semibold text-primary ring-1 ring-primary/30 hover:bg-primary/10"
-            >
-              <Mail aria-hidden className="size-3.5" /> Bize ulaş
-            </a>
-            <button
-              type="button"
-              onClick={handleReset}
-              className="inline-flex items-center gap-1.5 rounded-full bg-destructive/10 px-4 py-2 text-xs font-bold text-destructive ring-1 ring-destructive/30 hover:bg-destructive/20"
-            >
-              <Trash2 aria-hidden className="size-3.5" /> Profili sıfırla
-            </button>
+      {/* Activity & Tools Split */}
+      <section className="grid gap-8 border-t border-border/60 pt-10 lg:grid-cols-[1fr_24rem]">
+        {/* Activity timeline */}
+        <div className="rounded-[2rem] bg-secondary p-8">
+          <div className="mb-6 flex items-center gap-3">
+            <span aria-hidden className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
+              <Activity className="size-5" />
+            </span>
+            <h2 className="text-xl font-extrabold text-primary-deep hc:text-black">Son Aktiviteler</h2>
           </div>
+
+          {activity.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Henüz aktivite yok. Favori eklediğinde burada görünür.
+            </p>
+          ) : (
+            <ol className="relative ml-2 space-y-6 border-l-2 border-primary/20 pl-6">
+              {activity.map(entry => {
+                const positive = POSITIVE_KINDS.has(entry.kind)
+                const isUnbookmark = entry.kind.endsWith('_unbookmarked')
+                return (
+                  <li key={entry.id} className="relative">
+                    <span
+                      aria-hidden
+                      className={`absolute -left-[31px] top-1.5 size-4 rounded-full ring-4 ring-secondary ${positive ? 'bg-primary' : 'bg-muted-foreground/40'}`}
+                    />
+                    <div className="flex flex-col gap-1">
+                      <span className="text-sm font-medium text-foreground hc:text-black">
+                        {isUnbookmark
+                          ? <BookmarkX aria-hidden className="-mt-0.5 mr-1.5 inline-block size-4 text-muted-foreground" />
+                          : <Bookmark aria-hidden className={`-mt-0.5 mr-1.5 inline-block size-4 ${positive ? 'text-primary' : 'text-muted-foreground'}`} />
+                        }
+                        {entry.label}
+                      </span>
+                      <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">{relTime(entry.isoDate)}</span>
+                    </div>
+                  </li>
+                )
+              })}
+            </ol>
+          )}
         </div>
-        <aside><AccessibilityToolbar /></aside>
+
+        {/* Sidebar Tools */}
+        <aside className="space-y-6">
+          <AccessibilityToolbar />
+
+          <div className="rounded-[2rem] bg-muted p-8">
+            <h3 className="text-xl font-extrabold text-primary-deep hc:text-black">Veri Kontrolü</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              Profil bilgilerin hiçbir sunucuya gönderilmez. Tamamen tarayıcında saklanır. Ayarları sıfırlayarak lokal verilerini temizleyebilirsin.
+            </p>
+            <div className="mt-6 flex flex-col gap-3">
+              <a
+                href="mailto:hello@uyum.app"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-primary transition-colors hover:bg-gray-50"
+              >
+                <Mail aria-hidden className="size-4" /> Bize ulaş
+              </a>
+              <button
+                type="button"
+                onClick={handleReset}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-destructive/20 bg-destructive/10 px-5 py-3 text-sm font-bold text-destructive transition-colors hover:bg-destructive/20"
+              >
+                <Trash2 aria-hidden className="size-4" /> Verilerimi Sıfırla
+              </button>
+            </div>
+          </div>
+        </aside>
       </section>
     </div>
   )
@@ -232,12 +227,12 @@ export function Profile() {
 
 function Fact({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-card p-4 ring-1 ring-border/40 hc:bg-white hc:ring-black">
-      <div className="flex items-start gap-3">
-        <span aria-hidden className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">{icon}</span>
+    <div className="rounded-[1.5rem] bg-secondary p-5 transition-colors hover:bg-muted">
+      <div className="flex items-center gap-4">
+        <span aria-hidden className="grid size-12 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">{icon}</span>
         <div className="min-w-0">
-          <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{label}</div>
-          <div className="mt-0.5 truncate font-display text-base font-extrabold text-primary-deep hc:text-black">{value}</div>
+          <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{label}</div>
+          <div className="mt-1 truncate text-lg font-extrabold text-primary-deep hc:text-black">{value}</div>
         </div>
       </div>
     </div>
@@ -252,20 +247,20 @@ function FavGroup({
 }) {
   return (
     <div>
-      <div className="mb-3 flex items-center gap-2 px-1">
-        <span aria-hidden className="grid size-8 place-items-center rounded-full bg-primary/10 text-primary">{icon}</span>
-        <h2 className="font-display text-base font-extrabold text-primary-deep hc:text-black">{title}</h2>
-        <span className="rounded-full bg-muted/60 px-2 py-0.5 text-[10px] font-bold text-muted-foreground">{count}</span>
+      <div className="mb-5 flex items-center gap-3 px-2">
+        <span aria-hidden className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">{icon}</span>
+        <h2 className="text-xl font-extrabold text-primary-deep hc:text-black">{title}</h2>
+        <span className="rounded-full bg-muted px-3 py-1 text-xs font-bold text-muted-foreground">{count}</span>
       </div>
       {count === 0 ? (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-muted/40 p-4 ring-1 ring-border/30">
-          <p className="text-sm text-muted-foreground">{emptyLabel}</p>
-          <Link to={emptyCta.to} className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground hover:bg-primary-deep">
-            <Sparkles aria-hidden className="size-3.5" /> {emptyCta.label}
+        <div className="flex flex-col items-center justify-center gap-4 rounded-[2rem] bg-secondary py-12 text-center">
+          <p className="text-base font-medium text-muted-foreground">{emptyLabel}</p>
+          <Link to={emptyCta.to} className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-primary-foreground hover:opacity-90">
+            {emptyCta.label} <ArrowRight aria-hidden className="size-4" />
           </Link>
         </div>
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{children}</div>
       )}
     </div>
   )

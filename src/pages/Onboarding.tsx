@@ -44,7 +44,7 @@ const DISABILITY_OPTIONS: ReadonlyArray<DisabilityOption> = [
   {
     value: 'visual', label: 'Görme engelliyim',
     description: 'Kısmi veya tamamen görme engeliyim.',
-    icon: Eye, iconColor: '#6B7FD7', selectedBg: '#f8f7f7',
+    icon: Eye, iconColor: '#6B7FD7', selectedBg: 'var(--color-muted)',
   },
   {
     value: 'hearing', label: 'İşitme engelliyim',
@@ -361,7 +361,7 @@ export function Onboarding() {
                       className={cn(
                         'ml-auto inline-flex h-12 w-full max-w-[380px] items-center justify-center gap-4 rounded-md px-5 text-sm font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
                         canProceed
-                          ? 'bg-gradient-brand text-primary-foreground shadow-[0_16px_30px_-20px_rgba(76,42,133,0.8)] hover:brightness-105'
+                          ? 'bg-primary text-primary-foreground shadow-[0_16px_30px_-20px_rgba(76,42,133,0.8)] hover:brightness-105'
                           : 'cursor-not-allowed bg-muted text-muted-foreground',
                       )}
                     >
@@ -392,7 +392,7 @@ function ProgressBar({ step }: { step: StepName }) {
       >
         <span>Adım {idx + 1}/4</span>
         <span className="block h-1.5 w-32 overflow-hidden rounded-full bg-border shadow-inner sm:w-36" aria-hidden>
-          <span className="block h-full w-1/4 rounded-full bg-gradient-brand" />
+          <span className="block h-full w-1/4 rounded-full bg-primary" />
         </span>
       </div>
     )
@@ -419,7 +419,7 @@ function ProgressBar({ step }: { step: StepName }) {
                   !done && !current && 'bg-border',
                 )}
               >
-                {done ? '✓' : current ? <span className="size-1.5 rounded-full bg-primary sm:size-2" /> : null}
+                {done ? '' : current ? <span className="size-1.5 rounded-full bg-primary sm:size-2" /> : null}
               </span>
               {i < STEP_PATHS.length - 1 && (
                 <span
@@ -455,7 +455,7 @@ function LeftRail({ step }: { step: StepName }) {
         { icon: MapPin,       bg: '#BCEDF6', color: '#0f4858' },
         { icon: Activity,     bg: '#DDFBD2', color: '#1f5a36' },
         { icon: Calendar,     bg: '#f5f3f7', color: '#4C2A85' },
-        { icon: GraduationCap, bg: '#f8f7f7', color: '#6B7FD7' },
+        { icon: GraduationCap, bg: 'var(--color-muted)', color: '#6B7FD7' },
       ],
     },
     disability: {
@@ -476,7 +476,7 @@ function LeftRail({ step }: { step: StepName }) {
         { icon: Dumbbell,    bg: '#f5f3f7', color: '#4C2A85' },
         { icon: Users,       bg: '#BCEDF6', color: '#6B7FD7' },
         { icon: Heart,       bg: '#DDFBD2', color: '#1f5a36' },
-        { icon: Trophy,      bg: '#f8f7f7', color: '#0f4858' },
+        { icon: Trophy,      bg: 'var(--color-muted)', color: '#0f4858' },
       ],
       note: 'Bu bilgiler sana özel olarak kullanılır. İlgilerini sonra değiştirebilirsin.',
     },
@@ -487,7 +487,7 @@ function LeftRail({ step }: { step: StepName }) {
         { icon: MapPin,       bg: '#DDFBD2', color: '#1f5a36' },
         { icon: Activity,     bg: '#BCEDF6', color: '#6B7FD7' },
         { icon: Users,        bg: '#f5f3f7', color: '#4C2A85' },
-        { icon: Calendar,     bg: '#f8f7f7', color: '#0f4858' },
+        { icon: Calendar,     bg: 'var(--color-muted)', color: '#0f4858' },
       ],
       note: 'Güvende olabilirsin. Bilgilerin yalnızca sana özel olacak.',
     },
@@ -543,13 +543,13 @@ function OrbitIllustration({
 
   return (
     <div aria-hidden className="relative h-[265px] w-full xl:h-[300px]">
-      <div className="absolute inset-x-0 top-5 mx-auto h-[215px] w-[90%] rounded-[42%_58%_50%_50%/46%_48%_52%_54%] bg-[radial-gradient(circle_at_28%_24%,rgba(188,237,246,0.42),transparent_38%),radial-gradient(circle_at_78%_32%,rgba(221,251,210,0.55),transparent_40%),radial-gradient(circle_at_52%_70%,rgba(76,42,133,0.12),transparent_48%),#f8f7f7] xl:h-[245px]" />
+      <div className="absolute inset-x-0 top-5 mx-auto h-[215px] w-[90%] rounded-[42%_58%_50%_50%/46%_48%_52%_54%] bg-[radial-gradient(circle_at_28%_24%,rgba(188,237,246,0.42),transparent_38%),radial-gradient(circle_at_78%_32%,rgba(221,251,210,0.55),transparent_40%),radial-gradient(circle_at_52%_70%,rgba(76,42,133,0.12),transparent_48%),var(--color-muted)] xl:h-[245px]" />
       <div className="absolute left-1/2 top-1/2 h-[190px] w-[190px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-primary/20 xl:h-[220px] xl:w-[220px]" />
       <span className="absolute left-[31%] top-[28%] size-2.5 rounded-full bg-accent/60" />
       <span className="absolute right-[25%] top-[42%] size-3 rounded-full bg-mint" />
       <span className="absolute bottom-[23%] left-[43%] size-2.5 rounded-full bg-accent/40" />
 
-      <div className="absolute left-1/2 top-1/2 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gradient-brand text-primary-foreground shadow-[0_20px_34px_-20px_rgba(76,42,133,0.75)] xl:size-[88px]">
+      <div className="absolute left-1/2 top-1/2 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_20px_34px_-20px_rgba(76,42,133,0.75)] xl:size-[88px]">
         <CenterIcon className="size-10 xl:size-11" strokeWidth={1.8} />
       </div>
 
@@ -596,7 +596,7 @@ function WelcomeStep({
           <br />
           Bizimle uyum içinde
           <br />
-          <span className="bg-gradient-brand bg-clip-text text-transparent">harekete geç.</span>
+          <span className="bg-primary bg-clip-text text-transparent">harekete geç.</span>
         </h1>
         <p className="mt-5 max-w-[520px] text-base font-medium leading-7 text-primary-deep/75 xl:mt-6 xl:text-[17px]">
           UYUM, engelli bireylerin spor ve fiziksel aktivitelere erişimini kolaylaştıran bir platformdur.
@@ -625,7 +625,7 @@ function WelcomeStep({
       <button
         type="button"
         onClick={onPrimary}
-        className="mt-6 inline-flex h-[52px] w-full max-w-[560px] items-center justify-center gap-6 rounded-md bg-gradient-brand px-6 text-base font-bold text-primary-foreground shadow-[0_18px_38px_-26px_rgba(76,42,133,0.9)] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary xl:mt-7 xl:h-14 xl:text-lg"
+        className="mt-6 inline-flex h-[52px] w-full max-w-[560px] items-center justify-center gap-6 rounded-md bg-primary px-6 text-base font-bold text-primary-foreground shadow-[0_18px_38px_-26px_rgba(76,42,133,0.9)] transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary xl:mt-7 xl:h-14 xl:text-lg"
       >
         Başlayalım <ArrowRight className="size-5 xl:size-6" aria-hidden />
       </button>
@@ -651,7 +651,7 @@ function WelcomeVisual() {
   return (
     <div className="relative hidden min-h-[540px] items-center justify-center lg:flex xl:min-h-[600px]">
       <div className="absolute inset-y-[-90px] left-[-10%] w-px rotate-[-10deg] bg-border/80" />
-      <div className="absolute left-[11%] top-[9%] h-[430px] w-[74%] rounded-[42%_58%_50%_50%/46%_48%_52%_54%] bg-[radial-gradient(circle_at_26%_24%,rgba(188,237,246,0.5),transparent_38%),radial-gradient(circle_at_78%_36%,rgba(221,251,210,0.62),transparent_42%),radial-gradient(circle_at_50%_70%,rgba(76,42,133,0.13),transparent_50%),#f8f7f7] xl:h-[490px]" />
+      <div className="absolute left-[11%] top-[9%] h-[430px] w-[74%] rounded-[42%_58%_50%_50%/46%_48%_52%_54%] bg-[radial-gradient(circle_at_26%_24%,rgba(188,237,246,0.5),transparent_38%),radial-gradient(circle_at_78%_36%,rgba(221,251,210,0.62),transparent_42%),radial-gradient(circle_at_50%_70%,rgba(76,42,133,0.13),transparent_50%),var(--color-muted)] xl:h-[490px]" />
       <div className="absolute left-1/2 top-[42%] h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-primary/20 xl:h-[380px] xl:w-[380px]" />
       <span className="absolute left-[32%] top-[32%] size-3 rounded-full bg-accent/70" />
       <span className="absolute right-[22%] top-[33%] size-3 rounded-full bg-mint" />
@@ -659,8 +659,8 @@ function WelcomeVisual() {
 
       <div className="absolute left-1/2 top-[42%] h-[176px] w-[176px] -translate-x-1/2 -translate-y-1/2 xl:h-[200px] xl:w-[200px]">
         <div className="absolute inset-x-7 bottom-3 h-7 rounded-full bg-primary/20 blur-xl" />
-        <div className="relative grid h-full w-full place-items-center rounded-[42%_58%_44%_56%/52%_50%_50%_48%] bg-gradient-brand text-primary-foreground shadow-[0_30px_60px_-35px_rgba(76,42,133,0.9)]">
-          <span className="font-display text-[7.5rem] font-black leading-none xl:text-[8.5rem]">U</span>
+        <div className="relative grid h-full w-full place-items-center rounded-[42%_58%_44%_56%/52%_50%_50%_48%] bg-primary text-primary-foreground shadow-[0_30px_60px_-35px_rgba(76,42,133,0.9)]">
+          <span className="text-[7.5rem] font-black leading-none xl:text-[8.5rem]">U</span>
           <Activity className="absolute bottom-10 right-11 size-12 text-primary-foreground xl:bottom-11 xl:right-12 xl:size-14" strokeWidth={2} />
         </div>
       </div>
