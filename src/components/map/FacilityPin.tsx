@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { Marker } from 'react-leaflet'
 import L from 'leaflet'
-import { useFacilityScore, type ScoreColor } from '../../hooks/useFacilityScore'
-import { SCORE_GLYPH, SCORE_LABEL } from '../../lib/a11y-labels'
+import { useFacilityScore } from '../../hooks/useFacilityScore'
+import { SCORE_GLYPH, SCORE_LABEL, SCORE_HEX } from '../../lib/a11y-labels'
 import { getSportIcon, getSportLabel } from '../../lib/sport-icons'
 import type { Facility, DisabilityType } from '../../types'
 
@@ -13,12 +13,6 @@ interface FacilityPinProps {
   isDimmed:       boolean
 }
 
-const COLOR_HEX: Record<ScoreColor, string> = {
-  green:  '#16a34a',
-  yellow: '#eab308',
-  red:    '#dc2626',
-  gray:   '#6b7280',
-}
 
 
 function buildDivIcon(
@@ -100,7 +94,7 @@ function buildDivIcon(
 export function FacilityPin({ facility, disabilityType, isHighlighted, isDimmed }: FacilityPinProps) {
   const navigate = useNavigate()
   const { overall } = useFacilityScore(facility, disabilityType)
-  const color    = COLOR_HEX[overall]
+  const color    = SCORE_HEX[overall]
   const glyph    = SCORE_GLYPH[overall]
   const sportId  = facility.sports[0] ?? ''
   const icon     = getSportIcon(sportId)

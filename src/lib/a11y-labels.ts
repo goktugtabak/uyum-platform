@@ -45,3 +45,10 @@ export function scoreColorFromCount(n: number): ScoreColor {
   if (n >= 1) return 'red'
   return 'gray'
 }
+
+export const SCORE_HEX: Record<ScoreColor, string> = {
+  green:  '#16a34a',
+  yellow: '#eab308',
+  red:    '#dc2626',
+  gray:   '#6b7280',
+}

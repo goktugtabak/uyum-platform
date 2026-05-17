@@ -12,8 +12,8 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import { useProfile } from '../contexts/ProfileContext'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
-import { useFacilityScore, type ScoreColor } from '../hooks/useFacilityScore'
-import { SCORE_LABEL, SCORE_GLYPH, scoreColorFromCount } from '../lib/a11y-labels'
+import { useFacilityScore } from '../hooks/useFacilityScore'
+import { SCORE_LABEL, SCORE_GLYPH, SCORE_HEX, scoreColorFromCount } from '../lib/a11y-labels'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
 import { getSportLabel } from '../lib/sport-icons'
 import { Spinner } from '../components/ui/Spinner'
@@ -26,12 +26,6 @@ import type { Facility, DisabilityType } from '../types'
 
 const ANKARA_CENTER: [number, number] = [39.9334, 32.8597]
 
-const COLOR_HEX: Record<ScoreColor, string> = {
-  green:  '#16a34a',
-  yellow: '#eab308',
-  red:    '#dc2626',
-  gray:   '#6b7280',
-}
 const FACILITY_THUMBS: string[] = [facilityEryaman, facilityPool, sportBasket, sportTT, sportSwim]
 
 const DISABILITY_OPTIONS: { value: DisabilityType; label: string }[] = [
@@ -89,7 +83,7 @@ function buildPhotoIcon(imageUrl: string, color: string, glyph: string, isDimmed
       </div>
       <span style="position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:${color};color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid #fff;">${glyph}</span>
     </div>`
-  return L.divIcon({ html, className: '', iconSize: [52, 56], iconAnchor: [26, 56] })
+  return L.divIcon({ html, className: '', iconSize: [52, 52], iconAnchor: [26, 52] })
 }
 
 function LiveFacilityMarker({
@@ -102,7 +96,7 @@ function LiveFacilityMarker({
   isDimmed: boolean
 }) {
   const { overall } = useFacilityScore(facility, disabilityType)
-  const color = COLOR_HEX[overall]
+  const color = SCORE_HEX[overall]
   const glyph = SCORE_GLYPH[overall]
   const distanceKm = estimatedDistance(facility)
   const divIcon = buildPhotoIcon(imageUrl, color, glyph, isDimmed, isHighlighted)
@@ -433,10 +427,10 @@ export function FacilityMap() {
               <div className="flex flex-col gap-3">
                 <span className="text-[12px] font-semibold text-foreground/70">Erişilebilirlik durumu</span>
                 <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-                  <Legend dot={COLOR_HEX.green}  label="İyi erişilebilir" />
-                  <Legend dot={COLOR_HEX.yellow} label="Kısmen erişilebilir" />
-                  <Legend dot={COLOR_HEX.red}    label="Erişim engeli var" />
-                  <Legend dot={COLOR_HEX.gray}   label="Bilgi yetersiz" />
+                  <Legend dot={SCORE_HEX.green}  label="İyi erişilebilir" />
+                  <Legend dot={SCORE_HEX.yellow} label="Kısmen erişilebilir" />
+                  <Legend dot={SCORE_HEX.red}    label="Erişim engeli var" />
+                  <Legend dot={SCORE_HEX.gray}   label="Bilgi yetersiz" />
                 </div>
               </div>
               <div className="flex items-center gap-3 rounded-2xl bg-accent/10 px-4 py-3">
