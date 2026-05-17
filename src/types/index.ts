@@ -117,6 +117,7 @@ export interface CoachContact {
 export interface Coach {
   id: string
   name: string
+  photo: string | null
   bio: string
   sports: string[]
   disabilityExpertise: DisabilityType[]
@@ -124,7 +125,6 @@ export interface Coach {
   yearsExperience: number
   city: string
   contact: CoachContact
-  photoUrl?: string
 }
 
 export interface Exercise {

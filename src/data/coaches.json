@@ -2,6 +2,7 @@
   {
     "id": "c-001",
     "name": "Ayşe Kara",
+    "photo": "/coaches/ayse-kara.png",
     "bio": "Türkiye Milli Para Yüzme Takımı ile çalışmış, 3 Paralimpik madalyalı sporcu yetiştirmiş deneyimli antrenör. Fiziksel ve görme engeli olan sporcularla uzmanlaşmıştır.",
     "sports": ["s-swim", "s-aqua"],
     "disabilityExpertise": ["wheelchair", "visual"],
@@ -16,6 +17,7 @@
   {
     "id": "c-002",
     "name": "Mehmet Yıldız",
+    "photo": "/coaches/mehmet-yildiz.png",
     "bio": "Ankara'nın lider para spor kulübünde baş antrenman koordinatörü. Genç sporcuların gelişimine odaklanmakta; tekerlekli basketbol ve oturarak voleybolda uzman.",
     "sports": ["s-wheelchair-basket", "s-sitting-volleyball"],
     "disabilityExpertise": ["wheelchair"],
@@ -29,6 +31,7 @@
   {
     "id": "c-003",
     "name": "Fatma Demir",
+    "photo": "/coaches/fatma-demir.png",
     "bio": "Hareket kısıtlılığı, kronik ağrı ve fiziksel engeli olan bireylerle çalışan sertifikalı yoga terapisti. Nefes ve bilinçli hareket tekniklerini ön planda tutar.",
     "sports": ["s-yoga", "s-pilates"],
     "disabilityExpertise": ["wheelchair", "upper_limb"],
@@ -43,6 +46,7 @@
   {
     "id": "c-004",
     "name": "Serdar Özkan",
+    "photo": "/coaches/serdar-özkan.png",
     "bio": "Ampute ve tekerlekli sporculara özel güç-hız programları geliştiren para atletizm ve kuvvet antrenmanı uzmanı. Ankara Üniversitesi Spor Bilimleri mezunu.",
     "sports": ["s-athletics", "s-strength"],
     "disabilityExpertise": ["wheelchair", "upper_limb"],
@@ -57,6 +61,7 @@
   {
     "id": "c-005",
     "name": "Zeynep Arslan",
+    "photo": "/coaches/zeynep-arslan.png",
     "bio": "İşaret dili bilen goalball ve para judo antrenörü. Hem işitme hem görme engeli olan sporcularla etkili iletişim kurabilmektedir.",
     "sports": ["s-goalball", "s-judo-para"],
     "disabilityExpertise": ["visual", "hearing"],
@@ -70,6 +75,7 @@
   {
     "id": "c-006",
     "name": "Can Koç",
+    "photo": "/coaches/can-koc.png",
     "bio": "Gölbaşı Para Okçuluk Tesisi'nin kurucu antrenörü. Özellikle üst ekstremite engeli olan sporcuların teknik gelişimini takip etmektedir.",
     "sports": ["s-archery-para", "s-boccia"],
     "disabilityExpertise": ["wheelchair", "upper_limb"],
@@ -84,6 +90,7 @@
   {
     "id": "c-007",
     "name": "Hüseyin Çelik",
+    "photo": "/coaches/huseyin-celik.png",
     "bio": "Tekerlekli sandalye tenisi ve su topu alanında deneyimli antrenör. Görsel iletişim tekniklerini antrenmanlarına entegre etmiştir.",
     "sports": ["s-wheelchair-tennis", "s-waterpolo"],
     "disabilityExpertise": ["wheelchair", "hearing"],
@@ -97,6 +104,7 @@
   {
     "id": "c-008",
     "name": "Merve Şahin",
+    "photo": "/coaches/merve-sahin.png",
     "bio": "Görme ve işitme engelli sporculara yönelik güvenli kuvvet antrenmanı protokolleri geliştirmiş adaptif kondisyon antrenörü.",
     "sports": ["s-strength", "s-pilates"],
     "disabilityExpertise": ["visual", "hearing"],

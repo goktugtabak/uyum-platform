@@ -52,12 +52,20 @@ export function CoachCard({ coach, facilities, profileMatch = false }: CoachCard
     >
       {/* Photo / gradient header */}
       <div className="relative aspect-[4/3] overflow-hidden bg-primary">
-        <div
-          aria-hidden
-          className="absolute inset-0 grid place-items-center text-5xl font-extrabold tracking-tight text-primary-foreground"
-        >
-          {initials || coach.name[0]}
-        </div>
+        {coach.photo ? (
+          <img
+            src={coach.photo}
+            alt={coach.name}
+            className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div
+            aria-hidden
+            className="absolute inset-0 grid place-items-center text-5xl font-extrabold tracking-tight text-primary-foreground"
+          >
+            {initials || coach.name[0]}
+          </div>
+        )}
         {/* Top badges */}
         <div className="absolute left-3 top-3 flex items-center gap-2">
           {profileMatch && (
