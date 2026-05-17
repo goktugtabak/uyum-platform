@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { Facility, DisabilityType } from '../../types'
 import { useFacilityScore, type ScoreColor } from '../../hooks/useFacilityScore'
+import { SCORE_LABEL, SCORE_GLYPH } from '../../lib/a11y-labels'
 import { getSportLabel } from '../../lib/sport-icons'
 import { MapPin } from 'lucide-react'
 
@@ -9,20 +10,6 @@ const SCORE_BG: Record<ScoreColor, string> = {
   yellow: 'bg-[oklch(0.92_0.10_85)] text-[oklch(0.45_0.12_85)]',
   red:    'bg-destructive/15 text-destructive',
   gray:   'bg-muted text-muted-foreground',
-}
-
-const SCORE_LABEL: Record<ScoreColor, string> = {
-  green:  'İyi erişilebilir',
-  yellow: 'Kısmen erişilebilir',
-  red:    'Erişim engeli var',
-  gray:   'Bilgi yetersiz',
-}
-
-const SCORE_GLYPH: Record<ScoreColor, string> = {
-  green:  '✓',
-  yellow: '~',
-  red:    '✕',
-  gray:   '?',
 }
 
 const SCORE_PERCENT: Record<ScoreColor, number> = {

@@ -1,4 +1,5 @@
 import type { AccessibilityDimension } from '../types'
+import type { ScoreColor } from '../hooks/useFacilityScore'
 
 export interface A11yLabel {
   label: string
@@ -16,8 +17,6 @@ const LABELS: Record<AccessibilityDimension, A11yLabel> = {
 export function getAccessibilityLabel(dim: AccessibilityDimension): A11yLabel {
   return LABELS[dim]
 }
-
-import type { ScoreColor } from '../hooks/useFacilityScore'
 
 export const SCORE_LABEL: Record<ScoreColor, string> = {
   green:  'Çok Uygun',

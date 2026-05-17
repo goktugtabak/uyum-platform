@@ -31,13 +31,6 @@ const COLOR_HEX: Record<ScoreColor, string> = {
   red:    '#dc2626',
   gray:   '#6b7280',
 }
-const COLOR_LABELS: Record<ScoreColor, string> = {
-  green:  'iyi erişilebilir',
-  yellow: 'kısmen erişilebilir',
-  red:    'erişim engeli var',
-  gray:   'bilgi yetersiz',
-}
-
 const FACILITY_THUMBS: string[] = [facilityEryaman, facilityPool, sportBasket, sportTT, sportSwim]
 
 const DISABILITY_OPTIONS: { value: DisabilityType; label: string }[] = [
@@ -113,10 +106,9 @@ function LiveFacilityMarker({
 }) {
   const { overall } = useFacilityScore(facility, disabilityType)
   const color = COLOR_HEX[overall]
-  const colorLabel = COLOR_LABELS[overall]
   const distanceKm = estimatedDistance(facility)
   const divIcon = buildPhotoIcon(imageUrl, color, isDimmed, isHighlighted)
-  const ariaLabel = `${facility.name} — erişilebilirlik: ${colorLabel}`
+  const ariaLabel = `${facility.name} — erişilebilirlik: ${SCORE_LABEL[overall]}`
 
   return (
     <Marker
@@ -153,7 +145,7 @@ function LiveFacilityMarker({
                 fontSize: 10, fontWeight: 700, borderRadius: 99,
                 padding: '2px 8px', letterSpacing: 0.3,
               }}>
-                {SCORE_GLYPH[overall]} {SCORE_LABEL[overall]}
+                <span aria-hidden="true">{SCORE_GLYPH[overall]}</span>{' '}{SCORE_LABEL[overall]}
               </span>
             </div>
             <div style={{ padding: '10px 12px 12px' }}>
