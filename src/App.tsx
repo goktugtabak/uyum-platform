@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom'
-import { lazy, Suspense } from 'react'
+import { BrowserRouter, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom'
+import { lazy, Suspense, useEffect } from 'react'
 import { AccessibilityProvider } from './contexts/AccessibilityContext'
 import { ProfileProvider, useProfile } from './contexts/ProfileContext'
 import { AppShell } from './components/layout/AppShell'
@@ -38,8 +38,16 @@ const CommunityPage         = lazy(() => import('./pages/Community').then(m => (
 const ProfilePage           = lazy(() => import('./pages/Profile').then(m => ({ default: m.Profile })))
 const NotificationsPage     = lazy(() => import('./pages/Notifications').then(m => ({ default: m.Notifications })))
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
+
 function AppRoutes() {
   return (
+    <>
+    <ScrollToTop />
     <Routes>
       {/* Public routes — no shell */}
       <Route path="/"                     element={<LandingPage />} />
@@ -62,6 +70,7 @@ function AppRoutes() {
         <Route path="*"              element={<NotFound />} />
       </Route>
     </Routes>
+    </>
   )
 }
 
