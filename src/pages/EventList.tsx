@@ -117,43 +117,6 @@ function relativeDays(iso: string, now: number): string {
   return ''
 }
 
-function ParkScene() {
-  return (
-    <svg viewBox="0 0 480 200" className="h-full w-full" aria-hidden>
-      <defs>
-        <linearGradient id="evt-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="oklch(0.96 0.04 270)" />
-          <stop offset="1" stopColor="oklch(0.985 0.005 290)" />
-        </linearGradient>
-      </defs>
-      <rect width="480" height="200" fill="url(#evt-sky)" rx="24" />
-      <g opacity="0.5" fill="oklch(0.78 0.08 270)">
-        <rect x="320" y="80"  width="20" height="80" />
-        <rect x="345" y="60"  width="24" height="100" />
-        <rect x="372" y="90"  width="18" height="70" />
-        <rect x="395" y="70"  width="22" height="90" />
-        <rect x="420" y="100" width="16" height="60" />
-      </g>
-      <ellipse cx="80"  cy="190" rx="140" ry="40" fill="oklch(0.92 0.07 145 / 0.7)" />
-      <ellipse cx="380" cy="200" rx="160" ry="50" fill="oklch(0.92 0.07 145 / 0.6)" />
-      <circle cx="60"  cy="150" r="18" fill="oklch(0.78 0.12 145)" />
-      <rect   x="58"   y="160" width="4" height="20" fill="oklch(0.5 0.08 60)" />
-      <circle cx="430" cy="155" r="20" fill="oklch(0.78 0.12 145)" />
-      <rect   x="428"  y="165" width="4" height="22" fill="oklch(0.5 0.08 60)" />
-      <path d="M0 195 Q 240 170, 480 195" stroke="oklch(0.88 0.04 60)" strokeWidth="6" fill="none" />
-      <g transform="translate(190, 90)" fill="oklch(0.55 0.14 295)">
-        <circle cx="20" cy="10" r="8" />
-        <path d="M10 22 L 30 22 L 32 50 L 8 50 Z" />
-        <circle cx="12" cy="62" r="14" fill="none" stroke="oklch(0.55 0.14 295)" strokeWidth="2.5" />
-        <circle cx="32" cy="62" r="14" fill="none" stroke="oklch(0.55 0.14 295)" strokeWidth="2.5" />
-      </g>
-      <g transform="translate(290, 100)" fill="oklch(0.72 0.10 270)">
-        <circle cx="10" cy="8" r="6" />
-        <path d="M5 16 L 16 16 L 18 38 L 14 50 L 18 50 L 22 38 L 24 18 Z" />
-      </g>
-    </svg>
-  )
-}
 
 interface EventRowProps {
   event: SportEvent
@@ -564,20 +527,39 @@ export function EventList() {
   return (
     <div className="mx-auto max-w-7xl pt-2">
       <BackButton className="mb-6" />
-      {/* Hero — title + soft park illustration */}
-      <header className="relative mb-10 grid items-end gap-10 md:grid-cols-12">
-        <div className="md:col-span-7">
-          <h1 className="text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
+      {/* Hero — fotoğraf + başlık */}
+      <header className="relative mb-10 overflow-hidden rounded-3xl" style={{ minHeight: 220 }}>
+        {/* Fotoğraf */}
+        <img
+          src="/images/event.png"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
+        {/* Sol: arka plan rengiyle (krem/bej) uyumlu gradient — içeriği okunur kılar */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to right, oklch(0.985 0.005 290) 28%, oklch(0.985 0.005 290 / 0.82) 50%, transparent 75%)',
+          }}
+          aria-hidden
+        />
+        {/* Alt: hafif siluet geçişi */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(to top, oklch(0.985 0.005 290 / 0.5) 0%, transparent 40%)' }}
+          aria-hidden
+        />
+
+        {/* İçerik */}
+        <div className="relative px-8 py-10 md:max-w-lg">
+          <h1 className="text-[clamp(2.2rem,4.2vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
             Etkinlikler
           </h1>
-          <p className="mt-3 max-w-lg text-base text-muted-foreground">
+          <p className="mt-3 max-w-sm text-[15px] text-foreground/70">
             Profiline ve ilgi alanlarına göre senin için sıralanan etkinlikleri keşfet,
             katıl ve yeni deneyimler kazan.
           </p>
-        </div>
-
-        <div className="relative h-44 md:col-span-5">
-          <ParkScene />
         </div>
       </header>
 
