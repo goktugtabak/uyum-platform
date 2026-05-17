@@ -154,3 +154,15 @@ export interface Sport {
   mobilityLevel: MobilityLevel[]
   goals: Goal[]
 }
+
+export type VerificationVote = 'confirm' | 'deny'
+
+export interface VerificationEntry {
+  id: string
+  facilityId: string
+  dimension: 'entry' | 'internal' | 'changing' | 'equipment' | 'staff' | 'communication'
+  disabilityType: DisabilityType
+  vote: VerificationVote
+  userId: string
+  timestamp: string
+}
