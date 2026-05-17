@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+﻿import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   ArrowLeft, ArrowRight, MapPin, GraduationCap, Plus,
   Accessibility, ParkingCircle, DoorOpen, MoveVertical, Star, CalendarDays,
@@ -110,6 +111,7 @@ function FacilityDetailInner({
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
+      <BackButton className="mb-6" />
       <Link
         to="/map"
         className="mb-5 inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary"

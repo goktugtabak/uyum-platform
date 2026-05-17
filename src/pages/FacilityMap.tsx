@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   Navigation, Layers, Plus, Minus, ChevronDown,
   Accessibility, Waves, MapPin, ParkingCircle, Dumbbell,
@@ -209,6 +210,7 @@ export function FacilityMap() {
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
+      <BackButton className="mb-6" />
       <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="font-display text-[clamp(2rem,3.4vw,2.8rem)] font-extrabold tracking-tight text-primary-deep">

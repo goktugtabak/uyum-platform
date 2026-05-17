@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   Accessibility, Target, Pencil, CheckCircle2, MapPin, RefreshCw, Heart,
   Footprints,
@@ -124,6 +125,7 @@ export function MatchSport() {
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
+      <BackButton className="mb-6" />
       {/* Header */}
       <header className="mb-12 flex flex-wrap items-start justify-between gap-8">
         <div>

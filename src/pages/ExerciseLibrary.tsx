@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   ArrowLeft, ArrowRight, Flame, Dumbbell, Sparkles, Activity, Wind,
   LayoutGrid, List, MessageCircleQuestion, ChevronLeft, ChevronRight, X,
@@ -144,12 +145,8 @@ export function ExerciseLibrary() {
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
-      <Link
-        to="/dashboard"
-        className="mb-6 inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-primary"
-      >
-        <ArrowLeft className="size-3.5" aria-hidden /> Ana Sayfa / Egzersizler
-      </Link>
+      <BackButton className="mb-6" />
+
 
       {/* Hero — title only, soft mint glow on right */}
       <header className="relative mb-12">
