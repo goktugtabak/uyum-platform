@@ -9,12 +9,29 @@
 // API key yoksa "no key, skipping" diyerek exit 0 — CI/Vercel kırılmaz.
 // Çıktı dosyaları commit'lenir → demo'da runtime API çağrısı yapılmaz.
 
-import { writeFileSync, mkdirSync, createWriteStream } from 'node:fs'
+import { writeFileSync, mkdirSync, createWriteStream, readFileSync, existsSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { pipeline } from 'node:stream/promises'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+
+// .env.local dosyasını manuel yükle (Node.js bunu otomatik okumaz, sadece Vite okur)
+const envLocalPath = resolve(__dirname, '../.env.local')
+if (existsSync(envLocalPath)) {
+  const envLines = readFileSync(envLocalPath, 'utf8').split('\n')
+  for (const line of envLines) {
+    const trimmed = line.trim()
+    if (!trimmed || trimmed.startsWith('#')) continue
+    const eqIdx = trimmed.indexOf('=')
+    if (eqIdx === -1) continue
+    const key = trimmed.slice(0, eqIdx).trim()
+    const value = trimmed.slice(eqIdx + 1).trim()
+    if (key && !(key in process.env)) {
+      process.env[key] = value
+    }
+  }
+}
 
 // --- paths ---
 const CACHE_PATH  = resolve(__dirname, '../public/data/facilities-places-cache.json')
