@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+﻿import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   ArrowLeft, ArrowRight, MessageCircleQuestion,
 } from 'lucide-react'
@@ -151,12 +152,7 @@ export function CoachDirectory() {
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
-      <Link
-        to="/dashboard"
-        className="mb-6 inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-primary"
-      >
-        <ArrowLeft className="size-3.5" aria-hidden /> Ana Sayfa / Koçlar & Antrenörler
-      </Link>
+       <BackButton className="mb-6" />
 
       {/* Hero — title + open photo fading into canvas (Dashboard style) */}
       <header className="relative mb-10 grid items-center gap-8 md:grid-cols-12">

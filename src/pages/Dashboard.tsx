@@ -20,6 +20,7 @@ import sportsData from '../data/sports.json'
 import eventsData from '../data/events.json'
 import type { Facility, Sport, SportEvent, Testimony, DisabilityType } from '../types'
 import { ScoreBadge } from '../components/ui/ScoreBadge'
+import { FacilityTrustLine } from '../components/feature/FacilityTrust'
 import dashHero from '../assets/dashboard-hero.jpg'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
@@ -192,6 +193,7 @@ export function Dashboard() {
                         <div className="text-[11.5px] text-muted-foreground">
                           {estimatedDistance(facility)} km · {facility.district.split(',')[0]}
                         </div>
+                        <FacilityTrustLine facility={facility} className="mt-1" />
                         <div className="mt-1 flex items-center gap-1.5 text-foreground/40">
                           {[Activity, MapPin, Waves, CircleDot].map((I, i) => (
                             <I key={i} className="size-3" aria-hidden />
