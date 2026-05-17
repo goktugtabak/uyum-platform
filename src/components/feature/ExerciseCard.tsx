@@ -1,5 +1,7 @@
-import { Bookmark, Clock, User, Play } from 'lucide-react'
+import { Clock, User, Play } from 'lucide-react'
 import type { Exercise, DisabilityType } from '../../types'
+import { useProfile } from '../../contexts/ProfileContext'
+import { BookmarkButton } from '../ui/BookmarkButton'
 
 const DISABILITY_LABELS: Record<DisabilityType, string> = {
   wheelchair: 'Tekerlekli Sandalye',
@@ -18,6 +20,7 @@ interface ExerciseCardProps {
 }
 
 export function ExerciseCard({ exercise }: ExerciseCardProps) {
+  const { profile, toggleFavoriteExercise } = useProfile()
   const titleId = `ex-${exercise.id}-title`
   const primaryDisability = exercise.disabilityTypes[0]
 
@@ -86,9 +89,11 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
           <span className="inline-flex items-center gap-1">
             <Clock aria-hidden className="size-3" /> {formatDuration(exercise.duration)}
           </span>
-          <button type="button" aria-label="Kaydet">
-            <Bookmark aria-hidden className="size-4 text-foreground/60 hover:text-primary" />
-          </button>
+          <BookmarkButton
+            isBookmarked={profile?.favoriteExercises?.includes(exercise.id) ?? false}
+            onToggle={() => toggleFavoriteExercise(exercise.id)}
+            label={exercise.title}
+          />
         </div>
       </div>
     </article>

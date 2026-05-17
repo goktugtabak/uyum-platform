@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  MapPin, Sparkles, ArrowRight, Heart, Plus, ChevronRight,
+  MapPin, Sparkles, ArrowRight, Heart, ChevronRight,
   Waves, CircleDot, Activity, Target, CalendarDays, FileSpreadsheet,
   Footprints,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 import { useProfile } from '../contexts/ProfileContext'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
@@ -16,6 +19,8 @@ import { formatRelative } from '../lib/live-status'
 import sportsData from '../data/sports.json'
 import eventsData from '../data/events.json'
 import type { Facility, Sport, SportEvent, Testimony, DisabilityType } from '../types'
+import { scoreColorFromCount } from '../lib/a11y-labels'
+import { ScoreBadge } from '../components/ui/ScoreBadge'
 import dashHero from '../assets/dashboard-hero.jpg'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
@@ -65,6 +70,7 @@ function getFacilityImage(facility: Facility, fallbackIndex: number): string {
   return FACILITY_THUMBS[fallbackIndex % FACILITY_THUMBS.length]
 }
 
+
 function estimatedDistance(facility: Facility): number {
   // Ankara merkez (~Kızılay) referans: 39.9208, 32.8541
   const lat0 = 39.9208, lng0 = 32.8541
@@ -107,8 +113,8 @@ export function Dashboard() {
       {/* Hero — open, no card; image fades into canvas */}
       <section className="relative mb-16 grid grid-cols-1 items-center gap-8 md:grid-cols-12">
         <div className="md:col-span-7">
-          <h1 className="flex flex-wrap items-center gap-3 font-display text-[clamp(2.2rem,4vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
-            Merhaba! <span aria-hidden>👋</span>
+          <h1 className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
+            Merhaba!
           </h1>
           <p className="mt-3 max-w-md text-base text-muted-foreground">
             Bugün hareket etmek için harika bir gün. <br />
@@ -166,51 +172,53 @@ export function Dashboard() {
         <section>
           <SectionHeader icon={<MapPin className="size-4 text-primary" aria-hidden />} title="Yakındaki Tesisler" to="/map" />
 
-          {/* Soft mini map (no border) */}
-          <div className="relative mt-5 h-44 overflow-hidden rounded-3xl">
-            <MiniMap />
-          </div>
+          <div>
+            {/* Leaflet mini map preview */}
+            <div className="relative mt-5 h-44 overflow-hidden rounded-3xl">
+              <MiniMap facilities={facilities} ranked={ranked.map(r => r.facility)} />
+            </div>
 
-          <ul className="mt-6 space-y-5">
-            {ranked.map(({ facility, verifiedCount }, idx) => {
-              const scorePct = Math.round((verifiedCount / 6) * 100)
-              return (
-                <li key={facility.id}>
-                  <Link to={`/facility/${facility.id}`} className="flex items-center gap-3 hover:opacity-90">
-                    <img
-                      src={getFacilityImage(facility, idx)}
-                      alt=""
-                      className="size-14 rounded-2xl object-cover"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <div className="truncate text-sm font-bold text-foreground">{facility.name}</div>
-                      <div className="text-[11.5px] text-muted-foreground">
-                        {estimatedDistance(facility)} km · {facility.district.split(',')[0]}
+            <ul className="mt-6 space-y-5">
+              {ranked.map(({ facility, verifiedCount }, idx) => {
+                return (
+                  <li key={facility.id}>
+                    <Link to={`/facility/${facility.id}`} className="flex items-center gap-3 hover:opacity-90">
+                      <img
+                        src={getFacilityImage(facility.id, idx)}
+                        alt=""
+                        className="size-14 rounded-2xl object-cover"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate text-sm font-bold text-foreground">{facility.name}</div>
+                        <div className="text-[11.5px] text-muted-foreground">
+                          {estimatedDistance(facility)} km · {facility.district.split(',')[0]}
+                        </div>
+                        <div className="mt-1 flex items-center gap-1.5 text-foreground/40">
+                          {[Activity, MapPin, Waves, CircleDot].map((I, i) => (
+                            <I key={i} className="size-3" aria-hidden />
+                          ))}
+                        </div>
                       </div>
-                      <div className="mt-1 flex items-center gap-1.5 text-foreground/40">
-                        {[Activity, MapPin, Waves, CircleDot].map((I, i) => (
-                          <I key={i} className="size-3" aria-hidden />
-                        ))}
-                      </div>
-                    </div>
-                    <span className="rounded-full bg-mint/60 px-2.5 py-1 text-[11px] font-bold text-mint-foreground">
-                      %{scorePct} Uygun
-                    </span>
-                  </Link>
+                      <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
+                    </Link>
+                  </li>
+                )
+              })}
+              {ranked.length === 0 && (
+                <li className="text-sm text-muted-foreground">
+                  Profiline uygun tesis bulunamadı.{' '}
+                  <Link to="/map" className="text-primary underline">Haritadan ara</Link>.
                 </li>
-              )
-            })}
-            {ranked.length === 0 && (
-              <li className="text-sm text-muted-foreground">
-                Profiline uygun tesis bulunamadı.{' '}
-                <Link to="/map" className="text-primary underline">Haritadan ara</Link>.
-              </li>
-            )}
-          </ul>
+              )}
+            </ul>
 
-          <Link to="/map" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-            Haritadaki tüm tesisleri gör <ArrowRight className="size-3.5" aria-hidden />
-          </Link>
+            <Link
+              to="/map"
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-glow hover:bg-primary-deep transition"
+            >
+              <MapPin className="size-4" aria-hidden /> Haritada tüm tesisleri gör
+            </Link>
+          </div>
         </section>
 
         {/* Community feed */}
@@ -266,13 +274,6 @@ export function Dashboard() {
             Paylaş, ilham ver, destek ol.
           </Link>
 
-          <Link
-            to="/community"
-            aria-label="Paylaş"
-            className="fixed bottom-8 right-8 z-20 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow"
-          >
-            <Plus className="size-6" aria-hidden />
-          </Link>
         </section>
 
         {/* Personalised discovery */}
@@ -394,46 +395,64 @@ function SectionHeader({
   )
 }
 
-function MiniMap() {
-  return (
-    <div className="absolute inset-0 bg-[oklch(0.96_0.02_240)]">
-      <svg viewBox="0 0 400 200" className="absolute inset-0 h-full w-full" aria-hidden>
-        <defs>
-          <pattern id="dash-grid" width="32" height="32" patternUnits="userSpaceOnUse">
-            <path d="M32 0H0V32" stroke="oklch(0.88 0.03 240)" strokeWidth="0.6" fill="none" />
-          </pattern>
-        </defs>
-        <rect width="400" height="200" fill="url(#dash-grid)" />
-        <path d="M0 110 Q 120 80, 220 120 T 400 130" stroke="oklch(0.82 0.04 240)" strokeWidth="6" fill="none" opacity="0.7" />
-        <path d="M180 0 Q 160 90, 200 130 T 240 200" stroke="oklch(0.82 0.04 240)" strokeWidth="5" fill="none" opacity="0.6" />
-        <ellipse cx="80" cy="50" rx="42" ry="22" fill="oklch(0.92 0.08 140 / 0.5)" />
-        <ellipse cx="320" cy="160" rx="50" ry="26" fill="oklch(0.92 0.08 140 / 0.5)" />
-      </svg>
-      <MiniPin top="34%" left="22%" color="violet" />
-      <MiniPin top="56%" left="48%" color="violet" big />
-      <MiniPin top="22%" right="22%" color="peach" />
-      <MiniPin bottom="20%" left="38%" color="mint" />
-    </div>
-  )
+const ANKARA_CENTER: [number, number] = [39.9208, 32.8541]
+
+function makeDotIcon(color: string, size = 12) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${color};border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,.35)"></div>`,
+    iconSize: [size, size],
+    iconAnchor: [size / 2, size / 2],
+  })
 }
 
-function MiniPin({
-  color, big, ...pos
-}: {
-  color: 'violet' | 'peach' | 'mint'
-  big?: boolean
-  top?: string; left?: string; right?: string; bottom?: string
-}) {
-  const c =
-    color === 'violet' ? 'text-primary' :
-    color === 'peach' ? 'text-[oklch(0.62_0.18_55)]' :
-    'text-mint-foreground'
+const PIN_COLORS = ['#4C2A85', '#6b5fc7', '#f97316', '#22c55e']
+
+function MiniMap({ facilities, ranked }: { facilities: Facility[]; ranked: Facility[] }) {
+  const pins = facilities.slice(0, 4)
+
+  const center: [number, number] = ranked.length > 0
+    ? [
+        ranked.reduce((s, f) => s + f.coordinates.lat, 0) / ranked.length,
+        ranked.reduce((s, f) => s + f.coordinates.lng, 0) / ranked.length,
+      ]
+    : ANKARA_CENTER
+
   return (
-    <div className="absolute -translate-x-1/2 -translate-y-full" style={pos}>
-      <svg className={`${big ? 'size-9' : 'size-6'} ${c}`} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-        <path d="M12 2 C 7 2, 4 5.5, 4 9.5 C 4 15, 12 22, 12 22 C 12 22, 20 15, 20 9.5 C 20 5.5, 17 2, 12 2 Z" />
-        <circle cx="12" cy="9.5" r="2.8" fill="white" />
-      </svg>
+    <div className="absolute inset-0 overflow-hidden rounded-3xl">
+      <MapContainer
+        center={center}
+        zoom={13}
+        zoomControl={false}
+        scrollWheelZoom={false}
+        dragging={false}
+        doubleClickZoom={false}
+        touchZoom={false}
+        keyboard={false}
+        attributionControl={false}
+        style={{ height: '100%', width: '100%' }}
+        aria-label="Yakındaki tesisler haritası"
+      >
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {pins.map((f, i) => {
+          const isRanked = ranked.some(r => r.id === f.id)
+          return (
+            <Marker
+              key={f.id}
+              position={[f.coordinates.lat, f.coordinates.lng]}
+              icon={makeDotIcon(PIN_COLORS[i % PIN_COLORS.length], isRanked ? 14 : 10)}
+            />
+          )
+        })}
+      </MapContainer>
+      {/* Overlay: subtle vignette + non-interactive shield */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-3xl"
+        style={{ boxShadow: 'inset 0 0 30px rgba(0,0,0,0.08)' }}
+        aria-hidden
+      />
     </div>
   )
 }

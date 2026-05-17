@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Accessibility, Target, Pencil, CheckCircle2, MapPin, RefreshCw, Heart,
-  Sparkles as SparklesIcon, Footprints,
+  Footprints,
   Waves, CircleDot, Trophy,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -10,11 +10,13 @@ import { useProfile } from '../contexts/ProfileContext'
 import { matchSports } from '../lib/sport-match'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
-import { DemoBadge } from '../components/ui/DemoBadge'
 import { SpeakButton } from '../components/ui/SpeakButton'
+import { ScoreBadge } from '../components/ui/ScoreBadge'
+import { MatchBadge, type MatchLevel } from '../components/ui/MatchBadge'
 import sportsData from '../data/sports.json'
 import type { Sport, Facility } from '../types'
 import type { MatchResult } from '../lib/sport-match'
+import { scoreColorFromCount } from '../lib/a11y-labels'
 import sportSwim from '../assets/sport-swimming.jpg'
 import sportBasket from '../assets/sport-basketball.jpg'
 import sportTT from '../assets/sport-tabletennis.jpg'
@@ -73,16 +75,14 @@ function getSportImage(sportId: string): string {
   return facilityEryaman
 }
 
-function calcMatchPercent(score: number): number {
-  // sport-match.ts max score = 3 + 2 + 2 = 7
-  return Math.min(99, Math.round((score / 7) * 100) + 10)
+function calcMatchLevel(score: number): MatchLevel {
+  if (score >= 5) return 'high'
+  if (score >= 3) return 'medium'
+  return 'low'
 }
 
-function facilityScorePct(verifiedCount: number): number {
-  return Math.round((verifiedCount / 6) * 100)
-}
 
-function SportPhoto({ idx, match, sport }: { idx: number; match: number; sport: Sport }) {
+function SportPhoto({ idx, matchLevel, sport }: { idx: number; matchLevel: MatchLevel; sport: Sport }) {
   const t = TINTS[idx]
   return (
     <div className="relative h-72 overflow-hidden rounded-[1.5rem]">
@@ -99,9 +99,7 @@ function SportPhoto({ idx, match, sport }: { idx: number; match: number; sport: 
         {idx + 1}
       </div>
       <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
-        <span className="rounded-full bg-card/85 px-3 py-1 text-xs font-bold text-primary-deep backdrop-blur">
-          %{match} Uygunluk
-        </span>
+        <MatchBadge level={matchLevel} />
       </div>
     </div>
   )
@@ -133,9 +131,8 @@ export function MatchSport() {
           <h1 className="mt-3 font-display text-[clamp(2rem,3.5vw,3rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
             Sana en uygun <span className="text-accent">{matches.length} spor</span> önerimiz
           </h1>
-          <p className="mt-3 flex items-center gap-3 max-w-xl text-muted-foreground">
+          <p className="mt-3 max-w-xl text-muted-foreground">
             Profiline, hedeflerine ve tercihine en uygun sporları senin için belirledik.
-            <DemoBadge />
           </p>
         </div>
 
@@ -158,8 +155,7 @@ export function MatchSport() {
       {/* No-match fallback */}
       {matches.length === 0 ? (
         <div role="status" className="rounded-3xl bg-card p-8 text-center ring-1 ring-border/40">
-          <SparklesIcon aria-hidden className="mx-auto size-8 text-primary" />
-          <p className="mt-3 text-sm text-foreground">
+          <p className="text-sm text-foreground">
             Profiline tam uyan bir spor şu anda veri tabanımızda bulunmuyor.
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
@@ -177,7 +173,7 @@ export function MatchSport() {
           {/* 3 hero photos that fade into the canvas */}
           <div className="grid gap-x-8 gap-y-6 md:grid-cols-3">
             {matches.map((m, i) => (
-              <SportPhoto key={m.sport.id} idx={i} match={calcMatchPercent(m.score)} sport={m.sport} />
+              <SportPhoto key={m.sport.id} idx={i} matchLevel={calcMatchLevel(m.score)} sport={m.sport} />
             ))}
           </div>
 
@@ -185,7 +181,7 @@ export function MatchSport() {
           <div className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-3">
             {matches.map((m, i) => {
               const t = TINTS[i]
-              const matchPct = calcMatchPercent(m.score)
+              const matchLevel = calcMatchLevel(m.score)
               const Icon = SPORT_DETAIL_ICONS[i] ?? Trophy
               const related = pickTopFacilities(
                 facilities.filter(f => f.sports.includes(m.sport.id)),
@@ -197,9 +193,9 @@ export function MatchSport() {
                   <h3 className="font-display text-2xl font-extrabold leading-tight text-primary-deep">
                     {m.sport.name}
                   </h3>
-                  <span className={`mt-2 inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-bold ${t.pill}`}>
-                    %{matchPct} Uygunluk
-                  </span>
+                  <div className="mt-2">
+                    <MatchBadge level={matchLevel} />
+                  </div>
                   <p className="mt-4 text-sm leading-relaxed text-foreground/80">
                     {m.sport.description}
                   </p>
@@ -233,9 +229,7 @@ export function MatchSport() {
                               {facility.name}
                             </Link>
                             <span className="text-muted-foreground">{facility.district.split(',')[0]}</span>
-                            <span className={`rounded-md px-1.5 py-0.5 text-[10.5px] font-bold ${t.pill}`}>
-                              %{facilityScorePct(verifiedCount)}
-                            </span>
+                            <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
                           </li>
                         ))}
                       </ul>

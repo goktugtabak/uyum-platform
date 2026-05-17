@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import {
-  ArrowLeft, ArrowRight, X, MessageCircleQuestion, ChevronDown,
+  ArrowLeft, ArrowRight, MessageCircleQuestion,
 } from 'lucide-react'
+import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'
+import { ActiveFilterChip } from '../components/ui/ActiveFilterChip'
 import type { Coach, Facility, DisabilityType } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
-import { DemoBadge } from '../components/ui/DemoBadge'
 import { CoachCard } from '../components/feature/CoachCard'
 import { filterCoaches } from '../lib/coach-filter'
 import { getSportLabel } from '../lib/sport-icons'
@@ -55,82 +56,6 @@ const DEFAULT_FILTERS: FilterState = {
   city:      'all',
   exp:       'all',
   sort:      'recommended',
-}
-
-/* ----- Dropdown popover ----- */
-
-interface DropdownOption { value: string; label: string }
-
-function FilterDropdown({
-  label, value, options, onChange, open, onToggle,
-}: {
-  label: string
-  value: string
-  options: DropdownOption[]
-  onChange: (next: string) => void
-  open: boolean
-  onToggle: () => void
-}) {
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (!open) return
-    function onDoc(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) onToggle()
-    }
-    document.addEventListener('mousedown', onDoc)
-    return () => document.removeEventListener('mousedown', onDoc)
-  }, [open, onToggle])
-
-  const current = options.find(o => o.value === value)?.label ?? 'Tümü'
-
-  return (
-    <div className="relative" ref={ref}>
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        className="flex w-full items-center justify-between rounded-2xl bg-card px-4 py-2.5 text-left ring-1 ring-border/50 hover:ring-primary/30"
-      >
-        <span>
-          <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-            {label}
-          </span>
-          <span className="block text-[13px] font-bold text-foreground">{current}</span>
-        </span>
-        <ChevronDown
-          className={`size-4 text-muted-foreground transition-transform ${open ? 'rotate-180' : ''}`}
-          aria-hidden
-        />
-      </button>
-      {open && (
-        <ul
-          role="listbox"
-          aria-label={label}
-          className="absolute left-0 right-0 top-full z-30 mt-1 max-h-64 overflow-y-auto rounded-2xl bg-card p-1 shadow-card ring-1 ring-border/40"
-        >
-          {options.map(o => {
-            const active = o.value === value
-            return (
-              <li key={o.value}>
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={active}
-                  onClick={() => { onChange(o.value); onToggle() }}
-                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition ${
-                    active ? 'bg-primary text-primary-foreground font-bold' : 'text-foreground hover:bg-muted'
-                  }`}
-                >
-                  {o.label}
-                </button>
-              </li>
-            )
-          })}
-        </ul>
-      )}
-    </div>
-  )
 }
 
 /* ----- Page ----- */
@@ -239,9 +164,8 @@ export function CoachDirectory() {
           <h1 className="font-display text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
             Koçlar &amp; Antrenörler
           </h1>
-          <p className="mt-3 flex max-w-xl flex-wrap items-center gap-3 text-base text-muted-foreground">
+          <p className="mt-3 max-w-xl text-base text-muted-foreground">
             Sana en uygun, alanında uzman koçlarla tanış; profil bilgilerine göre öne çıkanları gör.
-            <DemoBadge label="Koç verileri mock" />
           </p>
         </div>
         <div className="relative h-48 md:col-span-5 md:h-64">
@@ -266,30 +190,10 @@ export function CoachDirectory() {
       {(sportLabel || facility) && (
         <div className="mb-4 flex flex-wrap items-center gap-2">
           {sportLabel && (
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
-              Spor: <strong>{sportLabel}</strong>
-              <button
-                type="button"
-                onClick={clearSport}
-                aria-label="Spor filtresini temizle"
-                className="grid size-4 place-items-center rounded-full bg-primary/20 hover:bg-primary/30"
-              >
-                <X className="size-3" aria-hidden />
-              </button>
-            </span>
+            <ActiveFilterChip label={`Spor: ${sportLabel}`} onRemove={clearSport} />
           )}
           {facility && (
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
-              Tesis: <strong>{facility.name}</strong>
-              <button
-                type="button"
-                onClick={clearFacility}
-                aria-label="Tesis filtresini temizle"
-                className="grid size-4 place-items-center rounded-full bg-primary/20 hover:bg-primary/30"
-              >
-                <X className="size-3" aria-hidden />
-              </button>
-            </span>
+            <ActiveFilterChip label={`Tesis: ${facility.name}`} onRemove={clearFacility} />
           )}
         </div>
       )}

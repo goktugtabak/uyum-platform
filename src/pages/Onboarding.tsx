@@ -160,11 +160,12 @@ export function Onboarding() {
         city:               'Ankara',
         favoriteFacilities: [],
         favoriteEvents:     [],
+        favoriteExercises:  [],
         accessibility:      DEFAULT_ACCESSIBILITY,
       })
       clearDraft()
       announce('Profilin oluşturuldu. Ana sayfaya yönlendiriliyorsun.')
-      navigate('/dashboard')
+      navigate('/')
     }
   }
 

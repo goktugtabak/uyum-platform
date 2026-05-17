@@ -1,11 +1,15 @@
 import { Outlet } from 'react-router-dom'
+import { MotionConfig, useReducedMotion } from 'framer-motion'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
 import { Footer } from './Footer'
 import { RouteTransition } from './RouteTransition'
 
 export function AppShell() {
+  const reducedMotion = useReducedMotion()
+
   return (
+    <MotionConfig reducedMotion={reducedMotion ? 'always' : 'never'}>
     <div className="relative min-h-screen bg-white">
       {/* A4 — skip-to-content */}
       <a
@@ -37,5 +41,6 @@ export function AppShell() {
         </div>
       </div>
     </div>
+    </MotionConfig>
   )
 }

@@ -5,10 +5,10 @@ import { Toggle } from './Toggle'
 import { Eye, Contrast, Type, Volume2 } from 'lucide-react'
 
 const COLORBLIND_OPTIONS: { value: AccessibilityPrefs['colorblindMode']; label: string; ariaLabel: string }[] = [
-  { value: 'none',         label: 'Kapalı',        ariaLabel: 'Renk filtresi kapalı' },
-  { value: 'deuteranopia', label: 'Deuteranopia',  ariaLabel: 'Deuteranopia filtresi' },
-  { value: 'protanopia',   label: 'Protanopia',    ariaLabel: 'Protanopia filtresi' },
-  { value: 'tritanopia',   label: 'Tritanopia',    ariaLabel: 'Tritanopia filtresi' },
+  { value: 'none',         label: 'Kapalı',      ariaLabel: 'Renk filtresi kapalı' },
+  { value: 'deuteranopia', label: 'Yeşil Körlüğü', ariaLabel: 'Deuteranopia (yeşil körlüğü) filtresi' },
+  { value: 'protanopia',   label: 'Kırmızı Körlüğü', ariaLabel: 'Protanopia (kırmızı körlüğü) filtresi' },
+  { value: 'tritanopia',   label: 'Mavi Körlüğü', ariaLabel: 'Tritanopia (mavi körlüğü) filtresi' },
 ]
 
 const FONT_OPTIONS: { value: AccessibilityPrefs['fontSize']; label: string; ariaLabel: string }[] = [
@@ -88,17 +88,14 @@ function Row({
   children: React.ReactNode
 }) {
   return (
-    <li className="flex flex-wrap items-center gap-3">
-      <span
-        aria-hidden
-        className="grid size-7 shrink-0 place-items-center rounded-lg bg-muted text-foreground/70 hc:bg-black hc:text-white"
-      >
-        {icon}
-      </span>
-      <span className="flex-1 text-[12px] font-semibold text-foreground hc:text-black">
+    <li className="flex flex-col gap-1.5">
+      <span className="flex items-center gap-1.5 text-[11px] font-semibold text-foreground/70 hc:text-black">
+        <span aria-hidden className="grid size-4 shrink-0 place-items-center text-foreground/50">
+          {icon}
+        </span>
         {label}
       </span>
-      <div className="ml-auto">{children}</div>
+      <div className="w-full">{children}</div>
     </li>
   )
 }

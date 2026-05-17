@@ -25,8 +25,8 @@ function NotFound() {
   )
 }
 
-const LandingPage         = lazy(() => import('./pages/Landing').then(m => ({ default: m.Landing })))
 const OnboardingPage      = lazy(() => import('./pages/Onboarding').then(m => ({ default: m.Onboarding })))
+const LandingPage         = lazy(() => import('./pages/Landing').then(m => ({ default: m.Landing })))
 const DashboardPage       = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })))
 const MatchSportPage      = lazy(() => import('./pages/MatchSport').then(m => ({ default: m.MatchSport })))
 const FacilityMapPage     = lazy(() => import('./pages/FacilityMap').then(m => ({ default: m.FacilityMap })))
@@ -34,14 +34,16 @@ const FacilityDetailPage  = lazy(() => import('./pages/FacilityDetail').then(m =
 const ExerciseLibraryPage = lazy(() => import('./pages/ExerciseLibrary').then(m => ({ default: m.ExerciseLibrary })))
 const EventListPage       = lazy(() => import('./pages/EventList').then(m => ({ default: m.EventList })))
 const CoachDirectoryPage  = lazy(() => import('./pages/CoachDirectory').then(m => ({ default: m.CoachDirectory })))
-const CommunityPage       = lazy(() => import('./pages/Community').then(m => ({ default: m.Community })))
-const ProfilePage         = lazy(() => import('./pages/Profile').then(m => ({ default: m.Profile })))
+const CommunityPage         = lazy(() => import('./pages/Community').then(m => ({ default: m.Community })))
+const ProfilePage           = lazy(() => import('./pages/Profile').then(m => ({ default: m.Profile })))
+const NotificationsPage     = lazy(() => import('./pages/Notifications').then(m => ({ default: m.Notifications })))
 
 function AppRoutes() {
   return (
     <Routes>
       {/* Public routes — no shell */}
       <Route path="/"                     element={<LandingPage />} />
+      <Route path="/landing"              element={<LandingPage />} />
       <Route path="/onboarding"           element={<OnboardingPage />} />
       <Route path="/onboarding/:step"     element={<OnboardingPage />} />
 
@@ -54,8 +56,9 @@ function AppRoutes() {
         <Route path="/exercises"     element={<RequireProfile><ExerciseLibraryPage /></RequireProfile>} />
         <Route path="/events"        element={<RequireProfile><EventListPage /></RequireProfile>} />
         <Route path="/coaches"       element={<RequireProfile><CoachDirectoryPage /></RequireProfile>} />
-        <Route path="/community"     element={<RequireProfile><CommunityPage /></RequireProfile>} />
-        <Route path="/profile"       element={<RequireProfile><ProfilePage /></RequireProfile>} />
+        <Route path="/community"       element={<RequireProfile><CommunityPage /></RequireProfile>} />
+        <Route path="/profile"         element={<RequireProfile><ProfilePage /></RequireProfile>} />
+        <Route path="/notifications"   element={<RequireProfile><NotificationsPage /></RequireProfile>} />
         <Route path="*"              element={<NotFound />} />
       </Route>
     </Routes>

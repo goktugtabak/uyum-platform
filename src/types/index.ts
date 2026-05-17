@@ -80,6 +80,7 @@ export interface UserProfile {
   city: string
   favoriteFacilities: string[]
   favoriteEvents: string[]
+  favoriteExercises: string[]
   accessibility: AccessibilityPrefs
 }
 

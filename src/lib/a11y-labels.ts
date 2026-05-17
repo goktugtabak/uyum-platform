@@ -1,4 +1,5 @@
 import type { AccessibilityDimension } from '../types'
+import type { ScoreColor } from '../hooks/useFacilityScore'
 
 export interface A11yLabel {
   label: string
@@ -15,4 +16,39 @@ const LABELS: Record<AccessibilityDimension, A11yLabel> = {
 
 export function getAccessibilityLabel(dim: AccessibilityDimension): A11yLabel {
   return LABELS[dim]
+}
+
+export const SCORE_LABEL: Record<ScoreColor, string> = {
+  green:  'Çok Uygun',
+  yellow: 'Kısmen Uygun',
+  red:    'Riskli',
+  gray:   'Bilgi Eksik',
+}
+
+export const SCORE_GLYPH: Record<ScoreColor, string> = {
+  green:  '✓',
+  yellow: '~',
+  red:    '✕',
+  gray:   '?',
+}
+
+export const SCORE_TONE: Record<ScoreColor, string> = {
+  green:  'bg-mint/60 text-mint-foreground',
+  yellow: 'bg-[oklch(0.95_0.07_85)] text-[oklch(0.45_0.14_75)]',
+  red:    'bg-destructive/15 text-destructive',
+  gray:   'bg-muted text-foreground/70',
+}
+
+export function scoreColorFromCount(n: number): ScoreColor {
+  if (n >= 5) return 'green'
+  if (n >= 3) return 'yellow'
+  if (n >= 1) return 'red'
+  return 'gray'
+}
+
+export const SCORE_HEX: Record<ScoreColor, string> = {
+  green:  '#16a34a',
+  yellow: '#eab308',
+  red:    '#dc2626',
+  gray:   '#6b7280',
 }

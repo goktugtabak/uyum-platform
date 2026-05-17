@@ -8,7 +8,6 @@ import {
   generateTestimonyId,
 } from '../lib/testimony-store'
 import { formatRelative } from '../lib/live-status'
-import { DemoBadge } from '../components/ui/DemoBadge'
 import { FilterChip, FilterGroup } from '../components/ui/FilterChip'
 import facilitiesData from '../data/facilities.json'
 
@@ -79,9 +78,8 @@ export function Community() {
         <h1 className="mt-2 font-display text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-primary-deep">
           Topluluk Akışı
         </h1>
-        <p className="mt-3 flex max-w-2xl flex-wrap items-center gap-3 text-base text-muted-foreground">
+        <p className="mt-3 max-w-2xl text-base text-muted-foreground">
           Spor topluluğundan ilham al, deneyimini paylaş ve diğerlerini destekle.
-          <DemoBadge label="Anonim topluluk verisi" />
         </p>
       </header>
 

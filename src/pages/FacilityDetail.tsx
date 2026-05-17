@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import {
-  ArrowLeft, ArrowRight, MapPin, Bookmark, GraduationCap, Plus,
+  ArrowLeft, ArrowRight, MapPin, GraduationCap, Plus,
   Accessibility, ParkingCircle, DoorOpen, MoveVertical, Star, CalendarDays,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -12,7 +12,6 @@ import { getSportLabel } from '../lib/sport-icons'
 import { useFacilityScore } from '../hooks/useFacilityScore'
 import { loadTestimonies } from '../lib/testimony-store'
 import { formatRelative } from '../lib/live-status'
-import { DemoBadge } from '../components/ui/DemoBadge'
 import { DisabilityTypeSelect } from '../components/facility/DisabilityTypeSelect'
 import { AccessibilityRadar } from '../components/facility/AccessibilityRadar'
 import { AccessibilityLabelList } from '../components/facility/AccessibilityLabelList'
@@ -21,6 +20,8 @@ import { Testimonies } from '../components/feature/Testimonies'
 import { F3Guide } from '../components/feature/F3Guide'
 import { FacilityPhotoAttribution } from '../components/feature/FacilityPhotoAttribution'
 import { Spinner } from '../components/ui/Spinner'
+import { ScoreBadge } from '../components/ui/ScoreBadge'
+import { BookmarkButton } from '../components/ui/BookmarkButton'
 import eventsData from '../data/events.json'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
@@ -54,8 +55,6 @@ function estimatedDistance(facility: Facility): number {
   return Math.round(km * 10) / 10
 }
 
-const SCORE_PERCENT_BY_COLOR = { green: 92, yellow: 68, red: 35, gray: 50 } as const
-const SCORE_LABEL = { green: 'Çok Uygun', yellow: 'Kısmen Uygun', red: 'Riskli', gray: 'Bilgi Yetersiz' } as const
 
 const A11Y_CHIPS: Array<{ key: keyof Facility['accessibility']; label: string; icon: LucideIcon }> = [
   { key: 'entry',         label: 'Tekerlekli erişim',     icon: Accessibility },
@@ -75,8 +74,8 @@ function FacilityDetailInner({
   onDisabilityChange: (v: DisabilityType) => void
   profile: UserProfile
 }) {
+  const { toggleFavoriteFacility } = useProfile()
   const { dimensions, overall } = useFacilityScore(facility, disabilityType)
-  const score = SCORE_PERCENT_BY_COLOR[overall]
   const distanceKm = estimatedDistance(facility)
   const heroPhoto = facility.photos?.[0]
   const hero = heroPhoto?.url ?? getFacilityFallbackImage(facility.id, facility.type)
@@ -123,9 +122,7 @@ function FacilityDetailInner({
         className="relative mb-16 grid items-center gap-12 lg:grid-cols-12"
       >
         <div className="lg:col-span-6">
-          <span className="inline-flex items-center gap-2 rounded-full bg-mint/60 px-3 py-1 text-[11px] font-bold text-mint-foreground">
-            %{score} {SCORE_LABEL[overall]}
-          </span>
+          <ScoreBadge color={overall} />
           <h1
             id="facility-heading"
             className="mt-4 font-display text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep"
@@ -156,7 +153,6 @@ function FacilityDetailInner({
 
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <DisabilityTypeSelect value={disabilityType} onChange={onDisabilityChange} />
-            <DemoBadge label="Erişilebilirlik verileri mock" />
           </div>
 
           {/* Accessibility chips — pills derived from real accessibility matrix */}
@@ -180,13 +176,12 @@ function FacilityDetailInner({
             >
               Rota oluştur <ArrowRight className="size-4" aria-hidden />
             </a>
-            <button
-              type="button"
-              aria-label="Kaydet"
-              className="grid size-12 place-items-center rounded-full text-foreground/70 ring-1 ring-border/60 hover:bg-card"
-            >
-              <Bookmark className="size-4" aria-hidden />
-            </button>
+            <BookmarkButton
+              isBookmarked={profile.favoriteFacilities.includes(facility.id)}
+              onToggle={() => toggleFavoriteFacility(facility.id)}
+              label={facility.name}
+              className="size-12 ring-1 ring-border/60"
+            />
           </div>
         </div>
 
@@ -251,10 +246,7 @@ function FacilityDetailInner({
               <div className="absolute inset-0 rounded-full bg-mint/40 blur-2xl" aria-hidden />
               <div className="relative grid size-36 place-items-center rounded-full bg-card/85 ring-1 ring-border/40 backdrop-blur">
                 <div className="text-center">
-                  <div className="font-display text-4xl font-extrabold text-primary-deep">%{score}</div>
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-mint-foreground">
-                    {SCORE_LABEL[overall]}
-                  </div>
+                  <ScoreBadge color={overall} size="lg" />
                 </div>
               </div>
             </div>
@@ -451,7 +443,6 @@ function FacilityDetailInner({
             >
               Topluluk Tanıklıkları
             </h2>
-            <DemoBadge />
           </div>
           <Testimonies facilityId={facility.id} defaultDisabilityType={disabilityType} />
         </section>

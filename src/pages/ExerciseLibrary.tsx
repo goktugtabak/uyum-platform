@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowLeft, ArrowRight, Flame, Dumbbell, Sparkles, Activity, Wind,
-  LayoutGrid, List, MessageCircleQuestion, ChevronLeft, ChevronRight, ChevronDown,
+  LayoutGrid, List, MessageCircleQuestion, ChevronLeft, ChevronRight, X,
 } from 'lucide-react'
+import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'
 import type { Exercise } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
-import { DemoBadge } from '../components/ui/DemoBadge'
 import { ExerciseCard } from '../components/feature/ExerciseCard'
 import exercisesData from '../data/exercises.json'
 
@@ -88,82 +88,6 @@ function applyFilters(all: Exercise[], f: FilterState): Exercise[] {
   return out
 }
 
-/* ----- Dropdown popover ----- */
-
-interface DropdownOption { value: string; label: string }
-
-function FilterDropdown({
-  label, value, options, onChange, open, onToggle,
-}: {
-  label:    string
-  value:    string
-  options:  DropdownOption[]
-  onChange: (next: string) => void
-  open:     boolean
-  onToggle: () => void
-}) {
-  const ref = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (!open) return
-    function onDoc(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) onToggle()
-    }
-    document.addEventListener('mousedown', onDoc)
-    return () => document.removeEventListener('mousedown', onDoc)
-  }, [open, onToggle])
-
-  const current = options.find(o => o.value === value)?.label ?? 'Tümü'
-
-  return (
-    <div className="relative" ref={ref}>
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        className="flex w-full items-center justify-between rounded-2xl bg-card px-4 py-2.5 text-left ring-1 ring-border/50 hover:ring-primary/30"
-      >
-        <span>
-          <span className="block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-            {label}
-          </span>
-          <span className="block text-[13px] font-bold text-foreground">{current}</span>
-        </span>
-        <ChevronDown
-          className={`size-4 text-muted-foreground transition-transform ${open ? 'rotate-180' : ''}`}
-          aria-hidden
-        />
-      </button>
-      {open && (
-        <ul
-          role="listbox"
-          aria-label={label}
-          className="absolute left-0 right-0 top-full z-30 mt-1 max-h-64 overflow-y-auto rounded-2xl bg-card p-1 shadow-card ring-1 ring-border/40"
-        >
-          {options.map(o => {
-            const active = o.value === value
-            return (
-              <li key={o.value}>
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={active}
-                  onClick={() => { onChange(o.value); onToggle() }}
-                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition ${
-                    active ? 'bg-primary text-primary-foreground font-bold' : 'text-foreground hover:bg-muted'
-                  }`}
-                >
-                  {o.label}
-                </button>
-              </li>
-            )
-          })}
-        </ul>
-      )}
-    </div>
-  )
-}
-
 function buildAllOptions(values: ReadonlyArray<string>, includeNone = false): DropdownOption[] {
   const opts: DropdownOption[] = [{ value: 'all', label: 'Tümü' }]
   if (includeNone) opts.push({ value: 'none', label: 'Ekipman yok' })
@@ -233,26 +157,15 @@ export function ExerciseLibrary() {
         <h1 className="font-display text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
           Egzersiz Rehberi
         </h1>
-        <p className="mt-3 flex max-w-xl flex-wrap items-center gap-3 text-base text-muted-foreground">
+        <p className="mt-3 max-w-xl text-base text-muted-foreground">
           Farklı branşlara özel egzersizleri izle, adım adım öğren ve kendi
           gelişimini destekle.
-          <DemoBadge label="Video küratörlüğü mock" />
         </p>
       </header>
 
       {/* Hızlı Kategoriler */}
-      <div className="mb-10">
-        <div className="mb-4 flex items-end justify-between">
-          <h2 className="font-display text-base font-extrabold text-primary-deep">Hızlı Kategoriler</h2>
-          <button
-            type="button"
-            onClick={clearFilters}
-            className="inline-flex items-center gap-1.5 rounded-full bg-card px-3.5 py-1.5 text-[12px] font-semibold text-primary ring-1 ring-border/50 hover:ring-primary/40"
-          >
-            Rehberdeki tüm kategoriler <ArrowRight className="size-3.5" aria-hidden />
-          </button>
-        </div>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+      <div className="mb-8">
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Kategori filtrele">
           {CATEGORIES.map(({ l, tag, i: I, c }) => {
             const active = filters.category === tag
             return (
@@ -261,26 +174,31 @@ export function ExerciseLibrary() {
                 type="button"
                 onClick={() => toggleCategory(tag)}
                 aria-pressed={active}
-                className={`group flex items-center gap-3 rounded-2xl bg-card px-3.5 py-3 ring-1 transition hover:-translate-y-0.5 ${
-                  active ? 'ring-primary shadow-card' : 'ring-border/40 hover:ring-primary/30'
+                className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold transition ${
+                  active
+                    ? 'bg-primary text-primary-foreground shadow-glow'
+                    : 'bg-card ring-1 ring-border/50 text-foreground hover:ring-primary/30 hover:bg-primary/5'
                 }`}
               >
-                <span aria-hidden className={`grid size-10 shrink-0 place-items-center rounded-full ${
-                  c === 'peach' ? 'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]' :
-                  c === 'mint' ? 'bg-mint/70 text-mint-foreground' :
-                  c === 'lavender' ? 'bg-accent/15 text-accent' :
-                  'bg-sky/70 text-sky-foreground'
-                }`}>
-                  <I className="size-4" strokeWidth={1.8} />
-                </span>
-                <span className="text-[12.5px] font-bold leading-tight text-foreground">
-                  {l}
-                  <br />
-                  <span className="font-medium text-muted-foreground">Egzersizleri</span>
-                </span>
+                <I aria-hidden className={`size-3.5 ${active ? '' : (
+                  c === 'peach' ? 'text-[oklch(0.55_0.16_50)]' :
+                  c === 'mint' ? 'text-mint-foreground' :
+                  c === 'lavender' ? 'text-accent' :
+                  'text-sky-foreground'
+                )}`} strokeWidth={1.8} />
+                {l}
               </button>
             )
           })}
+          {filters.category !== null && (
+            <button
+              type="button"
+              onClick={() => patch({ category: null })}
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[12px] font-semibold text-muted-foreground ring-1 ring-border/40 hover:text-primary hover:ring-primary/30"
+            >
+              <X className="size-3" aria-hidden /> Temizle
+            </button>
+          )}
         </div>
       </div>
 

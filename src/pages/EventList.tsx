@@ -1,13 +1,16 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  ChevronDown, ChevronLeft, ChevronRight, MapPin, Clock,
-  Accessibility, Bookmark, Bell, Plus, CalendarDays, ArrowRight, Sparkles,
+  ChevronLeft, ChevronRight, MapPin, Clock,
+  Accessibility, Bell, Plus, CalendarDays, ArrowRight, Sparkles, ChevronDown,
 } from 'lucide-react'
-import type { SportEvent, DisabilityType, Facility, Sport, EventLevel } from '../types'
+import type { SportEvent, DisabilityType, Facility, Sport, EventLevel, UserProfile } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
-import { DemoBadge } from '../components/ui/DemoBadge'
-import { FilterChip, FilterGroup } from '../components/ui/FilterChip'
+import { MatchBadge, type MatchLevel } from '../components/ui/MatchBadge'
+import { BookmarkButton } from '../components/ui/BookmarkButton'
+import { FilterChip } from '../components/ui/FilterChip'
+import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'
+import { ActiveFilterChip } from '../components/ui/ActiveFilterChip'
 import { getSportLabel } from '../lib/sport-icons'
 import {
   filterEvents,
@@ -89,11 +92,15 @@ function spotsLeftFor(event: SportEvent): number {
   return 2 + (hashId(event.id + 'spots') % 14) // 2..15
 }
 
-function profileMatchPercent(event: SportEvent, profile: { disabilityType: DisabilityType }): number {
-  const hit = event.disabilityTypes.includes(profile.disabilityType) ? 1 : 0
+function profileMatchLevel(event: SportEvent, profile: UserProfile): MatchLevel {
+  let score = 0
   const sport = ALL_SPORTS.find(s => s.id === event.sport)
-  const sportHit = sport?.suitableFor.includes(profile.disabilityType) ? 1 : 0
-  return 70 + hit * 18 + sportHit * 8 - (event.level === 'yarışma' ? 6 : 0)
+  if (sport?.suitableFor.includes(profile.disabilityType)) score += 2
+  if (event.disabilityTypes.includes(profile.disabilityType)) score += 2
+  if (sport?.mobilityLevel.includes(profile.mobilityLevel)) score += 1
+  if (score >= 4) return 'high'
+  if (score >= 2) return 'medium'
+  return 'low'
 }
 
 function findFacility(id: string): Facility | undefined {
@@ -150,11 +157,12 @@ function ParkScene() {
 interface EventRowProps {
   event: SportEvent
   now: number
-  profile: { disabilityType: DisabilityType }
+  profile: UserProfile
+  toggleFavoriteEvent: (id: string) => void
   dimmed?: boolean
 }
 
-function EventRow({ event, now, profile, dimmed = false }: EventRowProps) {
+function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: EventRowProps) {
   const facility = findFacility(event.facilityId)
   const d = new Date(event.date)
   const day = String(d.getDate())
@@ -163,7 +171,6 @@ function EventRow({ event, now, profile, dimmed = false }: EventRowProps) {
   const time = d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
   const attendees = attendeesFor(event)
   const spotsLeft = spotsLeftFor(event)
-  const matchPct = profileMatchPercent(event, profile)
   const rel = relativeDays(event.date, now)
 
   return (
@@ -190,8 +197,7 @@ function EventRow({ event, now, profile, dimmed = false }: EventRowProps) {
       {/* Content */}
       <div className="relative pr-24">
         <div className="absolute right-0 top-0 text-right">
-          <span className="block text-[11px] font-bold text-success">%{matchPct}</span>
-          <span className="block text-[10px] text-muted-foreground">Uygunluk</span>
+          <MatchBadge level={profileMatchLevel(event, profile)} />
         </div>
         <h3
           id={`event-${event.id}-title`}
@@ -259,13 +265,11 @@ function EventRow({ event, now, profile, dimmed = false }: EventRowProps) {
                 {spotsLeft > 0 ? 'Katılacağım' : 'Detayları Gör'} <ArrowRight className="size-3.5" aria-hidden />
               </Link>
             )}
-            <button
-              type="button"
-              aria-label="Kaydet"
-              className="grid size-9 place-items-center rounded-full text-foreground/70 hover:bg-card"
-            >
-              <Bookmark className="size-4" aria-hidden />
-            </button>
+            <BookmarkButton
+              isBookmarked={profile.favoriteEvents.includes(event.id)}
+              onToggle={() => toggleFavoriteEvent(event.id)}
+              label={event.title}
+            />
           </div>
         </div>
       </div>
@@ -471,14 +475,14 @@ function NotifyBlock() {
 }
 
 export function EventList() {
-  const { profile } = useProfile()
+  const { profile, toggleFavoriteEvent } = useProfile()
   const [now] = useState<number>(() => Date.now())
   const [filters, setFilters] = useState<EventFilters>({
     dateRange:      'all',
     sport:          'all',
     disabilityType: 'all',
   })
-  const [showSecondary, setShowSecondary] = useState(false)
+  const [openDD, setOpenDD] = useState<string | null>(null)
 
   const { upcoming, past } = useMemo(
     () => filterEvents(filters, profile, ALL_EVENTS, now),
@@ -498,8 +502,20 @@ export function EventList() {
   function clearFilters() {
     setFilters({ dateRange: 'all', sport: 'all', disabilityType: 'all' })
   }
+  function toggleDD(key: string) {
+    setOpenDD(prev => (prev === key ? null : key))
+  }
 
   if (!profile) return null
+
+  const sportOptions: DropdownOption[] = [
+    { value: 'all', label: 'Tümü' },
+    ...SPORTS_IN_EVENTS.map(s => ({ value: s.id, label: s.name })),
+  ]
+  const disabilityOptions: DropdownOption[] = [
+    { value: 'all', label: 'Tümü' },
+    ...DISABILITY_OPTIONS.map(o => ({ value: o.id, label: o.label })),
+  ]
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
@@ -509,10 +525,9 @@ export function EventList() {
           <h1 className="font-display text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
             Etkinlikler
           </h1>
-          <p className="mt-3 flex max-w-lg flex-wrap items-center gap-3 text-base text-muted-foreground">
+          <p className="mt-3 max-w-lg text-base text-muted-foreground">
             Profiline ve ilgi alanlarına göre senin için sıralanan etkinlikleri keşfet,
             katıl ve yeni deneyimler kazan.
-            <DemoBadge />
           </p>
         </div>
 
@@ -521,32 +536,39 @@ export function EventList() {
         </div>
       </header>
 
-      {/* Filter pills — design row */}
-      <div className="mb-3 flex flex-wrap items-center gap-2.5">
+      {/* Filter row — hero label + FilterDropdowns + date chips */}
+      <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-[auto_1fr_1fr_auto]">
+        {/* "Senin için" accent pill — decorative, not a filter toggle */}
         <button
           type="button"
-          onClick={() => setShowSecondary(v => !v)}
-          aria-expanded={showSecondary}
-          className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow"
+          className="inline-flex items-center gap-2 self-end rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow"
+          aria-label="Profiline göre sıralanmış etkinlikler"
         >
           <Sparkles className="size-4" aria-hidden /> Senin için
         </button>
-        {['Tüm Etkinlikler', 'Spor Türü', 'Tarih Aralığı', 'Konum', 'Erişilebilirlik'].map(f => (
-          <button
-            key={f}
-            type="button"
-            onClick={() => setShowSecondary(true)}
-            className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2.5 text-sm font-medium text-foreground/80 ring-1 ring-border/50 transition hover:ring-primary/40"
-          >
-            {f} <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
-          </button>
-        ))}
-      </div>
 
-      {/* Working secondary filter strip */}
-      {showSecondary && (
-        <div className="mb-10 space-y-3 rounded-3xl bg-card/85 p-4 ring-1 ring-border/40 backdrop-blur">
-          <FilterGroup label="Tarih">
+        <FilterDropdown
+          label="Spor Türü"
+          value={filters.sport}
+          options={sportOptions}
+          onChange={v => setFilters(f => ({ ...f, sport: v }))}
+          open={openDD === 'sport'}
+          onToggle={() => toggleDD('sport')}
+        />
+
+        <FilterDropdown
+          label="Engel Tipi"
+          value={filters.disabilityType}
+          options={disabilityOptions}
+          onChange={v => setFilters(f => ({ ...f, disabilityType: v as EventFilters['disabilityType'] }))}
+          open={openDD === 'disability'}
+          onToggle={() => toggleDD('disability')}
+        />
+
+        {/* Date range chips — compact inline group */}
+        <div className="flex flex-col gap-1">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Tarih</span>
+          <div className="flex items-center gap-1">
             {DATE_OPTIONS.map(opt => (
               <FilterChip
                 key={opt.id}
@@ -557,59 +579,38 @@ export function EventList() {
                 {opt.label}
               </FilterChip>
             ))}
-          </FilterGroup>
+          </div>
+        </div>
+      </div>
 
-          <FilterGroup label="Spor">
-            <FilterChip
-              role="radio"
-              active={filters.sport === 'all'}
-              onClick={() => setFilters(f => ({ ...f, sport: 'all' }))}
-            >
-              Hepsi
-            </FilterChip>
-            {SPORTS_IN_EVENTS.map(s => (
-              <FilterChip
-                key={s.id}
-                role="radio"
-                active={filters.sport === s.id}
-                onClick={() => setFilters(f => ({ ...f, sport: s.id }))}
-              >
-                {s.name}
-              </FilterChip>
-            ))}
-          </FilterGroup>
-
-          <FilterGroup label="Engel tipi">
-            <FilterChip
-              role="radio"
-              active={filters.disabilityType === 'all'}
-              onClick={() => setFilters(f => ({ ...f, disabilityType: 'all' }))}
-            >
-              Hepsi
-            </FilterChip>
-            {DISABILITY_OPTIONS.map(opt => (
-              <FilterChip
-                key={opt.id}
-                role="radio"
-                active={filters.disabilityType === opt.id}
-                onClick={() => setFilters(f => ({ ...f, disabilityType: opt.id }))}
-              >
-                {opt.label}
-              </FilterChip>
-            ))}
-          </FilterGroup>
-
-          {isFiltered && (
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={clearFilters}
-                className="text-xs font-bold text-primary underline-offset-2 hover:underline"
-              >
-                Filtreleri temizle
-              </button>
-            </div>
+      {/* Active filter chips row */}
+      {isFiltered && (
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          {filters.sport !== 'all' && (
+            <ActiveFilterChip
+              label={`Spor: ${SPORTS_IN_EVENTS.find(s => s.id === filters.sport)?.name ?? filters.sport}`}
+              onRemove={() => setFilters(f => ({ ...f, sport: 'all' }))}
+            />
           )}
+          {filters.disabilityType !== 'all' && (
+            <ActiveFilterChip
+              label={`Engel: ${DISABILITY_OPTIONS.find(o => o.id === filters.disabilityType)?.label ?? filters.disabilityType}`}
+              onRemove={() => setFilters(f => ({ ...f, disabilityType: 'all' }))}
+            />
+          )}
+          {filters.dateRange !== 'all' && (
+            <ActiveFilterChip
+              label={`Tarih: ${DATE_OPTIONS.find(o => o.id === filters.dateRange)?.label ?? filters.dateRange}`}
+              onRemove={() => setFilters(f => ({ ...f, dateRange: 'all' }))}
+            />
+          )}
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="text-xs font-bold text-primary underline-offset-2 hover:underline"
+          >
+            Filtreleri temizle
+          </button>
         </div>
       )}
 
@@ -630,7 +631,7 @@ export function EventList() {
           {upcoming.length > 0 ? (
             <div className="space-y-10">
               {upcoming.map(event => (
-                <EventRow key={event.id} event={event} now={now} profile={profile} />
+                <EventRow key={event.id} event={event} now={now} profile={profile} toggleFavoriteEvent={toggleFavoriteEvent} />
               ))}
             </div>
           ) : (
@@ -660,7 +661,7 @@ export function EventList() {
               </h2>
               <div className="space-y-10">
                 {past.map(event => (
-                  <EventRow key={event.id} event={event} now={now} profile={profile} dimmed />
+                  <EventRow key={event.id} event={event} now={now} profile={profile} toggleFavoriteEvent={toggleFavoriteEvent} dimmed />
                 ))}
               </div>
             </section>
