@@ -161,54 +161,56 @@ export function Dashboard() {
       {/* 3 flowing columns — no containers */}
       <div className="grid gap-12 xl:grid-cols-3">
         {/* Nearby facilities */}
-        <section>
+        <section className="group">
           <SectionHeader icon={<MapPin className="size-4 text-primary" aria-hidden />} title="Yakındaki Tesisler" to="/map" />
 
-          {/* Soft mini map (no border) */}
-          <div className="relative mt-5 h-44 overflow-hidden rounded-3xl">
-            <MiniMap />
-          </div>
+          <div className="max-h-0 overflow-hidden transition-all duration-300 ease-in-out group-hover:max-h-[600px]">
+            {/* Soft mini map (no border) */}
+            <div className="relative mt-5 h-44 overflow-hidden rounded-3xl">
+              <MiniMap />
+            </div>
 
-          <ul className="mt-6 space-y-5">
-            {ranked.map(({ facility, verifiedCount }, idx) => {
-              const scorePct = Math.round((verifiedCount / 6) * 100)
-              return (
-                <li key={facility.id}>
-                  <Link to={`/facility/${facility.id}`} className="flex items-center gap-3 hover:opacity-90">
-                    <img
-                      src={getFacilityImage(facility.id, idx)}
-                      alt=""
-                      className="size-14 rounded-2xl object-cover"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <div className="truncate text-sm font-bold text-foreground">{facility.name}</div>
-                      <div className="text-[11.5px] text-muted-foreground">
-                        {estimatedDistance(facility)} km · {facility.district.split(',')[0]}
+            <ul className="mt-6 space-y-5">
+              {ranked.map(({ facility, verifiedCount }, idx) => {
+                const scorePct = Math.round((verifiedCount / 6) * 100)
+                return (
+                  <li key={facility.id}>
+                    <Link to={`/facility/${facility.id}`} className="flex items-center gap-3 hover:opacity-90">
+                      <img
+                        src={getFacilityImage(facility.id, idx)}
+                        alt=""
+                        className="size-14 rounded-2xl object-cover"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate text-sm font-bold text-foreground">{facility.name}</div>
+                        <div className="text-[11.5px] text-muted-foreground">
+                          {estimatedDistance(facility)} km · {facility.district.split(',')[0]}
+                        </div>
+                        <div className="mt-1 flex items-center gap-1.5 text-foreground/40">
+                          {[Activity, MapPin, Waves, CircleDot].map((I, i) => (
+                            <I key={i} className="size-3" aria-hidden />
+                          ))}
+                        </div>
                       </div>
-                      <div className="mt-1 flex items-center gap-1.5 text-foreground/40">
-                        {[Activity, MapPin, Waves, CircleDot].map((I, i) => (
-                          <I key={i} className="size-3" aria-hidden />
-                        ))}
-                      </div>
-                    </div>
-                    <span className="rounded-full bg-mint/60 px-2.5 py-1 text-[11px] font-bold text-mint-foreground">
-                      %{scorePct} Uygun
-                    </span>
-                  </Link>
+                      <span className="rounded-full bg-mint/60 px-2.5 py-1 text-[11px] font-bold text-mint-foreground">
+                        %{scorePct} Uygun
+                      </span>
+                    </Link>
+                  </li>
+                )
+              })}
+              {ranked.length === 0 && (
+                <li className="text-sm text-muted-foreground">
+                  Profiline uygun tesis bulunamadı.{' '}
+                  <Link to="/map" className="text-primary underline">Haritadan ara</Link>.
                 </li>
-              )
-            })}
-            {ranked.length === 0 && (
-              <li className="text-sm text-muted-foreground">
-                Profiline uygun tesis bulunamadı.{' '}
-                <Link to="/map" className="text-primary underline">Haritadan ara</Link>.
-              </li>
-            )}
-          </ul>
+              )}
+            </ul>
 
-          <Link to="/map" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-            Haritadaki tüm tesisleri gör <ArrowRight className="size-3.5" aria-hidden />
-          </Link>
+            <Link to="/map" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+              Haritadaki tüm tesisleri gör <ArrowRight className="size-3.5" aria-hidden />
+            </Link>
+          </div>
         </section>
 
         {/* Community feed */}
