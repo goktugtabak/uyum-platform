@@ -15,7 +15,7 @@ function RequireProfile({ children }: { children: React.ReactNode }) {
 function NotFound() {
   return (
     <div className="mx-auto max-w-2xl p-8 text-center">
-      <p className="font-display text-lg font-bold text-primary-deep mb-3">
+      <p className="text-lg font-bold text-primary-deep mb-3">
         Sayfa bulunamadı.
       </p>
       <Link to="/" className="text-primary underline hover:text-primary-deep">

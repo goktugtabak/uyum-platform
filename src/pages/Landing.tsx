@@ -45,16 +45,16 @@ function Navbar({ onPrimary }: { onPrimary: () => void }) {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2" aria-label="UYUM Ana sayfa">
           <UyumLogo />
-          <span className="text-xl font-bold text-[#320E3B]">UYUM</span>
+          <span className="text-xl font-bold text-primary-deep">UYUM</span>
         </Link>
         <div className="hidden md:flex items-center gap-8">
           {links.map(({ label, to }) =>
             to.startsWith('#') ? (
-              <a key={label} href={to} className="text-sm text-gray-500 hover:text-[#320E3B] transition-colors">
+              <a key={label} href={to} className="text-sm text-gray-500 hover:text-primary-deep transition-colors">
                 {label}
               </a>
             ) : (
-              <Link key={label} to={to} className="text-sm text-gray-500 hover:text-[#320E3B] transition-colors">
+              <Link key={label} to={to} className="text-sm text-gray-500 hover:text-primary-deep transition-colors">
                 {label}
               </Link>
             ),
@@ -64,7 +64,7 @@ function Navbar({ onPrimary }: { onPrimary: () => void }) {
           <button
             type="button"
             onClick={onPrimary}
-            className="text-sm text-[#320E3B] hover:opacity-80 transition-opacity"
+            className="text-sm text-primary-deep hover:opacity-80 transition-opacity"
           >
             Giriş yap
           </button>
@@ -72,7 +72,7 @@ function Navbar({ onPrimary }: { onPrimary: () => void }) {
             type="button"
             aria-label="Menü"
             onClick={onPrimary}
-            className="w-10 h-10 rounded-full bg-[#320E3B] flex items-center justify-center hover:opacity-90 transition-opacity"
+            className="w-10 h-10 rounded-full bg-primary-deep flex items-center justify-center hover:opacity-90 transition-opacity"
           >
             <Menu className="w-5 h-5 text-white" aria-hidden />
           </button>
@@ -84,16 +84,16 @@ function Navbar({ onPrimary }: { onPrimary: () => void }) {
 
 function HeroSection({ onPrimary, onSecondary }: { onPrimary: () => void; onSecondary: () => void }) {
   return (
-    <div className="bg-[#f8f7f7]">
+    <div className="bg-muted">
       <section className="max-w-7xl mx-auto flex items-stretch min-h-[580px]">
         <div className="w-[38%] flex-shrink-0 flex flex-col justify-center py-16 pl-6 pr-10">
           <div className="mb-6">
-            <h1 className="text-6xl font-extrabold text-[#320E3B] leading-tight uppercase">
+            <h1 className="text-6xl font-extrabold text-primary-deep leading-tight uppercase">
               HAREKET
               <br />
               HERKES İÇİN.
             </h1>
-            <h2 className="text-6xl font-extrabold text-[#6B7FD7] leading-tight uppercase mt-1">
+            <h2 className="text-6xl font-extrabold text-accent leading-tight uppercase mt-1">
               UYUM
               <br />
               SENİN İÇİN.
@@ -109,7 +109,7 @@ function HeroSection({ onPrimary, onSecondary }: { onPrimary: () => void; onSeco
             <button
               type="button"
               onClick={onPrimary}
-              className="flex items-center gap-2 bg-[#320E3B] text-white rounded-full px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
+              className="flex items-center gap-2 bg-primary-deep text-white rounded-full px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
             >
               <ArrowRight className="w-4 h-4" aria-hidden />
               YAKININDAKİ TESİSLERİ KEŞFET
@@ -118,7 +118,7 @@ function HeroSection({ onPrimary, onSecondary }: { onPrimary: () => void; onSeco
               type="button"
               onClick={onSecondary}
               aria-controls="nasil-calisir"
-              className="flex items-center gap-2 border border-[#320E3B] text-[#320E3B] rounded-full px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 border border-primary-deep text-primary-deep rounded-full px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
             >
               <Play className="w-4 h-4" aria-hidden />
               NASIL ÇALIŞIR?
@@ -148,11 +148,11 @@ type Feature = {
 }
 
 const features: Feature[] = [
-  { label: 'Tesisleri keşfet',   desc: 'Erişilebilir tesisleri bul',     icon: MapPin,   iconColor: '#00BCD4', bgColor: '#E0F7FA', to: '/map'       },
-  { label: 'Sporları keşfet',    desc: 'Sana uygun sporları keşfet',     icon: Activity, iconColor: '#43A047', bgColor: '#E8F5E9', to: '/match'     },
-  { label: 'Etkinliklere katıl', desc: 'Yakındaki etkinliklere katıl',   icon: Calendar, iconColor: '#7B2FBE', bgColor: '#F3E5F5', to: '/events'    },
-  { label: 'Koçlarla tanış',     desc: 'Uzman koçlarla çalış',           icon: User,     iconColor: '#FF6B35', bgColor: '#FFF3E0', to: '/coaches'   },
-  { label: 'Egzersiz yap',        desc: 'Adaptif egzersizleri keşfet',    icon: Dumbbell, iconColor: '#00897B', bgColor: '#E0F2F1', to: '/exercises' },
+  { label: 'Tesisleri keşfet',   desc: 'Erişilebilir tesisleri bul',     icon: MapPin,   iconColor: 'var(--color-sky-foreground)', bgColor: 'var(--color-sky)', to: '/map'       },
+  { label: 'Sporları keşfet',    desc: 'Sana uygun sporları keşfet',     icon: Activity, iconColor: 'var(--color-mint-foreground)', bgColor: 'var(--color-mint)', to: '/match'     },
+  { label: 'Etkinliklere katıl', desc: 'Yakındaki etkinliklere katıl',   icon: Calendar, iconColor: 'var(--color-primary)', bgColor: 'var(--color-secondary)', to: '/events'    },
+  { label: 'Koçlarla tanış',     desc: 'Uzman koçlarla çalış',           icon: User,     iconColor: 'var(--color-accent)', bgColor: 'rgba(107, 127, 215, 0.15)', to: '/coaches'   },
+  { label: 'Egzersiz yap',        desc: 'Adaptif egzersizleri keşfet',    icon: Dumbbell, iconColor: 'var(--color-sky-foreground)', bgColor: 'var(--color-sky)', to: '/exercises' },
 ]
 
 function FeaturesSection() {
@@ -160,7 +160,7 @@ function FeaturesSection() {
     <section id="hakkimizda" className="max-w-7xl mx-auto px-6 py-16">
       <div className="flex gap-16 items-start flex-wrap lg:flex-nowrap">
         <div className="w-64 flex-shrink-0">
-          <h2 className="text-3xl font-extrabold text-[#320E3B] max-w-[200px] leading-tight uppercase">
+          <h2 className="text-3xl font-extrabold text-primary-deep max-w-[200px] leading-tight uppercase">
             UYUM İLE NELER YAPABİLİRSİN?
           </h2>
           <div className="mt-3">
@@ -181,7 +181,7 @@ function FeaturesSection() {
                 <Icon className="w-7 h-7" style={{ color: iconColor }} aria-hidden />
               </div>
               <div>
-                <p className="text-sm font-bold text-[#320E3B]">{label}</p>
+                <p className="text-sm font-bold text-primary-deep">{label}</p>
                 <p className="text-xs text-gray-500 mt-1">{desc}</p>
               </div>
             </Link>
@@ -236,7 +236,7 @@ function HowItWorksSection({ onPrimary, hasProfile }: { onPrimary: () => void; h
     <section
       id="nasil-calisir"
       aria-labelledby="nasil-calisir-baslik"
-      className="bg-[#f8f7f7]"
+      className="bg-muted"
       style={{ scrollMarginTop: 88 }}
     >
       <div className="max-w-7xl mx-auto px-6 py-20">
@@ -244,7 +244,7 @@ function HowItWorksSection({ onPrimary, hasProfile }: { onPrimary: () => void; h
         {/* Başlık + persona */}
         <div className="flex gap-16 items-start flex-wrap lg:flex-nowrap mb-12">
           <div className="w-64 flex-shrink-0">
-            <h2 id="nasil-calisir-baslik" className="text-3xl font-extrabold text-[#320E3B] max-w-[200px] leading-tight uppercase">
+            <h2 id="nasil-calisir-baslik" className="text-3xl font-extrabold text-primary-deep max-w-[200px] leading-tight uppercase">
               UYUM NASIL ÇALIŞIR?
             </h2>
             <div className="mt-3">
@@ -259,13 +259,13 @@ function HowItWorksSection({ onPrimary, hasProfile }: { onPrimary: () => void; h
             <div className="inline-flex items-center gap-4 rounded-2xl bg-white border border-gray-100 px-5 py-4 shadow-sm">
               <div
                 className="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold flex-shrink-0"
-                style={{ backgroundColor: '#4C2A85' }}
+                style={{ backgroundColor: 'var(--color-primary)' }}
                 aria-hidden
               >
                 A
               </div>
               <div>
-                <p className="text-sm font-bold text-[#320E3B]">Ali, 28</p>
+                <p className="text-sm font-bold text-primary-deep">Ali, 28</p>
                 <p className="text-xs text-gray-500 mt-0.5">Tekerlekli sandalye kullanıcısı · Ankara</p>
                 <p className="text-xs text-gray-400 mt-1">"İlk kez adaptif yüzme denemek istiyorum."</p>
               </div>
@@ -290,7 +290,7 @@ function HowItWorksSection({ onPrimary, hasProfile }: { onPrimary: () => void; h
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <Icon className="w-4 h-4 flex-shrink-0" style={{ color: iconColor }} aria-hidden />
-                  <p className="text-sm font-bold text-[#320E3B]">{title}</p>
+                  <p className="text-sm font-bold text-primary-deep">{title}</p>
                 </div>
                 <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
               </div>
@@ -300,7 +300,7 @@ function HowItWorksSection({ onPrimary, hasProfile }: { onPrimary: () => void; h
 
         {/* Erişilebilirlik pill'leri */}
         <div className="mb-8">
-          <h3 className="text-base font-bold text-[#320E3B] mb-3">
+          <h3 className="text-base font-bold text-primary-deep mb-3">
             Erişilebilirlik standart, opsiyon değil.
           </h3>
           <div className="flex flex-wrap gap-2" role="list" aria-label="Erişilebilirlik özellikleri">
@@ -310,7 +310,7 @@ function HowItWorksSection({ onPrimary, hasProfile }: { onPrimary: () => void; h
                 role="listitem"
                 className="inline-flex items-center gap-1.5 rounded-full bg-white border border-gray-200 px-3 py-1.5 text-xs text-gray-700"
               >
-                <Icon className="w-3.5 h-3.5 text-[#4C2A85]" aria-hidden />
+                <Icon className="w-3.5 h-3.5 text-primary" aria-hidden />
                 {label}
               </div>
             ))}
@@ -338,14 +338,14 @@ function HowItWorksSection({ onPrimary, hasProfile }: { onPrimary: () => void; h
           <button
             type="button"
             onClick={onPrimary}
-            className="flex items-center gap-2 bg-[#320E3B] text-white rounded-full px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
+            className="flex items-center gap-2 bg-primary-deep text-white rounded-full px-6 py-3 text-sm font-medium hover:opacity-90 transition-opacity"
           >
             <ArrowRight className="w-4 h-4" aria-hidden />
             {hasProfile ? 'PANELE GİT' : 'HEMEN BAŞLA'}
           </button>
           <a
             href="#hakkimizda"
-            className="flex items-center gap-2 border border-[#320E3B] text-[#320E3B] rounded-full px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
+            className="flex items-center gap-2 border border-primary-deep text-primary-deep rounded-full px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors"
           >
             <ArrowUp className="w-4 h-4" aria-hidden />
             ÖNCE NELER YAPABİLECEĞİMİ GÖSTER

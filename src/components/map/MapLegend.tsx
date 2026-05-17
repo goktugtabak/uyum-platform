@@ -1,9 +1,9 @@
 import { getSportIcon, getSportLabel, LEGEND_SPORTS } from '../../lib/sport-icons'
 
 const COLOR_ITEMS = [
-  { color: '#16a34a', glyph: '✓', label: 'İyi erişilebilir' },
+  { color: '#16a34a', glyph: '', label: 'İyi erişilebilir' },
   { color: '#eab308', glyph: '~', label: 'Kısmen erişilebilir' },
-  { color: '#dc2626', glyph: '✕', label: 'Erişim engeli var' },
+  { color: '#dc2626', glyph: '', label: 'Erişim engeli var' },
   { color: '#6b7280', glyph: '?', label: 'Bilgi yetersiz' },
 ]
 

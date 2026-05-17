@@ -31,7 +31,7 @@ function categoryTone(sportId: string): string {
   if (sportId.includes('swim') || sportId.includes('aqua') || sportId.includes('waterpolo'))
     return 'bg-sky/60 text-sky-foreground'
   if (sportId.includes('basket') || sportId.includes('volley') || sportId.includes('football'))
-    return 'bg-[oklch(0.95_0.06_30)] text-[oklch(0.55_0.18_30)]'
+    return 'bg-primary/10 text-primary'
   if (sportId.includes('yoga') || sportId.includes('pilates') || sportId.includes('strength'))
     return 'bg-mint/60 text-mint-foreground'
   return 'bg-accent/15 text-accent'
@@ -66,7 +66,7 @@ export function EventCard({
       className={`grid items-stretch gap-5 transition-opacity sm:grid-cols-[12rem_auto_1fr] ${dimmed ? 'opacity-60' : ''}`}
     >
       {/* Photo / icon */}
-      <div className="relative h-40 overflow-hidden rounded-3xl bg-gradient-brand sm:h-full">
+      <div className="relative h-40 overflow-hidden rounded-3xl bg-primary sm:h-full">
         <div
           aria-hidden
           className="absolute inset-0 grid place-items-center text-6xl text-primary-foreground"
@@ -77,7 +77,7 @@ export function EventCard({
 
       {/* Date column */}
       <div className="flex flex-col items-center justify-start pt-2 text-center">
-        <span className="font-display text-3xl font-extrabold leading-none text-primary-deep">
+        <span className="text-3xl font-extrabold leading-none text-primary-deep">
           {day}
         </span>
         <span className="mt-1 text-[12px] font-bold text-foreground/70">{month}</span>
@@ -94,7 +94,7 @@ export function EventCard({
         )}
         <h3
           id={`event-${event.id}-title`}
-          className={`pr-24 font-display text-[19px] font-extrabold leading-tight text-primary-deep ${dimmed ? '' : ''}`}
+          className={`pr-24  text-[19px] font-extrabold leading-tight text-primary-deep ${dimmed ? '' : ''}`}
         >
           {event.title}
         </h3>

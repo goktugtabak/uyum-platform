@@ -9,9 +9,9 @@ import {
 import { SpeakButton } from '../ui/SpeakButton'
 
 const STATUS_ICON: Record<string, string> = {
-  true:  '✅',
-  false: '❌',
-  null:  '❓',
+  true:  '',
+  false: '',
+  null:  '',
 }
 
 // Color is bound to *status only* (working/broken/unknown). Freshness is shown
@@ -36,7 +36,7 @@ export function LiveStatus({ facility }: Props) {
   return (
     <div className="rounded-3xl bg-card p-5 ring-1 ring-border/40 hc:bg-white hc:ring-black">
       <header className="mb-4 flex items-center justify-between">
-        <h3 className="font-display text-base font-extrabold text-primary-deep hc:text-black">
+        <h3 className="text-base font-extrabold text-primary-deep hc:text-black">
           Canlı Durum
         </h3>
         <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-success">

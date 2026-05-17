@@ -77,7 +77,7 @@ export function Community() {
         <p className="text-sm font-semibold text-primary">
           <Sparkles className="mr-1 inline size-3.5" aria-hidden /> Topluluk
         </p>
-        <h1 className="mt-2 font-display text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-primary-deep">
+        <h1 className="mt-2  text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-tight text-primary-deep">
           Topluluk Akışı
         </h1>
         <p className="mt-3 max-w-2xl text-base text-muted-foreground">
@@ -89,7 +89,7 @@ export function Community() {
         {/* Feed */}
         <section aria-labelledby="feed-heading">
           <div className="mb-7 flex flex-wrap items-end justify-between gap-3">
-            <h2 id="feed-heading" className="font-display text-xl font-extrabold text-primary-deep">
+            <h2 id="feed-heading" className="text-xl font-extrabold text-primary-deep">
               Topluluk gönderileri
             </h2>
             <span className="rounded-full bg-mint/50 px-3 py-1 text-[11px] font-bold text-mint-foreground">
@@ -135,7 +135,7 @@ export function Community() {
                     <header className="flex items-center gap-3">
                       <div
                         aria-hidden
-                        className="grid size-10 place-items-center rounded-full bg-gradient-brand text-xs font-bold text-primary-foreground"
+                        className="grid size-10 place-items-center rounded-full bg-primary text-xs font-bold text-primary-foreground"
                       >
                         {name[0]}
                       </div>
@@ -177,7 +177,7 @@ export function Community() {
             onSubmit={handleSubmit}
             className="rounded-3xl bg-card p-5 ring-1 ring-border/40 hc:bg-white hc:ring-black"
           >
-            <h3 className="font-display text-base font-extrabold text-primary-deep hc:text-black">
+            <h3 className="text-base font-extrabold text-primary-deep hc:text-black">
               Sen de paylaş
             </h3>
             <p className="mt-1 text-xs text-muted-foreground">
@@ -255,7 +255,7 @@ export function Community() {
           </form>
 
           <div className="rounded-3xl bg-mint/30 p-5 ring-1 ring-mint">
-            <h3 className="font-display text-base font-extrabold text-primary-deep">İpuçları</h3>
+            <h3 className="text-base font-extrabold text-primary-deep">İpuçları</h3>
             <ul role="list" className="mt-3 space-y-2 text-xs text-foreground/85 hc:text-black">
               <li>• Spesifik ol — hangi tesis, hangi spor, hangi engel.</li>
               <li>• Pozitif ya da problemli, her deneyim değerli.</li>

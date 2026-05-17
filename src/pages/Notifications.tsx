@@ -14,7 +14,7 @@ const TYPE_ICON: Record<Notification['type'], typeof Bell> = {
 const TYPE_COLOR: Record<Notification['type'], string> = {
   facility: 'bg-mint/60 text-mint-foreground',
   event: 'bg-accent/15 text-accent',
-  match: 'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]',
+  match: 'bg-accent/15 text-accent',
   community: 'bg-red-50 text-red-500',
 }
 
@@ -26,7 +26,7 @@ export function Notifications() {
       <header className="mb-6 flex items-center gap-3">
         <BackButton />
         <div>
-          <h1 className="font-display text-2xl font-extrabold text-primary-deep">Bildirimler</h1>
+          <h1 className="text-2xl font-extrabold text-primary-deep">Bildirimler</h1>
           {unread > 0 && (
             <p className="text-xs text-muted-foreground">{unread} okunmamış bildirim</p>
           )}

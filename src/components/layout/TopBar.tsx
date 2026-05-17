@@ -33,7 +33,7 @@ const MOBILE_NAV = [
 const NOTIF_TYPE_COLOR: Record<Notification['type'], string> = {
   facility:  'bg-mint/60 text-mint-foreground',
   event:     'bg-accent/15 text-accent',
-  match:     'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_60)]',
+  match:     'bg-accent/15 text-accent',
   community: 'bg-red-50 text-red-500',
 }
 const NOTIF_TYPE_ICON: Record<Notification['type'], typeof Bell> = {
@@ -190,7 +190,7 @@ export function TopBar() {
           aria-label="Menü"
           aria-expanded={showMenu}
           onClick={() => setShowMenu(v => !v)}
-          className="grid size-11 place-items-center rounded-full border border-gray-100 bg-white text-[#320E3B] hover:bg-gray-50 lg:hidden"
+          className="grid size-11 place-items-center rounded-full border border-gray-100 bg-white text-primary-deep hover:bg-gray-50 lg:hidden"
         >
           {showMenu ? <X className="size-5" aria-hidden /> : <Menu className="size-5" aria-hidden />}
         </button>
@@ -216,7 +216,7 @@ export function TopBar() {
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Tesis, spor, etkinlik ara…"
               aria-label="Site içinde ara"
-              className="h-11 w-full rounded-full border border-gray-100 bg-white pl-11 pr-4 text-sm text-[#320E3B] outline-none transition focus:border-[#320E3B] hc:bg-white hc:border-black"
+              className="h-11 w-full rounded-full border border-gray-100 bg-white pl-11 pr-4 text-sm text-primary-deep outline-none transition focus:border-primary-deep hc:bg-white hc:border-black"
             />
           </form>
         </div>
@@ -224,9 +224,9 @@ export function TopBar() {
         {profile && (
           <button
             type="button"
-            className="hidden h-11 items-center gap-2 rounded-full border border-gray-100 bg-white px-4 text-sm font-medium text-[#320E3B] hover:border-[#320E3B] sm:flex hc:bg-white hc:border-black"
+            className="hidden h-11 items-center gap-2 rounded-full border border-gray-100 bg-white px-4 text-sm font-medium text-primary-deep hover:border-primary-deep sm:flex hc:bg-white hc:border-black"
           >
-            <MapPin aria-hidden className="size-4 text-[#320E3B]" />
+            <MapPin aria-hidden className="size-4 text-primary-deep" />
             <span>{profile.city}</span>
             <ChevronDown aria-hidden className="size-3.5 text-gray-400" />
           </button>
@@ -240,7 +240,7 @@ export function TopBar() {
           aria-haspopup="dialog"
           onClick={() => { setShowA11y(v => !v); setShowNotif(false) }}
           className={`grid h-11 w-11 place-items-center rounded-full text-white transition ${
-            showA11y ? 'bg-[#4C2A85]' : 'bg-[#320E3B] hover:opacity-90'
+            showA11y ? 'bg-primary' : 'bg-primary-deep hover:opacity-90'
           }`}
         >
           <PersonStanding className="size-5" aria-hidden />
@@ -254,7 +254,7 @@ export function TopBar() {
             aria-expanded={showNotif}
             aria-haspopup="dialog"
             onClick={() => { setShowNotif(v => !v); setShowA11y(false) }}
-            className="relative grid h-11 w-11 place-items-center rounded-full border border-gray-100 bg-white text-[#320E3B] hover:border-[#320E3B] hc:bg-white hc:border-black"
+            className="relative grid h-11 w-11 place-items-center rounded-full border border-gray-100 bg-white text-primary-deep hover:border-primary-deep hc:bg-white hc:border-black"
           >
             <Bell aria-hidden className="size-[18px]" />
             {unreadCount > 0 && (
@@ -269,7 +269,7 @@ export function TopBar() {
               className="absolute right-0 top-full z-40 mt-2 w-[min(22rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-lg"
             >
               <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
-                <span className="text-sm font-bold text-[#320E3B]">Bildirimler</span>
+                <span className="text-sm font-bold text-primary-deep">Bildirimler</span>
                 {unreadCount > 0 && (
                   <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-bold text-primary">
                     {unreadCount} yeni
@@ -294,7 +294,7 @@ export function TopBar() {
                         </span>
                         <div className="min-w-0 flex-1">
                           <div className="flex items-start justify-between gap-1.5">
-                            <span className={`text-[13px] font-semibold leading-tight ${!n.read ? 'text-[#320E3B]' : 'text-gray-700'}`}>
+                            <span className={`text-[13px] font-semibold leading-tight ${!n.read ? 'text-primary-deep' : 'text-gray-700'}`}>
                               {n.title}
                             </span>
                             {!n.read && (
@@ -328,15 +328,15 @@ export function TopBar() {
           <Link
             to="/profile"
             aria-label="Profilim"
-            className="hidden h-11 items-center gap-2 rounded-full border border-gray-100 bg-white pl-1 pr-3 hover:border-[#320E3B] sm:flex hc:bg-white hc:border-black"
+            className="hidden h-11 items-center gap-2 rounded-full border border-gray-100 bg-white pl-1 pr-3 hover:border-primary-deep sm:flex hc:bg-white hc:border-black"
           >
             <span
               aria-hidden
-              className="grid size-9 place-items-center rounded-full bg-[#320E3B] text-sm font-bold text-white"
+              className="grid size-9 place-items-center rounded-full bg-primary-deep text-sm font-bold text-white"
             >
               {profileBadgeInitial}
             </span>
-            <span className="text-sm font-semibold text-[#320E3B]">
+            <span className="text-sm font-semibold text-primary-deep">
               {profileBadgeText}
             </span>
           </Link>
@@ -357,7 +357,7 @@ export function TopBar() {
                     <Link
                       to={item.to}
                       onClick={() => setShowMenu(false)}
-                      className="flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium text-gray-500 hover:bg-[#320E3B] hover:text-white"
+                      className="flex items-center gap-3 rounded-full px-4 py-2.5 text-sm font-medium text-gray-500 hover:bg-primary-deep hover:text-white"
                     >
                       <Icon aria-hidden className="size-[18px]" />
                       {item.label}
@@ -391,10 +391,10 @@ export function TopBar() {
         {/* Panel header */}
         <div className="flex items-center justify-between border-b border-gray-100 px-6 py-5">
           <div className="flex items-center gap-2.5">
-            <span className="grid size-9 place-items-center rounded-full bg-[#320E3B] text-white">
+            <span className="grid size-9 place-items-center rounded-full bg-primary-deep text-white">
               <PersonStanding className="size-4" aria-hidden />
             </span>
-            <h2 className="text-base font-bold text-[#320E3B]">Erişilebilirlik</h2>
+            <h2 className="text-base font-bold text-primary-deep">Erişilebilirlik</h2>
           </div>
           <button
             type="button"
@@ -439,9 +439,9 @@ export function TopBar() {
                     }
                     if (Object.keys(extraPatch).length) patchExtra(extraPatch)
                   }}
-                  className="flex items-center gap-2.5 rounded-2xl border border-gray-100 bg-gray-50 px-3 py-3 text-left text-[12.5px] font-semibold text-[#320E3B] transition hover:border-[#320E3B]/30 hover:bg-[#320E3B]/5"
+                  className="flex items-center gap-2.5 rounded-2xl border border-gray-100 bg-gray-50 px-3 py-3 text-left text-[12.5px] font-semibold text-primary-deep transition hover:border-primary-deep/30 hover:bg-primary-deep/5"
                 >
-                  <Icon aria-hidden className="size-4 shrink-0 text-[#320E3B]/60" />
+                  <Icon aria-hidden className="size-4 shrink-0 text-primary-deep/60" />
                   <span className="leading-tight">{label}</span>
                 </button>
               ))}
@@ -466,8 +466,8 @@ export function TopBar() {
                       onClick={() => setFontSize(o.value)}
                       className={`flex-1 rounded-xl py-2 text-sm font-bold transition ${
                         prefs.fontSize === o.value
-                          ? 'bg-[#320E3B] text-white'
-                          : 'border border-gray-100 bg-white text-gray-600 hover:border-[#320E3B]/30'
+                          ? 'bg-primary-deep text-white'
+                          : 'border border-gray-100 bg-white text-gray-600 hover:border-primary-deep/30'
                       }`}
                     >
                       {o.label}
@@ -494,8 +494,8 @@ export function TopBar() {
                       onClick={() => patchExtra({ lineHeight: o.value })}
                       className={`flex-1 rounded-xl py-2 text-sm font-bold transition ${
                         extra.lineHeight === o.value
-                          ? 'bg-[#320E3B] text-white'
-                          : 'border border-gray-100 bg-white text-gray-600 hover:border-[#320E3B]/30'
+                          ? 'bg-primary-deep text-white'
+                          : 'border border-gray-100 bg-white text-gray-600 hover:border-primary-deep/30'
                       }`}
                     >
                       {o.label}
@@ -547,8 +547,8 @@ export function TopBar() {
                       onClick={() => setColorblindMode(o.value)}
                       className={`flex-1 rounded-xl py-2 text-[11px] font-bold transition ${
                         prefs.colorblindMode === o.value
-                          ? 'bg-[#320E3B] text-white'
-                          : 'border border-gray-100 bg-white text-gray-600 hover:border-[#320E3B]/30'
+                          ? 'bg-primary-deep text-white'
+                          : 'border border-gray-100 bg-white text-gray-600 hover:border-primary-deep/30'
                       }`}
                     >
                       {o.label}
@@ -638,7 +638,7 @@ function ToggleRow({
       <label htmlFor={id} className="flex min-w-0 flex-1 cursor-pointer items-start gap-2.5">
         <span aria-hidden className="mt-0.5 shrink-0 text-gray-400">{icon}</span>
         <span>
-          <span className="block text-[12.5px] font-semibold text-[#320E3B]">{label}</span>
+          <span className="block text-[12.5px] font-semibold text-primary-deep">{label}</span>
           <span className="block text-[11px] text-gray-400">{desc}</span>
         </span>
       </label>
@@ -649,7 +649,7 @@ function ToggleRow({
         aria-checked={checked}
         onClick={() => onChange(!checked)}
         className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${
-          checked ? 'bg-[#320E3B]' : 'bg-gray-200'
+          checked ? 'bg-primary-deep' : 'bg-gray-200'
         }`}
       >
         <span

@@ -61,7 +61,7 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 id={titleId} className="font-display text-[14.5px] font-extrabold leading-snug text-primary-deep line-clamp-2 hc:text-black">
+        <h3 id={titleId} className="text-[14.5px] font-extrabold leading-snug text-primary-deep line-clamp-2 hc:text-black">
           {exercise.title}
         </h3>
         <p className="text-xs text-muted-foreground line-clamp-2 hc:text-black">

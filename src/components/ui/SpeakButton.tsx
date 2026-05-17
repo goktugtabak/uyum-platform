@@ -35,7 +35,7 @@ export function SpeakButton({ text, label, className = '' }: SpeakButtonProps) {
         className
       }
     >
-      <span aria-hidden="true">{speaking ? '⏹' : '🔊'}</span>
+      <span aria-hidden="true">{speaking ? '⏹' : ''}</span>
       <span>{speaking ? 'Durdur' : 'Sesli Oku'}</span>
     </button>
   )

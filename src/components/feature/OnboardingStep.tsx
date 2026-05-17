@@ -42,7 +42,7 @@ export function OnboardingStep<T extends string>({
       )}
       <h2
         id={titleId}
-        className="font-display text-3xl font-extrabold text-primary-deep md:text-4xl"
+        className="text-3xl font-extrabold text-primary-deep md:text-4xl"
       >
         {title}
       </h2>
@@ -95,7 +95,7 @@ export function OnboardingStep<T extends string>({
                     </span>
                   )}
                   <div className="flex-1">
-                    <span className="font-display text-base font-extrabold text-primary-deep">
+                    <span className="text-base font-extrabold text-primary-deep">
                       {opt.label}
                     </span>
                     {opt.description && (

@@ -1,19 +1,19 @@
 const SPORT_ICONS: Record<string, string> = {
-  's-swim':               '🏊',
-  's-aqua':               '🤽',
-  's-wheelchair-basket':  '🏀',
-  's-wheelchair-tennis':  '🎾',
-  's-goalball':           '🟢',
-  's-boccia':             '🎯',
-  's-sitting-volleyball': '🏐',
-  's-athletics':          '🏃',
-  's-archery-para':       '🏹',
-  's-yoga':               '🧘',
-  's-pilates':            '🤸',
-  's-strength':           '🏋️',
-  's-judo-para':          '🥋',
-  's-football':           '⚽',
-  's-waterpolo':          '🤽',
+  's-swim':               '',
+  's-aqua':               '',
+  's-wheelchair-basket':  '',
+  's-wheelchair-tennis':  '',
+  's-goalball':           '',
+  's-boccia':             '',
+  's-sitting-volleyball': '',
+  's-athletics':          '',
+  's-archery-para':       '',
+  's-yoga':               '',
+  's-pilates':            '',
+  's-strength':           '️',
+  's-judo-para':          '',
+  's-football':           '',
+  's-waterpolo':          '',
 }
 
 const SPORT_LABELS: Record<string, string> = {
@@ -35,7 +35,7 @@ const SPORT_LABELS: Record<string, string> = {
 }
 
 export function getSportIcon(sportId: string): string {
-  return SPORT_ICONS[sportId] ?? '🏅'
+  return SPORT_ICONS[sportId] ?? ''
 }
 
 export function getSportLabel(sportId: string): string {

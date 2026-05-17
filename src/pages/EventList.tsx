@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { BackButton } from '../components/ui/BackButton'
 import {
   ChevronLeft, ChevronRight, MapPin, Clock,
-  PersonStanding, Bell, Plus, CalendarDays, ArrowRight, Sparkles, ChevronDown,
+  PersonStanding, Bell, CalendarDays, ArrowRight, Sparkles, ChevronDown,
 } from 'lucide-react'
 import type { SportEvent, DisabilityType, Facility, Sport, EventLevel, UserProfile } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
@@ -73,7 +73,7 @@ function categoryTone(sportId: string): string {
   if (sportId.includes('swim') || sportId.includes('aqua') || sportId.includes('waterpolo'))
     return 'bg-sky/60 text-sky-foreground'
   if (sportId.includes('basket') || sportId.includes('volley') || sportId.includes('football'))
-    return 'bg-[oklch(0.95_0.06_30)] text-[oklch(0.55_0.18_30)]'
+    return 'bg-primary/10 text-primary'
   if (sportId.includes('yoga') || sportId.includes('pilates') || sportId.includes('strength'))
     return 'bg-mint/60 text-mint-foreground'
   return 'bg-accent/15 text-accent'
@@ -190,7 +190,7 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
 
       {/* Date column */}
       <div className="flex flex-col items-center justify-start pt-2 text-center">
-        <span className="font-display text-3xl font-extrabold leading-none text-primary-deep">{day}</span>
+        <span className="text-3xl font-extrabold leading-none text-primary-deep">{day}</span>
         <span className="mt-1 text-[12px] font-bold text-foreground/70">{month}</span>
         <span className="mt-0.5 text-[11px] text-muted-foreground capitalize">{weekday}</span>
       </div>
@@ -202,7 +202,7 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
         </div>
         <h3
           id={`event-${event.id}-title`}
-          className="font-display text-[19px] font-extrabold leading-tight text-primary-deep"
+          className="text-[19px] font-extrabold leading-tight text-primary-deep"
         >
           {event.title}
         </h3>
@@ -243,7 +243,7 @@ function EventRow({ event, now, profile, toggleFavoriteEvent, dimmed = false }: 
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2" aria-hidden>
               {[...Array(4)].map((_, i) => (
-                <span key={i} className="size-7 rounded-full bg-gradient-brand ring-2 ring-background" />
+                <span key={i} className="size-7 rounded-full bg-primary ring-2 ring-background" />
               ))}
             </div>
             <span className="text-[12px] text-muted-foreground">+{Math.max(0, attendees - 4)}</span>
@@ -321,7 +321,7 @@ function MiniCalendar({ events, now }: { events: SportEvent[]; now: Date }) {
         >
           <ChevronLeft className="size-4" aria-hidden />
         </button>
-        <span className="font-display text-base font-extrabold text-primary-deep">
+        <span className="text-base font-extrabold text-primary-deep">
           {MONTHS_TR_LONG[month]} {year}
         </span>
         <button
@@ -430,7 +430,7 @@ function InterestList({ events }: { events: SportEvent[] }) {
   return (
     <div>
       <div className="mb-4 flex items-end justify-between">
-        <h3 className="font-display text-base font-extrabold text-primary-deep">İlgi Alanlarına Göre Öneriler</h3>
+        <h3 className="text-base font-extrabold text-primary-deep">İlgi Alanlarına Göre Öneriler</h3>
         <Link to="/events" className="text-xs font-semibold text-primary">Tümü →</Link>
       </div>
       <ul className="space-y-4">
@@ -438,7 +438,7 @@ function InterestList({ events }: { events: SportEvent[] }) {
           <li key={it.id} className="flex items-start gap-3">
             <span className={`grid size-9 shrink-0 place-items-center rounded-full ${
               it.tone === 'accent' ? 'bg-accent/15 text-accent' :
-              it.tone === 'peach'  ? 'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]' :
+              it.tone === 'peach'  ? 'bg-accent/15 text-accent' :
                                      'bg-mint/60 text-mint-foreground'
             }`}>
               <Sparkles className="size-4" aria-hidden />
@@ -448,7 +448,7 @@ function InterestList({ events }: { events: SportEvent[] }) {
                 <div className="truncate text-[13px] font-bold text-foreground">{it.title}</div>
                 <span className={`shrink-0 rounded-full px-2 py-0.5 text-[9.5px] font-bold ${
                   it.tone === 'accent' ? 'bg-accent/15 text-accent' :
-                  it.tone === 'peach'  ? 'bg-[oklch(0.92_0.07_60)] text-[oklch(0.55_0.16_50)]' :
+                  it.tone === 'peach'  ? 'bg-accent/15 text-accent' :
                                          'bg-mint/60 text-mint-foreground'
                 }`}>{it.tag}</span>
               </div>
@@ -466,7 +466,7 @@ function UpcomingList({ events }: { events: SportEvent[] }) {
   return (
     <div>
       <div className="mb-4 flex items-end justify-between">
-        <h3 className="inline-flex items-center gap-2 font-display text-base font-extrabold text-primary-deep">
+        <h3 className="inline-flex items-center gap-2  text-base font-extrabold text-primary-deep">
           <CalendarDays className="size-4 text-primary" aria-hidden /> Yaklaşan etkinliklerin
         </h3>
         <Link to="/events" className="text-xs font-semibold text-primary">Tümü →</Link>
@@ -489,7 +489,7 @@ function UpcomingList({ events }: { events: SportEvent[] }) {
                   {d.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
                 </div>
                 <div className="truncate text-[11px] text-muted-foreground">
-                  <span aria-hidden>📍</span> {facility?.name ?? 'Tesis'}
+                  <span aria-hidden></span> {facility?.name ?? 'Tesis'}
                 </div>
               </div>
             </li>
@@ -500,24 +500,6 @@ function UpcomingList({ events }: { events: SportEvent[] }) {
   )
 }
 
-function CreateEventBlock() {
-  return (
-    <div className="relative overflow-hidden rounded-[2rem] bg-gradient-deep px-6 py-7 text-primary-foreground">
-      <div className="absolute -right-8 -top-8 size-40 rounded-full bg-mint/25 blur-2xl" aria-hidden />
-      <Plus className="size-7 opacity-90" aria-hidden />
-      <h3 className="mt-3 font-display text-lg font-extrabold">Kendi etkinliğini oluştur</h3>
-      <p className="mt-1 text-[12.5px] text-primary-foreground/75">
-        Topluluğunu davet et, birlikte hareket edin.
-      </p>
-      <Link
-        to="/community"
-        className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-bold text-primary-deep"
-      >
-        Etkinlik oluştur <ChevronRight className="size-3.5" aria-hidden />
-      </Link>
-    </div>
-  )
-}
 
 function NotifyBlock() {
   return (
@@ -585,7 +567,7 @@ export function EventList() {
       {/* Hero — title + soft park illustration */}
       <header className="relative mb-10 grid items-end gap-10 md:grid-cols-12">
         <div className="md:col-span-7">
-          <h1 className="font-display text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
+          <h1 className="text-[clamp(2.4rem,4.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-tight text-primary-deep">
             Etkinlikler
           </h1>
           <p className="mt-3 max-w-lg text-base text-muted-foreground">
@@ -681,7 +663,7 @@ export function EventList() {
         {/* Event flow */}
         <section aria-labelledby="upcoming-heading">
           <div className="mb-7 flex flex-wrap items-end gap-3">
-            <h2 id="upcoming-heading" className="font-display text-xl font-extrabold text-primary-deep">
+            <h2 id="upcoming-heading" className="text-xl font-extrabold text-primary-deep">
               Sana özel önerilen etkinlikler
             </h2>
             {upcoming.length > 0 && (
@@ -742,7 +724,7 @@ export function EventList() {
           <MiniCalendar events={ALL_EVENTS} now={new Date(now)} />
           <UpcomingList events={upcoming} />
           <InterestList events={upcoming.length > 0 ? upcoming : ALL_EVENTS} />
-          <CreateEventBlock />
+          
           <NotifyBlock />
         </aside>
       </div>
