@@ -5,7 +5,7 @@ import {
   PersonStanding, Target, CheckCircle2, MapPin, RefreshCw, Heart,
   Footprints,
   Waves, CircleDot, Trophy,
-  ChevronLeft, ChevronRight
+  ChevronLeft, ChevronRight,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { motion, AnimatePresence, type Variants } from 'framer-motion'
@@ -130,19 +130,19 @@ export function MatchSport() {
 
   const matches: MatchResult[] = useMemo(() => {
     if (!profile) return []
-    return matchSports(profile, sportsData as Sport[])
+    return matchSports(profile, sportsData as Sport[]).slice(0, 6)
   }, [profile])
 
   const [page, setPage] = useState(0)
   const [direction, setDirection] = useState(1)
-  
+
   const totalPages = Math.ceil(matches.length / 3)
 
   const handleNext = () => {
     setDirection(1)
     setPage(p => (p + 1) % totalPages)
   }
-  
+
   const handlePrev = () => {
     setDirection(-1)
     setPage(p => (p - 1 + totalPages) % totalPages)
@@ -153,7 +153,7 @@ export function MatchSport() {
   const slideVariants: Variants = {
     initial: (dir: number) => ({ opacity: 0, x: dir * 50 }),
     animate: () => ({ opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } }),
-    exit: (dir: number) => ({ opacity: 0, x: dir * -50, transition: { duration: 0.3 } })
+    exit: (dir: number) => ({ opacity: 0, x: dir * -50, transition: { duration: 0.3 } }),
   }
 
   if (!profile) return null
@@ -223,7 +223,7 @@ export function MatchSport() {
               <ChevronRight className="size-6" />
             </button>
           )}
-          
+
           <div className="overflow-hidden min-h-[500px]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
@@ -235,112 +235,111 @@ export function MatchSport() {
                 exit="exit"
                 className="w-full"
               >
-              {/* 3 hero photos */}
-              <div className="grid gap-x-8 gap-y-6 md:grid-cols-3">
-                {currentMatches.map((m, i) => (
-                  <SportPhoto key={m.sport.id} idx={page * 3 + i} matchLevel={calcMatchLevel(m.score)} sport={m.sport} />
-                ))}
-              </div>
+                {/* 3 hero photos */}
+                <div className="grid gap-x-8 gap-y-6 md:grid-cols-3">
+                  {currentMatches.map((m, i) => (
+                    <SportPhoto key={m.sport.id} idx={page * 3 + i} matchLevel={calcMatchLevel(m.score)} sport={m.sport} />
+                  ))}
+                </div>
 
-              {/* Details row */}
-              <div className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-3">
-                {currentMatches.map((m, i) => {
-                  const t = TINTS[i % TINTS.length]
-                  const matchLevel = calcMatchLevel(m.score)
-                  const Icon = SPORT_DETAIL_ICONS[i % SPORT_DETAIL_ICONS.length] ?? Trophy
-                  const related = pickTopFacilities(
-                    facilities.filter(f => f.sports.includes(m.sport.id)),
-                    profile,
-                    3,
-                  )
-                  return (
-                    <article key={m.sport.id} className="flex flex-col">
-                      <h3 className="text-2xl font-extrabold leading-tight text-primary-deep">
-                        {m.sport.name}
-                      </h3>
-                      <div className="mt-2">
-                        <MatchBadge level={matchLevel} />
-                      </div>
-                      <p className="mt-4 text-sm leading-relaxed text-foreground/80">
-                        {m.sport.description}
-                      </p>
-
-                      <div className="mt-6">
-                        <div className="flex items-center justify-between">
-                          <div className="text-[13px] font-bold text-primary-deep">Sana göre neden uygun?</div>
-                          <SpeakButton text={m.reason} label={`${m.sport.name} önerisi`} />
+                {/* Details row */}
+                <div className="mt-10 grid gap-x-8 gap-y-12 md:grid-cols-3">
+                  {currentMatches.map((m, i) => {
+                    const t = TINTS[i % TINTS.length]
+                    const matchLevel = calcMatchLevel(m.score)
+                    const Icon = SPORT_DETAIL_ICONS[i % SPORT_DETAIL_ICONS.length] ?? Trophy
+                    const related = pickTopFacilities(
+                      facilities.filter(f => f.sports.includes(m.sport.id)),
+                      profile,
+                      3,
+                    )
+                    return (
+                      <article key={m.sport.id} className="flex flex-col">
+                        <h3 className="text-2xl font-extrabold leading-tight text-primary-deep">
+                          {m.sport.name}
+                        </h3>
+                        <div className="mt-2">
+                          <MatchBadge level={matchLevel} />
                         </div>
-                        <ul className="mt-3 space-y-2">
-                          {m.reason.split(',').slice(0, 4).map((r, listIdx) => {
-                            const text = r.trim().replace(/\.$/, '')
-                            // İlk harfi büyüt (işitme -> İşitme)
-                            const capitalized = text.charAt(0).toLocaleUpperCase('tr-TR') + text.slice(1)
-                            return (
-                              <li key={listIdx} className="flex items-start gap-2 text-[13.5px] text-foreground/85">
-                                <CheckCircle2 aria-hidden className={`mt-0.5 size-4 shrink-0 ${t.check}`} />
-                                <span>{capitalized}</span>
-                              </li>
-                            )
-                          })}
-                        </ul>
-                      </div>
+                        <p className="mt-4 text-sm leading-relaxed text-foreground/80">
+                          {m.sport.description}
+                        </p>
 
-                      {related.length > 0 && (
-                        <div className="mt-7">
-                          <div className="text-[13px] font-bold text-primary-deep">Erişilebilir Tesisler (Ankara)</div>
-                          <ul className="mt-3 space-y-2.5">
-                            {related.map(({ facility, overall }) => (
-                              <li key={facility.id} className="text-[13px]">
-                                <div className="flex items-center gap-2">
-                                  <MapPin className="size-3.5 text-muted-foreground" aria-hidden />
-                                  <Link
-                                    to={`/facility/${facility.id}`}
-                                    className="flex-1 truncate hover:text-primary"
-                                  >
-                                    {facility.name}
-                                  </Link>
-                                  <span className="text-muted-foreground">{facility.district.split(',')[0]}</span>
-                                  <ScoreBadge color={overall} size="sm" />
-                                </div>
-                                <FacilityTrustLine facility={facility} className="ml-5 mt-1" />
-                              </li>
-                            ))}
+                        <div className="mt-6">
+                          <div className="flex items-center justify-between">
+                            <div className="text-[13px] font-bold text-primary-deep">Sana göre neden uygun?</div>
+                            <SpeakButton text={m.reason} label={`${m.sport.name} önerisi`} />
+                          </div>
+                          <ul className="mt-3 space-y-2">
+                            {m.reason.split(',').slice(0, 4).map((r, listIdx) => {
+                              const text = r.trim().replace(/\.$/, '')
+                              const capitalized = text.charAt(0).toLocaleUpperCase('tr-TR') + text.slice(1)
+                              return (
+                                <li key={listIdx} className="flex items-start gap-2 text-[13.5px] text-foreground/85">
+                                  <CheckCircle2 aria-hidden className={`mt-0.5 size-4 shrink-0 ${t.check}`} />
+                                  <span>{capitalized}</span>
+                                </li>
+                              )
+                            })}
                           </ul>
+                        </div>
+
+                        {related.length > 0 && (
+                          <div className="mt-7">
+                            <div className="text-[13px] font-bold text-primary-deep">Erişilebilir Tesisler (Ankara)</div>
+                            <ul className="mt-3 space-y-2.5">
+                              {related.map(({ facility, overall }) => (
+                                <li key={facility.id} className="text-[13px]">
+                                  <div className="flex items-center gap-2">
+                                    <MapPin className="size-3.5 text-muted-foreground" aria-hidden />
+                                    <Link
+                                      to={`/facility/${facility.id}`}
+                                      className="flex-1 truncate hover:text-primary"
+                                    >
+                                      {facility.name}
+                                    </Link>
+                                    <span className="text-muted-foreground">{facility.district.split(',')[0]}</span>
+                                    <ScoreBadge color={overall} size="sm" />
+                                  </div>
+                                  <FacilityTrustLine facility={facility} className="ml-5 mt-1" />
+                                </li>
+                              ))}
+                            </ul>
+                            <Link
+                              to={`/map?sport=${m.sport.id}`}
+                              className={`mt-3 inline-block text-right text-[11.5px] font-bold ${t.link}`}
+                            >
+                              Tümünü gör →
+                            </Link>
+                          </div>
+                        )}
+
+                        <div className="mt-8 flex flex-wrap items-center gap-3">
+                          <Link to={`/map?sport=${m.sport.id}`} className="inline-flex items-center gap-3 self-start">
+                            <span className={`grid size-12 place-items-center rounded-full ${t.icon}`}>
+                              <Icon className="size-5" aria-hidden />
+                            </span>
+                            <span className={`text-sm font-bold underline underline-offset-[6px] decoration-2 ${t.link}`}>
+                              Detayları incele →
+                            </span>
+                          </Link>
                           <Link
-                            to={`/map?sport=${m.sport.id}`}
-                            className={`mt-3 inline-block text-right text-[11.5px] font-bold ${t.link}`}
+                            to={`/coaches?sport=${m.sport.id}`}
+                            className="text-sm font-semibold text-muted-foreground hover:text-primary"
                           >
-                            Tümünü gör →
+                            Koç bul →
                           </Link>
                         </div>
-                      )}
-
-                      <div className="mt-8 flex flex-wrap items-center gap-3">
-                        <Link to={`/map?sport=${m.sport.id}`} className="inline-flex items-center gap-3 self-start">
-                          <span className={`grid size-12 place-items-center rounded-full ${t.icon}`}>
-                            <Icon className="size-5" aria-hidden />
-                          </span>
-                          <span className={`text-sm font-bold underline underline-offset-[6px] decoration-2 ${t.link}`}>
-                            Detayları incele →
-                          </span>
-                        </Link>
-                        <Link
-                          to={`/coaches?sport=${m.sport.id}`}
-                          className="text-sm font-semibold text-muted-foreground hover:text-primary"
-                        >
-                          Koç bul →
-                        </Link>
-                      </div>
-                </article>
-              )
-            })}
+                      </article>
+                    )
+                  })}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
-        </motion.div>
-      </AnimatePresence>
-    </div>
           
-          {/* Footer feedback row */}
-          <section className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] bg-secondary px-8 py-6">
+        {/* Footer feedback row */}
+        <section className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-[2rem] bg-secondary px-8 py-6">
             <div className="flex items-center gap-4">
               <span aria-hidden className="grid size-12 place-items-center rounded-2xl bg-white text-primary-deep">
                 <RefreshCw className="size-5" />

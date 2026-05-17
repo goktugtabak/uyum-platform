@@ -208,6 +208,7 @@ export function ExerciseLibrary() {
           onChange={v => patch({ sport: v as FilterState['sport'] })}
           open={openDD === 'sport'}
           onToggle={() => toggleDD('sport')}
+          className="w-full"
         />
         <FilterDropdown
           label="Zorluk Seviyesi"
@@ -216,6 +217,7 @@ export function ExerciseLibrary() {
           onChange={v => patch({ level: v as FilterState['level'] })}
           open={openDD === 'level'}
           onToggle={() => toggleDD('level')}
+          className="w-full"
         />
         <FilterDropdown
           label="Ekipman"
@@ -224,6 +226,7 @@ export function ExerciseLibrary() {
           onChange={v => patch({ equipment: v as FilterState['equipment'] })}
           open={openDD === 'equipment'}
           onToggle={() => toggleDD('equipment')}
+          className="w-full"
         />
         <FilterDropdown
           label="Hedef Bölge"
@@ -232,14 +235,16 @@ export function ExerciseLibrary() {
           onChange={v => patch({ zone: v as FilterState['zone'] })}
           open={openDD === 'zone'}
           onToggle={() => toggleDD('zone')}
+          className="w-full"
         />
         <FilterDropdown
-          label="Sırala:"
+          label="Sırala"
           value={filters.sort}
           options={SORT_OPTIONS}
           onChange={v => patch({ sort: v as SortBy })}
           open={openDD === 'sort'}
           onToggle={() => toggleDD('sort')}
+          className="w-full"
         />
       </div>
 

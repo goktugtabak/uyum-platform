@@ -207,6 +207,7 @@ export function CoachDirectory() {
           }}
           open={openDD === 'sport'}
           onToggle={() => toggleDD('sport')}
+          className="w-full"
         />
         <FilterDropdown
           label="Uzmanlık"
@@ -215,6 +216,7 @@ export function CoachDirectory() {
           onChange={v => patch({ expertise: v as FilterState['expertise'] })}
           open={openDD === 'expertise'}
           onToggle={() => toggleDD('expertise')}
+          className="w-full"
         />
         <FilterDropdown
           label="Şehir"
@@ -223,6 +225,7 @@ export function CoachDirectory() {
           onChange={v => patch({ city: v })}
           open={openDD === 'city'}
           onToggle={() => toggleDD('city')}
+          className="w-full"
         />
         <FilterDropdown
           label="Deneyim"
@@ -231,14 +234,16 @@ export function CoachDirectory() {
           onChange={v => patch({ exp: v })}
           open={openDD === 'exp'}
           onToggle={() => toggleDD('exp')}
+          className="w-full"
         />
         <FilterDropdown
-          label="Sırala:"
+          label="Sırala"
           value={filters.sort}
           options={sortOptions}
           onChange={v => patch({ sort: v as SortBy })}
           open={openDD === 'sort'}
           onToggle={() => toggleDD('sort')}
+          className="w-full"
         />
       </div>
 

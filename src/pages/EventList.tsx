@@ -581,6 +581,7 @@ export function EventList() {
           onChange={v => setFilters(f => ({ ...f, sport: v }))}
           open={openDD === 'sport'}
           onToggle={() => toggleDD('sport')}
+          className="w-36"
         />
 
         <FilterDropdown
@@ -590,6 +591,7 @@ export function EventList() {
           onChange={v => setFilters(f => ({ ...f, disabilityType: v as EventFilters['disabilityType'] }))}
           open={openDD === 'disability'}
           onToggle={() => toggleDD('disability')}
+          className="w-40"
         />
 
         {/* Date range chips — compact inline group */}

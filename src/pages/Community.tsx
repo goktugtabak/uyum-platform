@@ -1,5 +1,6 @@
 ﻿import { useMemo, useState } from 'react'
 import { Heart, Plus, MessageCircle, Sparkles } from 'lucide-react'
+import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'
 import type { Facility, Testimony, DisabilityType } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
 import { BackButton } from '../components/ui/BackButton'
@@ -36,6 +37,7 @@ export function Community() {
   const [anonymous, setAnonymous] = useState(true)
   const [displayName, setDisplayName] = useState('')
   const [facilityId, setFacilityId] = useState(ALL_FACILITIES[0]?.id ?? '')
+  const [facilityDDOpen, setFacilityDDOpen] = useState(false)
   const [error, setError] = useState('')
 
   const filtered = useMemo(() => {
@@ -184,19 +186,20 @@ export function Community() {
               Bir tesisteki deneyimini, motivasyonunu ya da sorunu anlat.
             </p>
 
-            <label htmlFor="community-facility" className="mt-4 block text-xs font-semibold text-foreground hc:text-black">
+            <label className="mt-4 block text-xs font-semibold text-foreground hc:text-black">
               Tesis
             </label>
-            <select
-              id="community-facility"
-              value={facilityId}
-              onChange={e => setFacilityId(e.target.value)}
-              className="mt-1 w-full rounded-xl bg-card px-3 py-2 text-sm ring-1 ring-border/60 outline-none focus:ring-2 focus:ring-primary/30 hc:bg-white hc:ring-black"
-            >
-              {ALL_FACILITIES.map(f => (
-                <option key={f.id} value={f.id}>{f.name}</option>
-              ))}
-            </select>
+            <div className="mt-1">
+              <FilterDropdown
+                label="Tesis"
+                value={facilityId}
+                options={ALL_FACILITIES.map((f): DropdownOption => ({ value: f.id, label: f.name }))}
+                onChange={setFacilityId}
+                open={facilityDDOpen}
+                onToggle={() => setFacilityDDOpen(p => !p)}
+                className="w-full"
+              />
+            </div>
 
             <label htmlFor="community-text" className="mt-3 block text-xs font-semibold text-foreground hc:text-black">
               Paylaşımın

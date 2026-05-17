@@ -1,10 +1,10 @@
-import { Activity,  useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { BackButton } from '../components/ui/BackButton'
 import {
   Navigation, Layers, Plus, Minus, ChevronDown,
   Waves, MapPin, ParkingCircle, Dumbbell,
-  PersonStanding, Footprints, LayoutList, Map as MapIcon,
+  PersonStanding, Footprints, LayoutList, Map as MapIcon, Activity,
 } from 'lucide-react'
 import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'
 import { ActiveFilterChip } from '../components/ui/ActiveFilterChip'
@@ -108,17 +108,25 @@ function LiveFacilityMarker({
   const distanceKm = estimatedDistance(facility)
   const divIcon = buildPhotoIcon(imageUrl, color, glyph, isDimmed, isHighlighted)
   const ariaLabel = `${facility.name} — erişilebilirlik: ${SCORE_LABEL[overall]}`
+  const markerRef = useRef<L.Marker | null>(null)
 
   return (
     <Marker
+      ref={markerRef}
       position={[facility.coordinates.lat, facility.coordinates.lng]}
       icon={divIcon}
       aria-label={ariaLabel}
+      eventHandlers={{
+        mouseover: () => markerRef.current?.openPopup(),
+        mouseout: () => markerRef.current?.closePopup(),
+      }}
     >
       <Popup
         offset={[0, -48]}
         closeButton={false}
-        className="facility-pho"
+        closeOnClick={false}
+        autoPan={false}
+        className="facility-photo-popup"
       >
         <Link
           to={`/facility/${facility.id}`}
@@ -265,6 +273,7 @@ export function FacilityMap() {
                 onChange={v => setDisabilityType(v as DisabilityType)}
                 open={openDD === 'disability'}
                 onToggle={() => setOpenDD(prev => prev === 'disability' ? null : 'disability')}
+                className="w-40"
               />
               <FilterDropdown
                 label="Spor Dalı"
@@ -277,6 +286,7 @@ export function FacilityMap() {
                 }}
                 open={openDD === 'sport'}
                 onToggle={() => setOpenDD(prev => prev === 'sport' ? null : 'sport')}
+                className="w-36"
               />
               {isFiltered && (
                 <button
