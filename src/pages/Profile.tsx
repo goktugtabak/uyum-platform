@@ -75,17 +75,11 @@ export function Profile() {
   const initial = DISABILITY_LABELS[profile.disabilityTypes[0]]?.charAt(0).toUpperCase() ?? 'U'
 
   return (
-    <div className="mx-auto max-w-5xl space-y-12 pt-4">
-      {/* Hero Header - Flat, Modern */}
-      <section className="relative overflow-hidden rounded-[2rem] bg-primary-deep p-8 shadow-sm sm:p-10">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-6">
-            <div className="grid size-20 shrink-0 place-items-center rounded-full bg-primary text-3xl font-extrabold text-white shadow-sm">
     <div className="mx-auto max-w-5xl space-y-10 pt-2">
       <BackButton className="mb-6" />
       {/* Hero */}
       <section className="relative overflow-hidden rounded-3xl ring-1 ring-border/40" style={{ height: 240 }}>
-        <img src={dashHero} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-deep via-primary to-[#6B7FD7]" />
         <div className="absolute inset-0 bg-gradient-to-t from-primary-deep/85 via-primary-deep/45 to-primary-deep/10" />
         <div className="relative flex h-full items-end justify-between gap-4 p-6">
           <div className="flex items-end gap-4">
@@ -94,7 +88,7 @@ export function Profile() {
               className="grid size-16 place-items-center rounded-full bg-primary text-2xl font-extrabold text-primary-foreground ring-4 ring-white/30 shadow-glow"
             >
               {initial}
-            </div>
+            </span>
             <div className="min-w-0">
               <h1 className="text-2xl font-extrabold text-white sm:text-3xl">UYUM Kullanıcısı</h1>
               <p className="mt-1 text-base text-white/80">
