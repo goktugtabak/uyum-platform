@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import {
-  SlidersHorizontal, ChevronDown, Navigation, Layers, Plus, Minus,
+  Navigation, Layers, Plus, Minus,
   Accessibility, Waves, MapPin, ParkingCircle, Dumbbell,
-  PersonStanding, Footprints, X, LayoutList, Map as MapIcon,
+  PersonStanding, Footprints, LayoutList, Map as MapIcon,
 } from 'lucide-react'
+import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'
+import { ActiveFilterChip } from '../components/ui/ActiveFilterChip'
 import type { Map as LeafletMap } from 'leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -178,7 +180,7 @@ export function FacilityMap() {
   const [facilities, setFacilities] = useState<Facility[]>([])
   const [loading, setLoading] = useState(true)
   const [disabilityType, setDisabilityType] = useState<DisabilityType>(profile?.disabilityType ?? 'wheelchair')
-  const [showSecondary, setShowSecondary] = useState(false)
+  const [openDD, setOpenDD] = useState<string | null>(null)
   const [listMode, setListMode] = useState(false)
   const mapRef = useRef<LeafletMap | null>(null)
 
@@ -224,63 +226,86 @@ export function FacilityMap() {
         </button>
       </header>
 
-      {/* Filter pills */}
-      <div className="mb-3 flex flex-wrap items-center gap-3">
-        <button
-          type="button"
-          onClick={() => setShowSecondary(v => !v)}
-          aria-expanded={showSecondary}
-          className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow"
-        >
-          <SlidersHorizontal className="size-4" aria-hidden /> Filtrele
-        </button>
-        {['Spor Dalı', 'Erişilebilirlik Özellikleri', 'Diğer Filtreler'].map(f => (
-          <button
-            key={f}
-            type="button"
-            onClick={() => setShowSecondary(true)}
-            className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2.5 text-sm font-medium text-foreground/85 ring-1 ring-border/60 hover:ring-primary/40"
-          >
-            {f} <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
-          </button>
-        ))}
-        {sportFilter && (
-          <button
-            type="button"
-            onClick={() => { const sp = new URLSearchParams(searchParams); sp.delete('sport'); setSearchParams(sp) }}
-            className="inline-flex items-center gap-2 rounded-full bg-mint/40 px-4 py-2 text-xs font-bold text-mint-foreground hover:bg-mint/60"
-          >
-            Spor: {getSportLabel(sportFilter)} <X className="size-3.5" aria-hidden />
-          </button>
-        )}
-      </div>
+      {/* Filter row — inline FilterDropdowns */}
+      {(() => {
+        const disabilityFilterOptions: DropdownOption[] = [
+          { value: 'wheelchair', label: 'Tekerlekli Sandalye' },
+          { value: 'visual',     label: 'Görme Engeli' },
+          { value: 'hearing',    label: 'İşitme Engeli' },
+          { value: 'upper_limb', label: 'Üst Ekstremite' },
+        ]
+        const sportOptions: DropdownOption[] = [
+          { value: 'all', label: 'Tümü' },
+          ...Array.from(new Set(facilities.flatMap(f => f.sports))).map(id => ({
+            value: id,
+            label: getSportLabel(id),
+          })),
+        ]
+        const isFiltered = !!sportFilter || disabilityType !== (profile?.disabilityType ?? 'wheelchair')
+        function clearFilters() {
+          setDisabilityType(profile?.disabilityType ?? 'wheelchair')
+          const sp = new URLSearchParams(searchParams)
+          sp.delete('sport')
+          setSearchParams(sp)
+        }
+        return (
+          <>
+            <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-[1fr_1fr_auto]">
+              <FilterDropdown
+                label="Engel Tipi"
+                value={disabilityType}
+                options={disabilityFilterOptions}
+                onChange={v => setDisabilityType(v as DisabilityType)}
+                open={openDD === 'disability'}
+                onToggle={() => setOpenDD(prev => prev === 'disability' ? null : 'disability')}
+              />
+              <FilterDropdown
+                label="Spor Dalı"
+                value={sportFilter ?? 'all'}
+                options={sportOptions}
+                onChange={v => {
+                  const sp = new URLSearchParams(searchParams)
+                  if (v === 'all') sp.delete('sport'); else sp.set('sport', v)
+                  setSearchParams(sp)
+                }}
+                open={openDD === 'sport'}
+                onToggle={() => setOpenDD(prev => prev === 'sport' ? null : 'sport')}
+              />
+              {isFiltered && (
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  className="self-end rounded-2xl px-4 py-2.5 text-xs font-bold text-primary ring-1 ring-border/50 hover:ring-primary/30"
+                >
+                  Filtreleri temizle
+                </button>
+              )}
+            </div>
 
-      {showSecondary && (
-        <div className="mb-6 flex flex-wrap items-center gap-3 rounded-2xl bg-card px-4 py-3 ring-1 ring-border/40">
-          <label className="inline-flex items-center gap-2 text-xs font-semibold text-foreground/75">
-            Engel tipi:
-            <select
-              value={disabilityType}
-              onChange={e => setDisabilityType(e.target.value as DisabilityType)}
-              className="rounded-full bg-background px-3 py-1.5 text-xs font-medium text-foreground ring-1 ring-border/60 focus:ring-primary"
-            >
-              {DISABILITY_OPTIONS.map(o => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
-          </label>
-          <button
-            type="button"
-            onClick={() => {
-              setDisabilityType(profile?.disabilityType ?? 'wheelchair')
-              const sp = new URLSearchParams(searchParams); sp.delete('sport'); setSearchParams(sp)
-            }}
-            className="text-xs font-semibold text-primary hover:text-primary-deep"
-          >
-            Filtreleri temizle
-          </button>
-        </div>
-      )}
+            {/* Active filter chips */}
+            {isFiltered && (
+              <div className="mb-4 flex flex-wrap items-center gap-2">
+                {sportFilter && (
+                  <ActiveFilterChip
+                    label={`Spor: ${getSportLabel(sportFilter)}`}
+                    onRemove={() => {
+                      const sp = new URLSearchParams(searchParams)
+                      sp.delete('sport')
+                      setSearchParams(sp)
+                    }}
+                  />
+                )}
+                {disabilityType !== (profile?.disabilityType ?? 'wheelchair') && (
+                  <ActiveFilterChip
+                    label={`Engel: ${DISABILITY_OPTIONS.find(o => o.value === disabilityType)?.label ?? disabilityType}`}
+                    onRemove={() => setDisabilityType(profile?.disabilityType ?? 'wheelchair')}
+                  />
+                )}
+              </div>
+            )}
+          </>
+        )
+      })()}
 
       {loading ? (
         <div className="flex h-64 items-center justify-center">

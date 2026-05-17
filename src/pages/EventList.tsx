@@ -1,14 +1,16 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  ChevronDown, ChevronLeft, ChevronRight, MapPin, Clock,
+  ChevronLeft, ChevronRight, MapPin, Clock,
   Accessibility, Bell, Plus, CalendarDays, ArrowRight, Sparkles,
 } from 'lucide-react'
 import type { SportEvent, DisabilityType, Facility, Sport, EventLevel, UserProfile } from '../types'
 import { useProfile } from '../contexts/ProfileContext'
 import { MatchBadge, type MatchLevel } from '../components/ui/MatchBadge'
 import { BookmarkButton } from '../components/ui/BookmarkButton'
-import { FilterChip, FilterGroup } from '../components/ui/FilterChip'
+import { FilterChip } from '../components/ui/FilterChip'
+import { FilterDropdown, type DropdownOption } from '../components/ui/FilterDropdown'
+import { ActiveFilterChip } from '../components/ui/ActiveFilterChip'
 import { getSportLabel } from '../lib/sport-icons'
 import {
   filterEvents,
@@ -480,7 +482,7 @@ export function EventList() {
     sport:          'all',
     disabilityType: 'all',
   })
-  const [showSecondary, setShowSecondary] = useState(false)
+  const [openDD, setOpenDD] = useState<string | null>(null)
 
   const { upcoming, past } = useMemo(
     () => filterEvents(filters, profile, ALL_EVENTS, now),
@@ -500,8 +502,20 @@ export function EventList() {
   function clearFilters() {
     setFilters({ dateRange: 'all', sport: 'all', disabilityType: 'all' })
   }
+  function toggleDD(key: string) {
+    setOpenDD(prev => (prev === key ? null : key))
+  }
 
   if (!profile) return null
+
+  const sportOptions: DropdownOption[] = [
+    { value: 'all', label: 'Tümü' },
+    ...SPORTS_IN_EVENTS.map(s => ({ value: s.id, label: s.name })),
+  ]
+  const disabilityOptions: DropdownOption[] = [
+    { value: 'all', label: 'Tümü' },
+    ...DISABILITY_OPTIONS.map(o => ({ value: o.id, label: o.label })),
+  ]
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
@@ -522,32 +536,39 @@ export function EventList() {
         </div>
       </header>
 
-      {/* Filter pills — design row */}
-      <div className="mb-3 flex flex-wrap items-center gap-2.5">
+      {/* Filter row — hero label + FilterDropdowns + date chips */}
+      <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-[auto_1fr_1fr_auto]">
+        {/* "Senin için" accent pill — decorative, not a filter toggle */}
         <button
           type="button"
-          onClick={() => setShowSecondary(v => !v)}
-          aria-expanded={showSecondary}
-          className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow"
+          className="inline-flex items-center gap-2 self-end rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-glow"
+          aria-label="Profiline göre sıralanmış etkinlikler"
         >
           <Sparkles className="size-4" aria-hidden /> Senin için
         </button>
-        {['Tüm Etkinlikler', 'Spor Türü', 'Tarih Aralığı', 'Konum', 'Erişilebilirlik'].map(f => (
-          <button
-            key={f}
-            type="button"
-            onClick={() => setShowSecondary(true)}
-            className="inline-flex items-center gap-2 rounded-full bg-card px-4 py-2.5 text-sm font-medium text-foreground/80 ring-1 ring-border/50 transition hover:ring-primary/40"
-          >
-            {f} <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
-          </button>
-        ))}
-      </div>
 
-      {/* Working secondary filter strip */}
-      {showSecondary && (
-        <div className="mb-10 space-y-3 rounded-3xl bg-card/85 p-4 ring-1 ring-border/40 backdrop-blur">
-          <FilterGroup label="Tarih">
+        <FilterDropdown
+          label="Spor Türü"
+          value={filters.sport}
+          options={sportOptions}
+          onChange={v => setFilters(f => ({ ...f, sport: v }))}
+          open={openDD === 'sport'}
+          onToggle={() => toggleDD('sport')}
+        />
+
+        <FilterDropdown
+          label="Engel Tipi"
+          value={filters.disabilityType}
+          options={disabilityOptions}
+          onChange={v => setFilters(f => ({ ...f, disabilityType: v as EventFilters['disabilityType'] }))}
+          open={openDD === 'disability'}
+          onToggle={() => toggleDD('disability')}
+        />
+
+        {/* Date range chips — compact inline group */}
+        <div className="flex flex-col gap-1">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Tarih</span>
+          <div className="flex items-center gap-1">
             {DATE_OPTIONS.map(opt => (
               <FilterChip
                 key={opt.id}
@@ -558,59 +579,38 @@ export function EventList() {
                 {opt.label}
               </FilterChip>
             ))}
-          </FilterGroup>
+          </div>
+        </div>
+      </div>
 
-          <FilterGroup label="Spor">
-            <FilterChip
-              role="radio"
-              active={filters.sport === 'all'}
-              onClick={() => setFilters(f => ({ ...f, sport: 'all' }))}
-            >
-              Hepsi
-            </FilterChip>
-            {SPORTS_IN_EVENTS.map(s => (
-              <FilterChip
-                key={s.id}
-                role="radio"
-                active={filters.sport === s.id}
-                onClick={() => setFilters(f => ({ ...f, sport: s.id }))}
-              >
-                {s.name}
-              </FilterChip>
-            ))}
-          </FilterGroup>
-
-          <FilterGroup label="Engel tipi">
-            <FilterChip
-              role="radio"
-              active={filters.disabilityType === 'all'}
-              onClick={() => setFilters(f => ({ ...f, disabilityType: 'all' }))}
-            >
-              Hepsi
-            </FilterChip>
-            {DISABILITY_OPTIONS.map(opt => (
-              <FilterChip
-                key={opt.id}
-                role="radio"
-                active={filters.disabilityType === opt.id}
-                onClick={() => setFilters(f => ({ ...f, disabilityType: opt.id }))}
-              >
-                {opt.label}
-              </FilterChip>
-            ))}
-          </FilterGroup>
-
-          {isFiltered && (
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={clearFilters}
-                className="text-xs font-bold text-primary underline-offset-2 hover:underline"
-              >
-                Filtreleri temizle
-              </button>
-            </div>
+      {/* Active filter chips row */}
+      {isFiltered && (
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          {filters.sport !== 'all' && (
+            <ActiveFilterChip
+              label={`Spor: ${SPORTS_IN_EVENTS.find(s => s.id === filters.sport)?.name ?? filters.sport}`}
+              onRemove={() => setFilters(f => ({ ...f, sport: 'all' }))}
+            />
           )}
+          {filters.disabilityType !== 'all' && (
+            <ActiveFilterChip
+              label={`Engel: ${DISABILITY_OPTIONS.find(o => o.id === filters.disabilityType)?.label ?? filters.disabilityType}`}
+              onRemove={() => setFilters(f => ({ ...f, disabilityType: 'all' }))}
+            />
+          )}
+          {filters.dateRange !== 'all' && (
+            <ActiveFilterChip
+              label={`Tarih: ${DATE_OPTIONS.find(o => o.id === filters.dateRange)?.label ?? filters.dateRange}`}
+              onRemove={() => setFilters(f => ({ ...f, dateRange: 'all' }))}
+            />
+          )}
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="text-xs font-bold text-primary underline-offset-2 hover:underline"
+          >
+            Filtreleri temizle
+          </button>
         </div>
       )}
 
