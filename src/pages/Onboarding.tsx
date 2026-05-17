@@ -13,7 +13,7 @@ import { UyumLogo } from '../components/ui/UyumLogo'
 import { useProfile } from '../contexts/ProfileContext'
 import { matchSports } from '../lib/sport-match'
 import sportsData from '../data/sports.json'
-import type { DisabilityType, Goal, UserProfile, Sport } from '../types'
+import type { DisabilityType, Goal, MobilityLevel, UserProfile, Sport } from '../types'
 
 /* ---------- Option configs ---------- */
 
@@ -98,6 +98,48 @@ const DISABILITY_LABELS: Record<DisabilityType, string> = {
   upper_limb: 'Üst ekstremite kısıtım var',
 }
 
+interface MobilityOption {
+  value: MobilityLevel
+  label: string
+  description: string
+  icon: LucideIcon
+  iconColor: string
+  selectedBg: string
+}
+
+const MOBILITY_OPTIONS: ReadonlyArray<MobilityOption> = [
+  {
+    value: 'sitting',
+    label: 'Oturarak',
+    description: 'Sporu çoğunlukla oturarak yapıyorum.',
+    icon: Accessibility, iconColor: '#4C2A85', selectedBg: '#f5f3f7',
+  },
+  {
+    value: 'supported',
+    label: 'Destekle',
+    description: 'Destek/yardımcı araçlarla hareket edebiliyorum.',
+    icon: Hand, iconColor: '#6B7FD7', selectedBg: 'var(--color-muted)',
+  },
+  {
+    value: 'independent',
+    label: 'Bağımsız',
+    description: 'Hareketlerimi bağımsız olarak gerçekleştirebiliyorum.',
+    icon: Activity, iconColor: '#1f5a36', selectedBg: '#DDFBD2',
+  },
+  {
+    value: 'upper_limb_limited',
+    label: 'Kol / El Kısıtlı',
+    description: 'Üst ekstremite hareketlerimde kısıtım var.',
+    icon: Target, iconColor: '#0f4858', selectedBg: '#BCEDF6',
+  },
+]
+
+const MOBILITY_STEP_LABELS: Record<MobilityLevel, string> =
+  Object.fromEntries(MOBILITY_OPTIONS.map(o => [o.value, o.label])) as Record<MobilityLevel, string>
+
+const MOBILITY_STEP_DESCRIPTIONS: Record<MobilityLevel, string> =
+  Object.fromEntries(MOBILITY_OPTIONS.map(o => [o.value, o.description])) as Record<MobilityLevel, string>
+
 const GOAL_LABELS: Record<Goal, string> = {
   strength:    'Güçlenmek',
   flexibility: 'Esnekliğimi artırmak',
@@ -116,12 +158,16 @@ const DEFAULT_ACCESSIBILITY: UserProfile['accessibility'] = {
 
 /* ---------- Route step normalization ---------- */
 
-const STEP_PATHS = ['welcome', 'disability', 'goal', 'confirm'] as const
+const STEP_PATHS = ['welcome', 'disability', 'mobility', 'goal', 'confirm'] as const
 type StepName = typeof STEP_PATHS[number]
+
+const NUMBERED_STEPS = ['disability', 'mobility', 'goal', 'confirm'] as const
+const TOTAL_STEPS = NUMBERED_STEPS.length
 
 const STEP_SCREEN_TITLES: Record<StepName, string> = {
   welcome:    'Başlayalım',
   disability: 'Engellilik durumunu seç',
+  mobility:   'Hareket durumunu seç',
   goal:       'Hedeflerini seç',
   confirm:    'Seçimlerini kontrol et',
 }
@@ -130,8 +176,11 @@ function pathFor(step: StepName): string {
   return step === 'welcome' ? '/onboarding' : `/onboarding/${step}`
 }
 
-function stepIndex(step: StepName): number {
-  return STEP_PATHS.indexOf(step)
+// Numbered step index for the progress bar (1-based among NUMBERED_STEPS).
+// 'welcome' returns 0 (intro screen, not counted as a step).
+function numberedIndex(step: StepName): number {
+  if (step === 'welcome') return 0
+  return (NUMBERED_STEPS as readonly string[]).indexOf(step) + 1
 }
 
 function normalizeStep(raw: string | undefined): StepName {
@@ -143,13 +192,16 @@ function normalizeStep(raw: string | undefined): StepName {
 
 const DRAFT_KEY = 'uyum:onboarding-draft'
 
+const MOBILITY_VALUES: readonly MobilityLevel[] = ['sitting', 'supported', 'independent', 'upper_limb_limited']
+
 interface Draft {
   disabilityTypes: DisabilityType[]
+  mobilityLevel:   MobilityLevel | null
   goals:           Goal[]
 }
 
 function emptyDraft(): Draft {
-  return { disabilityTypes: [], goals: [] }
+  return { disabilityTypes: [], mobilityLevel: null, goals: [] }
 }
 
 function loadDraft(): Draft {
@@ -160,6 +212,9 @@ function loadDraft(): Draft {
     const parsed = JSON.parse(raw) as Draft
     return {
       disabilityTypes: Array.isArray(parsed.disabilityTypes) ? parsed.disabilityTypes : [],
+      mobilityLevel:   (parsed.mobilityLevel && MOBILITY_VALUES.includes(parsed.mobilityLevel as MobilityLevel))
+                          ? parsed.mobilityLevel
+                          : null,
       goals:           Array.isArray(parsed.goals)           ? parsed.goals           : [],
     }
   } catch {
@@ -192,6 +247,7 @@ export function Onboarding() {
 
   const initial = useMemo(() => loadDraft(), [])
   const [disabilityTypes, setDisabilityTypes] = useState<DisabilityType[]>(initial.disabilityTypes)
+  const [mobilityLevel, setMobilityLevel]     = useState<MobilityLevel | null>(initial.mobilityLevel)
   const [goals, setGoals]                     = useState<Goal[]>(initial.goals)
 
   useEffect(() => {
@@ -199,8 +255,8 @@ export function Onboarding() {
   }, [step])
 
   useEffect(() => {
-    saveDraft({ disabilityTypes, goals })
-  }, [disabilityTypes, goals])
+    saveDraft({ disabilityTypes, mobilityLevel, goals })
+  }, [disabilityTypes, mobilityLevel, goals])
 
   function announce(msg: string) {
     const region = document.getElementById('aria-live-region')
@@ -226,17 +282,20 @@ export function Onboarding() {
   function next() {
     if (step === 'welcome') {
       gotoStep('disability')
-      announce('Adım 2/4. Engellilik durumunu seç.')
+      announce('Adım 1/4. Engellilik durumunu seç.')
     } else if (step === 'disability' && disabilityTypes.length > 0) {
+      gotoStep('mobility')
+      announce('Adım 2/4. Hareket durumunu seç.')
+    } else if (step === 'mobility' && mobilityLevel) {
       gotoStep('goal')
       announce('Adım 3/4. Hedeflerini seç.')
     } else if (step === 'goal' && goals.length > 0) {
       gotoStep('confirm')
       announce('Adım 4/4. Profilini onayla.')
-    } else if (step === 'confirm' && disabilityTypes.length > 0 && goals.length > 0) {
+    } else if (step === 'confirm' && disabilityTypes.length > 0 && mobilityLevel && goals.length > 0) {
       setProfile({
         disabilityTypes,
-        mobilityLevel:      'independent',
+        mobilityLevel,
         goals,
         city:               'Ankara',
         favoriteFacilities: [],
@@ -251,26 +310,31 @@ export function Onboarding() {
   }
 
   function back() {
-    if (step === 'welcome')        navigate('/')
+    if (step === 'welcome')         navigate('/')
     else if (step === 'disability') gotoStep('welcome')
-    else if (step === 'goal')       gotoStep('disability')
+    else if (step === 'mobility')   gotoStep('disability')
+    else if (step === 'goal')       gotoStep('mobility')
     else if (step === 'confirm')    gotoStep('goal')
   }
 
   const canProceed =
     step === 'welcome' ||
     (step === 'disability' && disabilityTypes.length > 0) ||
+    (step === 'mobility'   && mobilityLevel !== null) ||
     (step === 'goal'       && goals.length > 0) ||
-    (step === 'confirm'    && disabilityTypes.length > 0 && goals.length > 0)
-  const stepAnnouncement = `Adım ${stepIndex(step) + 1}/4. ${STEP_SCREEN_TITLES[step]}`
+    (step === 'confirm'    && disabilityTypes.length > 0 && mobilityLevel !== null && goals.length > 0)
+  const stepNumber = numberedIndex(step)
+  const stepAnnouncement = step === 'welcome'
+    ? STEP_SCREEN_TITLES.welcome
+    : `Adım ${stepNumber}/${TOTAL_STEPS}. ${STEP_SCREEN_TITLES[step]}`
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-muted px-2 py-3 text-primary-deep sm:px-4 lg:h-screen lg:overflow-hidden lg:px-5">
+    <div className="min-h-screen overflow-x-hidden bg-muted px-2 py-3 text-primary-deep sm:px-4 lg:px-5">
       <div id="aria-live-region" className="sr-only" aria-live="polite" aria-atomic="true">
         {stepAnnouncement}
       </div>
 
-      <section className="relative mx-auto flex min-h-[calc(100vh-1.5rem)] w-full max-w-[1680px] overflow-hidden rounded-[1.35rem] border border-border/70 bg-card shadow-[0_24px_80px_-52px_rgba(50,14,59,0.55)] sm:min-h-[calc(100vh-2rem)] lg:h-[calc(100vh-1.5rem)] lg:min-h-0 lg:rounded-[1.75rem]">
+      <section className="relative mx-auto flex w-full max-w-[1680px] flex-col overflow-hidden rounded-[1.35rem] border border-border/70 bg-card shadow-[0_24px_80px_-52px_rgba(50,14,59,0.55)] lg:rounded-[1.75rem]">
         {step === 'welcome' ? (
           <div className="flex min-h-full w-full flex-col">
             <header className="relative z-10 flex items-center justify-between px-5 pt-5 sm:px-8 lg:px-14 lg:pt-8">
@@ -287,7 +351,7 @@ export function Onboarding() {
           </div>
         ) : (
           <div className="flex min-h-full w-full min-w-0 flex-col">
-            <header className="relative z-10 flex min-w-0 items-center justify-start gap-4 px-5 py-4 sm:justify-between sm:px-8 lg:px-12 lg:py-5">
+            <header className="sticky top-0 z-10 flex min-w-0 items-center justify-start gap-4 bg-card/95 px-5 py-4 backdrop-blur sm:justify-between sm:px-8 lg:px-12 lg:py-5">
               <button
                 type="button"
                 onClick={back}
@@ -301,13 +365,13 @@ export function Onboarding() {
               </div>
             </header>
 
-            <div className="grid min-h-0 flex-1 lg:grid-cols-[33%_67%]">
-              <aside className="hidden min-h-0 items-center px-8 pb-8 pt-2 lg:flex xl:px-12">
+            <div className="grid flex-1 lg:grid-cols-[33%_67%]">
+              <aside className="hidden items-center px-8 pb-8 pt-2 lg:flex xl:px-12">
                 <LeftRail step={step} />
               </aside>
 
-              <main className="flex min-h-0 min-w-0 flex-col border-border/80 lg:border-l">
-                <div className="flex-1 overflow-y-auto px-5 pb-0 pt-2 sm:px-8 lg:px-10 xl:px-12">
+              <main className="flex min-w-0 flex-col border-border/80 lg:border-l">
+                <div className="px-5 pb-6 pt-2 sm:px-8 lg:px-10 xl:px-12">
                   <div className="mx-auto max-w-[920px] min-w-0">
                     {step === 'disability' && (
                       <MultiSelectStep
@@ -318,6 +382,14 @@ export function Onboarding() {
                         options={DISABILITY_OPTIONS}
                         selected={disabilityTypes}
                         onToggle={toggleDisability}
+                      />
+                    )}
+                    {step === 'mobility' && (
+                      <MobilityStep
+                        headingRef={headingRef}
+                        selected={mobilityLevel}
+                        onSelect={setMobilityLevel}
+                        disabilityTypes={disabilityTypes}
                       />
                     )}
                     {step === 'goal' && (
@@ -336,15 +408,17 @@ export function Onboarding() {
                       <ConfirmStep
                         headingRef={headingRef}
                         disabilityTypes={disabilityTypes}
+                        mobilityLevel={mobilityLevel}
                         goals={goals}
                         onEditDisability={() => gotoStep('disability')}
+                        onEditMobility={() => gotoStep('mobility')}
                         onEditGoal={() => gotoStep('goal')}
                       />
                     )}
                   </div>
                 </div>
 
-                <footer className="border-t border-border/90 bg-card/95 px-5 py-4 sm:px-8 lg:px-10 xl:px-12">
+                <footer className="sticky bottom-0 z-10 border-t border-border/90 bg-card/95 px-5 py-4 backdrop-blur sm:px-8 lg:px-10 xl:px-12">
                   <div className="mx-auto grid max-w-[920px] grid-cols-2 items-center gap-4">
                     <button
                       type="button"
@@ -382,33 +456,30 @@ export function Onboarding() {
 /* ---------- Progress bar ---------- */
 
 function ProgressBar({ step }: { step: StepName }) {
-  const idx = stepIndex(step)
-
   if (step === 'welcome') {
     return (
       <div
         className="flex items-center gap-3 text-sm font-semibold text-primary-deep"
-        aria-label={`Adım ${idx + 1} / 4`}
+        aria-label="Başlangıç ekranı"
       >
-        <span>Adım {idx + 1}/4</span>
-        <span className="block h-1.5 w-32 overflow-hidden rounded-full bg-border shadow-inner sm:w-36" aria-hidden>
-          <span className="block h-full w-1/4 rounded-full bg-primary" />
-        </span>
+        <span>Başlayalım</span>
       </div>
     )
   }
 
+  const idx = numberedIndex(step)
   return (
     <div
       className="flex min-w-0 items-center gap-2 text-sm font-semibold text-primary-deep sm:gap-3"
-      aria-label={`Adım ${idx + 1} / 4`}
+      aria-label={`Adım ${idx} / ${TOTAL_STEPS}`}
     >
-      <span className="sm:hidden">{idx + 1}/4</span>
-      <span className="hidden sm:inline">Adım {idx + 1}/4</span>
+      <span className="sm:hidden">{idx}/{TOTAL_STEPS}</span>
+      <span className="hidden sm:inline">Adım {idx}/{TOTAL_STEPS}</span>
       <ol className="hidden items-center sm:flex" aria-hidden>
-        {STEP_PATHS.map((_, i) => {
-          const done = i < idx
-          const current = i === idx
+        {NUMBERED_STEPS.map((_, i) => {
+          const stepNum = i + 1
+          const done = stepNum < idx
+          const current = stepNum === idx
           return (
             <li key={i} className="flex items-center">
               <span
@@ -421,11 +492,11 @@ function ProgressBar({ step }: { step: StepName }) {
               >
                 {done ? '' : current ? <span className="size-1.5 rounded-full bg-primary sm:size-2" /> : null}
               </span>
-              {i < STEP_PATHS.length - 1 && (
+              {i < NUMBERED_STEPS.length - 1 && (
                 <span
                   className={cn(
                     'h-0.5 w-5 transition sm:w-11',
-                    i < idx ? 'bg-primary' : 'bg-border',
+                    stepNum < idx ? 'bg-primary' : 'bg-border',
                   )}
                 />
               )}
@@ -468,6 +539,17 @@ function LeftRail({ step }: { step: StepName }) {
         { icon: Hand,          bg: '#BCEDF6', color: '#0f4858' },
       ],
       note: 'Bu bilgi sadece sana özel içerik için kullanılır. Gizliliğin bizim için önemli.',
+    },
+    mobility: {
+      title: 'Hareket durumunu birlikte belirleyelim',
+      body:  'Spor anındaki fiziksel bağımsızlık seviyene göre sana doğru egzersizleri ve tesisleri öneriyoruz.',
+      icons: [
+        { icon: Activity,      bg: '#DDFBD2', color: '#1f5a36' },
+        { icon: Accessibility, bg: '#f5f3f7', color: '#4C2A85' },
+        { icon: Hand,          bg: '#BCEDF6', color: '#0f4858' },
+        { icon: Target,        bg: 'var(--color-muted)', color: '#6B7FD7' },
+      ],
+      note: 'Bu seçim ileride profilinden değiştirilebilir.',
     },
     goal: {
       title: 'Hedeflerini öğrenelim',
@@ -533,7 +615,11 @@ function OrbitIllustration({
   step: StepName
   icons: Array<{ icon: LucideIcon; bg: string; color: string }>
 }) {
-  const CenterIcon = step === 'goal' ? Target : step === 'confirm' ? CheckCircle2 : Accessibility
+  const CenterIcon =
+    step === 'goal'     ? Target       :
+    step === 'confirm'  ? CheckCircle2 :
+    step === 'mobility' ? Activity     :
+                          Accessibility
   const positions = [
     { left: '44%', top: '0%' },
     { left: '78%', top: '35%' },
@@ -659,9 +745,8 @@ function WelcomeVisual() {
 
       <div className="absolute left-1/2 top-[42%] h-[176px] w-[176px] -translate-x-1/2 -translate-y-1/2 xl:h-[200px] xl:w-[200px]">
         <div className="absolute inset-x-7 bottom-3 h-7 rounded-full bg-primary/20 blur-xl" />
-        <div className="relative grid h-full w-full place-items-center rounded-[42%_58%_44%_56%/52%_50%_50%_48%] bg-primary text-primary-foreground shadow-[0_30px_60px_-35px_rgba(76,42,133,0.9)]">
-          <span className="text-[7.5rem] font-black leading-none xl:text-[8.5rem]">U</span>
-          <Activity className="absolute bottom-10 right-11 size-12 text-primary-foreground xl:bottom-11 xl:right-12 xl:size-14" strokeWidth={2} />
+        <div className="relative grid h-full w-full place-items-center rounded-full bg-white shadow-[0_30px_60px_-35px_rgba(76,42,133,0.9)]">
+          <img src="/images/uyumlogo.svg" alt="Uyum" className="w-32 h-32 xl:w-40 xl:h-40 object-contain ml-4" />
         </div>
       </div>
 
@@ -751,6 +836,83 @@ function SelectableCard({
   )
 }
 
+function MobilityStep({
+  headingRef, selected, onSelect, disabilityTypes,
+}: {
+  headingRef: RefObject<HTMLHeadingElement | null>
+  selected: MobilityLevel | null
+  onSelect: (v: MobilityLevel) => void
+  disabilityTypes: DisabilityType[]
+}) {
+  const noteSuffix = disabilityTypes.length > 0
+    ? 'Engel seçimine göre öneriyoruz; istediğini seçebilirsin.'
+    : 'Sana en uygun egzersiz ve tesisleri önerebilmemiz için bu bilgiyi alıyoruz.'
+  return (
+    <div className="w-full">
+      <h1
+        ref={headingRef}
+        tabIndex={-1}
+        id="mobility-heading"
+        className="mb-2 max-w-[calc(100vw-3.75rem)] break-words text-base font-extrabold leading-[1.3] text-primary-deep outline-none focus-visible:!outline-none sm:max-w-[650px] sm:text-xl md:text-2xl xl:text-[1.55rem]"
+      >
+        Hareket durumunu seç
+      </h1>
+      <p className="mb-5 text-sm font-medium text-primary-deep/75">
+        Spor anındaki fiziksel bağımsızlık seviyene en yakın olanı seç. Tek seçim.
+      </p>
+
+      <div
+        role="radiogroup"
+        aria-labelledby="mobility-heading"
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:gap-5"
+      >
+        {MOBILITY_OPTIONS.map(opt => {
+          const isSelected = selected === opt.value
+          const Icon = opt.icon
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              role="radio"
+              aria-checked={isSelected}
+              onClick={() => onSelect(opt.value)}
+              className={cn(
+                'relative flex min-h-[140px] w-full flex-col items-start gap-4 rounded-md border p-5 text-left transition-all xl:min-h-[156px]',
+                'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
+                'motion-reduce:transition-none',
+                isSelected
+                  ? 'border-primary bg-primary/5 shadow-[0_22px_45px_-36px_rgba(76,42,133,0.8)]'
+                  : 'border-border bg-card hover:border-primary/35 hover:shadow-soft',
+              )}
+            >
+              <div className="absolute right-4 top-4">
+                {isSelected
+                  ? <CheckCircle2 className="size-6 text-primary" aria-hidden />
+                  : <Circle className="size-6 text-primary-deep/25" aria-hidden />}
+              </div>
+              <div
+                className="grid size-14 place-items-center rounded-full transition-colors xl:size-16"
+                style={{ backgroundColor: opt.selectedBg }}
+              >
+                <Icon className="size-7 xl:size-8" style={{ color: opt.iconColor }} aria-hidden strokeWidth={1.75} />
+              </div>
+              <div className="max-w-[260px] pr-6">
+                <p className="text-base font-extrabold leading-6 text-primary-deep xl:text-[17px]">{opt.label}</p>
+                <p className="mt-2 text-xs font-medium leading-5 text-primary-deep/75 xl:text-[13px] xl:leading-6">{opt.description}</p>
+              </div>
+            </button>
+          )
+        })}
+      </div>
+
+      <div className="mt-5 flex items-center gap-3 rounded-md border border-primary/15 bg-card/80 px-4 py-3 text-primary-deep/75 shadow-soft">
+        <Info className="size-5 shrink-0 text-primary" aria-hidden />
+        <p className="text-xs font-medium leading-5 xl:text-sm">{noteSuffix}</p>
+      </div>
+    </div>
+  )
+}
+
 function MultiSelectStep<T extends string>({
   headingRef, headingId, title, note, options, selected, onToggle, cols = 2,
 }: {
@@ -807,18 +969,20 @@ function MultiSelectStep<T extends string>({
 /* ---------- Confirm step ---------- */
 
 function ConfirmStep({
-  headingRef, disabilityTypes, goals, onEditDisability, onEditGoal,
+  headingRef, disabilityTypes, mobilityLevel, goals, onEditDisability, onEditMobility, onEditGoal,
 }: {
   headingRef: RefObject<HTMLHeadingElement | null>
   disabilityTypes: DisabilityType[]
+  mobilityLevel:   MobilityLevel | null
   goals:           Goal[]
   onEditDisability: () => void
+  onEditMobility:   () => void
   onEditGoal:       () => void
 }) {
   const profileForMatch = {
     disabilityTypes,
     goals,
-    mobilityLevel: 'independent' as const,
+    mobilityLevel: (mobilityLevel ?? 'independent') as MobilityLevel,
     city: 'Ankara',
     favoriteFacilities: [],
     favoriteEvents: [],
@@ -858,6 +1022,15 @@ function ConfirmStep({
           value={disabilityTypes.map(d => DISABILITY_LABELS[d]).join(', ')}
           description={disabilityDescription}
           onEdit={onEditDisability}
+        />
+        <ConfirmRow
+          icon={Activity}
+          iconColor="#0f4858"
+          iconBg="#BCEDF6"
+          label="Hareket durumun"
+          value={mobilityLevel ? MOBILITY_STEP_LABELS[mobilityLevel] : '—'}
+          description={mobilityLevel ? MOBILITY_STEP_DESCRIPTIONS[mobilityLevel] : ''}
+          onEdit={onEditMobility}
         />
         <ConfirmRow
           icon={Dumbbell}

@@ -1,6 +1,6 @@
 export type AccessibilityDimension = 'verified' | 'partial' | 'none' | 'unknown'
 export type DisabilityType = 'wheelchair' | 'visual' | 'hearing' | 'upper_limb'
-export type MobilityLevel = 'sitting' | 'supported' | 'independent'
+export type MobilityLevel = 'sitting' | 'supported' | 'independent' | 'upper_limb_limited'
 export type Goal = 'strength' | 'flexibility' | 'social' | 'performance' | 'healthy' | 'compete'
 export type EventLevel = 'başlangıç' | 'orta' | 'ileri' | 'yarışma'
 export type FacilityType = 'havuz' | 'spor_salonu' | 'açık_alan' | 'atletizm'

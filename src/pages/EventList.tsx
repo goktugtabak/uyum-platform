@@ -30,8 +30,9 @@ import sportBasket from '../assets/sport-basketball.jpg'
 import sportTT from '../assets/sport-tabletennis.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
+import facilityGym from '../assets/facility-gym.jpg'
 
-const ASSETS = { sportSwim, sportBasket, sportTT, facilityPool, facilityEryaman }
+const ASSETS = { sportSwim, sportBasket, sportTT, facilityPool, facilityEryaman, facilityGym }
 
 const ALL_EVENTS:     SportEvent[] = eventsData     as SportEvent[]
 const ALL_SPORTS:     Sport[]      = sportsData     as Sport[]
@@ -557,8 +558,8 @@ export function EventList() {
           className="w-40"
         />
 
-        {/* Date range chips — compact inline group */}
-        <div className="flex flex-col gap-1">
+        {/* Date range chips — compact inline group, pushed to the right */}
+        <div className="flex flex-col gap-1 sm:ml-auto">
           <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Tarih</span>
           <div className="flex items-center gap-1">
             {DATE_OPTIONS.map(opt => (

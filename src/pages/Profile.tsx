@@ -23,9 +23,10 @@ const DISABILITY_LABELS: Record<DisabilityType, string> = {
   upper_limb: 'Üst Ekstremite',
 }
 const MOBILITY_LABELS: Record<MobilityLevel, string> = {
-  sitting: 'Oturarak',
-  supported: 'Destekle',
-  independent: 'Bağımsız',
+  sitting:            'Oturarak',
+  supported:          'Destekle',
+  independent:        'Bağımsız',
+  upper_limb_limited: 'Kol / El Kısıtlı',
 }
 const GOAL_LABELS: Record<Goal, string> = {
   strength: 'Güçlenmek',

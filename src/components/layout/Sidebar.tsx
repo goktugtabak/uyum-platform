@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import {
   Home, MapPin, Sparkles, CalendarDays, Dumbbell, GraduationCap,
-  UserCircle2, Headphones,
+  UserCircle2, Headphones, RefreshCw,
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { UyumLogo } from '../ui/UyumLogo'
@@ -61,6 +61,14 @@ export function Sidebar() {
       </nav>
 
       <div className="mt-auto flex flex-col gap-4 pt-4">
+        <Link
+          to="/onboarding"
+          className="group flex items-center gap-3 rounded-full border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-500 transition-colors hover:border-primary-deep hover:text-primary-deep"
+        >
+          <RefreshCw className="size-[18px] transition-transform group-hover:rotate-180" strokeWidth={1.8} aria-hidden />
+          Profili güncelle
+        </Link>
+
         <div className="flex items-center gap-3 rounded-2xl bg-sky/30 px-4 py-3 hc:bg-black/10">
           <span
             aria-hidden

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   MapPin, Heart, ChevronRight,
-  Waves, CircleDot, Activity, CalendarDays, FileSpreadsheet,
+  Waves, CircleDot, Activity, CalendarDays, FileSpreadsheet, RefreshCw,
 } from 'lucide-react'
 import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import L from 'leaflet'
@@ -97,7 +97,7 @@ export function Dashboard() {
     <div className="mx-auto max-w-7xl pt-2">
       {/* Hero — open, no card; image fades into canvas */}
       <section className="relative mb-6 grid grid-cols-1 items-center gap-6 md:grid-cols-12">
-        <div className="md:col-span-7">
+        <div className="md:col-span-5">
           <h1 className="text-[clamp(2.2rem,4vw,3.4rem)] font-extrabold leading-[1.05] tracking-tight text-primary-deep">
             Merhaba!
           </h1>
@@ -112,7 +112,7 @@ export function Dashboard() {
         </div>
 
         {/* Photo fades into background — no card, no border */}
-        <div className="relative h-72 md:col-span-5 md:h-80">
+        <div className="relative h-72 md:col-span-7 md:h-80 md:-translate-x-12 lg:-translate-x-20">
           <div
             className="pointer-events-none absolute -inset-10 blur-3xl"
             style={{
@@ -188,6 +188,13 @@ export function Dashboard() {
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground shadow-glow hover:bg-primary-deep transition"
             >
               <MapPin className="size-4" aria-hidden /> Haritada tüm tesisleri gör
+            </Link>
+
+            <Link
+              to="/onboarding"
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-full border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-accent/10 hover:text-foreground transition"
+            >
+              <RefreshCw className="size-4" aria-hidden /> Profili güncelle
             </Link>
           </div>
         </section>

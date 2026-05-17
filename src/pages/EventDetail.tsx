@@ -25,11 +25,12 @@ import sportBasket     from '../assets/sport-basketball.jpg'
 import sportTT         from '../assets/sport-tabletennis.jpg'
 import facilityPool    from '../assets/facility-pool.jpg'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
+import facilityGym     from '../assets/facility-gym.jpg'
 
 const ALL_EVENTS:     SportEvent[] = eventsData     as SportEvent[]
 const ALL_FACILITIES: Facility[]   = facilitiesData as Facility[]
 
-const ASSETS = { sportSwim, sportBasket, sportTT, facilityPool, facilityEryaman }
+const ASSETS = { sportSwim, sportBasket, sportTT, facilityPool, facilityEryaman, facilityGym }
 
 const DISABILITY_LABELS: Record<DisabilityType, string> = {
   wheelchair: 'Tekerlekli Sandalye',
@@ -233,10 +234,12 @@ function AudienceCard({ event }: { event: SportEvent }) {
   )
 }
 
-function CtaCard({ event, onRegister, alreadyRegistered }: {
+function CtaCard({ event, onRegister, alreadyRegistered, isBookmarked, onToggleBookmark }: {
   event: SportEvent
   onRegister: () => void
   alreadyRegistered: boolean
+  isBookmarked: boolean
+  onToggleBookmark: () => void
 }) {
   const registered = event.registered ?? attendeesFor(event)
   const capacity   = event.capacity ?? (registered + spotsLeftFor(event))
@@ -292,10 +295,25 @@ function CtaCard({ event, onRegister, alreadyRegistered }: {
       <div className="mt-3 grid grid-cols-2 gap-2">
         <button
           type="button"
-          className="flex items-center justify-center gap-1.5 rounded-full border border-border/60 bg-card py-2 text-xs font-bold text-foreground hover:border-foreground/40 transition"
-          aria-label="Etkinliği kaydet"
+          onClick={() => {
+            onToggleBookmark()
+            const region = document.getElementById('aria-live-region')
+            if (region) {
+              region.textContent = isBookmarked
+                ? `${event.title} favorilerden kaldırıldı`
+                : `${event.title} favorilere eklendi`
+            }
+          }}
+          aria-pressed={isBookmarked}
+          aria-label={isBookmarked ? `${event.title} favorilerden kaldır` : `${event.title} favorilere ekle`}
+          className={`flex items-center justify-center gap-1.5 rounded-full border py-2 text-xs font-bold transition ${
+            isBookmarked
+              ? 'border-primary/40 bg-primary/10 text-primary'
+              : 'border-border/60 bg-card text-foreground hover:border-foreground/40'
+          }`}
         >
-          <Bookmark className="size-3.5" aria-hidden /> Kaydet
+          <Bookmark className="size-3.5" fill={isBookmarked ? 'currentColor' : 'none'} aria-hidden />
+          {isBookmarked ? 'Kaydedildi' : 'Kaydet'}
         </button>
         <button
           type="button"
@@ -413,7 +431,7 @@ function RelatedEventCard({ event, facility }: { event: SportEvent; facility?: F
 export function EventDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  useProfile()
+  const { profile, toggleFavoriteEvent } = useProfile()
   const [modalOpen, setModalOpen] = useState(false)
 
   const event = ALL_EVENTS.find(e => e.id === id)
@@ -432,12 +450,13 @@ export function EventDetail() {
     )
   }
 
-  const facility    = ALL_FACILITIES.find(f => f.id === event.facilityId)
-  const related     = findRelatedEvents(event, ALL_EVENTS)
-  const facts       = parseQuickFacts(event, facility)
-  const heroImage   = getEventImage(event.sport, ASSETS)
-  const sportLabel  = getSportLabel(event.sport)
-  const alreadyReg  = isAlreadyRegistered(event.id)
+  const facility        = ALL_FACILITIES.find(f => f.id === event.facilityId)
+  const related         = findRelatedEvents(event, ALL_EVENTS)
+  const facts           = parseQuickFacts(event, facility)
+  const heroImage       = getEventImage(event.sport, ASSETS)
+  const sportLabel      = getSportLabel(event.sport)
+  const alreadyReg      = isAlreadyRegistered(event.id)
+  const isBookmarked    = profile?.favoriteEvents.includes(event.id) ?? false
 
   const d           = new Date(event.date)
   const day         = d.getDate()
@@ -571,7 +590,13 @@ export function EventDetail() {
 
         {/* Right sidebar */}
         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
-          <CtaCard event={event} onRegister={() => setModalOpen(true)} alreadyRegistered={alreadyReg} />
+          <CtaCard
+            event={event}
+            onRegister={() => setModalOpen(true)}
+            alreadyRegistered={alreadyReg}
+            isBookmarked={isBookmarked}
+            onToggleBookmark={() => toggleFavoriteEvent(event.id)}
+          />
           {facility && <FacilityMiniCard facility={facility} />}
           <AttendeesCard event={event} />
         </aside>

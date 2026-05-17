@@ -106,12 +106,13 @@ export function getEventImage(sportId: string, assets: {
   sportTT: string
   facilityPool: string
   facilityEryaman: string
+  facilityGym?: string
 }): string {
   if (sportId.includes('swim') || sportId.includes('aqua') || sportId.includes('waterpolo')) return assets.sportSwim
   if (sportId.includes('basket') || sportId.includes('volley') || sportId.includes('football')) return assets.sportBasket
   if (sportId.includes('tennis') || sportId.includes('table') || sportId.includes('boccia') || sportId.includes('archery') || sportId.includes('goalball')) return assets.sportTT
-  if (sportId.includes('yoga') || sportId.includes('pilates')) return assets.facilityPool
-  if (sportId.includes('athletics') || sportId.includes('strength')) return assets.facilityEryaman
+  if (sportId.includes('yoga') || sportId.includes('pilates') || sportId.includes('strength')) return assets.facilityGym ?? assets.facilityEryaman
+  if (sportId.includes('athletics')) return assets.facilityEryaman
   return assets.facilityEryaman
 }
 

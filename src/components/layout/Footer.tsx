@@ -26,7 +26,7 @@ export function Footer() {
           {/* Marka */}
           <div>
             <div className="flex items-center">
-              <UyumLogo size={28} textClassName="text-white" />
+              <UyumLogo size={28} textClassName="text-white" iconClassName="brightness-0 invert" />
             </div>
 
             <p className="mt-3 max-w-[220px] text-[12.5px] leading-relaxed text-white/50">

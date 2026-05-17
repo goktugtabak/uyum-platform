@@ -14,9 +14,10 @@ const DISABILITY_LABELS: Record<DisabilityType, string> = {
 }
 
 const MOBILITY_VERBS: Record<MobilityLevel, string> = {
-  sitting:     'oturarak',
-  supported:   'destekle',
-  independent: 'bağımsız olarak',
+  sitting:            'oturarak',
+  supported:          'destekle',
+  independent:        'bağımsız olarak',
+  upper_limb_limited: 'kol/el desteğiyle',
 }
 
 const GOAL_LABELS: Record<Goal, string> = {

@@ -103,6 +103,15 @@ export default {
         'gradient-brand': 'linear-gradient(135deg, #4C2A85 0%, #6B7FD7 100%)',
         'gradient-deep':  'linear-gradient(135deg, #320E3B 0%, #4C2A85 100%)',
       },
+      keyframes: {
+        marquee: {
+          '0%':   { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        marquee: 'marquee 40s linear infinite',
+      },
     },
   },
   plugins: [

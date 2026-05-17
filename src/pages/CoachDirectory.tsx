@@ -13,7 +13,6 @@ import { filterCoaches } from '../lib/coach-filter'
 import { getSportLabel } from '../lib/sport-icons'
 import coachesData    from '../data/coaches.json'
 import facilitiesData from '../data/facilities.json'
-import dashHero from '../assets/dashboard-hero.jpg'
 
 const ALL_COACHES:    Coach[]    = coachesData    as Coach[]
 const ALL_FACILITIES: Facility[] = facilitiesData as Facility[]
@@ -166,7 +165,7 @@ export function CoachDirectory() {
         </div>
         <div className="relative h-48 md:col-span-5 md:h-64">
           <img
-            src={dashHero}
+            src="/images/uyum-koc-gorsel.png"
             alt=""
             aria-hidden
             className="absolute inset-0 h-full w-full object-cover"
