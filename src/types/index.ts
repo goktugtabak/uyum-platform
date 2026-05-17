@@ -95,6 +95,30 @@ export interface Testimony {
   issueReport?: string
 }
 
+export type AccessibilityNoteStatus = 'ok' | 'partial' | 'unknown'
+
+export interface EventAccessibilityNote {
+  status: AccessibilityNoteStatus
+  title: string
+  description: string
+}
+
+export interface EventOrganizer {
+  name: string
+  role?: string
+  description?: string
+  website?: string
+  contactEmail?: string
+}
+
+export interface EventSupporter {
+  name: string
+  shortCode: string
+  type: 'federation' | 'official' | 'sponsor'
+  tone: 'violet' | 'amber' | 'mint' | 'sky' | 'peach'
+  description?: string
+}
+
 // 'Event' DOM tipiyle cakismasin diye SportEvent kullaniliyor
 export interface SportEvent {
   id: string
@@ -107,6 +131,14 @@ export interface SportEvent {
   disabilityTypes: DisabilityType[]
   registrationUrl?: string
   organizer: string
+  organizerDetail?: EventOrganizer
+  supporters?: EventSupporter[]
+  capacity?: number
+  registered?: number
+  fee?: 'free' | { amount: number; currency: 'TRY' }
+  registrationDeadline?: string
+  accessibilityNotes?: EventAccessibilityNote[]
+  longDescription?: string
 }
 
 export interface CoachContact {
