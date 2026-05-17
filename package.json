@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "fetch:overpass": "node scripts/fetch-overpass-cache.mjs"
+    "fetch:overpass": "node scripts/fetch-overpass-cache.mjs",
+    "fetch:places": "node scripts/fetch-places-cache.mjs",
+    "build:facilities": "node scripts/merge-places-into-facilities.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
