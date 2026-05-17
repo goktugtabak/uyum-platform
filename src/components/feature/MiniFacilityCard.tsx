@@ -4,6 +4,7 @@ import { useFacilityScore } from '../../hooks/useFacilityScore'
 import { ScoreBadge } from '../ui/ScoreBadge'
 import { getSportLabel } from '../../lib/sport-icons'
 import { MapPin } from 'lucide-react'
+import { FacilityTrustLine } from './FacilityTrust'
 
 
 interface Props {
@@ -48,6 +49,7 @@ export function MiniFacilityCard({ facility, disabilityType, image }: Props) {
             {facility.district}{primarySport && ` · ${getSportLabel(primarySport)}`}
           </span>
         </div>
+        <FacilityTrustLine facility={facility} className="mt-1" />
       </div>
       <ScoreBadge color={overall} size="sm" />
     </Link>

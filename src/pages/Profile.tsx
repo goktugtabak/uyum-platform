@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   PersonStanding, Target, Footprints, Pencil, MapPin, CalendarDays,
   Dumbbell, Trash2, Mail, BadgeCheck, ShieldCheck, Activity,
@@ -76,6 +77,7 @@ export function Profile() {
 
   return (
     <div className="mx-auto max-w-5xl space-y-10 pt-2">
+      <BackButton className="mb-6" />
       {/* Hero */}
       <section className="relative overflow-hidden rounded-3xl ring-1 ring-border/40" style={{ height: 240 }}>
         <img src={dashHero} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />

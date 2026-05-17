@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import {
   ChevronLeft, ChevronRight, MapPin, Clock,
   PersonStanding, Bell, Plus, CalendarDays, ArrowRight, Sparkles, ChevronDown,
@@ -580,6 +581,7 @@ export function EventList() {
 
   return (
     <div className="mx-auto max-w-7xl pt-2">
+      <BackButton className="mb-6" />
       {/* Hero — title + soft park illustration */}
       <header className="relative mb-10 grid items-end gap-10 md:grid-cols-12">
         <div className="md:col-span-7">

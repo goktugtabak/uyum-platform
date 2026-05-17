@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 import { Bell, MapPin, CalendarDays, Sparkles, Heart, ArrowLeft } from 'lucide-react'
 import { MOCK_NOTIFICATIONS } from '../lib/notifications-data'
 import type { Notification } from '../lib/notifications-data'
@@ -23,13 +24,7 @@ export function Notifications() {
   return (
     <div className="mx-auto max-w-2xl px-4 pt-4 pb-16 md:pt-8">
       <header className="mb-6 flex items-center gap-3">
-        <Link
-          to="/"
-          aria-label="Geri"
-          className="grid size-10 place-items-center rounded-full border border-gray-100 text-foreground hover:bg-gray-50"
-        >
-          <ArrowLeft className="size-4" aria-hidden />
-        </Link>
+        <BackButton />
         <div>
           <h1 className="font-display text-2xl font-extrabold text-primary-deep">Bildirimler</h1>
           {unread > 0 && (
