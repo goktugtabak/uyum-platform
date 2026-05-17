@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  MapPin, Sparkles, ArrowRight, Heart, Plus, ChevronRight,
+  MapPin, Sparkles, ArrowRight, Heart, ChevronRight,
   Waves, CircleDot, Activity, Target, CalendarDays, FileSpreadsheet,
   Footprints,
 } from 'lucide-react'
@@ -19,6 +19,8 @@ import { formatRelative } from '../lib/live-status'
 import sportsData from '../data/sports.json'
 import eventsData from '../data/events.json'
 import type { Facility, Sport, SportEvent, Testimony, DisabilityType } from '../types'
+import type { ScoreColor } from '../hooks/useFacilityScore'
+import { ScoreBadge } from '../components/ui/ScoreBadge'
 import dashHero from '../assets/dashboard-hero.jpg'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
 import facilityPool from '../assets/facility-pool.jpg'
@@ -64,6 +66,13 @@ function getFacilityImage(facilityId: string, fallbackIndex: number): string {
   if (facilityId.includes('basket')) return sportBasket
   if (facilityId.includes('ted') || facilityId.includes('tenis')) return sportTT
   return FACILITY_THUMBS[fallbackIndex % FACILITY_THUMBS.length]
+}
+
+function scoreColorFromCount(n: number): ScoreColor {
+  if (n >= 5) return 'green'
+  if (n >= 3) return 'yellow'
+  if (n >= 1) return 'red'
+  return 'gray'
 }
 
 function estimatedDistance(facility: Facility): number {
@@ -175,7 +184,6 @@ export function Dashboard() {
 
             <ul className="mt-6 space-y-5">
               {ranked.map(({ facility, verifiedCount }, idx) => {
-                const scorePct = Math.round((verifiedCount / 6) * 100)
                 return (
                   <li key={facility.id}>
                     <Link to={`/facility/${facility.id}`} className="flex items-center gap-3 hover:opacity-90">
@@ -195,9 +203,7 @@ export function Dashboard() {
                           ))}
                         </div>
                       </div>
-                      <span className="rounded-full bg-mint/60 px-2.5 py-1 text-[11px] font-bold text-mint-foreground">
-                        %{scorePct} Uygun
-                      </span>
+                      <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
                     </Link>
                   </li>
                 )
@@ -272,13 +278,6 @@ export function Dashboard() {
             Paylaş, ilham ver, destek ol.
           </Link>
 
-          <Link
-            to="/community"
-            aria-label="Paylaş"
-            className="fixed bottom-8 right-8 z-20 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow"
-          >
-            <Plus className="size-6" aria-hidden />
-          </Link>
         </section>
 
         {/* Personalised discovery */}

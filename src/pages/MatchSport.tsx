@@ -11,9 +11,11 @@ import { matchSports } from '../lib/sport-match'
 import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
 import { SpeakButton } from '../components/ui/SpeakButton'
+import { ScoreBadge } from '../components/ui/ScoreBadge'
 import sportsData from '../data/sports.json'
 import type { Sport, Facility } from '../types'
 import type { MatchResult } from '../lib/sport-match'
+import type { ScoreColor } from '../hooks/useFacilityScore'
 import sportSwim from '../assets/sport-swimming.jpg'
 import sportBasket from '../assets/sport-basketball.jpg'
 import sportTT from '../assets/sport-tabletennis.jpg'
@@ -77,8 +79,11 @@ function calcMatchPercent(score: number): number {
   return Math.min(99, Math.round((score / 7) * 100) + 10)
 }
 
-function facilityScorePct(verifiedCount: number): number {
-  return Math.round((verifiedCount / 6) * 100)
+function scoreColorFromCount(n: number): ScoreColor {
+  if (n >= 5) return 'green'
+  if (n >= 3) return 'yellow'
+  if (n >= 1) return 'red'
+  return 'gray'
 }
 
 function SportPhoto({ idx, match, sport }: { idx: number; match: number; sport: Sport }) {
@@ -195,7 +200,7 @@ export function MatchSport() {
                     {m.sport.name}
                   </h3>
                   <span className={`mt-2 inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-bold ${t.pill}`}>
-                    %{matchPct} Uygunluk
+                    %{matchPct} Eşleşme
                   </span>
                   <p className="mt-4 text-sm leading-relaxed text-foreground/80">
                     {m.sport.description}
@@ -230,9 +235,7 @@ export function MatchSport() {
                               {facility.name}
                             </Link>
                             <span className="text-muted-foreground">{facility.district.split(',')[0]}</span>
-                            <span className={`rounded-md px-1.5 py-0.5 text-[10.5px] font-bold ${t.pill}`}>
-                              %{facilityScorePct(verifiedCount)}
-                            </span>
+                            <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
                           </li>
                         ))}
                       </ul>

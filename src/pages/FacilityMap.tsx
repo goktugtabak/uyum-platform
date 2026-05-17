@@ -14,6 +14,7 @@ import { loadFacilities } from '../lib/overpass-loader'
 import { pickTopFacilities } from '../lib/facility-rank'
 import { useFacilityScore, type ScoreColor } from '../hooks/useFacilityScore'
 import { SCORE_LABEL, SCORE_GLYPH } from '../lib/a11y-labels'
+import { ScoreBadge } from '../components/ui/ScoreBadge'
 import { getSportLabel } from '../lib/sport-icons'
 import { Spinner } from '../components/ui/Spinner'
 import facilityEryaman from '../assets/facility-eryaman.jpg'
@@ -39,6 +40,13 @@ const DISABILITY_OPTIONS: { value: DisabilityType; label: string }[] = [
   { value: 'hearing',    label: 'İşitme Engeli' },
   { value: 'upper_limb', label: 'Üst Ekstremite' },
 ]
+
+function scoreColorFromCount(n: number): ScoreColor {
+  if (n >= 5) return 'green'
+  if (n >= 3) return 'yellow'
+  if (n >= 1) return 'red'
+  return 'gray'
+}
 
 function getFacilityImage(facilityId: string, fallbackIndex: number): string {
   if (facilityId.includes('eryaman')) return facilityEryaman
@@ -302,7 +310,6 @@ export function FacilityMap() {
           </p>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {ranked.map(({ facility, verifiedCount }, idx) => {
-              const scorePct   = Math.round((verifiedCount / 6) * 100)
               const distanceKm = estimatedDistance(facility)
               const imageUrl   = getFacilityImage(facility.id, idx)
               const isMatched  = sportFilter ? facility.sports.includes(sportFilter) : true
@@ -318,8 +325,8 @@ export function FacilityMap() {
                         alt=""
                         className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                       />
-                      <span className="absolute bottom-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-primary-deep backdrop-blur-sm">
-                        %{scorePct} Uygunluk
+                      <span className="absolute bottom-3 left-3 backdrop-blur-sm">
+                        <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
                       </span>
                       <span className="absolute bottom-3 right-3 rounded-full bg-mint/80 px-2.5 py-1 text-[11px] font-bold text-mint-foreground backdrop-blur-sm">
                         {distanceKm} km
@@ -480,7 +487,6 @@ export function FacilityMap() {
 
             <ul className="space-y-5 lg:max-h-[calc(100dvh-16rem)] lg:overflow-y-auto lg:pr-1">
               {ranked.map(({ facility, verifiedCount }, idx) => {
-                const scorePct   = Math.round((verifiedCount / 6) * 100)
                 const distanceKm = estimatedDistance(facility)
                 const isMatched  = sportFilter ? facility.sports.includes(sportFilter) : true
                 return (
@@ -500,8 +506,8 @@ export function FacilityMap() {
                             {distanceKm} km
                           </span>
                         </div>
-                        <span className="mt-1.5 inline-block rounded-md bg-mint/45 px-1.5 py-0.5 text-[10px] font-bold text-mint-foreground">
-                          %{scorePct} Uygunluk
+                        <span className="mt-1.5 inline-block">
+                          <ScoreBadge color={scoreColorFromCount(verifiedCount)} size="sm" />
                         </span>
                         <div className="mt-1.5 flex items-center gap-1 text-[11px] text-muted-foreground">
                           <MapPin className="size-3" aria-hidden /> {facility.district}

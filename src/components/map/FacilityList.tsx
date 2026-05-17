@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { MapPin } from 'lucide-react'
-import { useFacilityScore, type ScoreColor } from '../../hooks/useFacilityScore'
-import { SCORE_LABEL, SCORE_GLYPH } from '../../lib/a11y-labels'
+import { useFacilityScore } from '../../hooks/useFacilityScore'
+import { SCORE_LABEL } from '../../lib/a11y-labels'
+import { ScoreBadge } from '../ui/ScoreBadge'
 import { getSportIcon, getSportLabel } from '../../lib/sport-icons'
 import type { Facility, DisabilityType } from '../../types'
 
@@ -11,15 +12,7 @@ interface FacilityListProps {
   sportFilter:    string | null
 }
 
-const SCORE_BG: Record<ScoreColor, string> = {
-  green:  'bg-mint/60 text-mint-foreground',
-  yellow: 'bg-[oklch(0.92_0.10_85)] text-[oklch(0.45_0.12_85)]',
-  red:    'bg-destructive/15 text-destructive',
-  gray:   'bg-muted text-muted-foreground',
-}
-const SCORE_PERCENT: Record<ScoreColor, number> = {
-  green: 92, yellow: 68, red: 35, gray: 50,
-}
+
 
 function FacilityItem({
   facility, disabilityType, isDimmed,
@@ -49,13 +42,7 @@ function FacilityItem({
             <div className="text-[13.5px] font-bold leading-tight text-foreground group-hover:text-primary hc:text-black">
               {facility.name}
             </div>
-            <span
-              className={`shrink-0 rounded-full px-2 py-0.5 text-[10.5px] font-bold ${SCORE_BG[overall]}`}
-              role="img"
-              aria-label={SCORE_LABEL[overall]}
-            >
-              <span aria-hidden>{SCORE_GLYPH[overall]}</span> %{SCORE_PERCENT[overall]}
-            </span>
+            <ScoreBadge color={overall} size="sm" />
           </div>
           <div className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
             <MapPin aria-hidden className="size-3" /> {facility.district}
