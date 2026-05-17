@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { BackButton } from '../components/ui/BackButton'
-import { Bell, MapPin, CalendarDays, Sparkles, Heart, ArrowLeft } from 'lucide-react'
+import { Bell, MapPin, CalendarDays, Sparkles, Heart } from 'lucide-react'
 import { MOCK_NOTIFICATIONS } from '../lib/notifications-data'
 import type { Notification } from '../lib/notifications-data'
 
